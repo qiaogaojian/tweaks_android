@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.activity.AdaptHeightActivity;
 import com.etatech.test.activity.AdaptWidthActivity;
+import com.etatech.test.activity.TestTranslationActivity;
 import com.etatech.test.utils.BaseActivity;
 
 
@@ -17,6 +18,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 {
     private Button btnAdaptWidth;
     private Button btnAdaptHeight;
+    private Button btnTestTranslation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,8 +28,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
 
         btnAdaptWidth = (Button) findViewById(R.id.btn_adapt_width);
         btnAdaptHeight = (Button) findViewById(R.id.btn_adapt_height);
+        btnTestTranslation = (Button) findViewById(R.id.btn_test_translation);
         btnAdaptWidth.setOnClickListener(this);
         btnAdaptHeight.setOnClickListener(this);
+        btnTestTranslation.setOnClickListener(this);
     }
 
     @Override
@@ -54,6 +58,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_adapt_height:
                 intent.setClass(this, AdaptHeightActivity.class);
+                this.startActivity(intent);
+                break;
+            case R.id.btn_test_translation:
+                intent.setClass(this, TestTranslationActivity.class);
                 this.startActivity(intent);
                 break;
         }

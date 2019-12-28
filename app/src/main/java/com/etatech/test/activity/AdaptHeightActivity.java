@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.utils.BaseActivity;
 

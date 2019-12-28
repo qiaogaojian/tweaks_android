@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TestTranslationActivity">
+
+    <Button
+        android:id="@+id/btn_in"
+        android:layout_width="300pt"
+        android:layout_height="100pt"
+        android:layout_margin="100pt"
+        android:text="In"
+        android:textAllCaps="false"
+        android:textSize="36pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/btn_out"
+        android:layout_width="300pt"
+        android:layout_height="100pt"
+        android:layout_margin="100pt"
+        android:text="Out"
+        android:textAllCaps="false"
+        android:textSize="36pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_in"
+        android:layout_width="540pt"
+        android:layout_height="540pt"
+        android:layout_marginRight="1080pt"
+        android:background="#03A9F4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_out"
+        android:layout_width="540pt"
+        android:layout_height="540pt"
+        android:layout_marginRight="540pt"
+        android:layout_marginTop="540pt"
+        android:background="#4CAF50"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
