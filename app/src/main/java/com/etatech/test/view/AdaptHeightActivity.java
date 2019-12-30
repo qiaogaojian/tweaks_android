@@ -1,4 +1,4 @@
-package com.etatech.test.activity;
+package com.etatech.test.view;
 
 import android.content.res.Resources;
 import android.os.Bundle;

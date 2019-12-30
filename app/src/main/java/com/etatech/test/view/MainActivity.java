@@ -1,10 +1,11 @@
-package com.etatech.test;
+package com.etatech.test.view;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.etatech.test.activity.AdaptHeightActivity;
-import com.etatech.test.activity.AdaptWidthActivity;
-import com.etatech.test.activity.TestTranslationActivity;
+import com.etatech.test.R;
+import com.etatech.test.view.AdaptHeightActivity;
+import com.etatech.test.view.AdaptWidthActivity;
+import com.etatech.test.view.TestTranslationActivity;
 import com.etatech.test.utils.BaseActivity;
 
 
