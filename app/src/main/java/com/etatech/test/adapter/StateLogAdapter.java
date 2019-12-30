@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.etatech.test.R;
-import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
 import java.util.zip.Inflater;
