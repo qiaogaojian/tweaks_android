@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.TestSurfaceviewActivity">
+
+    <com.etatech.test.utils.ScrollTextView
+        android:id="@+id/stv_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="600pt"
+        android:background="#673AB7"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:speed="10"
+        app:text="Test Surface View Test Surface View Test Surface View"
+        app:text_size="66pt" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_state_log"
+        android:layout_width="1080pt"
+        android:layout_height="1000pt"
+        android:layout_marginTop="600pt"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:listitem="@layout/item_log"/>
+
+    <Button
+        android:id="@+id/btn_surfaceview_visible"
+        android:layout_width="300pt"
+        android:layout_height="100pt"
+        android:layout_marginBottom="200pt"
+        android:text="Visible"
+        android:textAllCaps="false"
+        android:textSize="30pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_surfaceview_gone" />
+
+    <Button
+        android:id="@+id/btn_surfaceview_gone"
+        android:layout_width="300pt"
+        android:layout_height="100pt"
+        android:layout_marginBottom="200pt"
+        android:text="Gone"
+        android:textAllCaps="false"
+        android:textSize="30pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/btn_surfaceview_visible"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

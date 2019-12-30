@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion "android-Q"
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.etatech.test"
         minSdkVersion 18
@@ -17,6 +16,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        // set to true to turn off analysis progress reporting by lint
+        quiet true
+        // if true, stop the gradle build if errors are found
+        abortOnError false
+        // if true, only report errors
+        ignoreWarnings true
+    }
 }
 
 dependencies {
@@ -26,4 +33,5 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
 
     implementation 'com.blankj:utilcode:1.26.0'
+    implementation 'com.zhy:base-rvadapter:3.0.3'
 }

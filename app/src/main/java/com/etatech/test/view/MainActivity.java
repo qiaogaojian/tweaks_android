@@ -20,6 +20,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
     private Button btnAdaptWidth;
     private Button btnAdaptHeight;
     private Button btnTestTranslation;
+    private Button btnTestSurfaceview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,9 +31,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         btnAdaptWidth = (Button) findViewById(R.id.btn_adapt_width);
         btnAdaptHeight = (Button) findViewById(R.id.btn_adapt_height);
         btnTestTranslation = (Button) findViewById(R.id.btn_test_translation);
+        btnTestSurfaceview = (Button) findViewById(R.id.btn_test_surfaceview);
         btnAdaptWidth.setOnClickListener(this);
         btnAdaptHeight.setOnClickListener(this);
         btnTestTranslation.setOnClickListener(this);
+        btnTestSurfaceview.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +66,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.btn_test_translation:
                 intent.setClass(this, TestTranslationActivity.class);
+                this.startActivity(intent);
+                break;
+                case R.id.btn_test_surfaceview:
+                intent.setClass(this, TestSurfaceviewActivity.class);
                 this.startActivity(intent);
                 break;
         }
