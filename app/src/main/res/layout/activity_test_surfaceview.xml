@@ -6,17 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".view.TestSurfaceviewActivity">
 
-    <com.etatech.test.utils.ScrollTextView
-        android:id="@+id/stv_surface_view"
+    <include
+        android:id="@+id/include_scroll_text"
+        layout="@layout/layout_scroll_text"
         android:layout_width="match_parent"
         android:layout_height="600pt"
-        android:background="#673AB7"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:speed="10"
-        app:text="Test Surface View Test Surface View Test Surface View"
-        app:text_size="66pt" />
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_state_log"

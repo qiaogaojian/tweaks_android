@@ -21,6 +21,7 @@ import java.util.List;
 
 public class TestSurfaceviewActivity extends BaseActivity implements View.OnClickListener
 {
+    private View            scrollRoot;
     private ScrollTextView  scrollTextView;
     private TextView        tvState;
     private Button          btnVisible;
@@ -59,6 +60,7 @@ public class TestSurfaceviewActivity extends BaseActivity implements View.OnClic
 
         logArr = new ArrayList<String>();
 
+        scrollRoot = findViewById(R.id.include_scroll_text);
         scrollTextView = (ScrollTextView) findViewById(R.id.stv_surface_view);
         tvState = (TextView) findViewById(R.id.tv_surfaceview_state);
         btnVisible = (Button) findViewById(R.id.btn_surfaceview_visible);
@@ -82,11 +84,13 @@ public class TestSurfaceviewActivity extends BaseActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.btn_surfaceview_visible:
                 index++;
-                scrollTextView.setText(index+": Test Surface View Test Surface View Test Surface View");
+                scrollTextView.setText(index + ": Test Surface View Test Surface View Test Surface View");
                 scrollTextView.setVisibility(View.VISIBLE);
+                scrollRoot.setVisibility(View.VISIBLE);
                 break;
             case R.id.btn_surfaceview_gone:
                 scrollTextView.setVisibility(View.GONE);
+                scrollRoot.setVisibility(View.GONE);
                 break;
             case R.id.btn_clear:
                 logArr.clear();
