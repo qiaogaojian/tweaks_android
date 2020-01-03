@@ -36,6 +36,7 @@ public abstract class BaseActivity<DataBindingType extends ViewDataBinding> exte
 
     public abstract void initView();
 
+    // 完美像素适配 pt
     @Override
     public Resources getResources() {
         if (ScreenUtils.isPortrait()) {

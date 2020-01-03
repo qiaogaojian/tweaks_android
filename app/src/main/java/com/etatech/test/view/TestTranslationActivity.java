@@ -1,5 +1,6 @@
 package com.etatech.test.view;
 
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,16 @@ public class TestTranslationActivity extends BaseActivity implements View.OnClic
         ivOut = (ImageView) findViewById(R.id.iv_out);
         btnIn.setOnClickListener(this);
         btnOut.setOnClickListener(this);
+    }
+
+    @Override
+    public ViewDataBinding onCreateView(Bundle savedInstanceState) {
+        return null;
+    }
+
+    @Override
+    public void initView() {
+
     }
 
     @Override

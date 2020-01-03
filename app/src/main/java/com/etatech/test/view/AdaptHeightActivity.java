@@ -1,6 +1,7 @@
 package com.etatech.test.view;
 
 import android.content.res.Resources;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
@@ -15,6 +16,16 @@ public class AdaptHeightActivity extends BaseActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adapt_height);
+    }
+
+    @Override
+    public ViewDataBinding onCreateView(Bundle savedInstanceState) {
+        return null;
+    }
+
+    @Override
+    public void initView() {
+
     }
 
     @Override

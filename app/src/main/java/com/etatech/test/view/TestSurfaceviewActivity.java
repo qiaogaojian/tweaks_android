@@ -1,5 +1,6 @@
 package com.etatech.test.view;
 
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,6 +78,16 @@ public class TestSurfaceviewActivity extends BaseActivity implements View.OnClic
         adapter = new StateLogAdapter(logArr);
         logList.setLayoutManager(new LinearLayoutManager(this));
         logList.setAdapter(adapter);
+    }
+
+    @Override
+    public ViewDataBinding onCreateView(Bundle savedInstanceState) {
+        return null;
+    }
+
+    @Override
+    public void initView() {
+
     }
 
     @Override
