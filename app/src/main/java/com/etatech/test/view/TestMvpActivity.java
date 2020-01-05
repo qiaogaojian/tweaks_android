@@ -30,7 +30,7 @@ public class TestMvpActivity extends BaseActivity<ActivityTestMvpBinding> implem
     public void init() {
         vm = new TestMvpVM(this, binding);
 
-        binding.tvContent.setText("Click Btn to Get Content");
+        binding.tvContent.setText("Click Btn to Get 内容");
     }
 
     @Override

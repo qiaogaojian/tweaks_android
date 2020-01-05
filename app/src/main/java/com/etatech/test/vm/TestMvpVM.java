@@ -1,7 +1,6 @@
 package com.etatech.test.vm;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.etatech.test.bean.PhoneAreaBean;
 import com.etatech.test.databinding.ActivityTestMvpBinding;
@@ -10,10 +9,7 @@ import com.etatech.test.interf.ITestMvpView;
 import com.etatech.test.network.NetworkManager;
 import com.etatech.test.utils.ClickUtil;
 import com.google.gson.Gson;
-import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
-
-import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -33,7 +29,7 @@ public class TestMvpVM implements ITestMvpVM {
 
     public void getData() {
         NetworkManager.getInstance()
-                .getWerewolfNetApi()
+                .getNetApi()
                 .getPhoneArea()
                 .compose(view.getActivity().<PhoneAreaBean>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io())
