@@ -3,31 +3,47 @@ package com.etatech.test.view;
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
+import com.etatech.test.databinding.ActivityMainBinding;
 import com.etatech.test.view.AdaptHeightActivity;
 import com.etatech.test.view.AdaptWidthActivity;
 import com.etatech.test.view.TestTranslationActivity;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.vm.TestMvpVM;
+import com.jakewharton.rxbinding.view.RxView;
+import com.trello.rxlifecycle.android.ActivityEvent;
 
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener
-{
+import java.util.concurrent.TimeUnit;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+
+public class MainActivity extends BaseActivity<ActivityMainBinding> implements View.OnClickListener {
     private Button btnAdaptWidth;
     private Button btnAdaptHeight;
     private Button btnTestTranslation;
     private Button btnTestSurfaceview;
     private Button btnTestDataBinding;
 
+    private Intent intent;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public ActivityMainBinding onCreateView(Bundle savedInstanceState) {
+        return DataBindingUtil.setContentView(this, R.layout.activity_main);
+    }
+
+    @Override
+    public void init() {
+        intent = new Intent();
 
         btnAdaptWidth = (Button) findViewById(R.id.btn_adapt_width);
         btnAdaptHeight = (Button) findViewById(R.id.btn_adapt_height);
@@ -39,16 +55,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener
         btnTestTranslation.setOnClickListener(this);
         btnTestSurfaceview.setOnClickListener(this);
         btnTestDataBinding.setOnClickListener(this);
-    }
 
-    @Override
-    public ViewDataBinding onCreateView(Bundle savedInstanceState) {
-        return null;
-    }
-
-    @Override
-    public void init() {
-
+        RxView.clicks(binding.btnTestMvp)
+                .compose(this.<Void>bindUntilEvent(ActivityEvent.DESTROY))
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        intent.setClass(MainActivity.this, TestMvpActivity.class);
+                        MainActivity.this.startActivity(intent);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Toast.makeText(MainActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
