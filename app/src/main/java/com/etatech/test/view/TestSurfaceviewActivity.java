@@ -86,7 +86,7 @@ public class TestSurfaceviewActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void initView() {
+    public void init() {
 
     }
 

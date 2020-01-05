@@ -21,7 +21,7 @@ public class AdaptWidthActivity extends BaseActivity
     }
 
     @Override
-    public void initView() {
+    public void init() {
 
     }
 }

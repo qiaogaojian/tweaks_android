@@ -3,8 +3,6 @@ package com.etatech.test.view;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,8 +18,8 @@ public class TestDataBindingActivity extends BaseActivity<ActivityTestDataBindin
     }
 
     @Override
-    public void initView() {
-        ObjectAnimator transAni = ObjectAnimator.ofFloat(databinding.ivHello, View.TRANSLATION_X, -200, 200);
+    public void init() {
+        ObjectAnimator transAni = ObjectAnimator.ofFloat(binding.ivHello, View.TRANSLATION_X, -200, 200);
         transAni.setDuration(3000);
         transAni.setRepeatCount(ObjectAnimator.INFINITE);
         transAni.setRepeatMode(ObjectAnimator.REVERSE);
@@ -31,7 +29,7 @@ public class TestDataBindingActivity extends BaseActivity<ActivityTestDataBindin
         PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 2f, 1f);
         PropertyValuesHolder alpha  = PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 0.7f, 1f);
 
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(databinding.tvHello, scaleX, scaleY, alpha);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(binding.tvHello, scaleX, scaleY, alpha);
         animator.setDuration(3000);
         animator.setRepeatCount(ObjectAnimator.INFINITE);
         animator.setRepeatMode(ObjectAnimator.REVERSE);

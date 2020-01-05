@@ -38,7 +38,7 @@ public class TestTranslationActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void initView() {
+    public void init() {
 
     }
 

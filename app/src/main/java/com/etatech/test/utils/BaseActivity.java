@@ -1,40 +1,33 @@
 package com.etatech.test.utils;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 /**
  * Created by Michael
  * Date:  2019/12/27
  * Func:
  */
-public abstract class BaseActivity<DataBindingType extends ViewDataBinding> extends AppCompatActivity
+public abstract class BaseActivity<DataBindingType extends ViewDataBinding> extends RxAppCompatActivity
 {
-    public DataBindingType databinding;
+    public DataBindingType binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databinding = onCreateView(savedInstanceState);
+        binding = onCreateView(savedInstanceState);
 
-        initView();
+        init();
     }
 
     public abstract DataBindingType onCreateView(Bundle savedInstanceState);
 
-    public abstract void initView();
+    public abstract void init();
 
     // 完美像素适配 pt
     @Override

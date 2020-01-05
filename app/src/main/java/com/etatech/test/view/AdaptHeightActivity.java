@@ -24,7 +24,7 @@ public class AdaptHeightActivity extends BaseActivity
     }
 
     @Override
-    public void initView() {
+    public void init() {
 
     }
 
