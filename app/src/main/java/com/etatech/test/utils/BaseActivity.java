@@ -42,7 +42,7 @@ public abstract class BaseActivity<DataBindingType extends ViewDataBinding> exte
         if (ScreenUtils.isPortrait()) {
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
         } else {
-            return AdaptScreenUtils.adaptHeight(super.getResources(), 1080);
+            return AdaptScreenUtils.adaptHeight(super.getResources(), 1080); // 保证UI大小始终如一
         }
     }
 }
