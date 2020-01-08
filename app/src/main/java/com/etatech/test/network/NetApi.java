@@ -22,6 +22,6 @@ public interface NetApi {
 //    Observable<IpInfoBean> getIpInfo(@Query("ip") String ip);
 
     // 获取国家区号
-    @GET(NetworkManager.URL_VERSION + "getAreaPhoneNum.php")
+    @GET("getAreaPhoneNum.php")
     Observable<PhoneAreaBean> getPhoneArea();
 }
