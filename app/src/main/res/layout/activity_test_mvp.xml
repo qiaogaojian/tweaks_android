@@ -12,22 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="600pt"
-            android:text="content"
-            android:textSize="60pt"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_country_code"
+            android:layout_width="match_parent"
+            android:layout_height="1600pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_country_code"
+            tools:layoutManager="LinearLayoutManager"
+            tools:orientation="vertical" />
 
         <Button
             android:id="@+id/btn_get_content"
             android:layout_width="300pt"
             android:layout_height="100pt"
-            android:layout_marginBottom="200pt"
+            android:layout_marginBottom="100pt"
             android:text="Get Content"
             android:textAllCaps="false"
             android:textSize="30pt"

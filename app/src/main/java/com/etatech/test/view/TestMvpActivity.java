@@ -29,8 +29,6 @@ public class TestMvpActivity extends BaseActivity<ActivityTestMvpBinding> implem
     @Override
     public void init() {
         vm = new TestMvpVM(this, binding);
-
-        binding.tvContent.setText("Click Btn to Get 内容");
     }
 
     @Override
@@ -40,6 +38,6 @@ public class TestMvpActivity extends BaseActivity<ActivityTestMvpBinding> implem
 
     @Override
     public Context getContext() {
-        return this.getContext();
+        return TestMvpActivity.this;
     }
 }

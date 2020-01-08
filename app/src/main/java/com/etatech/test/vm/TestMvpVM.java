@@ -1,14 +1,17 @@
 package com.etatech.test.vm;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.etatech.test.adapter.CountryCodeAdapter;
 import com.etatech.test.bean.PhoneAreaBean;
 import com.etatech.test.databinding.ActivityTestMvpBinding;
 import com.etatech.test.interf.ITestMvpVM;
 import com.etatech.test.interf.ITestMvpView;
 import com.etatech.test.network.NetworkManager;
 import com.etatech.test.utils.ClickUtil;
-import com.google.gson.Gson;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -18,12 +21,11 @@ import rx.schedulers.Schedulers;
 public class TestMvpVM implements ITestMvpVM {
     private ITestMvpView           view;
     private ActivityTestMvpBinding binding;
-    private Gson                   gson;
+    private CountryCodeAdapter     countryCodeAdapter;
 
     public TestMvpVM(ITestMvpView view, ActivityTestMvpBinding binding) {
         this.view = view;
         this.binding = binding;
-        gson = new Gson();
         init();
     }
 
@@ -36,9 +38,10 @@ public class TestMvpVM implements ITestMvpVM {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<PhoneAreaBean>() {
                     @Override
-                    public void call(PhoneAreaBean ipInfoBean) {
-                        String content = gson.toJson(ipInfoBean).toString();
-                        binding.tvContent.setText(content);
+                    public void call(PhoneAreaBean bean) {
+                        countryCodeAdapter = new CountryCodeAdapter(bean.getData());
+                        binding.listCountryCode.setAdapter(countryCodeAdapter);
+                        binding.listCountryCode.setLayoutManager(new GridLayoutManager(view.getContext(),2));
                     }
                 });
     }
