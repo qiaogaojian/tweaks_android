@@ -31,7 +31,7 @@ public class TestMvpVM implements ITestMvpVM {
 
     public void getData() {
         NetworkManager.getInstance()
-                .getNetApi()
+                .getNetApi("http://jpwerewolf.53site.com/WerewolfJP/PHPApi/beta/v/")
                 .getPhoneArea()
                 .compose(view.getActivity().<PhoneAreaBean>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribeOn(Schedulers.io())

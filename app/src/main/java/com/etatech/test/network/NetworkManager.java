@@ -73,6 +73,16 @@ public class NetworkManager {
         return retrofit.create(NetApi.class);
     }
 
+    public NetApi getNetApi(String url) {
+        retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(url)
+                .addConverterFactory(gsonConverterFactory)
+                .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                .build();
+        return retrofit.create(NetApi.class);
+    }
+
     Interceptor okHttpInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
         @Override
         public void log(String message) {
