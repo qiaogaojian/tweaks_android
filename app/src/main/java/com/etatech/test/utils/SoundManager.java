@@ -19,7 +19,7 @@ public class SoundManager {
     private                 Context      mContext;
     private                 MediaPlayer  singlePlayer = null;
     private                 MediaPlayer  multiPlayer  = null;
-    private                 String       rootPath     = Environment.getExternalStorageDirectory().getAbsolutePath() + "/001/";
+    private                 MediaPlayer  musicPlayer  = null;
 
     private SoundManager(Context context) {
         this.mContext = context;
@@ -57,7 +57,12 @@ public class SoundManager {
         return mp;
     }
 
-    public void playSingle(String path) {  // 声音互相覆盖
+    /**
+     * 播放不能同时存在的声音
+     *
+     * @param path
+     */
+    public void playSingle(String path) {
         try {
             if ("on".equals(SPUtils.getInstance().getString(GameConfig.OPERATION_SOUND_SWITCH, "on"))) {
                 if (singlePlayer != null) {
@@ -66,8 +71,8 @@ public class SoundManager {
                     singlePlayer.release();
                     singlePlayer = null;
                 }
-                if (FileUtils.getFileByPath(rootPath + path + ".mp3").exists()) {
-                    Uri uri = Uri.fromFile(FileUtils.getFileByPath(rootPath + path + ".mp3"));
+                if (FileUtils.getFileByPath(path).exists()) {
+                    Uri uri = Uri.fromFile(FileUtils.getFileByPath(path));
                     singlePlayer = MediaPlayer.create(mContext, uri);
                 } else {
                     singlePlayer = MediaPlayer.create(mContext, R.raw.test);
@@ -89,11 +94,16 @@ public class SoundManager {
         }
     }
 
-    public void playMulti(String path) {  // 声音同时播放
+    /**
+     * 播放同时存在的声音
+     *
+     * @param path
+     */
+    public void playMulti(String path) {
         try {
             if ("on".equals(SPUtils.getInstance().getString(GameConfig.OPERATION_SOUND_SWITCH, "on"))) {
-                if (FileUtils.getFileByPath(rootPath + path + ".mp3").exists()) {
-                    Uri uri = Uri.fromFile(FileUtils.getFileByPath(rootPath + path + ".mp3"));
+                if (FileUtils.getFileByPath(path).exists()) {
+                    Uri uri = Uri.fromFile(FileUtils.getFileByPath(path));
                     multiPlayer = MediaPlayer.create(mContext, uri);
                 } else {
                     multiPlayer = MediaPlayer.create(mContext, R.raw.test);
@@ -109,6 +119,43 @@ public class SoundManager {
                 });
                 multiPlayer.setLooping(false);
                 multiPlayer.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 播放音乐
+     *
+     * @param path
+     */
+    public void playMusic(String path) {
+        try {
+            if ("on".equals(SPUtils.getInstance().getString(GameConfig.MUSIC_BG_SWITCH, "on"))) {
+                if (musicPlayer != null) {
+                    musicPlayer.stop();
+                    musicPlayer.reset();
+                    musicPlayer.release();
+                    musicPlayer = null;
+                }
+                if (FileUtils.getFileByPath(path).exists()) {
+                    Uri uri = Uri.fromFile(FileUtils.getFileByPath(path));
+                    musicPlayer = MediaPlayer.create(mContext, uri);
+                } else {
+                    musicPlayer = MediaPlayer.create(mContext, R.raw.test);
+                }
+
+                musicPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.reset();
+                        mp.release();
+                        musicPlayer = null;
+                    }
+                });
+                musicPlayer.setLooping(false);
+                musicPlayer.start();
             }
         } catch (Exception e) {
             e.printStackTrace();

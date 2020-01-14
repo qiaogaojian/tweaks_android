@@ -2,6 +2,7 @@ package com.etatech.test.view;
 
 import android.Manifest;
 import android.databinding.DataBindingUtil;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -21,7 +22,9 @@ import java.util.ArrayList;
 import rx.functions.Action1;
 
 public class TestAudioActivity extends BaseActivity<ActivityTestAudioBinding> {
-
+    private String  rootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/001/";
+    private boolean soundState;
+    private boolean musicState;
 
     @Override
     public ActivityTestAudioBinding onCreateView(Bundle savedInstanceState) {
@@ -31,16 +34,70 @@ public class TestAudioActivity extends BaseActivity<ActivityTestAudioBinding> {
     @Override
     public void init() {
 
-        ClickUtil.setFastClick(binding.btnPlaySound, new Action1() {
+        if ("on".equals(SPUtils.getInstance().getString(GameConfig.OPERATION_SOUND_SWITCH, "on"))) {
+            binding.togglePlaySound.setText("Sound: On");
+            soundState = true;
+        } else {
+            binding.togglePlaySound.setText("Sound: Off");
+            soundState = false;
+        }
+
+        if ("on".equals(SPUtils.getInstance().getString(GameConfig.MUSIC_BG_SWITCH, "on"))) {
+            binding.togglePlayMusic.setText("Music: On");
+            musicState = true;
+        } else {
+            binding.togglePlayMusic.setText("Music: Off");
+            musicState = false;
+        }
+
+        ClickUtil.setOnClick(binding.togglePlaySound, new Action1() {
             @Override
             public void call(Object o) {
-                SoundManager.getInstance().playMulti("sound");
+                if (soundState) {
+                    binding.togglePlaySound.setText("Sound: Off");
+                    SPUtils.getInstance().put(GameConfig.OPERATION_SOUND_SWITCH, "off");
+                    soundState = false;
+                } else {
+                    binding.togglePlaySound.setText("Sound: On");
+                    SPUtils.getInstance().put(GameConfig.OPERATION_SOUND_SWITCH, "on");
+                    soundState = true;
+                }
             }
         });
+
+        ClickUtil.setOnClick(binding.togglePlayMusic, new Action1() {
+            @Override
+            public void call(Object o) {
+                if (musicState) {
+                    binding.togglePlayMusic.setText("Music: Off");
+                    SPUtils.getInstance().put(GameConfig.MUSIC_BG_SWITCH, "off");
+                    musicState = false;
+                } else {
+                    binding.togglePlayMusic.setText("Music: On");
+                    SPUtils.getInstance().put(GameConfig.MUSIC_BG_SWITCH, "on");
+                    musicState = true;
+                }
+            }
+        });
+
+        ClickUtil.setFastClick(binding.btnPlaySingle, new Action1() {
+            @Override
+            public void call(Object o) {
+                SoundManager.getInstance().playSingle(rootPath + "sound" + ".mp3");
+            }
+        });
+
+        ClickUtil.setFastClick(binding.btnPlayMulti, new Action1() {
+            @Override
+            public void call(Object o) {
+                SoundManager.getInstance().playMulti(rootPath + "sound" + ".mp3");
+            }
+        });
+
         ClickUtil.setFastClick(binding.btnPlayMusic, new Action1() {
             @Override
             public void call(Object o) {
-                SoundManager.getInstance().playSingle("music");
+                SoundManager.getInstance().playMusic(rootPath + "music" + ".mp3");
             }
         });
 
