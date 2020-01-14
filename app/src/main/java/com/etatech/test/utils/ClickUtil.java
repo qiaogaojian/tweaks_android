@@ -50,6 +50,26 @@ public class ClickUtil {
     }
 
     /**
+     * 快速点击事件
+     *
+     * @param view
+     * @param action
+     */
+    public static void setFastClick(final View view, final Action1 action) {
+        RxView.clicks(view)
+                .throttleFirst(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(action, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        setFastClick(view, action);//重新订阅
+                        Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    /**
      * 点击事件
      *
      * @param view
