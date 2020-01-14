@@ -37,7 +37,7 @@ public class TestAudioActivity extends BaseActivity<ActivityTestAudioBinding> {
                 SoundManager.getInstance().playMulti("sound");
             }
         });
-        ClickUtil.setOnClick(binding.btnPlayMusic, new Action1() {
+        ClickUtil.setFastClick(binding.btnPlayMusic, new Action1() {
             @Override
             public void call(Object o) {
                 SoundManager.getInstance().playSingle("music");

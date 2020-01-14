@@ -7,6 +7,7 @@ import android.os.Environment;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.etatech.test.R;
 
 /**
  * Created by Michael
@@ -59,12 +60,17 @@ public class SoundManager {
     public void playSingle(String path) {  // 声音互相覆盖
         try {
             if ("on".equals(SPUtils.getInstance().getString(GameConfig.OPERATION_SOUND_SWITCH, "on"))) {
+                if (singlePlayer != null) {
+                    singlePlayer.stop();
+                    singlePlayer.reset();
+                    singlePlayer.release();
+                    singlePlayer = null;
+                }
                 if (FileUtils.getFileByPath(rootPath + path + ".mp3").exists()) {
                     Uri uri = Uri.fromFile(FileUtils.getFileByPath(rootPath + path + ".mp3"));
-                    if (singlePlayer != null && singlePlayer.isPlaying()) {
-                        singlePlayer.stop();
-                    }
                     singlePlayer = MediaPlayer.create(mContext, uri);
+                } else {
+                    singlePlayer = MediaPlayer.create(mContext, R.raw.test);
                 }
 
                 singlePlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -87,9 +93,10 @@ public class SoundManager {
         try {
             if ("on".equals(SPUtils.getInstance().getString(GameConfig.OPERATION_SOUND_SWITCH, "on"))) {
                 if (FileUtils.getFileByPath(rootPath + path + ".mp3").exists()) {
-
                     Uri uri = Uri.fromFile(FileUtils.getFileByPath(rootPath + path + ".mp3"));
                     multiPlayer = MediaPlayer.create(mContext, uri);
+                } else {
+                    multiPlayer = MediaPlayer.create(mContext, R.raw.test);
                 }
 
                 multiPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
