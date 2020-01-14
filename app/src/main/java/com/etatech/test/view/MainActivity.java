@@ -1,9 +1,11 @@
 package com.etatech.test.view;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
+import com.etatech.test.utils.ClickUtil;
 import com.etatech.test.view.AdaptHeightActivity;
 import com.etatech.test.view.AdaptWidthActivity;
 import com.etatech.test.view.TestTranslationActivity;
@@ -72,6 +74,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                         Toast.makeText(MainActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        ClickUtil.setOnClick(binding.btnTestAudio, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this,TestAudioActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 
     @Override

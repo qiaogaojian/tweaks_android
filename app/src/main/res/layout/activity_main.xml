@@ -22,6 +22,7 @@
                 android:layout_width="300pt"
                 android:layout_height="100pt"
                 android:layout_marginTop="30pt"
+                android:singleLine="true"
                 android:text="Adpat Width"
                 android:textAllCaps="false"
                 android:textSize="30pt"
@@ -34,6 +35,7 @@
                 android:layout_width="300pt"
                 android:layout_height="100pt"
                 android:layout_marginTop="30pt"
+                android:singleLine="true"
                 android:text="Adpat Height"
                 android:textAllCaps="false"
                 android:textSize="30pt"
@@ -46,6 +48,7 @@
                 android:layout_width="300pt"
                 android:layout_height="100pt"
                 android:layout_marginTop="30pt"
+                android:singleLine="true"
                 android:text="Test Translation"
                 android:textAllCaps="false"
                 android:textSize="30pt"
@@ -58,6 +61,7 @@
                 android:layout_width="300pt"
                 android:layout_height="100pt"
                 android:layout_marginTop="30pt"
+                android:singleLine="true"
                 android:text="Test Surfaceview"
                 android:textAllCaps="false"
                 android:textSize="30pt"
@@ -70,6 +74,7 @@
                 android:layout_width="300pt"
                 android:layout_height="100pt"
                 android:layout_marginTop="30pt"
+                android:singleLine="true"
                 android:text="Test DataBinding"
                 android:textAllCaps="false"
                 android:textSize="30pt"
@@ -82,12 +87,26 @@
                 android:layout_width="300pt"
                 android:layout_height="100pt"
                 android:layout_marginTop="30pt"
+                android:singleLine="true"
                 android:text="Test MVP"
                 android:textAllCaps="false"
                 android:textSize="30pt"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_databinding" />
+
+            <Button
+                android:id="@+id/btn_test_audio"
+                android:layout_width="300pt"
+                android:layout_height="100pt"
+                android:layout_marginTop="30pt"
+                android:singleLine="true"
+                android:text="Test Audio"
+                android:textAllCaps="false"
+                android:textSize="30pt"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_mvp" />
 
         </android.support.constraint.ConstraintLayout>
 

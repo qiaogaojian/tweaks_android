@@ -3,6 +3,9 @@
     package="com.etatech.test">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".utils.App"
         android:allowBackup="true"
@@ -11,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.TestMvpActivity"></activity>
+        <activity android:name=".view.TestAudioActivity"></activity>
+        <activity android:name=".view.TestMvpActivity" />
         <activity android:name=".view.TestDataBindingActivity" />
         <activity android:name=".view.TestSurfaceviewActivity" />
         <activity android:name=".view.TestTranslationActivity" />
