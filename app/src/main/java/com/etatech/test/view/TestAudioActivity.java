@@ -44,5 +44,23 @@ public class TestAudioActivity extends BaseActivity<ActivityTestAudioBinding> {
             }
         });
 
+        TedRxPermission.with(this)
+                .setDeniedMessage("如果你拒绝权限,将无法播放声音和音乐.")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request()
+                .subscribe(new Action1<TedPermissionResult>() {
+                    @Override
+                    public void call(TedPermissionResult tedPermissionResult) {
+                        if (tedPermissionResult.isGranted()) {
+                            Toast.makeText(TestAudioActivity.this,
+                                    "Permission Granted",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(TestAudioActivity.this,
+                                    "Permission Denied\n" + tedPermissionResult.getDeniedPermissions().toString(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
