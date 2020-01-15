@@ -22,6 +22,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
@@ -78,7 +79,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         ClickUtil.setOnClick(binding.btnTestAudio, new Action1() {
             @Override
             public void call(Object o) {
-                intent.setClass(MainActivity.this,TestAudioActivity.class);
+                intent.setClass(MainActivity.this, TestAudioActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });
