@@ -1,11 +1,7 @@
 package com.etatech.test.utils;
 
 import android.app.Application;
-import android.content.res.Resources;
-import android.graphics.Paint;
-
-import com.blankj.utilcode.util.AdaptScreenUtils;
-import com.blankj.utilcode.util.ScreenUtils;
+import android.graphics.Typeface;
 
 /**
  * Created by Michael
@@ -14,18 +10,23 @@ import com.blankj.utilcode.util.ScreenUtils;
  */
 public class App extends Application {
 
-    private static App _instance;
+    private static App      instance;
+    private        Typeface typeface;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
-        _instance = (App) getApplicationContext();
+        instance = (App) getApplicationContext();
+
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/gen_shin_gothic.ttf");
     }
 
-    public static App getInstance()
-    {
-        return _instance;
+    public static App getInstance() {
+        return instance;
+    }
+
+    public Typeface getTypeface() {
+        return typeface;
     }
 
     // 如果是悬浮窗适配，因为 inflate 用到的 context 是 application 级别的，所以需要在自定义的 Application 中重写 getResource。
