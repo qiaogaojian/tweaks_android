@@ -20,18 +20,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="6"
-            tools:listitem="@layout/item_country_code"
             tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/item_country_code"
             tools:orientation="vertical" />
 
         <Button
             android:id="@+id/btn_get_content"
-            android:layout_width="300pt"
-            android:layout_height="100pt"
+            style="@style/Button"
             android:layout_marginBottom="100pt"
             android:text="Get Content"
-            android:textAllCaps="false"
-            android:textSize="30pt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
