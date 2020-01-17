@@ -83,6 +83,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 MainActivity.this.startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestLeak, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestLeakActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

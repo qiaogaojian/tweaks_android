@@ -15,7 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.TestAudioActivity"></activity>
+        <activity android:name=".view.LeakSensorManagerActivity"></activity>
+        <activity android:name=".view.LeakTimerTaskActivity" />
+        <activity android:name=".view.LeakThreadActivity" />
+        <activity android:name=".view.LeakHandlerActivity" />
+        <activity android:name=".view.LeakAnonymousClassActivity" />
+        <activity android:name=".view.LeakInnerClassActivity" />
+        <activity android:name=".view.LeakStaticViewActivity" />
+        <activity android:name=".view.TestLeakActivity" />
+        <activity android:name=".view.LeakStaticActivity" />
+        <activity android:name=".view.TestAudioActivity" />
         <activity android:name=".view.TestMvpActivity" />
         <activity android:name=".view.TestDataBindingActivity" />
         <activity android:name=".view.TestSurfaceviewActivity" />
