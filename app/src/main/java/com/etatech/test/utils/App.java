@@ -33,7 +33,7 @@ public class App extends Application {
 
         screenHeight = ScreenUtils.getScreenHeight();
         screenWidth = ScreenUtils.getScreenWidth();
-        if (screenHeight / screenWidth >= designRatio) {
+        if (screenHeight / (float) screenWidth >= designRatio) {
             isWide = false;
             LogUtils.i(String.format("The App Screen Height %d Width %d ", screenHeight, screenWidth));
         } else {
