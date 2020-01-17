@@ -1,7 +1,14 @@
 package com.etatech.test.utils;
 
 import android.app.Application;
+import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.Debug;
+import android.util.Log;
+
+import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 
 /**
  * Created by Michael
@@ -10,15 +17,30 @@ import android.graphics.Typeface;
  */
 public class App extends Application {
 
+    public final   float    designRatio = 16f / 9f;
     private static App      instance;
     private        Typeface typeface;
+    public         boolean  isWide;
+    public         int      screenHeight;
+    public         int      screenWidth;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = (App) getApplicationContext();
+        instance = this;
 
         typeface = Typeface.createFromAsset(getAssets(), "fonts/gen_shin_gothic.ttf");
+
+        screenHeight = ScreenUtils.getScreenHeight();
+        screenWidth = ScreenUtils.getScreenWidth();
+        if (screenHeight / screenWidth >= designRatio) {
+            isWide = false;
+            LogUtils.i(String.format("The App Screen Height %d Width %d ", screenHeight, screenWidth));
+        } else {
+            isWide = true;
+            LogUtils.i(String.format("The App Screen Height %d Width %d It's Wide", screenHeight, screenWidth));
+        }
+
     }
 
     public static App getInstance() {
@@ -28,10 +50,4 @@ public class App extends Application {
     public Typeface getTypeface() {
         return typeface;
     }
-
-    // 如果是悬浮窗适配，因为 inflate 用到的 context 是 application 级别的，所以需要在自定义的 Application 中重写 getResource。
-//    @Override
-//    public Resources getResources() {
-//        return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
-//    }
 }
