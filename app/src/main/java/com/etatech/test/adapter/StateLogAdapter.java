@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.etatech.test.R;
+import com.etatech.test.utils.App;
 
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class StateLogAdapter extends RecyclerView.Adapter<StateLogAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         holder.tvLog.setText(String.format("%3d : %s",position + 1,logArrList.get(position)));
+        holder.tvLog.setTypeface(App.getInstance().getTypeface());
     }
 
     @Override
