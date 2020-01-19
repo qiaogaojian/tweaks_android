@@ -1,6 +1,5 @@
 package com.etatech.test.view;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
@@ -8,7 +7,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityLeakStaticBinding;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.utils.ClickUtil;
+import com.etatech.test.utils.ui.ClickUtil;
 
 import java.lang.ref.WeakReference;
 

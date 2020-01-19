@@ -1,4 +1,4 @@
-package com.etatech.test.utils;
+package com.etatech.test.utils.ui;
 
 
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.etatech.test.R;
+import com.etatech.test.utils.App;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 import com.trello.rxlifecycle.android.FragmentEvent;

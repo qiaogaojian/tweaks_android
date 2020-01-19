@@ -3,13 +3,12 @@ package com.etatech.test.view;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestLeakBinding;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.utils.ClickUtil;
+import com.etatech.test.utils.ui.ClickUtil;
 
 import rx.functions.Action1;
 

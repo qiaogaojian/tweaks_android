@@ -2,16 +2,14 @@ package com.etatech.test.vm;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 
-import com.blankj.utilcode.util.GsonUtils;
 import com.etatech.test.adapter.CountryCodeAdapter;
 import com.etatech.test.bean.PhoneAreaBean;
 import com.etatech.test.databinding.ActivityTestMvpBinding;
 import com.etatech.test.interf.ITestMvpVM;
 import com.etatech.test.interf.ITestMvpView;
 import com.etatech.test.network.NetworkManager;
-import com.etatech.test.utils.ClickUtil;
+import com.etatech.test.utils.ui.ClickUtil;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 import rx.android.schedulers.AndroidSchedulers;

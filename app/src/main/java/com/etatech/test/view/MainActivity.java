@@ -1,16 +1,11 @@
 package com.etatech.test.view;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
-import com.blankj.utilcode.util.ClickUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
-import com.etatech.test.utils.ClickUtil;
-import com.etatech.test.view.AdaptHeightActivity;
-import com.etatech.test.view.AdaptWidthActivity;
-import com.etatech.test.view.TestTranslationActivity;
+import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.vm.TestMvpVM;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
@@ -18,11 +13,9 @@ import com.trello.rxlifecycle.android.ActivityEvent;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;

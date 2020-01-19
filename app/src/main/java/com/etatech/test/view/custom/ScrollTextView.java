@@ -1,4 +1,4 @@
-package com.etatech.test.utils;
+package com.etatech.test.view.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
