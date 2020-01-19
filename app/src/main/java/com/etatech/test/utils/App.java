@@ -58,7 +58,7 @@ public class App extends Application {
         super.onTrimMemory(level);
         try {
             if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
-                Glide.get(this).trimMemory(level);
+                Glide.get(this).clearMemory();
             }
             Glide.get(this).trimMemory(level);
         } catch (Exception e) {

@@ -1,17 +1,22 @@
 package com.etatech.test.utils.ui;
 
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.util.ArrayMap;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.etatech.test.utils.App;
 
 /**
  * Created by Michael
  * Data: 2020/1/15 10:40
  * Desc: DataBinding工具类
+ * - 依赖Glide
  */
 public class DataBindingUtil {
     private static ArrayMap<String, Typeface> fontCache = new ArrayMap<String, Typeface>();
@@ -61,5 +66,21 @@ public class DataBindingUtil {
     @BindingConversion
     public static ColorDrawable convertColorToDrawable(int color) {
         return new ColorDrawable(color);
+    }
+
+    @BindingAdapter({"imgRes"})
+    public static void loadResImg(final ImageView view, int resId) {
+        if (view == null) {
+            return;
+        }
+        if (resId == 0) {
+            view.setImageDrawable(null);
+            return;
+        }
+        Glide.with(view.getContext())
+                .load(resId)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .dontAnimate()
+                .into(view);
     }
 }
