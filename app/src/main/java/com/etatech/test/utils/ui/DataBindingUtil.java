@@ -1,10 +1,12 @@
-package com.etatech.test.utils;
+package com.etatech.test.utils.ui;
 
 import android.content.Context;
 import android.databinding.BindingConversion;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.util.ArrayMap;
+
+import com.etatech.test.utils.App;
 
 /**
  * Created by Michael
