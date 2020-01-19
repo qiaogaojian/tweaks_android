@@ -1,6 +1,7 @@
 package com.etatech.test.utils;
 
 import android.app.Application;
+import android.content.ComponentCallbacks2;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Debug;
@@ -9,6 +10,7 @@ import android.util.Log;
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by Michael
@@ -49,5 +51,28 @@ public class App extends Application {
 
     public Typeface getTypeface() {
         return typeface;
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        try {
+            if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
+                Glide.get(this).trimMemory(level);
+            }
+            Glide.get(this).trimMemory(level);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        try {
+            Glide.get(this).clearMemory();
+        } catch (Exception e) {
+
+        }
     }
 }
