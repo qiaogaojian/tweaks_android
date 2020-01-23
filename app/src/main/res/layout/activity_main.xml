@@ -97,6 +97,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_audio" />
 
+            <Button
+                android:id="@+id/btn_test_float"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Float"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_leak" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
