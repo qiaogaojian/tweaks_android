@@ -18,7 +18,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 /**
  * Created by Michael
  * Data: 2020/1/23 15:25
- * Desc: TODO
+ * Desc: 弹出 滑动 自动隐藏
  */
 public abstract class FloatingView {
 

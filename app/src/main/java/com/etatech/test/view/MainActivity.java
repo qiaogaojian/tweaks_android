@@ -6,18 +6,27 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.view.custom.floatmenu.FloatItem;
+import com.etatech.test.view.custom.floatmenu.FloatLogoMenu;
+import com.etatech.test.view.custom.floatmenu.FloatMenuView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -90,6 +99,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+
+        for (int i = 0; i < menuIcons.length; i++)
+        {
+            itemList.add(new FloatItem(MENU_ITEMS[i], 0xB2000000, 0xB2000000, BitmapFactory.decodeResource(this.getResources(), menuIcons[i]), String.valueOf(i + 1)));
+        }
+
+        showFloatView(MainActivity.this);
     }
 
     @Override
@@ -126,5 +142,37 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 this.startActivity(intent);
                 break;
         }
+    }
+
+    private FloatLogoMenu        mFloatMenu;
+    private  int[]                menuIcons  = new int[]{R.drawable.floating_icon2, R.drawable.floating_icon3, R.drawable.floating_icon4};
+    private  ArrayList<FloatItem> itemList   = new ArrayList<>();
+    private  String[]             MENU_ITEMS = {"", "", ""};
+
+    private void showFloatView(final Activity activity)
+    {
+        mFloatMenu = new FloatLogoMenu.Builder()
+                .withActivity(activity)
+                .logo(BitmapFactory.decodeResource(getResources(), R.drawable.floating_icon1))
+                .drawCicleMenuBg(true)
+                .backMenuColor(0xB2000000)
+                .setBgDrawable(activity.getResources().getDrawable(R.drawable.floating_view_bg))
+                .setFloatItems(itemList)
+                .defaultLocation(FloatLogoMenu.RIGHT)
+                .drawRedPointNum(false)
+                .showWithListener(new FloatMenuView.OnMenuClickListener()
+                {
+                    @Override
+                    public void onItemClick(int position, String title)
+                    {
+                        Toast.makeText(activity, "position " + position + " title:" + title + " is clicked.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void dismiss()
+                    {
+
+                    }
+                });
     }
 }
