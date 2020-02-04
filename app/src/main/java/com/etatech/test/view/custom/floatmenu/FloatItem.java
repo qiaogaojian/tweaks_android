@@ -10,29 +10,11 @@ import android.graphics.Color;
  */
 public class FloatItem {
     public String title;
-    public int    titleColor = Color.BLACK;
-    public int    bgColor = Color.WHITE;
     public Bitmap icon;
-    public String dotNum = null;
 
-    public FloatItem(String title, int titleColor, int bgColor, Bitmap icon, String dotNum) {
+    public FloatItem(String title, Bitmap icon) {
         this.title = title;
-        this.titleColor = titleColor;
-        this.bgColor = bgColor;
         this.icon = icon;
-        this.dotNum = dotNum;
-    }
-
-    public String getDotNum() {
-        return dotNum;
-    }
-
-
-    public FloatItem(String title, int titleColor, int bgColor, Bitmap bitmap) {
-        this.title = title;
-        this.titleColor = titleColor;
-        this.bgColor = bgColor;
-        this.icon = bitmap;
     }
 
     public String getTitle() {
@@ -43,22 +25,6 @@ public class FloatItem {
         this.title = title;
     }
 
-    public int getTitleColor() {
-        return titleColor;
-    }
-
-    public void setTitleColor(int titleColor) {
-        this.titleColor = titleColor;
-    }
-
-    public int getBgColor() {
-        return bgColor;
-    }
-
-    public void setBgColor(int bgColor) {
-        this.bgColor = bgColor;
-    }
-
     public Bitmap getIcon() {
         return icon;
     }
@@ -66,7 +32,6 @@ public class FloatItem {
     public void setIcon(Bitmap icon) {
         this.icon = icon;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -92,10 +57,7 @@ public class FloatItem {
     public String toString() {
         return "FloatItem{" +
                 "title='" + title + '\'' +
-                ", titleColor=" + titleColor +
-                ", bgColor=" + bgColor +
                 ", icon=" + icon +
-                ", dotNum='" + dotNum + '\'' +
                 '}';
     }
 }

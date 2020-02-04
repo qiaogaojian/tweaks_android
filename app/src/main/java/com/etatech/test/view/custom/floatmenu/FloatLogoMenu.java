@@ -25,8 +25,6 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.ScreenUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,19 +149,6 @@ public class FloatLogoMenu
     };
 
     /**
-     * 这个事件不做任何事情、直接return false则 onclick 事件生效
-     */
-    private View.OnTouchListener mDefaultOnTouchListerner = new View.OnTouchListener()
-    {
-        @Override
-        public boolean onTouch(View v, MotionEvent event)
-        {
-            isDraging = false;
-            return false;
-        }
-    };
-
-    /**
      * 这个事件用于处理移动、自定义点击或者其它事情，return true可以保证onclick事件失效
      */
     private View.OnTouchListener touchListener = new View.OnTouchListener()
@@ -193,18 +178,6 @@ public class FloatLogoMenu
      * 菜单背景颜色
      */
     private int mBackMenuColor = 0xffe4e3e1;
-
-    /**
-     * 是否绘制红点数字
-     */
-    private boolean mDrawRedPointNum;
-
-
-    /**
-     * 是否绘制圆形菜单项，false绘制方形
-     */
-    private boolean mCicleMenuBg;
-
 
     /**
      * R.drawable.yw_game_logo
@@ -256,18 +229,11 @@ public class FloatLogoMenu
     private FloatLogoMenu(Builder builder)
     {
         mBackMenuColor = builder.mBackMenuColor;
-        mDrawRedPointNum = builder.mDrawRedPointNum;
-        mCicleMenuBg = builder.mCicleMenuBg;
         mLogoRes = builder.mLogoRes;
         mActivity = builder.mActivity;
         mOnMenuClickListener = builder.mOnMenuClickListener;
-        mDefaultLocation = builder.mDefaultLocation;
         mFloatItems = builder.mFloatItems;
         mBackground = builder.mDrawable;
-
-//        if (mActivity == null || mActivity.isFinishing() || mActivity.getWindowManager() == null) {
-//            throw new IllegalArgumentException("Activity = null, or Activity is isFinishing ,or this Activity`s  token is bad");
-//        }
 
         if (mLogoRes == null)
         {
@@ -288,7 +254,6 @@ public class FloatLogoMenu
     public void setFloatItemList(List<FloatItem> floatItems)
     {
         this.mFloatItems = floatItems;
-        caculateDotNum();
     }
 
     /**
@@ -362,7 +327,6 @@ public class FloatLogoMenu
         wmParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
     }
 
-
     /**
      * 初始化悬浮球
      */
@@ -372,11 +336,9 @@ public class FloatLogoMenu
         genarateRightLineLayout();
 
         mFloatLogo = new DotImageView(mActivity, mLogoRes);
-        mFloatLogo.setLayoutParams(new WindowManager.LayoutParams(dp2Px(50, mActivity), dp2Px(50, mActivity)));
-        mFloatLogo.setDrawNum(mDrawRedPointNum);
+        mFloatLogo.setLayoutParams(new WindowManager.LayoutParams(dp2Px(60, mActivity), dp2Px(60, mActivity)));
         mFloatLogo.setBgColor(mBackMenuColor);
         mFloatLogo.setDrawDarkBg(true);
-        caculateDotNum();
         floatBtnEvent();
         try
         {
@@ -391,25 +353,20 @@ public class FloatLogoMenu
     private void genarateLeftLineLayout()
     {
         DotImageView floatLogo = new DotImageView(mActivity, mLogoRes);
-        floatLogo.setLayoutParams(new WindowManager.LayoutParams(dp2Px(50, mActivity), dp2Px(50, mActivity)));
-        floatLogo.setDrawNum(mDrawRedPointNum);
+        floatLogo.setLayoutParams(new WindowManager.LayoutParams(dp2Px(60, mActivity), dp2Px(60, mActivity)));
         floatLogo.setDrawDarkBg(false);
 
         rootView = new LinearLayout(mActivity);
         rootView.setOrientation(LinearLayout.HORIZONTAL);
         rootView.setGravity(Gravity.CENTER);
-        rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp2Px(50, mActivity)));
+        rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp2Px(60, mActivity)));
 
         rootView.setBackgroundDrawable(mBackground);
 
 
         FloatMenuView mFloatMenuView = new FloatMenuView.Builder(mActivity)
                 .setFloatItems(mFloatItems)
-                .setBackgroundColor(Color.TRANSPARENT)
-                .setCicleBg(mCicleMenuBg)
-                .setStatus(FloatMenuView.STATUS_LEFT)
                 .setMenuBackgroundColor(Color.TRANSPARENT)
-                .drawNum(mDrawRedPointNum)
                 .create();
         setMenuClickListener(mFloatMenuView);
 
@@ -441,8 +398,7 @@ public class FloatLogoMenu
     private void genarateRightLineLayout()
     {
         final DotImageView floatLogo = new DotImageView(mActivity, mLogoRes);
-        floatLogo.setLayoutParams(new WindowManager.LayoutParams(dp2Px(50, mActivity), dp2Px(50, mActivity)));
-        floatLogo.setDrawNum(mDrawRedPointNum);
+        floatLogo.setLayoutParams(new WindowManager.LayoutParams(dp2Px(60, mActivity), dp2Px(60, mActivity)));
         floatLogo.setDrawDarkBg(false);
 
         floatLogo.setOnClickListener(new View.OnClickListener()
@@ -468,7 +424,7 @@ public class FloatLogoMenu
         rootViewRight = new LinearLayout(mActivity);
         rootViewRight.setOrientation(LinearLayout.HORIZONTAL);
         rootViewRight.setGravity(Gravity.CENTER);
-        rootViewRight.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp2Px(50, mActivity)));
+        rootViewRight.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, dp2Px(60, mActivity)));
 
 
         rootViewRight.setBackgroundDrawable(mBackground);
@@ -476,11 +432,7 @@ public class FloatLogoMenu
 
         FloatMenuView mFloatMenuView = new FloatMenuView.Builder(mActivity)
                 .setFloatItems(mFloatItems)
-                .setBackgroundColor(Color.TRANSPARENT)
-                .setCicleBg(mCicleMenuBg)
-                .setStatus(FloatMenuView.STATUS_RIGHT)
-                .setMenuBackgroundColor(Color.TRANSPARENT)
-                .drawNum(mDrawRedPointNum)
+                .setMenuBackgroundColor(Color.GREEN)
                 .create();
         setMenuClickListener(mFloatMenuView);
 
@@ -531,7 +483,6 @@ public class FloatLogoMenu
         };
     }
 
-
     /**
      * 用于 拦截 菜单项的 关闭事件，以方便开始 隐藏定时器
      *
@@ -558,30 +509,11 @@ public class FloatLogoMenu
 
     }
 
-
     /**
      * 悬浮窗的点击事件和touch事件的切换
      */
     private void floatBtnEvent()
     {
-        //这里的onCick只有 touchListener = mDefaultOnTouchListerner 才会触发
-//        mFloatLogo.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!isDraging) {
-//                    if (mFloatLogo.getStatus() != DotImageView.NORMAL) {
-//                        mFloatLogo.setBitmap(mLogoRes);
-//                        mFloatLogo.setStatus(DotImageView.NORMAL);
-//                        if (!mFloatLogo.mDrawDarkBg) {
-//                            mFloatLogo.setDrawDarkBg(true);
-//                        }
-//                    }
-//                    mFloatLogo.setOnTouchListener(touchListener);
-//                    mHideTimer.start();
-//                }
-//            }
-//        });
-
         mFloatLogo.setOnTouchListener(touchListener);//恢复touch事件
     }
 
@@ -629,13 +561,9 @@ public class FloatLogoMenu
             wmParams.x = (int) (mXInScreen - mXInView);
             wmParams.y = (int) (mYInScreen - mYinview) - mFloatLogo.getHeight() / 2;
             updateViewPosition(); // 手指移动的时候更新小悬浮窗的位置
-            double a      = mScreenWidth / 2;
-            float  offset = (float) ((a - (Math.abs(wmParams.x - a))) / a);
-            mFloatLogo.setDraging(isDraging, offset, false);
         } else
         {
             isDraging = false;
-            mFloatLogo.setDraging(false, 0, true);
         }
     }
 
@@ -686,7 +614,6 @@ public class FloatLogoMenu
                     }
                     updateViewPosition();
                     isDraging = false;
-                    mFloatLogo.setDraging(false, 0, true);
                     mHideTimer.start();
                 }
 
@@ -703,7 +630,6 @@ public class FloatLogoMenu
 
                     updateViewPosition();
                     isDraging = false;
-                    mFloatLogo.setDraging(false, 0, true);
                     mHideTimer.start();
 
                 }
@@ -747,9 +673,6 @@ public class FloatLogoMenu
                 wmParams.x = wmParams.x + mResetLocationValue;
             }
             updateViewPosition();
-            double a      = mScreenWidth / 2;
-            float  offset = (float) ((a - (Math.abs(wmParams.x - a))) / a);
-            mFloatLogo.setDraging(isDraging, offset, true);
             return;
         }
 
@@ -876,7 +799,6 @@ public class FloatLogoMenu
         destoryFloat();
     }
 
-
     /**
      * 移除所有悬浮窗 释放资源
      */
@@ -902,62 +824,6 @@ public class FloatLogoMenu
         {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * 计算总红点数
-     */
-    private void caculateDotNum()
-    {
-        int dotNum = 0;
-        for (FloatItem floatItem : mFloatItems)
-        {
-            if (!TextUtils.isEmpty(floatItem.getDotNum()))
-            {
-                int num = Integer.parseInt(floatItem.getDotNum());
-                dotNum = dotNum + num;
-            }
-        }
-        mFloatLogo.setDrawNum(mDrawRedPointNum);
-        setDotNum(dotNum);
-    }
-
-    /**
-     * 绘制悬浮球的红点
-     *
-     * @param dotNum d
-     */
-    private void setDotNum(int dotNum)
-    {
-        mFloatLogo.setDotNum(dotNum, new Animator.AnimatorListener()
-        {
-            @Override
-            public void onAnimationStart(Animator animation)
-            {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-                if (!isDraging)
-                {
-                    mHideTimer.start();
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation)
-            {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation)
-            {
-
-            }
-        });
     }
 
     /**
@@ -1028,10 +894,8 @@ public class FloatLogoMenu
     public static final class Builder
     {
         private int                               mBackMenuColor;
-        private boolean                           mDrawRedPointNum;
         private boolean                           mCicleMenuBg;
         private Bitmap                            mLogoRes;
-        private int                               mDefaultLocation;
         private List<FloatItem>                   mFloatItems = new ArrayList<>();
         private Context                           mActivity;
         private FloatMenuView.OnMenuClickListener mOnMenuClickListener;
@@ -1066,12 +930,6 @@ public class FloatLogoMenu
             return this;
         }
 
-        public Builder drawRedPointNum(boolean val)
-        {
-            mDrawRedPointNum = val;
-            return this;
-        }
-
         public Builder drawCicleMenuBg(boolean val)
         {
             mCicleMenuBg = val;
@@ -1102,21 +960,9 @@ public class FloatLogoMenu
             return this;
         }
 
-        public Builder defaultLocation(int val)
-        {
-            mDefaultLocation = val;
-            return this;
-        }
-
         public FloatLogoMenu showWithListener(FloatMenuView.OnMenuClickListener val)
         {
             mOnMenuClickListener = val;
-            return new FloatLogoMenu(this);
-        }
-
-        public FloatLogoMenu showWithLogo(Bitmap val)
-        {
-            mLogoRes = val;
             return new FloatLogoMenu(this);
         }
 

@@ -99,13 +99,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
-
-        for (int i = 0; i < menuIcons.length; i++)
-        {
-            itemList.add(new FloatItem(MENU_ITEMS[i], 0xB2000000, 0xB2000000, BitmapFactory.decodeResource(this.getResources(), menuIcons[i]), String.valueOf(i + 1)));
-        }
-
-        showFloatView(MainActivity.this);
     }
 
     @Override
@@ -144,35 +137,5 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         }
     }
 
-    private FloatLogoMenu        mFloatMenu;
-    private  int[]                menuIcons  = new int[]{R.drawable.floating_icon2, R.drawable.floating_icon3, R.drawable.floating_icon4};
-    private  ArrayList<FloatItem> itemList   = new ArrayList<>();
-    private  String[]             MENU_ITEMS = {"", "", ""};
 
-    private void showFloatView(final Activity activity)
-    {
-        mFloatMenu = new FloatLogoMenu.Builder()
-                .withActivity(activity)
-                .logo(BitmapFactory.decodeResource(getResources(), R.drawable.floating_icon1))
-                .drawCicleMenuBg(true)
-                .backMenuColor(0xB2000000)
-                .setBgDrawable(activity.getResources().getDrawable(R.drawable.floating_view_bg))
-                .setFloatItems(itemList)
-                .defaultLocation(FloatLogoMenu.RIGHT)
-                .drawRedPointNum(false)
-                .showWithListener(new FloatMenuView.OnMenuClickListener()
-                {
-                    @Override
-                    public void onItemClick(int position, String title)
-                    {
-                        Toast.makeText(activity, "position " + position + " title:" + title + " is clicked.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void dismiss()
-                    {
-
-                    }
-                });
-    }
 }
