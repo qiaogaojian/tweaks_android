@@ -18,7 +18,7 @@ import com.etatech.test.utils.App;
  * Desc: DataBinding工具类
  * - 依赖Glide
  */
-public class DataBindingUtil {
+public class DataBindingTools {
     private static ArrayMap<String, Typeface> fontCache = new ArrayMap<String, Typeface>();
 
     /**
@@ -30,9 +30,11 @@ public class DataBindingUtil {
      */
     @BindingConversion
     public static Typeface convertStringTotypeFace(String fontPath) {
-        try {
+        try
+        {
             return getTypeface(fontPath, App.getInstance());
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             throw e;
         }
     }
@@ -46,10 +48,13 @@ public class DataBindingUtil {
      */
     public static Typeface getTypeface(String fontPath, Context context) {
         Typeface tf = fontCache.get(fontPath);
-        if (tf == null) {
-            try {
+        if (tf == null)
+        {
+            try
+            {
                 tf = Typeface.createFromAsset(context.getAssets(), fontPath);
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 return null;
             }
             fontCache.put(fontPath, tf);
@@ -70,17 +75,19 @@ public class DataBindingUtil {
 
     @BindingAdapter({"imgRes"})
     public static void loadResImg(final ImageView view, int resId) {
-        if (view == null) {
+        if (view == null)
+        {
             return;
         }
-        if (resId == 0) {
+        if (resId == 0)
+        {
             view.setImageDrawable(null);
             return;
         }
         Glide.with(view.getContext())
-                .load(resId)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
-                .into(view);
+             .load(resId)
+             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+             .dontAnimate()
+             .into(view);
     }
 }
