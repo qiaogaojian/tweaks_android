@@ -25,6 +25,8 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
+import com.etatech.test.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -432,7 +434,7 @@ public class FloatLogoMenu
 
         FloatMenuView mFloatMenuView = new FloatMenuView.Builder(mActivity)
                 .setFloatItems(mFloatItems)
-                .setMenuBackgroundColor(Color.GREEN)
+                .setMenuBackgroundColor(Color.TRANSPARENT)
                 .create();
         setMenuClickListener(mFloatMenuView);
 
@@ -646,7 +648,7 @@ public class FloatLogoMenu
             valueAnimator.start();
         }
 
-//        //这里需要判断如果如果手指所在位置和logo所在位置在一个宽度内则不移动,
+        //这里需要判断如果如果手指所在位置和logo所在位置在一个宽度内则不移动,
         if (Math.abs(mXInScreen - mXDownInScreen) > mFloatLogo.getWidth() / 5 || Math.abs(mYInScreen - mYDownInScreen) > mFloatLogo.getHeight() / 5)
         {
             isDraging = false;

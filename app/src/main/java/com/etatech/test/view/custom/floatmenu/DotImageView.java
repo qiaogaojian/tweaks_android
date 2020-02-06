@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,6 +17,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
+import com.etatech.test.R;
 
 /**
  * Created by Michael
@@ -45,11 +48,11 @@ public class DotImageView extends View {
     private int mItemWidth  = dip2px(60);//菜单Item的宽度
     private int mItemHeight = dip2px(60);//菜单Item的高度
 
-    private              boolean            isDraging           = false;//是否 绘制旋转放大动画，只有 非停靠边缘才绘制
-    private              ValueAnimator      mDragingValueAnimator;//放大、旋转 属性动画
-    private              LinearInterpolator mLinearInterpolator = new LinearInterpolator();//通用用加速器
-    public               boolean            mDrawDarkBg         = true;//是否绘制黑色背景，当菜单关闭时，才绘制灰色背景
-    private              Camera             mCamera;//camera用于执行3D动画
+    private boolean            isDraging           = false;//是否 绘制旋转放大动画，只有 非停靠边缘才绘制
+    private ValueAnimator      mDragingValueAnimator;//放大、旋转 属性动画
+    private LinearInterpolator mLinearInterpolator = new LinearInterpolator();//通用用加速器
+    public  boolean            mDrawDarkBg         = true;//是否绘制黑色背景，当菜单关闭时，才绘制灰色背景
+    private Camera             mCamera;//camera用于执行3D动画
 
     private int     mStatus     = NORMAL;//0 正常，1 左，2右,3 中间方法旋转
     private int     mLastStatus = mStatus;
@@ -58,6 +61,8 @@ public class DotImageView extends View {
 
     private int mBgColor = 0x99000000;
 
+    private Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.floating_icon1);
+    private Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.floating_close);
 
     public void setBgColor(int bgColor) {
         mBgColor = bgColor;
@@ -65,6 +70,13 @@ public class DotImageView extends View {
 
     public void setDrawDarkBg(boolean drawDarkBg) {
         mDrawDarkBg = drawDarkBg;
+        if (drawDarkBg)
+        {
+            setBitmap(bitmap1);
+        } else
+        {
+            setBitmap(bitmap2);
+        }
         invalidate();
     }
 
@@ -203,9 +215,11 @@ public class DotImageView extends View {
             }
         }
 
-        mPaintBg.setColor(mBgColor);
-        canvas.drawCircle(centryX, centryY, mLogoBackgroundRadius, mPaintBg);
-        mPaint.setColor(0xB2000000);
+        if (mDrawDarkBg)
+        {
+            mPaintBg.setColor(mBgColor);
+            canvas.drawCircle(centryX, centryY, mLogoBackgroundRadius, mPaintBg);
+        }
 
         float left  = centryX - mItemWidth * 0.66f / 2;//计算icon的左坐标值 中心点往左移宽度的四分之一
         float right = centryX + mItemWidth * 0.66f / 2;

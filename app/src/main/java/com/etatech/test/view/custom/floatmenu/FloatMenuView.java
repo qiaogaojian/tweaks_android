@@ -106,10 +106,10 @@ public class FloatMenuView extends View
             float centryX = mItemLeft + mItemWidth / 2 + (mItemWidth) * position;//计算每一个item的中心点x的坐标值
             float centryY = mItemHeight / 2;//计算每一个item的中心点的y坐标值
 
-            float left  = centryX - mItemWidth * 0.66f / 2;//计算icon的左坐标值 中心点往左移宽度的四分之一
-            float right = centryX + mItemWidth * 0.66f / 2;
+            float left  = centryX - mItemWidth * 0.7f / 2;//计算icon的左坐标值 中心点往左移宽度的四分之一
+            float right = centryX + mItemWidth * 0.7f / 2;
 
-            float iconH = mItemHeight * 0.66f;//计算出icon的宽度 = icon的高度
+            float iconH = mItemHeight * 0.7f;//计算出icon的宽度 = icon的高度
 
             float paddH = (mItemHeight - iconH) / 2;//总高度减去文字的高度，减去icon高度，再除以2就是上下的间距剩余
 
