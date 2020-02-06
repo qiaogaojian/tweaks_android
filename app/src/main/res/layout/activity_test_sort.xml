@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.ActivityTestSort">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:text="源数据"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="39pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_user_origin"
+            android:layout_width="1000pt"
+            android:layout_height="600pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title1"
+            tools:listitem="@layout/item_user_info" />
+
+        <TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10pt"
+            android:text="排序后数据"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="39pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_user_origin" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_user_sorted"
+            android:layout_width="1000pt"
+            android:layout_height="600pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title2"
+            tools:listitem="@layout/item_user_info" />
+
+        <TextView
+            android:id="@+id/tv_rule"
+            android:layout_width="1000pt"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30pt"
+            android:textColor="#2196F3"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_user_sorted"
+            tools:text="排序规则" />
+
+        <Button
+            android:id="@+id/btn_sort1"
+            style="@style/Button"
+            android:layout_marginBottom="300pt"
+            android:text="Sort1"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_sort2" />
+
+        <Button
+            android:id="@+id/btn_sort2"
+            style="@style/Button"
+            android:layout_marginBottom="300pt"
+            android:text="Sort2"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/btn_sort1"
+            app:layout_constraintRight_toLeftOf="@+id/btn_sort3" />
+
+        <Button
+            android:id="@+id/btn_sort3"
+            style="@style/Button"
+            android:layout_marginBottom="300pt"
+            android:text="Sort3"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/btn_sort2"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/btn_sort4"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Sort4"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_sort2" />
+
+        <Button
+            android:id="@+id/btn_sort5"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Sort5"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/btn_sort4"
+            app:layout_constraintRight_toLeftOf="@+id/btn_sort6" />
+
+        <Button
+            android:id="@+id/btn_sort6"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Sort6"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/btn_sort5"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
+
