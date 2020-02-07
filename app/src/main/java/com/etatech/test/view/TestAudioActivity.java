@@ -69,6 +69,7 @@ public class TestAudioActivity extends BaseActivity<ActivityTestAudioBinding> {
                     binding.togglePlayMusic.setText("Music: Off");
                     SPUtils.getInstance().put(GameConfig.MUSIC_BG_SWITCH, "off");
                     musicState = false;
+                    SoundManager.getInstance().stopMusic();
                 } else {
                     binding.togglePlayMusic.setText("Music: On");
                     SPUtils.getInstance().put(GameConfig.MUSIC_BG_SWITCH, "on");

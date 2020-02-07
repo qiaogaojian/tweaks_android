@@ -146,19 +146,17 @@ public class SoundManager {
                     musicPlayer = MediaPlayer.create(mContext, R.raw.test);
                 }
 
-                musicPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.reset();
-                        mp.release();
-                        musicPlayer = null;
-                    }
-                });
-                musicPlayer.setLooping(false);
+                musicPlayer.setLooping(true);
                 musicPlayer.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void stopMusic() {
+        musicPlayer.reset();
+        musicPlayer.release();
+        musicPlayer = null;
     }
 }
