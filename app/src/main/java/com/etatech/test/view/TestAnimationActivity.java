@@ -60,7 +60,7 @@ public class TestAnimationActivity extends BaseActivity<ActivityTestAnimationBin
                 binding.ivAnimation.animate().setDuration(1000).rotationY(180).start();
             }
         });
-
+        binding.recycleAnimation.setItemAnimator(null); // 取消 recyclerView notifyItemChanged 时的默认动画 解决动画覆盖问题
         binding.recycleAnimation.setLayoutManager(new GridLayoutManager(this,6));
         int spanCount = 6;
         int offsetY = -AdaptScreenUtils.pt2Px(37);

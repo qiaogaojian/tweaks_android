@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import rx.functions.Action1;
  */
 public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> {
 
+    private android.os.Handler handler = new Handler();
     private List<Integer> cardStates;
 
     public void setCardStates(List<Integer> cardStates) {
@@ -68,48 +70,54 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> 
                     return;
                 }
                 cardStates.set(position, 1);
+                notifyItemChanged(position);
 
-                AnimatorSet animatorSetBack = new AnimatorSet();
-                ObjectAnimator ani1 = ObjectAnimator.ofFloat(holder.binding.ivBack, View.ROTATION, 0, 25);
-                ObjectAnimator ani2 = ObjectAnimator.ofFloat(holder.binding.ivBack, View.ROTATION_Y, 0, 90);
-                ObjectAnimator ani5 = ObjectAnimator.ofFloat(holder.binding.ivBack, "scaleY", 1f, 1.6f);
-                ObjectAnimator ani6 = ObjectAnimator.ofFloat(holder.binding.ivBack, "scaleX", 1f, 1.6f);
-                animatorSetBack.setDuration(500);
-                animatorSetBack.playTogether(ani1, ani2, ani5, ani6);
-
-                final AnimatorSet animatorSetFront = new AnimatorSet();
-                ObjectAnimator ani3 = ObjectAnimator.ofFloat(holder.binding.ivFront, View.ROTATION, 25, 0);
-                ObjectAnimator ani4 = ObjectAnimator.ofFloat(holder.binding.ivFront, View.ROTATION_Y, -90, 0);
-                ObjectAnimator ani7 = ObjectAnimator.ofFloat(holder.binding.ivFront, "scaleY", 1.6f, 1f);
-                ObjectAnimator ani8 = ObjectAnimator.ofFloat(holder.binding.ivFront, "scaleX", 1.6f, 1f);
-                animatorSetFront.setDuration(500);
-                animatorSetFront.playTogether(ani3, ani4, ani7, ani8);
-                holder.binding.ivFront.setVisibility(View.INVISIBLE);
-
-                animatorSetBack.addListener(new Animator.AnimatorListener() {
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void onAnimationStart(Animator animation) {
+                    public void run() {
+                        AnimatorSet animatorSetBack = new AnimatorSet();
+                        ObjectAnimator ani1 = ObjectAnimator.ofFloat(holder.binding.ivBack, View.ROTATION, 0, 25);
+                        ObjectAnimator ani2 = ObjectAnimator.ofFloat(holder.binding.ivBack, View.ROTATION_Y, 0, 90);
+                        ObjectAnimator ani5 = ObjectAnimator.ofFloat(holder.binding.ivBack, "scaleY", 1f, 1.6f);
+                        ObjectAnimator ani6 = ObjectAnimator.ofFloat(holder.binding.ivBack, "scaleX", 1f, 1.6f);
+                        animatorSetBack.setDuration(500);
+                        animatorSetBack.playTogether(ani1, ani2, ani5, ani6);
 
+                        final AnimatorSet animatorSetFront = new AnimatorSet();
+                        ObjectAnimator ani3 = ObjectAnimator.ofFloat(holder.binding.ivFront, View.ROTATION, 25, 0);
+                        ObjectAnimator ani4 = ObjectAnimator.ofFloat(holder.binding.ivFront, View.ROTATION_Y, -90, 0);
+                        ObjectAnimator ani7 = ObjectAnimator.ofFloat(holder.binding.ivFront, "scaleY", 1.6f, 1f);
+                        ObjectAnimator ani8 = ObjectAnimator.ofFloat(holder.binding.ivFront, "scaleX", 1.6f, 1f);
+                        animatorSetFront.setDuration(500);
+                        animatorSetFront.playTogether(ani3, ani4, ani7, ani8);
+                        holder.binding.ivFront.setVisibility(View.INVISIBLE);
+
+                        animatorSetBack.addListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                holder.binding.ivBack.setVisibility(View.INVISIBLE);
+                                holder.binding.ivFront.setVisibility(View.VISIBLE);
+                                animatorSetFront.start();
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        });
+                        animatorSetBack.start();
                     }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        holder.binding.ivBack.setVisibility(View.INVISIBLE);
-                        holder.binding.ivFront.setVisibility(View.VISIBLE);
-                        animatorSetFront.start();
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                });
-                animatorSetBack.start();
+                },300);
             }
         });
     }
