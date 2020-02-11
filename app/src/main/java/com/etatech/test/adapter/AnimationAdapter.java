@@ -28,7 +28,12 @@ import rx.functions.Action1;
 public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> {
 
     private android.os.Handler handler = new Handler();
+    private RecyclerView rv;
     private List<Integer> cardStates;
+
+    public void setRv(RecyclerView rv) {
+        this.rv = rv;
+    }
 
     public void setCardStates(List<Integer> cardStates) {
         this.cardStates = cardStates;
@@ -71,26 +76,44 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> 
                 }
                 cardStates.set(position, 1);
                 notifyItemChanged(position);
+                final int indexOfFrontChild = position;
+                rv.setChildDrawingOrderCallback(new RecyclerView.ChildDrawingOrderCallback() {
+                    private int nextChildIndexToRender;
+                    @Override
+                    public int onGetChildDrawingOrder(int childCount, int iteration) {
+                        int childPos = iteration;
+                        // index must be in at least smaller than all children's
+                        if (indexOfFrontChild < childCount) {
+                            // in the last iteration we return view we want to have on top
+                            if (iteration == childCount - 1) {
+                                childPos = indexOfFrontChild;
+                            }else if (iteration >= indexOfFrontChild) {
+                                childPos = iteration + 1;
+                            }
+                        }
+                        return childPos;
+                    }
+                });
 
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         AnimatorSet animatorSetBack = new AnimatorSet();
-                        ObjectAnimator ani1 = ObjectAnimator.ofFloat(holder.binding.ivBack, View.ROTATION, 0, 25);
-                        ObjectAnimator ani2 = ObjectAnimator.ofFloat(holder.binding.ivBack, View.ROTATION_Y, 0, 90);
-                        ObjectAnimator ani5 = ObjectAnimator.ofFloat(holder.binding.ivBack, "scaleY", 1f, 1.6f);
-                        ObjectAnimator ani6 = ObjectAnimator.ofFloat(holder.binding.ivBack, "scaleX", 1f, 1.6f);
+                        ObjectAnimator back1 = ObjectAnimator.ofFloat(holder.binding.layoutBack, View.ROTATION, 0, 25);
+                        ObjectAnimator back2 = ObjectAnimator.ofFloat(holder.binding.layoutBack, View.ROTATION_Y, 0, 90);
+                        ObjectAnimator back3 = ObjectAnimator.ofFloat(holder.binding.layoutBack, View.SCALE_X, 1f, 1.6f);
+                        ObjectAnimator back4 = ObjectAnimator.ofFloat(holder.binding.layoutBack, View.SCALE_Y, 1f, 1.6f);
                         animatorSetBack.setDuration(500);
-                        animatorSetBack.playTogether(ani1, ani2, ani5, ani6);
+                        animatorSetBack.playTogether(back1, back2, back3, back4);
 
                         final AnimatorSet animatorSetFront = new AnimatorSet();
-                        ObjectAnimator ani3 = ObjectAnimator.ofFloat(holder.binding.ivFront, View.ROTATION, 25, 0);
-                        ObjectAnimator ani4 = ObjectAnimator.ofFloat(holder.binding.ivFront, View.ROTATION_Y, -90, 0);
-                        ObjectAnimator ani7 = ObjectAnimator.ofFloat(holder.binding.ivFront, "scaleY", 1.6f, 1f);
-                        ObjectAnimator ani8 = ObjectAnimator.ofFloat(holder.binding.ivFront, "scaleX", 1.6f, 1f);
+                        ObjectAnimator front1 = ObjectAnimator.ofFloat(holder.binding.layoutFront, View.ROTATION, 25, 0);
+                        ObjectAnimator front2 = ObjectAnimator.ofFloat(holder.binding.layoutFront, View.ROTATION_Y, -90, 0);
+                        ObjectAnimator front3 = ObjectAnimator.ofFloat(holder.binding.layoutFront, View.SCALE_X, 1.6f, 1f);
+                        ObjectAnimator front4 = ObjectAnimator.ofFloat(holder.binding.layoutFront, View.SCALE_Y, 1.6f, 1f);
                         animatorSetFront.setDuration(500);
-                        animatorSetFront.playTogether(ani3, ani4, ani7, ani8);
-                        holder.binding.ivFront.setVisibility(View.INVISIBLE);
+                        animatorSetFront.playTogether(front1, front2, front3, front4);
+                        holder.binding.layoutFront.setVisibility(View.INVISIBLE);
 
                         animatorSetBack.addListener(new Animator.AnimatorListener() {
                             @Override
@@ -100,8 +123,8 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> 
 
                             @Override
                             public void onAnimationEnd(Animator animation) {
-                                holder.binding.ivBack.setVisibility(View.INVISIBLE);
-                                holder.binding.ivFront.setVisibility(View.VISIBLE);
+                                holder.binding.layoutBack.setVisibility(View.INVISIBLE);
+                                holder.binding.layoutFront.setVisibility(View.VISIBLE);
                                 animatorSetFront.start();
                             }
 
@@ -117,7 +140,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> 
                         });
                         animatorSetBack.start();
                     }
-                },300);
+                }, 300);
             }
         });
     }
