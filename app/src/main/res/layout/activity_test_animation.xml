@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.TestAnimationActivity">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/gl_0"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="0pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_100"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="100pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_200"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="200pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_300"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="300pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_400"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="400pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_500"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="500pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_600"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="600pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_700"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="700pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_800"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="800pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_900"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="900pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_1000"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1000pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_1100"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1100pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_1200"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1200pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_1300"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1300pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_1400"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1400pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <View
+            android:id="@+id/gl_1500"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1500pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/gl_1600"
+            android:layout_width="match_parent"
+            android:layout_height="3pt"
+            android:layout_marginTop="1600pt"
+            android:background="@color/colorAccent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_animation"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_marginTop="100pt"
+            android:background="@color/colorPrimary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_animation"
+            android:layout_width="945pt"
+            android:layout_height="1319pt"
+            android:clipChildren="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/gl_300"
+            tools:itemCount="36"
+            tools:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/item_test_animation"
+            tools:spanCount="6" />
+
+        <Button
+            android:id="@+id/btn_translation"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Test Translation"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_rotation" />
+
+        <Button
+            android:id="@+id/btn_rotation"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Test Rotation"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_translation"
+            app:layout_constraintRight_toLeftOf="@id/btn_rotationy" />
+
+        <Button
+            android:id="@+id/btn_rotationy"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Test RotationY"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_rotation"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
