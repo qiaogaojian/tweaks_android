@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.TestSvgActivity">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20pt"
+            android:text="SVG pathData详解"
+            android:textColor="@color/code_black"
+            android:textSize="50pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/svg_triangle"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginLeft="100pt"
+            android:layout_marginTop="150pt"
+            android:background="@drawable/svg_triangle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_triangle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="三角形"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_triangle"
+            app:layout_constraintRight_toRightOf="@id/svg_triangle"
+            app:layout_constraintTop_toBottomOf="@id/svg_triangle" />
+
+        <View
+            android:id="@+id/svg_triangle_z"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginTop="150pt"
+            android:background="@drawable/svg_triangle_z"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_triangle_z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="三角形封闭"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_triangle_z"
+            app:layout_constraintRight_toRightOf="@id/svg_triangle_z"
+            app:layout_constraintTop_toBottomOf="@id/svg_triangle_z" />
+
+
+        <View
+            android:id="@+id/svg_triangle_round"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginTop="150pt"
+            android:layout_marginRight="100pt"
+            android:background="@drawable/svg_triangle_round"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_triangle_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="圆角三角形"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_triangle_round"
+            app:layout_constraintRight_toRightOf="@id/svg_triangle_round"
+            app:layout_constraintTop_toBottomOf="@id/svg_triangle_round" />
+
+        <View
+            android:id="@+id/svg_bezier_two"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginLeft="100pt"
+            android:layout_marginTop="500pt"
+            android:background="@drawable/svg_bezier_two"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_bezier_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二阶贝塞尔"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_bezier_two"
+            app:layout_constraintRight_toRightOf="@id/svg_bezier_two"
+            app:layout_constraintTop_toBottomOf="@id/svg_bezier_two" />
+
+        <View
+            android:id="@+id/svg_bezier_three"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginTop="500pt"
+            android:background="@drawable/svg_bezier_three"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_bezier_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="三阶贝塞尔"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_bezier_three"
+            app:layout_constraintRight_toRightOf="@id/svg_bezier_three"
+            app:layout_constraintTop_toBottomOf="@id/svg_bezier_three" />
+
+        <View
+            android:id="@+id/svg_arc"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginTop="500pt"
+            android:layout_marginRight="100pt"
+            android:background="@drawable/svg_arc"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_arc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="椭圆弧线"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_arc"
+            app:layout_constraintRight_toRightOf="@id/svg_arc"
+            app:layout_constraintTop_toBottomOf="@id/svg_arc" />
+
+        <View
+            android:id="@+id/svg_overlap"
+            android:layout_width="200pt"
+            android:layout_height="200pt"
+            android:layout_marginTop="850pt"
+            android:background="@drawable/svg_overlap"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_svg_overlap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相交时填充模式"
+            android:textColor="@color/code_blue"
+            android:textSize="30pt"
+            app:layout_constraintLeft_toLeftOf="@id/svg_overlap"
+            app:layout_constraintRight_toRightOf="@id/svg_overlap"
+            app:layout_constraintTop_toBottomOf="@id/svg_overlap" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

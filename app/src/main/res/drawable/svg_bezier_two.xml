@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="150pt"
+    android:height="150pt"
+    android:viewportWidth="150"
+    android:viewportHeight="150">
+    <!-- android:width / android:height  VectorDrawable 的实际大小-->
+    <!-- android:viewportWidth / android:viewportHeight  画布的大小-->
+    <!-- 大写字母代表绝对路径，小写的字母代表相对路径-->
+    <!-- Q/q 用来表示二阶贝赛尔曲线的命令，参数是（x1,y1 x,y）,其中 x1,y1 表示控制点，x,y 表示绘制结束点。-->
+
+    <path
+        android:name="triangle"
+        android:pathData="M 30,30
+                          Q 50,80 80,30
+                          T 130,30
+                          "
+        android:strokeWidth="3"
+        android:strokeColor="#F92671" />
+
+</vector>

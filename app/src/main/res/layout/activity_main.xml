@@ -127,6 +127,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_sort" />
 
+            <Button
+                android:id="@+id/btn_test_svg"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Svg"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_Animation" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

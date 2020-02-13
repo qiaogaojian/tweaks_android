@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100pt"
+    android:height="100pt"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- android:width / android:height  VectorDrawable 的实际大小-->
+    <!-- android:viewportWidth / android:viewportHeight  画布的大小-->
+    <!-- 大写字母代表绝对路径，小写的字母代表相对路径-->
+    <path
+        android:name="triangle"
+        android:fillColor="#65D9EF"
+        android:fillType="evenOdd"
+        android:pathData="M 10,10
+                          L 60,10 60,60 10,60
+                          Z
+                          M 35,35
+                          L 85,35 85,85 35,85
+                          Z
+                          "
+        android:strokeWidth="2"
+        android:strokeColor="#F92671" />
+
+</vector>
