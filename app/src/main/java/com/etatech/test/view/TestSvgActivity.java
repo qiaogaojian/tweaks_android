@@ -1,12 +1,20 @@
 package com.etatech.test.view;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestSvgBinding;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.utils.ui.ClickUtil;
+
+import rx.functions.Action1;
 
 /**
  * Created by Michael
@@ -14,20 +22,61 @@ import com.etatech.test.utils.BaseActivity;
  * Func: SVG pathData详解 参考文档:https://blog.csdn.net/zwlove5280/article/details/73196543
  */
 public class TestSvgActivity extends BaseActivity<ActivityTestSvgBinding> {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_svg);
-    }
+    private boolean isMenu = true; // true menu false back
 
     @Override
     public ActivityTestSvgBinding onCreateView(Bundle savedInstanceState) {
-        return DataBindingUtil.setContentView(this,R.layout.activity_test_svg);
+        return DataBindingUtil.setContentView(this, R.layout.activity_test_svg);
     }
 
     @Override
     public void init() {
-        
+        ClickUtil.setOnClick(binding.btnStart, new Action1() {
+            @Override
+            public void call(Object o) {
+                if (isMenu) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.menu));
+                        ((AnimatedVectorDrawable) binding.ivMenu.getDrawable()).start();
+                    } else {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.ic_back));
+                    }
+                    binding.btnStart.setText("Back");
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.back));
+                        ((AnimatedVectorDrawable) binding.ivMenu.getDrawable()).start();
+                    } else {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.ic_menu));
+                    }
+                    binding.btnStart.setText("Menu");
+                }
+                isMenu = !isMenu;
+            }
+        });
+
+        ClickUtil.setOnClick(binding.ivMenu, new Action1() {
+            @Override
+            public void call(Object o) {
+                if (isMenu) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.menu));
+                        ((AnimatedVectorDrawable) binding.ivMenu.getDrawable()).start();
+                    } else {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.ic_back));
+                    }
+                    binding.btnStart.setText("Back");
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.back));
+                        ((AnimatedVectorDrawable) binding.ivMenu.getDrawable()).start();
+                    } else {
+                        binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.ic_menu));
+                    }
+                    binding.btnStart.setText("Menu");
+                }
+                isMenu = !isMenu;
+            }
+        });
     }
 }
