@@ -137,6 +137,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_Animation" />
 
+            <Button
+                android:id="@+id/btn_test_mvvm"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test MVVM"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_svg" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
