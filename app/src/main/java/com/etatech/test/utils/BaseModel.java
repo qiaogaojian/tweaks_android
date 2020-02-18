@@ -29,7 +29,7 @@ public class BaseModel<T> extends ViewModel implements LifecycleOwner {
     protected MutableLiveData<T> liveObservableData = new MutableLiveData<>();
     protected Subscription subscription;
 
-    public void requestData(Observable<T> observable) {
+    protected void requestData(Observable<T> observable) {
         subscription = observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<T>() {
@@ -56,7 +56,7 @@ public class BaseModel<T> extends ViewModel implements LifecycleOwner {
     @Override
     protected void onCleared() {
         super.onCleared();
-        if (null != subscription && subscription.isUnsubscribed()) {
+        if (null != subscription && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
         liveObservableData = null;

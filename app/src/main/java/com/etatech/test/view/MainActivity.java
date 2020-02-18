@@ -120,6 +120,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestMvvm, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestMvvmActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
