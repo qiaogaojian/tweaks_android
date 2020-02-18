@@ -1,5 +1,6 @@
 package com.etatech.test.network;
 
+import com.etatech.test.bean.BtcPriceBean;
 import com.etatech.test.bean.PhoneAreaBean;
 
 import retrofit2.http.GET;
@@ -24,4 +25,8 @@ public interface NetApi {
     // 获取国家区号
     @GET("getAreaPhoneNum.php")
     Observable<PhoneAreaBean> getPhoneArea();
+
+    @GET("pubticker/btcusd")
+    Observable<BtcPriceBean> getBtcPrice();
+
 }
