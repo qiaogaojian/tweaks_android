@@ -368,6 +368,7 @@ public class FloatLogoMenu
 
         FloatMenuView mFloatMenuView = new FloatMenuView.Builder(mActivity)
                 .setFloatItems(mFloatItems)
+                .setLeft(true)
                 .setMenuBackgroundColor(Color.TRANSPARENT)
                 .create();
         setMenuClickListener(mFloatMenuView);
@@ -434,6 +435,7 @@ public class FloatLogoMenu
 
         FloatMenuView mFloatMenuView = new FloatMenuView.Builder(mActivity)
                 .setFloatItems(mFloatItems)
+                .setLeft(false)
                 .setMenuBackgroundColor(Color.TRANSPARENT)
                 .create();
         setMenuClickListener(mFloatMenuView);

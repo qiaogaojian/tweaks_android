@@ -37,29 +37,29 @@ public class TestFloatingViewActivity extends BaseActivity<ActivityTestFloatView
     @Override
     public void init() {
 
-        ClickUtil.setOnClick(binding.btnOpenFloat, new Action1() {
-            @Override
-            public void call(Object o) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                {
-                    if (!Settings.canDrawOverlays(getApplicationContext()))
-                    {
-                        //启动Activity让用户授权
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                        intent.setData(Uri.parse("package:" + getPackageName()));
-                        startActivityForResult(intent, 100);
-                    } else
-                    {
-                        TestFloat testFloat = new TestFloat(TestFloatingViewActivity.this);
-                        testFloat.show();
-                    }
-                } else
-                {
-                    TestFloat testFloat = new TestFloat(TestFloatingViewActivity.this);
-                    testFloat.show();
-                }
-            }
-        });
+//        ClickUtil.setOnClick(binding.btnOpenFloat, new Action1() {
+//            @Override
+//            public void call(Object o) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+//                {
+//                    if (!Settings.canDrawOverlays(getApplicationContext()))
+//                    {
+//                        //启动Activity让用户授权
+//                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+//                        intent.setData(Uri.parse("package:" + getPackageName()));
+//                        startActivityForResult(intent, 100);
+//                    } else
+//                    {
+//                        TestFloat testFloat = new TestFloat(TestFloatingViewActivity.this);
+//                        testFloat.show();
+//                    }
+//                } else
+//                {
+//                    TestFloat testFloat = new TestFloat(TestFloatingViewActivity.this);
+//                    testFloat.show();
+//                }
+//            }
+//        });
 
         ClickUtil.setOnClick(binding.btnOpenFloatMenu, new Action1() {
             @Override
@@ -69,26 +69,26 @@ public class TestFloatingViewActivity extends BaseActivity<ActivityTestFloatView
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100)
-        {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            {
-                if (Settings.canDrawOverlays(this))
-                {
-                    TestFloat testFloat = new TestFloat(TestFloatingViewActivity.this);
-                    testFloat.show();
-                } else
-                {
-                    Toast.makeText(this, "ACTION_MANAGE_OVERLAY_PERMISSION权限已被拒绝", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 100)
+//        {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+//            {
+//                if (Settings.canDrawOverlays(this))
+//                {
+//                    TestFloat testFloat = new TestFloat(TestFloatingViewActivity.this);
+//                    testFloat.show();
+//                } else
+//                {
+//                    Toast.makeText(this, "ACTION_MANAGE_OVERLAY_PERMISSION权限已被拒绝", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//
+//        }
+//    }
 
     private FloatLogoMenu        mFloatMenu;
     private int[]                menuIcons  = new int[]{R.drawable.floating_icon2, R.drawable.floating_icon3, R.drawable.floating_icon4};
