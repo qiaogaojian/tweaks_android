@@ -157,6 +157,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_mvvm" />
 
+            <Button
+                android:id="@+id/btn_test_splash_ad"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Splash Ad"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_java_request" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
