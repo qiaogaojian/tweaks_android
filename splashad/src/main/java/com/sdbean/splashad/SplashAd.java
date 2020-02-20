@@ -258,8 +258,16 @@ public class SplashAd {
             default:
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setImageDrawable(defaultCover);
+                startTick();
+                waitTimer.cancel();
                 break;
         }
+    }
+
+    private void showDefault(Drawable drawable) {
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageDrawable(drawable);
+        startTick();
     }
 
     private void hide() {
@@ -267,7 +275,7 @@ public class SplashAd {
             countDownTimer.cancel();
             countDownTimer = null;
         }
-
+        activity = null;
         splashLayout = null;
         imageView = null;
         draweeView = null;
