@@ -1,6 +1,7 @@
 package com.sdbean.splashad;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,10 +11,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,24 +36,33 @@ import com.facebook.imagepipeline.image.ImageInfo;
  */
 public class SplashAd {
 
-    private Activity         activity;
-    private SplashAdBean     splashAdBean;
-    private ViewGroup        container;
+    private Activity activity;
+    private SplashAdBean splashAdBean;
+    private ViewGroup container;
     private SplashAdListener listener;
 
-    private View             splashLayout;
-    private RelativeLayout   imageLogo;
-    private ImageView        imageView;
-    private SimpleDraweeView draweeView;
-    private VideoView        videoView;
-    private TextView         tvJump;
-    private String           jumpText;
-    private Typeface         typeface;
+    private View splashLayout;
+    private RelativeLayout layoutLogo;
+    private RelativeLayout layoutBottomLogo;
+    private ImageView ivLogo;
+    private ImageView ivLogoBottom;
+    private TextView tvCopyRight;
 
-    private Drawable             defaultCover;
-    private CountDownTimer       countDownTimer;
+    private ImageView imageView;
+    private SimpleDraweeView draweeView;
+    private VideoView videoView;
+    private TextView tvJump;
+
+    // 自定义
+    private Typeface typeface; // 字体
+    private String jumpText; // 跳过
+    private String copyRight;
+    private Drawable logo;
+    private Drawable defaultCover; // 无网络或错误时的默认开屏广告
+    private int waitTime = 3; // 下载资源等待时间
+
+    private CountDownTimer countDownTimer;
     private HttpProxyCacheServer proxy;
-    private int                  waitTime = 3;
 
 
     public void setDefaultCover(Drawable drawable) {
@@ -63,6 +75,22 @@ public class SplashAd {
 
     public void setTypeface(Typeface typeface) {
         this.typeface = typeface;
+        tvJump.setTypeface(typeface);
+    }
+
+    public void setCopyRight(String copyRight) {
+        this.copyRight = copyRight;
+        tvCopyRight.setText(copyRight);
+    }
+
+    public void setLogo(Drawable logo) {
+        this.logo = logo;
+        ivLogo.setImageDrawable(logo);
+        ivLogoBottom.setImageDrawable(logo);
+    }
+
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
     }
 
     public SplashAd(Activity activity, SplashAdBean splashAdBean, ViewGroup container, SplashAdListener listener) {
@@ -72,6 +100,7 @@ public class SplashAd {
         this.listener = listener;
 
         init();
+
     }
 
     private void init() {
@@ -84,7 +113,12 @@ public class SplashAd {
 
         splashLayout = LayoutInflater.from(activity).inflate(R.layout.splash_ad, container);
 
-        imageLogo = splashLayout.findViewById(R.id.rl_logo);
+        layoutLogo = splashLayout.findViewById(R.id.rl_logo);
+        layoutBottomLogo = splashLayout.findViewById(R.id.rl_bottom_logo);
+        ivLogo = splashLayout.findViewById(R.id.iv_ad);
+        ivLogoBottom = splashLayout.findViewById(R.id.iv_bottom_logo);
+        tvCopyRight = splashLayout.findViewById(R.id.tv_copy_right);
+
         imageView = splashLayout.findViewById(R.id.iv_ad);
         draweeView = splashLayout.findViewById(R.id.drawee_ad);
         videoView = splashLayout.findViewById(R.id.vv_ad);
@@ -115,6 +149,39 @@ public class SplashAd {
                 hide();
             }
         });
+
+        if (splashAdBean.getType().equals("mp4")) {
+            layoutBottomLogo.setVisibility(View.GONE);
+            // 视频剪裁全屏
+            initViewSize();
+        }
+    }
+
+    public int screenWidth;
+    public int screenHeight;
+
+    private void initViewSize() {
+        WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+
+        screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels;
+        float density = dm.density;
+        int screenWidth = (int) (this.screenWidth / density);  // 屏幕宽度(dp)
+        int screenHeight = (int) (this.screenHeight / density);// 屏幕高度(dp)
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(this.screenWidth, this.screenHeight);
+
+        if ((float) this.screenHeight / this.screenWidth > 16.0f / 9) {
+            layoutParams.width = (int) (dm.heightPixels / 16.0 * 9);
+        } else if ((float) this.screenHeight / this.screenWidth < 16.0 / 9) {
+            layoutParams.height = (int) (dm.widthPixels / 9.0 * 16);
+        }
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        videoView.setLayoutParams(layoutParams);
     }
 
     public void show() {
@@ -211,12 +278,11 @@ public class SplashAd {
 
     private void startTick() {
         tvJump.setVisibility(View.VISIBLE);
-        imageLogo.setVisibility(View.INVISIBLE);
+        layoutLogo.setVisibility(View.INVISIBLE);
         countDownTimer = new CountDownTimer(splashAdBean.getStayTime() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String value = String.valueOf((int) (millisUntilFinished / 1000) + 1);
-                tvJump.setTypeface(typeface);
                 if (TextUtils.isEmpty(jumpText)) {
                     tvJump.setText(value + " 跳过");
                 } else {
