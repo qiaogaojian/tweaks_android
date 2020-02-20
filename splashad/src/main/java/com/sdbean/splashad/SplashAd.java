@@ -243,6 +243,7 @@ public class SplashAd {
                                     videoView.setAlpha(1);
                                     videoView.setBackgroundColor(Color.TRANSPARENT);
                                     startTick();
+                                    listener.onSplashAdSuccessToShow();
                                     waitTimer.cancel();
                                 }
                                 return true;
@@ -264,9 +265,10 @@ public class SplashAd {
         }
     }
 
-    private void showDefault(Drawable drawable) {
+    public void showDefault(Drawable drawable) {
         imageView.setVisibility(View.VISIBLE);
         imageView.setImageDrawable(drawable);
+        listener.onSplashAdFailToShow();
         startTick();
     }
 
