@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SplashActivity"></activity>
+        <activity android:name=".view.TestSplashAdActivity"></activity>
+        <activity android:name=".view.SplashActivity" />
         <activity android:name=".view.TestJavaRequestActivity" />
         <activity android:name=".view.TestMvvmActivity" />
         <activity android:name=".view.TestSvgActivity" />

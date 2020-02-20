@@ -21,16 +21,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
     @Override
     public void init() {
-//        YumiSplash splash = new YumiSplash(this,binding.splashContainer,"1");
-
-        SplashAdBean adBean = new SplashAdBean();
-        adBean.setAdUrl("https://www.douyu.com/510229");
-//        adBean.setResUrl("http://img.53site.com/Werewolf/AD/laoyangdouyuAD.jpg?a=2");
-//        adBean.setResUrl("" + R.drawable.splash);
-        adBean.setResUrl("android.resource://" + getPackageName() + "/raw/splash");
-        adBean.setStayTime(5);
-        adBean.setType("mp4");
-        adBean.setMd5("ec8976c319478bc412f79ed12c679b3b");
+        if (getIntent() == null) {
+            return;
+        }
+        SplashAdBean adBean = (SplashAdBean) getIntent().getExtras().get("splashAdBean");
         SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
             @Override
             public void onSplashAdSuccessToShow() {

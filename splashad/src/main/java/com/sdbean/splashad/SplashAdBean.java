@@ -1,11 +1,14 @@
 package com.sdbean.splashad;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Michael
  * Data: 2020/2/19 11:53
  * Desc: 开屏广告实体类
  */
-public class SplashAdBean {
+public class SplashAdBean implements Parcelable {
 
     private String md5;
     private String type;
@@ -70,4 +73,45 @@ public class SplashAdBean {
     public void setDisplayTime(String displayTime) {
         this.displayTime = displayTime;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.md5);
+        dest.writeString(this.type);
+        dest.writeString(this.resName);
+        dest.writeString(this.resUrl);
+        dest.writeString(this.adUrl);
+        dest.writeInt(this.stayTime);
+        dest.writeString(this.displayTime);
+    }
+
+    public SplashAdBean() {
+    }
+
+    protected SplashAdBean(Parcel in) {
+        this.md5 = in.readString();
+        this.type = in.readString();
+        this.resName = in.readString();
+        this.resUrl = in.readString();
+        this.adUrl = in.readString();
+        this.stayTime = in.readInt();
+        this.displayTime = in.readString();
+    }
+
+    public static final Creator<SplashAdBean> CREATOR = new Creator<SplashAdBean>() {
+        @Override
+        public SplashAdBean createFromParcel(Parcel source) {
+            return new SplashAdBean(source);
+        }
+
+        @Override
+        public SplashAdBean[] newArray(int size) {
+            return new SplashAdBean[size];
+        }
+    };
 }

@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         ClickUtil.setOnClick(binding.btnTestSplashAd, new Action1() {
             @Override
             public void call(Object o) {
-                intent.setClass(MainActivity.this, SplashActivity.class);
+                intent.setClass(MainActivity.this, TestSplashAdActivity.class);
                 startActivity(intent);
             }
         });
