@@ -25,4 +25,9 @@ public interface SplashAdListener {
      * 开屏广告被跳过
      */
     void onSplashAdClose();
+
+    /**
+     * 开屏广告展示成功
+     */
+    void onSplashAdFinish();
 }

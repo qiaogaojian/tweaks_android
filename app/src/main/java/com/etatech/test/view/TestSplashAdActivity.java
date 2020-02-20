@@ -46,7 +46,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
             public void call(Object o) {
                 SplashAdBean adBean = new SplashAdBean();
                 adBean.setAdUrl("https://www.douyu.com/510229");
-                adBean.setResUrl("" + R.drawable.splashgif);
+                adBean.setResUrl("https://upload-images.jianshu.io/upload_images/2229730-5cd1dab1a302b122.gif");
                 adBean.setStayTime(5);
                 adBean.setType("gif");
                 adBean.setMd5("ec8976c319478bc412f79ed12c679b3b");
@@ -61,7 +61,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
             public void call(Object o) {
                 SplashAdBean adBean = new SplashAdBean();
                 adBean.setAdUrl("https://www.douyu.com/510229");
-                adBean.setResUrl("android.resource://" + getPackageName() + "/raw/splash");
+                adBean.setResUrl("https://vd3.bdstatic.com/mda-jbcku58bvs34kjav/mda-jbcku58bvs34kjav.mp4");
                 adBean.setStayTime(15);
                 adBean.setType("mp4");
                 adBean.setMd5("ec8976c319478bc412f79ed12c679b3b");

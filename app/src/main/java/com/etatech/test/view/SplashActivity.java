@@ -45,6 +45,11 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             public void onSplashAdClose() {
                 LogUtils.e("on SplashAd Close");
             }
+
+            @Override
+            public void onSplashAdFinish() {
+                LogUtils.e("on SplashAd Finish");
+            }
         });
         splashAd.setDefaultCover(getResources().getDrawable(R.drawable.splash_bg));
         splashAd.setTypeface(App.getInstance().getTypeface());

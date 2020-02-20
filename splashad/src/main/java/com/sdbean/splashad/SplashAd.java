@@ -2,8 +2,11 @@ package com.sdbean.splashad;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -11,11 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.danikula.videocache.HttpProxyCacheServer;
+import com.facebook.common.util.ByteConstants;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.image.ImageInfo;
 
 /**
  * Created by Michael
@@ -30,6 +38,7 @@ public class SplashAd {
     private SplashAdListener listener;
 
     private View             splashLayout;
+    private RelativeLayout   imageLogo;
     private ImageView        imageView;
     private SimpleDraweeView draweeView;
     private VideoView        videoView;
@@ -37,8 +46,9 @@ public class SplashAd {
     private String           jumpText;
     private Typeface         typeface;
 
-    private Drawable       defaultCover;
-    private CountDownTimer countDownTimer;
+    private Drawable             defaultCover;
+    private CountDownTimer       countDownTimer;
+    private HttpProxyCacheServer proxy;
 
 
     public void setDefaultCover(Drawable drawable) {
@@ -63,10 +73,16 @@ public class SplashAd {
     }
 
     private void init() {
-        Fresco.initialize(activity);
+        if (!Fresco.hasBeenInitialized()) {
+            Fresco.initialize(activity, ImagePipelineConfigFactory.getImagePipelineConfig(activity));
+        }
+        if (proxy == null) {
+            proxy = new HttpProxyCacheServer.Builder(activity).maxCacheSize(ByteConstants.MB * 200).build();
+        }
 
         splashLayout = LayoutInflater.from(activity).inflate(R.layout.splash_ad, container);
 
+        imageLogo = splashLayout.findViewById(R.id.rl_logo);
         imageView = splashLayout.findViewById(R.id.iv_ad);
         draweeView = splashLayout.findViewById(R.id.drawee_ad);
         videoView = splashLayout.findViewById(R.id.vv_ad);
@@ -97,49 +113,59 @@ public class SplashAd {
                 hide();
             }
         });
-
-        countDownTimer = new CountDownTimer(splashAdBean.getStayTime() * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                String value = String.valueOf((int) (millisUntilFinished / 1000) + 1);
-                tvJump.setTypeface(typeface);
-                if (TextUtils.isEmpty(jumpText)) {
-                    tvJump.setText(value + " 跳过");
-                } else {
-                    tvJump.setText(value + " " + jumpText);
-                }
-            }
-
-            @Override
-            public void onFinish() {
-                listener.onSplashAdSuccessToShow();
-                hide();
-            }
-        }.start();
     }
-
 
     public void show() {
         switch (splashAdBean.getType()) {
             case "jpg":
             case "png":
-                imageView.setVisibility(View.VISIBLE);
-                imageView.setImageDrawable(defaultCover);
-                break;
             case "gif":
             case "webp":
                 draweeView.setVisibility(View.VISIBLE);
-                Uri uri = Uri.parse("res:///" + splashAdBean.getResUrl());
                 draweeView.setController(Fresco.newDraweeControllerBuilder()
-                        .setUri(uri)
-                        .setAutoPlayAnimations(true)
+                        .setControllerListener(new BaseControllerListener<ImageInfo>() {
+                            @Override
+                            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                                super.onFinalImageSet(id, imageInfo, animatable);
+                                startTick();
+                                listener.onSplashAdSuccessToShow();
+                            }
+
+                            @Override
+                            public void onFailure(String id, Throwable throwable) {
+                                super.onFailure(id, throwable);
+                                startTick();
+                                imageView.setImageDrawable(defaultCover);
+                                imageView.setVisibility(View.VISIBLE);
+                                listener.onSplashAdFailToShow();
+                            }
+                        })
+                        .setUri(Uri.parse(splashAdBean.getResUrl()))
                         .setOldController(draweeView.getController())
+                        .setAutoPlayAnimations(true)
                         .build());
                 break;
             case "mp4":
                 videoView.setVisibility(View.VISIBLE);
-                Uri videoUri = Uri.parse(splashAdBean.getResUrl());
-                videoView.setVideoURI(videoUri);
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                            @Override
+                            public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                                    videoView.setAlpha(1);
+                                    videoView.setBackgroundColor(Color.TRANSPARENT);
+                                    startTick();
+                                }
+                                return true;
+                            }
+                        });
+                    }
+                });
+                String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
+                videoView.setVideoPath(videoUrl);
+                videoView.setAlpha(0);
                 videoView.start();
                 break;
             default:
@@ -161,6 +187,29 @@ public class SplashAd {
         videoView = null;
         tvJump = null;
         container.removeAllViews();
+    }
+
+    private void startTick() {
+        tvJump.setVisibility(View.VISIBLE);
+        imageLogo.setVisibility(View.INVISIBLE);
+        countDownTimer = new CountDownTimer(splashAdBean.getStayTime() * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String value = String.valueOf((int) (millisUntilFinished / 1000) + 1);
+                tvJump.setTypeface(typeface);
+                if (TextUtils.isEmpty(jumpText)) {
+                    tvJump.setText(value + " 跳过");
+                } else {
+                    tvJump.setText(value + " " + jumpText);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                listener.onSplashAdFinish();
+                hide();
+            }
+        }.start();
     }
 
     private void goAdWeb() {
