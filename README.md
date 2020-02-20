@@ -21,3 +21,6 @@
     1. Surfaceview自身隐藏到显示的生命周期为 surfaceDestroyed => surfaceCreated => surfaceChanged
 
     2. 隐藏Surfaceview父级不会隐藏Surfaceview的绘制内容,还有可能带来ANR,所以要操作Surfaceview本身
+
+- SplashAD
+
