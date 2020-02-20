@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class SplashAd {
     private Drawable             defaultCover;
     private CountDownTimer       countDownTimer;
     private HttpProxyCacheServer proxy;
+    private int                  waitTime = 3;
 
 
     public void setDefaultCover(Drawable drawable) {
@@ -116,6 +118,22 @@ public class SplashAd {
     }
 
     public void show() {
+        // 网络不好时 最多等3秒下载资源 下不完就先显示默认图
+        final CountDownTimer waitTimer = new CountDownTimer(waitTime * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.e("SplashAD", "Wait " + millisUntilFinished / 1000.0);
+            }
+
+            @Override
+            public void onFinish() {
+                startTick();
+                imageView.setImageDrawable(defaultCover);
+                imageView.setVisibility(View.VISIBLE);
+                listener.onSplashAdFailToShow();
+            }
+        }.start();
+
         switch (splashAdBean.getType()) {
             case "jpg":
             case "png":
@@ -129,6 +147,7 @@ public class SplashAd {
                                 super.onFinalImageSet(id, imageInfo, animatable);
                                 startTick();
                                 listener.onSplashAdSuccessToShow();
+                                waitTimer.cancel();
                             }
 
                             @Override
@@ -157,6 +176,7 @@ public class SplashAd {
                                     videoView.setAlpha(1);
                                     videoView.setBackgroundColor(Color.TRANSPARENT);
                                     startTick();
+                                    waitTimer.cancel();
                                 }
                                 return true;
                             }
