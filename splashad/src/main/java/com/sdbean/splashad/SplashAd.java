@@ -55,10 +55,10 @@ public class SplashAd {
 
     // 自定义
     private Typeface typeface; // 字体
-    private String jumpText; // 跳过
-    private String copyRight;
-    private Drawable logo;
-    private int bgColor;
+    private String jumpText; // 跳过文字
+    private String copyRight; // 版权
+    private Drawable logo;  // 底部logo
+    private int bgColor;  // logo背景色
     private Drawable defaultCover; // 无网络或错误时的默认开屏广告
     private int waitTime = 3; // 下载资源等待时间
 
@@ -66,40 +66,75 @@ public class SplashAd {
     private HttpProxyCacheServer proxy;
     private boolean isNoAd = false;
 
-
+    /**
+     * 无网络或错误时的默认开屏广告
+     * @param drawable
+     */
     public void setDefaultCover(Drawable drawable) {
         this.defaultCover = drawable;
+        imageView.setImageDrawable(drawable);
     }
 
+    /**
+     * 跳过文字
+     * @param jumpText
+     */
     public void setJumpText(String jumpText) {
         this.jumpText = jumpText;
     }
 
+    /**
+     * 字体
+     * @param typeface
+     */
     public void setTypeface(Typeface typeface) {
         this.typeface = typeface;
         tvJump.setTypeface(typeface);
     }
 
+    /**
+     * 版权
+     * @param copyRight
+     */
     public void setCopyRight(String copyRight) {
         this.copyRight = copyRight;
         tvCopyRight.setText(copyRight);
     }
 
+    /**
+     * 应用logo
+     * @param logo
+     */
     public void setLogo(Drawable logo) {
         this.logo = logo;
         ivLogo.setImageDrawable(logo);
         ivLogoBottom.setImageDrawable(logo);
     }
 
+    /**
+     * 下载资源等待时间
+     * @param waitTime
+     */
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
     }
 
+    /**
+     * logo背景色
+     * @param bgColor
+     */
     public void setBgColor(String bgColor) {
         this.bgColor = Color.parseColor(bgColor);
         layoutLogo.setBackgroundColor(this.bgColor);
     }
 
+    /**
+     * 显示正常广告时的构造方法
+     * @param activity 所在的Activity
+     * @param splashAdBean 广告数据结构体
+     * @param container
+     * @param listener 广告状态的回调
+     */
     public SplashAd(Activity activity, SplashAdBean splashAdBean, ViewGroup container, SplashAdListener listener) {
         this.activity = activity;
         this.splashAdBean = splashAdBean;
@@ -109,12 +144,113 @@ public class SplashAd {
         init();
     }
 
+    /**
+     * 显示默认广告时的构造方法
+     * @param activity 所在的Activity
+     * @param container 广告所在的FrameLayout
+     * @param listener 广告状态的回调
+     */
     public SplashAd(Activity activity, ViewGroup container, SplashAdListener listener) {
         this.activity = activity;
         this.container = container;
         this.listener = listener;
         isNoAd = true;
         init();
+    }
+
+    /**
+     * 显示广告
+     */
+    public void show() {
+        // 网络不好时 最多等3秒下载资源 下不完就先显示默认图
+        final CountDownTimer waitTimer = new CountDownTimer(waitTime * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.e("SplashAD", "Wait " + millisUntilFinished / 1000.0);
+            }
+
+            @Override
+            public void onFinish() {
+                startTick();
+                imageView.setVisibility(View.VISIBLE);
+                listener.onSplashAdFailToShow();
+            }
+        }.start();
+
+        switch (splashAdBean.getType()) {
+            case "jpg":
+            case "png":
+            case "gif":
+            case "webp":
+                draweeView.setVisibility(View.VISIBLE);
+                draweeView.setController(Fresco.newDraweeControllerBuilder()
+                        .setControllerListener(new BaseControllerListener<ImageInfo>() {
+                            @Override
+                            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                                super.onFinalImageSet(id, imageInfo, animatable);
+                                startTick();
+                                listener.onSplashAdSuccessToShow();
+                                waitTimer.cancel();
+                            }
+
+                            @Override
+                            public void onFailure(String id, Throwable throwable) {
+                                super.onFailure(id, throwable);
+                                startTick();
+                                imageView.setVisibility(View.VISIBLE);
+                                listener.onSplashAdFailToShow();
+                            }
+                        })
+                        .setUri(Uri.parse(splashAdBean.getResUrl()))
+                        .setOldController(draweeView.getController())
+                        .setAutoPlayAnimations(true)
+                        .build());
+                break;
+            case "mp4":
+                videoView.setVisibility(View.VISIBLE);
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                            @Override
+                            public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                                    videoView.setAlpha(1);
+                                    videoView.setBackgroundColor(Color.TRANSPARENT);
+                                    startTick();
+                                    listener.onSplashAdSuccessToShow();
+                                    waitTimer.cancel();
+                                }
+                                return true;
+                            }
+                        });
+                        mp.setVolume(0f, 0f);
+                        mp.setLooping(true);
+                    }
+                });
+                String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
+                videoView.setVideoPath(videoUrl);
+                videoView.setAlpha(0);
+                videoView.start();
+                break;
+            default:
+                imageView.setVisibility(View.VISIBLE);
+                startTick();
+                waitTimer.cancel();
+                break;
+        }
+    }
+
+    /**
+     * 显示默认广告图
+     * @param drawable 默认广告图
+     */
+    public void showDefault(Drawable drawable) {
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageDrawable(drawable);
+        listener.onSplashAdFailToShow();
+        isNoAd = true;
+        startTick();
     }
 
     private void init() {
@@ -202,97 +338,6 @@ public class SplashAd {
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         videoView.setLayoutParams(layoutParams);
-    }
-
-    public void show() {
-        // 网络不好时 最多等3秒下载资源 下不完就先显示默认图
-        final CountDownTimer waitTimer = new CountDownTimer(waitTime * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Log.e("SplashAD", "Wait " + millisUntilFinished / 1000.0);
-            }
-
-            @Override
-            public void onFinish() {
-                startTick();
-                imageView.setImageDrawable(defaultCover);
-                imageView.setVisibility(View.VISIBLE);
-                listener.onSplashAdFailToShow();
-            }
-        }.start();
-
-        switch (splashAdBean.getType()) {
-            case "jpg":
-            case "png":
-            case "gif":
-            case "webp":
-                draweeView.setVisibility(View.VISIBLE);
-                draweeView.setController(Fresco.newDraweeControllerBuilder()
-                        .setControllerListener(new BaseControllerListener<ImageInfo>() {
-                            @Override
-                            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                                super.onFinalImageSet(id, imageInfo, animatable);
-                                startTick();
-                                listener.onSplashAdSuccessToShow();
-                                waitTimer.cancel();
-                            }
-
-                            @Override
-                            public void onFailure(String id, Throwable throwable) {
-                                super.onFailure(id, throwable);
-                                startTick();
-                                imageView.setImageDrawable(defaultCover);
-                                imageView.setVisibility(View.VISIBLE);
-                                listener.onSplashAdFailToShow();
-                            }
-                        })
-                        .setUri(Uri.parse(splashAdBean.getResUrl()))
-                        .setOldController(draweeView.getController())
-                        .setAutoPlayAnimations(true)
-                        .build());
-                break;
-            case "mp4":
-                videoView.setVisibility(View.VISIBLE);
-                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        mp.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-                            @Override
-                            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
-                                    videoView.setAlpha(1);
-                                    videoView.setBackgroundColor(Color.TRANSPARENT);
-                                    startTick();
-                                    listener.onSplashAdSuccessToShow();
-                                    waitTimer.cancel();
-                                }
-                                return true;
-                            }
-                        });
-                        mp.setVolume(0f, 0f);
-                        mp.setLooping(true);
-                    }
-                });
-                String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
-                videoView.setVideoPath(videoUrl);
-                videoView.setAlpha(0);
-                videoView.start();
-                break;
-            default:
-                imageView.setVisibility(View.VISIBLE);
-                imageView.setImageDrawable(defaultCover);
-                startTick();
-                waitTimer.cancel();
-                break;
-        }
-    }
-
-    public void showDefault(Drawable drawable) {
-        imageView.setVisibility(View.VISIBLE);
-        imageView.setImageDrawable(drawable);
-        listener.onSplashAdFailToShow();
-        isNoAd = true;
-        startTick();
     }
 
     private void hide() {

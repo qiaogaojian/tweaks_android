@@ -30,11 +30,10 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
             @Override
             public void call(Object o) {
                 SplashAdBean adBean = new SplashAdBean();
-                adBean.setAdUrl("https://www.douyu.com/510229");
-                adBean.setResUrl("http://img.53site.com/Werewolf/AD/laoyangdouyuAD.jpg?a=2");
-                adBean.setStayTime(3);
-                adBean.setType("jpg");
-                adBean.setMd5("ec8976c319478bc412f79ed12c679b3b");
+                adBean.setAdUrl("https://www.douyu.com/510229");  // 必须
+                adBean.setResUrl("http://img.53site.com/Werewolf/AD/laoyangdouyuAD.jpg?a=2");  // 必须
+                adBean.setStayTime(3);  // 必须
+                adBean.setType("jpg");  // 必须
                 intent.putExtra("splashAdBean", adBean);
                 intent.putExtra("noAd", false);
                 startActivity(intent);
@@ -49,7 +48,6 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
                 adBean.setResUrl("https://upload-images.jianshu.io/upload_images/2229730-5cd1dab1a302b122.gif");
                 adBean.setStayTime(5);
                 adBean.setType("gif");
-                adBean.setMd5("ec8976c319478bc412f79ed12c679b3b");
                 intent.putExtra("splashAdBean", adBean);
                 intent.putExtra("noAd", false);
                 startActivity(intent);
