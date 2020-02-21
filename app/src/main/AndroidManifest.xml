@@ -17,7 +17,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.TestSplashAdActivity"></activity>
-        <activity android:name=".view.SplashActivity" />
+        <activity
+            android:name=".view.SplashActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.TestJavaRequestActivity" />
         <activity android:name=".view.TestMvvmActivity" />
         <activity android:name=".view.TestSvgActivity" />
@@ -46,13 +56,7 @@
         <activity android:name=".view.TestTranslationActivity" />
         <activity android:name=".view.AdaptWidthActivity" />
         <activity android:name=".view.AdaptHeightActivity" />
-        <activity android:name=".view.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".view.MainActivity" />
     </application>
 
 </manifest>
