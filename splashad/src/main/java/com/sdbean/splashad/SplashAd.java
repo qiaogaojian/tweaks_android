@@ -58,11 +58,13 @@ public class SplashAd {
     private String jumpText; // 跳过
     private String copyRight;
     private Drawable logo;
+    private int bgColor;
     private Drawable defaultCover; // 无网络或错误时的默认开屏广告
     private int waitTime = 3; // 下载资源等待时间
 
     private CountDownTimer countDownTimer;
     private HttpProxyCacheServer proxy;
+    private boolean isNoAd = false;
 
 
     public void setDefaultCover(Drawable drawable) {
@@ -93,14 +95,26 @@ public class SplashAd {
         this.waitTime = waitTime;
     }
 
+    public void setBgColor(String bgColor) {
+        this.bgColor = Color.parseColor(bgColor);
+        layoutLogo.setBackgroundColor(this.bgColor);
+    }
+
     public SplashAd(Activity activity, SplashAdBean splashAdBean, ViewGroup container, SplashAdListener listener) {
         this.activity = activity;
         this.splashAdBean = splashAdBean;
         this.container = container;
         this.listener = listener;
-
+        isNoAd = false;
         init();
+    }
 
+    public SplashAd(Activity activity, ViewGroup container, SplashAdListener listener) {
+        this.activity = activity;
+        this.container = container;
+        this.listener = listener;
+        isNoAd = true;
+        init();
     }
 
     private void init() {
@@ -127,18 +141,24 @@ public class SplashAd {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isNoAd)
+                    return;
                 goAdWeb();
             }
         });
         draweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isNoAd)
+                    return;
                 goAdWeb();
             }
         });
         videoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isNoAd)
+                    return;
                 goAdWeb();
             }
         });
@@ -150,7 +170,7 @@ public class SplashAd {
             }
         });
 
-        if (splashAdBean.getType().equals("mp4")) {
+        if (splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
             layoutBottomLogo.setVisibility(View.GONE);
             // 视频剪裁全屏
             initViewSize();
@@ -249,6 +269,8 @@ public class SplashAd {
                                 return true;
                             }
                         });
+                        mp.setVolume(0f, 0f);
+                        mp.setLooping(true);
                     }
                 });
                 String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
@@ -269,6 +291,7 @@ public class SplashAd {
         imageView.setVisibility(View.VISIBLE);
         imageView.setImageDrawable(drawable);
         listener.onSplashAdFailToShow();
+        isNoAd = true;
         startTick();
     }
 
@@ -289,7 +312,8 @@ public class SplashAd {
     private void startTick() {
         tvJump.setVisibility(View.VISIBLE);
         layoutLogo.setVisibility(View.INVISIBLE);
-        countDownTimer = new CountDownTimer(splashAdBean.getStayTime() * 1000, 1000) {
+
+        countDownTimer = new CountDownTimer(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String value = String.valueOf((int) (millisUntilFinished / 1000) + 1);

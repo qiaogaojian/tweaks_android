@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.facebook.fresco:webpsupport:1.13.0'
     implementation 'com.facebook.fresco:animated-gif:1.13.0'
 
-    implementation 'com.sdbean.splashad:splashad:1.0.0'
+//    implementation 'com.sdbean.splashad:splashad:1.0.0'
 
-//    implementation project(':splashad')
+    implementation project(':splashad')
 }

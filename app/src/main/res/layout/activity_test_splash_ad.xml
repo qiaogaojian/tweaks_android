@@ -33,14 +33,24 @@
             app:layout_constraintTop_toBottomOf="@id/btn_test_image" />
 
         <Button
-            android:id="@+id/btn_test_video"
+        android:id="@+id/btn_test_video"
+        style="@style/Button"
+        android:layout_marginTop="30pt"
+        android:text="Test Video Ad"
+        android:typeface="@{@string/typeface}"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_test_drawee" />
+
+        <Button
+            android:id="@+id/btn_test_default"
             style="@style/Button"
             android:layout_marginTop="30pt"
-            android:text="Test Video Ad"
+            android:text="Test Default Ad"
             android:typeface="@{@string/typeface}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_test_drawee" />
+            app:layout_constraintTop_toBottomOf="@id/btn_test_video" />
 
     </android.support.constraint.ConstraintLayout>
 
