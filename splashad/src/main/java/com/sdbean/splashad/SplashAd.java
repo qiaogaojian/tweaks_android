@@ -150,6 +150,9 @@ public class SplashAd {
         this.container = container;
         this.listener = listener;
         isNoAd = false;
+        if (proxy == null && splashAdBean.getType().equals("mp4")) {
+            proxy = new HttpProxyCacheServer.Builder(this.activity.get()).maxCacheSize(ByteConstants.MB * 200).build();
+        }
         init();
     }
 
@@ -266,17 +269,14 @@ public class SplashAd {
 
     private void init() {
         if (!Fresco.hasBeenInitialized()) {
-            Fresco.initialize(activity.get(), ImagePipelineConfigFactory.getImagePipelineConfig(activity.get()));
-        }
-        if (proxy == null) {
-            proxy = new HttpProxyCacheServer.Builder(activity.get()).maxCacheSize(ByteConstants.MB * 200).build();
+            Fresco.initialize(this.activity.get(), ImagePipelineConfigFactory.getImagePipelineConfig(this.activity.get()));
         }
 
         splashLayout = LayoutInflater.from(activity.get()).inflate(R.layout.splash_ad, container);
 
         layoutLogo = splashLayout.findViewById(R.id.rl_logo);
         layoutBottomLogo = splashLayout.findViewById(R.id.rl_bottom_logo);
-        ivLogo = splashLayout.findViewById(R.id.iv_ad);
+        ivLogo = splashLayout.findViewById(R.id.iv_logo);
         ivLogoBottom = splashLayout.findViewById(R.id.iv_bottom_logo);
         tvCopyRight = splashLayout.findViewById(R.id.tv_copy_right);
 
@@ -352,12 +352,17 @@ public class SplashAd {
     }
 
     private void hide() {
+        container.setVisibility(View.GONE);
+        splashLayout.setVisibility(View.GONE);
         if (countDownTimer != null) {
             countDownTimer.cancel();
             countDownTimer = null;
         }
-        proxy.shutdown();
-        proxy = null;
+        if (proxy!=null)
+        {
+            proxy.shutdown();
+            proxy = null;
+        }
 
         activity = null;
         splashLayout = null;
