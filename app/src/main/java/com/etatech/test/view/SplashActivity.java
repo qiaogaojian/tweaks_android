@@ -70,7 +70,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             // 下方 copyright
             splashAd.setCopyRight("Copyright 2016 - 2019 Mega Information Technology Co.,Ltd. All Rights Reserved");
             // 倒计时后方文字
-            splashAd.setJumpText("跳过");
+            splashAd.setJumpText("Skip");
             // 资源下载等待时间
             splashAd.setWaitTime(2);
 
