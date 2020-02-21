@@ -1,5 +1,6 @@
 package com.etatech.test.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
@@ -44,11 +45,17 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 @Override
                 public void onSplashAdClose() {
                     LogUtils.e("跳过广告");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
 
                 @Override
                 public void onSplashAdFinish() {
                     LogUtils.e("广告播放完成");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
             });
             splashAd.setBgColor("#ff000000");
@@ -77,11 +84,17 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 @Override
                 public void onSplashAdClose() {
                     LogUtils.e("跳过广告");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
 
                 @Override
                 public void onSplashAdFinish() {
                     LogUtils.e("广告播放完成");
+                    Intent intent = new Intent();
+                    intent.setClass(SplashActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
             });
 

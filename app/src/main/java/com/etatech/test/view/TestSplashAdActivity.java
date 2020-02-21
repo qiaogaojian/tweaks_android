@@ -60,7 +60,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
                 SplashAdBean adBean = new SplashAdBean();
                 adBean.setAdUrl("https://www.douyu.com/510229");
                 adBean.setResUrl("https://vd3.bdstatic.com/mda-jbcku58bvs34kjav/mda-jbcku58bvs34kjav.mp4");
-                adBean.setStayTime(65);
+                adBean.setStayTime(5);
                 adBean.setType("mp4");
                 adBean.setMd5("ec8976c319478bc412f79ed12c679b3b");
                 intent.putExtra("splashAdBean", adBean);

@@ -29,6 +29,8 @@ import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by Michael
  * Data: 2020/2/19 11:49
@@ -36,22 +38,21 @@ import com.facebook.imagepipeline.image.ImageInfo;
  */
 public class SplashAd {
 
-    private Activity activity;
     private SplashAdBean splashAdBean;
-    private ViewGroup container;
     private SplashAdListener listener;
 
+    private WeakReference<Activity> activity;
+    private ViewGroup container;
     private View splashLayout;
     private RelativeLayout layoutLogo;
     private RelativeLayout layoutBottomLogo;
     private ImageView ivLogo;
     private ImageView ivLogoBottom;
     private TextView tvCopyRight;
-
+    private TextView tvJump;
     private ImageView imageView;
     private SimpleDraweeView draweeView;
     private VideoView videoView;
-    private TextView tvJump;
 
     // 自定义
     private Typeface typeface; // 字体
@@ -68,6 +69,7 @@ public class SplashAd {
 
     /**
      * 无网络或错误时的默认开屏广告
+     *
      * @param drawable
      */
     public void setDefaultCover(Drawable drawable) {
@@ -77,6 +79,7 @@ public class SplashAd {
 
     /**
      * 跳过文字
+     *
      * @param jumpText
      */
     public void setJumpText(String jumpText) {
@@ -85,6 +88,7 @@ public class SplashAd {
 
     /**
      * 字体
+     *
      * @param typeface
      */
     public void setTypeface(Typeface typeface) {
@@ -94,6 +98,7 @@ public class SplashAd {
 
     /**
      * 版权
+     *
      * @param copyRight
      */
     public void setCopyRight(String copyRight) {
@@ -103,6 +108,7 @@ public class SplashAd {
 
     /**
      * 应用logo
+     *
      * @param logo
      */
     public void setLogo(Drawable logo) {
@@ -113,6 +119,7 @@ public class SplashAd {
 
     /**
      * 下载资源等待时间
+     *
      * @param waitTime
      */
     public void setWaitTime(int waitTime) {
@@ -121,6 +128,7 @@ public class SplashAd {
 
     /**
      * logo背景色
+     *
      * @param bgColor
      */
     public void setBgColor(String bgColor) {
@@ -130,13 +138,14 @@ public class SplashAd {
 
     /**
      * 显示正常广告时的构造方法
-     * @param activity 所在的Activity
+     *
+     * @param activity     所在的Activity
      * @param splashAdBean 广告数据结构体
      * @param container
-     * @param listener 广告状态的回调
+     * @param listener     广告状态的回调
      */
     public SplashAd(Activity activity, SplashAdBean splashAdBean, ViewGroup container, SplashAdListener listener) {
-        this.activity = activity;
+        this.activity = new WeakReference<Activity>(activity);
         this.splashAdBean = splashAdBean;
         this.container = container;
         this.listener = listener;
@@ -146,12 +155,13 @@ public class SplashAd {
 
     /**
      * 显示默认广告时的构造方法
-     * @param activity 所在的Activity
+     *
+     * @param activity  所在的Activity
      * @param container 广告所在的FrameLayout
-     * @param listener 广告状态的回调
+     * @param listener  广告状态的回调
      */
     public SplashAd(Activity activity, ViewGroup container, SplashAdListener listener) {
-        this.activity = activity;
+        this.activity = new WeakReference<Activity>(activity);
         this.container = container;
         this.listener = listener;
         isNoAd = true;
@@ -243,6 +253,7 @@ public class SplashAd {
 
     /**
      * 显示默认广告图
+     *
      * @param drawable 默认广告图
      */
     public void showDefault(Drawable drawable) {
@@ -255,13 +266,13 @@ public class SplashAd {
 
     private void init() {
         if (!Fresco.hasBeenInitialized()) {
-            Fresco.initialize(activity, ImagePipelineConfigFactory.getImagePipelineConfig(activity));
+            Fresco.initialize(activity.get(), ImagePipelineConfigFactory.getImagePipelineConfig(activity.get()));
         }
         if (proxy == null) {
-            proxy = new HttpProxyCacheServer.Builder(activity).maxCacheSize(ByteConstants.MB * 200).build();
+            proxy = new HttpProxyCacheServer.Builder(activity.get()).maxCacheSize(ByteConstants.MB * 200).build();
         }
 
-        splashLayout = LayoutInflater.from(activity).inflate(R.layout.splash_ad, container);
+        splashLayout = LayoutInflater.from(activity.get()).inflate(R.layout.splash_ad, container);
 
         layoutLogo = splashLayout.findViewById(R.id.rl_logo);
         layoutBottomLogo = splashLayout.findViewById(R.id.rl_bottom_logo);
@@ -317,7 +328,7 @@ public class SplashAd {
     public int screenHeight;
 
     private void initViewSize() {
-        WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) activity.get().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
 
@@ -345,13 +356,22 @@ public class SplashAd {
             countDownTimer.cancel();
             countDownTimer = null;
         }
+        proxy.shutdown();
+        proxy = null;
+
         activity = null;
         splashLayout = null;
+        layoutLogo = null;
+        layoutBottomLogo = null;
+        ivLogo = null;
+        ivLogoBottom = null;
+        tvCopyRight = null;
+        tvJump = null;
         imageView = null;
         draweeView = null;
         videoView = null;
-        tvJump = null;
         container.removeAllViews();
+        container = null;
     }
 
     private void startTick() {
@@ -386,6 +406,6 @@ public class SplashAd {
         Intent intent = new Intent("android.intent.action.VIEW");
         Uri downloadUrl = Uri.parse(splashAdBean.getAdUrl());
         intent.setData(downloadUrl);
-        activity.startActivity(intent);
+        activity.get().startActivity(intent);
     }
 }
