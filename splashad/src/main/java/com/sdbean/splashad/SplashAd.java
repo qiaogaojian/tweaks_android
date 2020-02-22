@@ -64,6 +64,7 @@ public class SplashAd {
     private CountDownTimer countDownTimer;
     private HttpProxyCacheServer proxy;
     private boolean isNoAd = false;
+    private boolean isVideo = false;
 
     /**
      * 无网络或错误时的默认开屏广告
@@ -106,6 +107,7 @@ public class SplashAd {
 
     /**
      * 底部logo
+     *
      * @param logoBottom
      */
     public void setLogoBottom(Drawable logoBottom) {
@@ -302,7 +304,7 @@ public class SplashAd {
         });
 
         if (splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
-            layoutBottomLogo.setVisibility(View.GONE);
+            isVideo = true;
             // 视频剪裁全屏
             initViewSize();
         }
@@ -342,8 +344,7 @@ public class SplashAd {
             countDownTimer.cancel();
             countDownTimer = null;
         }
-        if (proxy!=null)
-        {
+        if (proxy != null) {
             proxy.shutdown();
             proxy = null;
         }
@@ -364,7 +365,9 @@ public class SplashAd {
 
     private void startTick() {
         tvJump.setVisibility(View.VISIBLE);
-        layoutBottomLogo.setVisibility(View.VISIBLE);
+        if (!isVideo) {
+            layoutBottomLogo.setVisibility(View.VISIBLE);
+        }
 
         countDownTimer = new CountDownTimer(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
             @Override
