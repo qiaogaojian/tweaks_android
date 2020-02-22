@@ -44,7 +44,6 @@ public class SplashAd {
     private WeakReference<Activity> activity;
     private ViewGroup container;
     private View splashLayout;
-    private RelativeLayout layoutLogo;
     private RelativeLayout layoutBottomLogo;
     private ImageView ivLogo;
     private ImageView ivLogoBottom;
@@ -58,9 +57,7 @@ public class SplashAd {
     private Typeface typeface; // 字体
     private String jumpText; // 跳过文字
     private String copyRight; // 版权
-    private Drawable logo;  // 中间logo
     private Drawable logoBottom;  // 底部logo
-    private int bgColor;  // logo背景色
     private Drawable defaultCover; // 无网络或错误时的默认开屏广告
     private int waitTime = 3; // 下载资源等待时间
 
@@ -108,16 +105,6 @@ public class SplashAd {
     }
 
     /**
-     * 中间logo
-     *
-     * @param logo
-     */
-    public void setLogo(Drawable logo) {
-        this.logo = logo;
-        ivLogo.setImageDrawable(logo);
-    }
-
-    /**
      * 底部logo
      * @param logoBottom
      */
@@ -133,16 +120,6 @@ public class SplashAd {
      */
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
-    }
-
-    /**
-     * logo背景色
-     *
-     * @param bgColor
-     */
-    public void setBgColor(String bgColor) {
-        this.bgColor = Color.parseColor(bgColor);
-        layoutLogo.setBackgroundColor(this.bgColor);
     }
 
     /**
@@ -283,9 +260,7 @@ public class SplashAd {
 
         splashLayout = LayoutInflater.from(activity.get()).inflate(R.layout.splash_ad, container);
 
-        layoutLogo = splashLayout.findViewById(R.id.rl_logo);
         layoutBottomLogo = splashLayout.findViewById(R.id.rl_bottom_logo);
-        ivLogo = splashLayout.findViewById(R.id.iv_logo);
         ivLogoBottom = splashLayout.findViewById(R.id.iv_bottom_logo);
         tvCopyRight = splashLayout.findViewById(R.id.tv_copy_right);
 
@@ -375,7 +350,6 @@ public class SplashAd {
 
         activity = null;
         splashLayout = null;
-        layoutLogo = null;
         layoutBottomLogo = null;
         ivLogo = null;
         ivLogoBottom = null;
@@ -390,7 +364,7 @@ public class SplashAd {
 
     private void startTick() {
         tvJump.setVisibility(View.VISIBLE);
-        layoutLogo.setVisibility(View.INVISIBLE);
+        layoutBottomLogo.setVisibility(View.VISIBLE);
 
         countDownTimer = new CountDownTimer(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
             @Override

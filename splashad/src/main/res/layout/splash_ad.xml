@@ -11,22 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitStart"
-        android:visibility="gone"
-        tools:background="#80636154" />
+        android:visibility="gone" />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/drawee_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitStart"
-        android:visibility="gone"
-        tools:background="#804CAF50" />
+        android:visibility="gone" />
 
     <VideoView
         android:id="@+id/vv_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00000000"
         android:visibility="gone" />
 
     <TextView
@@ -51,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
-        android:background="#35074B">
+        android:background="#35074B"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/iv_bottom_logo"
@@ -78,21 +76,6 @@
             android:textColor="#9B48C3"
             android:textSize="10dp" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_logo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FF000000"
-        tools:visibility="invisible">
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/logo" />
     </RelativeLayout>
 
 </RelativeLayout>
