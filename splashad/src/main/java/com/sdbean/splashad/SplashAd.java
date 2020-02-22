@@ -58,7 +58,8 @@ public class SplashAd {
     private Typeface typeface; // 字体
     private String jumpText; // 跳过文字
     private String copyRight; // 版权
-    private Drawable logo;  // 底部logo
+    private Drawable logo;  // 中间logo
+    private Drawable logoBottom;  // 底部logo
     private int bgColor;  // logo背景色
     private Drawable defaultCover; // 无网络或错误时的默认开屏广告
     private int waitTime = 3; // 下载资源等待时间
@@ -107,14 +108,22 @@ public class SplashAd {
     }
 
     /**
-     * 应用logo
+     * 中间logo
      *
      * @param logo
      */
     public void setLogo(Drawable logo) {
         this.logo = logo;
         ivLogo.setImageDrawable(logo);
-        ivLogoBottom.setImageDrawable(logo);
+    }
+
+    /**
+     * 底部logo
+     * @param logoBottom
+     */
+    public void setLogoBottom(Drawable logoBottom) {
+        this.logoBottom = logoBottom;
+        ivLogoBottom.setImageDrawable(logoBottom);
     }
 
     /**
@@ -150,7 +159,7 @@ public class SplashAd {
         this.container = container;
         this.listener = listener;
         isNoAd = false;
-        if (proxy == null && splashAdBean.getType().equals("mp4")) {
+        if (proxy == null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
             proxy = new HttpProxyCacheServer.Builder(this.activity.get()).maxCacheSize(ByteConstants.MB * 200).build();
         }
         init();

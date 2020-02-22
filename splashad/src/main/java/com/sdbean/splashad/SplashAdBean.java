@@ -27,7 +27,7 @@ public class SplashAdBean implements Parcelable {
     }
 
     public String getType() {
-        return type;
+        return type == null ? "jpg" : type;
     }
 
     public void setType(String type) {
@@ -59,7 +59,7 @@ public class SplashAdBean implements Parcelable {
     }
 
     public int getStayTime() {
-        return stayTime;
+        return stayTime <= 0 ? 5 : stayTime;
     }
 
     public void setStayTime(int stayTime) {

@@ -66,7 +66,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             // 字体
             splashAd.setTypeface(App.getInstance().getTypeface());
             // 应用icon
-            splashAd.setLogo(getResources().getDrawable(R.drawable.logo));
+            splashAd.setLogo(getResources().getDrawable(R.drawable.load_advert_bg_new));
+            splashAd.setLogoBottom(getResources().getDrawable(R.drawable.logo));
             // 下方 copyright
             splashAd.setCopyRight("Copyright 2016 - 2019 Mega Information Technology Co.,Ltd. All Rights Reserved");
             // 倒计时后方文字
@@ -111,7 +112,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 }
             });
             splashAd.setBgColor("#ff000000");
-            splashAd.setLogo(getResources().getDrawable(R.drawable.logo));
+            splashAd.setLogo(getResources().getDrawable(R.drawable.load_advert_bg_new));
+            splashAd.setLogoBottom(getResources().getDrawable(R.drawable.logo));
             splashAd.setCopyRight("Copyright 2016 - 2019 Mega Information Technology Co.,Ltd. All Rights Reserved");
             splashAd.setJumpText("跳过");
             splashAd.showDefault(getResources().getDrawable(R.drawable.splash_bg));
@@ -155,7 +157,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             // 字体
             splashAd.setTypeface(App.getInstance().getTypeface());
             // 应用icon
-            splashAd.setLogo(getResources().getDrawable(R.drawable.logo));
+            splashAd.setLogo(getResources().getDrawable(R.drawable.load_advert_bg_new));
+            splashAd.setLogoBottom(getResources().getDrawable(R.drawable.logo));
             // 下方 copyright
             splashAd.setCopyRight("Copyright 2016 - 2019 Mega Information Technology Co.,Ltd. All Rights Reserved");
             // 倒计时后方文字
