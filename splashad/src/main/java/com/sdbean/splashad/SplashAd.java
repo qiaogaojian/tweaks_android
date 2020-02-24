@@ -3,11 +3,9 @@ package com.sdbean.splashad;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -20,8 +18,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.facebook.common.util.ByteConstants;
@@ -219,7 +215,6 @@ public class SplashAd {
                     @Override
                     public void onStart() {
                         startTick();
-                        Toast.makeText(activity.get(), "start", Toast.LENGTH_SHORT).show();
                         listener.onSplashAdSuccessToShow();
                         waitTimer.cancel();
                     }
