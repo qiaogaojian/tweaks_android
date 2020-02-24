@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.danikula.videocache.HttpProxyCacheServer;
@@ -51,7 +52,7 @@ public class SplashAd {
     private TextView tvJump;
     private ImageView imageView;
     private SimpleDraweeView draweeView;
-    private VideoView videoView;
+    private MyVideoView videoView;
 
     // 自定义
     private Typeface typeface; // 字体
@@ -172,6 +173,7 @@ public class SplashAd {
 
             @Override
             public void onFinish() {
+                isVideo = false;
                 startTick();
                 imageView.setVisibility(View.VISIBLE);
                 listener.onSplashAdFailToShow();
@@ -209,30 +211,19 @@ public class SplashAd {
                 break;
             case "mp4":
                 videoView.setVisibility(View.VISIBLE);
-                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
+                videoView.setVideoPath(Uri.parse(videoUrl));
+                videoView.setLooping(true);
+                videoView.muteSound(true);
+                videoView.setOnStartListener(new MyVideoView.OnStartListener() {
                     @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        mp.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-                            @Override
-                            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                                if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
-                                    videoView.setAlpha(1);
-                                    videoView.setBackgroundColor(Color.TRANSPARENT);
-                                    startTick();
-                                    listener.onSplashAdSuccessToShow();
-                                    waitTimer.cancel();
-                                }
-                                return true;
-                            }
-                        });
-                        mp.setVolume(0f, 0f);
-                        mp.setLooping(true);
+                    public void onStart() {
+                        startTick();
+                        Toast.makeText(activity.get(), "start", Toast.LENGTH_SHORT).show();
+                        listener.onSplashAdSuccessToShow();
+                        waitTimer.cancel();
                     }
                 });
-                String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
-                videoView.setVideoPath(videoUrl);
-                videoView.setAlpha(0);
-                videoView.start();
                 break;
             default:
                 imageView.setVisibility(View.VISIBLE);

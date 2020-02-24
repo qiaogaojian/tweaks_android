@@ -20,7 +20,7 @@
         android:scaleType="fitStart"
         android:visibility="gone" />
 
-    <VideoView
+    <com.sdbean.splashad.MyVideoView
         android:id="@+id/vv_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
