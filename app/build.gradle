@@ -89,5 +89,7 @@ dependencies {
     implementation 'com.facebook.fresco:animated-gif:1.13.0'
 
     // 开屏广告
-    implementation 'com.sdbean.splashad:splashad:1.1.0'
+    // implementation 'com.sdbean.splashad:splashad:1.1.1'
+
+    implementation project(':splashad')
 }
