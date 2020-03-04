@@ -141,6 +141,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestClickArea, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestClickAreaActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
