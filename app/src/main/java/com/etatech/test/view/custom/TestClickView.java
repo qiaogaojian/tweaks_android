@@ -17,8 +17,9 @@ import com.blankj.utilcode.util.ToastUtils;
  * Func:
  */
 public class TestClickView extends CustomView {
-    private Region region;
-    private Path   path;
+    private       Region region;
+    private       Path   path;
+    private final float  tan16 = 0.2867453857588079f;
 
     public TestClickView(Context context) {
         super(context);
@@ -35,7 +36,13 @@ public class TestClickView extends CustomView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        path.addCircle(w / 2, h / 2, w / 4, Path.Direction.CW);
+        int offset = (int) (w * tan16);
+        path.moveTo(0, offset);
+        path.lineTo(w, 0);
+        path.lineTo(w, h - offset);
+        path.lineTo(0, h);
+        path.lineTo(0, offset);
+
         region.setPath(path, new Region(-w, -h, w, h));
     }
 
@@ -53,7 +60,6 @@ public class TestClickView extends CustomView {
         }
         return true;
     }
-
 
 
     @Override
