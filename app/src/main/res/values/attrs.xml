@@ -135,4 +135,8 @@
 
         <attr name="isScrollForever" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="ClipConstraintLayout">
+        <attr name="hasPadding" format="boolean" />
+    </declare-styleable>
 </resources>
