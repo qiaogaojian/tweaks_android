@@ -3,6 +3,7 @@ package com.etatech.test.view;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.etatech.test.R;
@@ -28,7 +29,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             adBean.setResUrl("https://vd3.bdstatic.com/mda-jbcku58bvs34kjav/mda-jbcku58bvs34kjav.mp4");
             adBean.setStayTime(5);
             adBean.setType("mp4");
-            SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
+            final SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
                 @Override
                 public void onSplashAdSuccessToShow() {
                     LogUtils.e("展示成功");
@@ -75,6 +76,12 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             splashAd.setWaitTime(2);
 
             splashAd.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    splashAd.startTimer();
+                }
+            }, 6000);
             return;
         }
         if (getIntent().getExtras().getBoolean("noAd", false)) {

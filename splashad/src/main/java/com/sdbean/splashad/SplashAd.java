@@ -35,33 +35,33 @@ import java.lang.ref.WeakReference;
  */
 public class SplashAd {
 
-    private SplashAdBean splashAdBean;
+    private SplashAdBean     splashAdBean;
     private SplashAdListener listener;
 
     private WeakReference<Activity> activity;
-    private ViewGroup container;
-    private View splashLayout;
-    private RelativeLayout layoutBottomLogo;
-    private ImageView ivLogo;
-    private ImageView ivLogoBottom;
-    private TextView tvCopyRight;
-    private TextView tvJump;
-    private ImageView imageView;
-    private SimpleDraweeView draweeView;
-    private MyVideoView videoView;
+    private ViewGroup               container;
+    private View                    splashLayout;
+    private RelativeLayout          layoutBottomLogo;
+    private ImageView               ivLogo;
+    private ImageView               ivLogoBottom;
+    private TextView                tvCopyRight;
+    private TextView                tvJump;
+    private ImageView               imageView;
+    private SimpleDraweeView        draweeView;
+    private MyVideoView             videoView;
 
     // 自定义
     private Typeface typeface; // 字体
-    private String jumpText; // 跳过文字
-    private String copyRight; // 版权
+    private String   jumpText; // 跳过文字
+    private String   copyRight; // 版权
     private Drawable logoBottom;  // 底部logo
     private Drawable defaultCover; // 无网络或错误时的默认开屏广告
-    private int waitTime = 3; // 下载资源等待时间
+    private int      waitTime = 3; // 下载资源等待时间
 
-    private CountDownTimer countDownTimer;
+    private CountDownTimer       countDownTimer;
     private HttpProxyCacheServer proxy;
-    private boolean isNoAd = false;
-    private boolean isVideo = false;
+    private boolean              isNoAd  = false;
+    private boolean              isVideo = false;
 
     /**
      * 无网络或错误时的默认开屏广告
@@ -371,7 +371,11 @@ public class SplashAd {
                 listener.onSplashAdFinish();
                 hide();
             }
-        }.start();
+        };
+    }
+
+    public void startTimer() {
+        countDownTimer.start();
     }
 
     private void goAdWeb() {
