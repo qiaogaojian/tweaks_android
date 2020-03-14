@@ -350,7 +350,6 @@ public class SplashAd {
     }
 
     private void startTick() {
-        tvJump.setVisibility(View.VISIBLE);
         if (!isVideo) {
             layoutBottomLogo.setVisibility(View.VISIBLE);
         }
@@ -375,6 +374,7 @@ public class SplashAd {
     }
 
     public void startTimer() {
+        tvJump.setVisibility(View.VISIBLE);
         countDownTimer.start();
     }
 
