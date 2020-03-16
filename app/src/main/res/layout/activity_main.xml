@@ -177,6 +177,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_splash_ad" />
 
+            <Button
+                android:id="@+id/btn_test_dark_mode"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Dark Mode"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_click_area" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

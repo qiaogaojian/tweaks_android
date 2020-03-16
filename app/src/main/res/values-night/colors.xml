@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!-- 赤橙黄绿青蓝紫黑白灰-->
+    <color name="code_red">#803D55</color>
+    <color name="code_orange">#81633E</color>
+    <color name="code_yellow">#6F6838</color>
+    <color name="code_white_yellow">#705C39</color>
+    <color name="code_green">#5D6F39</color>
+    <color name="code_green_blue">#416D5E</color>
+    <color name="code_blue">#37636B</color>
+    <color name="code_purple">#554179</color>
+    <color name="code_black">#F7F7F0</color>
+    <color name="code_white">#262620</color>
+    <color name="code_grey">#80807B</color>
+</resources>

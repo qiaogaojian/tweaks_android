@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -16,13 +17,14 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
  * Func:
  */
 public abstract class BaseActivity<DataBindingType extends ViewDataBinding> extends RxAppCompatActivity {
-    public DataBindingType binding;
+    public  DataBindingType binding;
+    private boolean         darkModeOpen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = onCreateView(savedInstanceState);
-
+        darkModeOpen = SPUtils.getInstance().getBoolean("dark_mode_open", false);
         init();
     }
 
@@ -39,6 +41,15 @@ public abstract class BaseActivity<DataBindingType extends ViewDataBinding> exte
             return AdaptScreenUtils.adaptHeight(super.getResources(), 1920);
         } else {
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean darkModeState = SPUtils.getInstance().getBoolean("dark_mode_open", false);
+        if (darkModeState != darkModeOpen) {
+            recreate();
         }
     }
 }
