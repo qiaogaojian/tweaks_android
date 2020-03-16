@@ -12,8 +12,8 @@
     <path
         android:name="triangle"
         android:pathData="M 30,30
-                          Q 50,80 80,30
-                          T 130,30
+                          Q 50,70 70,30
+                          T 110,30
                           "
         android:strokeWidth="3"
         android:strokeColor="#F92671" />

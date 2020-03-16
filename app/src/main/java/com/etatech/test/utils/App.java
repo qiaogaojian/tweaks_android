@@ -5,10 +5,12 @@ import android.content.ComponentCallbacks2;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Debug;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 
@@ -42,7 +44,11 @@ public class App extends Application {
             isWide = true;
             LogUtils.i(String.format("The App Screen Height %d Width %d It's Wide", screenHeight, screenWidth));
         }
-
+        if (SPUtils.getInstance().getBoolean("dark_mode_open", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     public static App getInstance() {
