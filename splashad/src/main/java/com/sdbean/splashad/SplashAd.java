@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.facebook.common.util.ByteConstants;
@@ -49,6 +51,7 @@ public class SplashAd {
     private ImageView               imageView;
     private SimpleDraweeView        draweeView;
     private MyVideoView             videoView;
+    private SimpleDraweeView        ivPreview;
 
     // 自定义
     private Typeface       typeface; // 字体
@@ -136,7 +139,7 @@ public class SplashAd {
         this.container = container;
         this.listener = listener;
         isNoAd = false;
-        if (proxy == null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
+        if (proxy == null && splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
             proxy = new HttpProxyCacheServer.Builder(this.activity.get()).maxCacheSize(ByteConstants.MB * 200).build();
         }
         init();
@@ -281,36 +284,7 @@ public class SplashAd {
 
         if (splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
             isVideo = true;
-            // 视频剪裁全屏
-            initViewSize();
         }
-    }
-
-    public int screenWidth;
-    public int screenHeight;
-
-    private void initViewSize() {
-        WindowManager wm = (WindowManager) activity.get().getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(dm);
-
-        screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
-        float density = dm.density;
-        int screenWidth = (int) (this.screenWidth / density);  // 屏幕宽度(dp)
-        int screenHeight = (int) (this.screenHeight / density);// 屏幕高度(dp)
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(this.screenWidth, this.screenHeight);
-
-        if ((float) this.screenHeight / this.screenWidth > 16.0f / 9) {
-            layoutParams.width = (int) (dm.heightPixels / 16.0 * 9);
-        } else if ((float) this.screenHeight / this.screenWidth < 16.0 / 9) {
-            layoutParams.height = (int) (dm.widthPixels / 9.0 * 16);
-        }
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        videoView.setLayoutParams(layoutParams);
     }
 
     private void hide() {
