@@ -81,7 +81,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 public void run() {
                     splashAd.startTimer();
                 }
-            }, 6000);
+            }, 3000);
             return;
         }
         if (getIntent().getExtras().getBoolean("noAd", false)) {
@@ -123,7 +123,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             splashAd.showDefault(getResources().getDrawable(R.drawable.splash_bg));
         } else {
             SplashAdBean adBean = (SplashAdBean) getIntent().getExtras().get("splashAdBean");
-            SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
+            final SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
                 @Override
                 public void onSplashAdSuccessToShow() {
                     LogUtils.e("展示成功");
@@ -170,6 +170,12 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             splashAd.setWaitTime(2);
 
             splashAd.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    splashAd.startTimer();
+                }
+            }, 3000);
         }
     }
 }
