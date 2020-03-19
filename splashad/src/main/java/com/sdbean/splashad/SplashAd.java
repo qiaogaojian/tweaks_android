@@ -3,6 +3,7 @@ package com.sdbean.splashad;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -48,7 +49,7 @@ public class SplashAd {
     private ImageView               ivLogoBottom;
     private TextView                tvCopyRight;
     private TextView                tvJump;
-    private ImageView               imageView;
+    private AutoScaleWidthImageView imageView;
     private SimpleDraweeView        draweeView;
     private MyVideoView             videoView;
     private SimpleDraweeView        ivPreview;
@@ -249,6 +250,8 @@ public class SplashAd {
         draweeView = splashLayout.findViewById(R.id.drawee_ad);
         videoView = splashLayout.findViewById(R.id.vv_ad);
         tvJump = splashLayout.findViewById(R.id.btn_jump);
+
+        draweeView.getHierarchy().setActualImageFocusPoint(new PointF(0.5f, 0f));
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

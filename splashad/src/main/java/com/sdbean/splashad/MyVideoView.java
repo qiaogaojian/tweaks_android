@@ -64,7 +64,7 @@ public class MyVideoView extends TextureView implements TextureView.SurfaceTextu
             fullScreenTransform.postScale(scaleX, 1f, w * 0.5f, h * 0.5f);
         } else if ((float) h / w < (float) mRatioHeight / mRatioWidth) {    // 宽手机, 高拉伸，宽不变
             float scaleY = ((float) w / h) / ((float) mRatioWidth / mRatioHeight);
-            fullScreenTransform.postScale(scaleY, 1f, w * 0.5f, h * 0.5f);
+            fullScreenTransform.postScale(1f, scaleY, w * 0.5f, h * 0.5f);
         }
         setTransform(fullScreenTransform);
     }

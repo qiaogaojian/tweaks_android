@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.sdbean.splashad.AutoScaleWidthImageView
         android:id="@+id/iv_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,8 +17,8 @@
         android:id="@+id/drawee_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitStart"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:actualImageScaleType="focusCrop" />
 
     <com.sdbean.splashad.MyVideoView
         android:id="@+id/vv_ad"
