@@ -51,12 +51,13 @@ public class SplashAd {
     private MyVideoView             videoView;
 
     // 自定义
-    private Typeface typeface; // 字体
-    private String   jumpText; // 跳过文字
-    private String   copyRight; // 版权
-    private Drawable logoBottom;  // 底部logo
-    private Drawable defaultCover; // 无网络或错误时的默认开屏广告
-    private int      waitTime = 3; // 下载资源等待时间
+    private Typeface       typeface; // 字体
+    private String         jumpText; // 跳过文字
+    private String         copyRight; // 版权
+    private Drawable       logoBottom;  // 底部logo
+    private Drawable       defaultCover; // 无网络或错误时的默认开屏广告
+    private int            waitTime = 3; // 下载资源等待时间
+    private CountDownTimer waitTimer;// 网络不好时 最多等3秒下载资源 下不完就先显示默认图
 
     private CountDownTimer       countDownTimer;
     private HttpProxyCacheServer proxy;
@@ -160,8 +161,8 @@ public class SplashAd {
      * 显示广告
      */
     public void show() {
-        // 网络不好时 最多等3秒下载资源 下不完就先显示默认图
-        final CountDownTimer waitTimer = new CountDownTimer(waitTime * 1000, 1000) {
+
+        waitTimer = new CountDownTimer(waitTime * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 Log.e("SplashAD", "Wait " + millisUntilFinished / 1000.0);
@@ -169,7 +170,7 @@ public class SplashAd {
 
             @Override
             public void onFinish() {
-                isVideo = false;
+                if (isVideo) return;
                 startTick();
                 imageView.setVisibility(View.VISIBLE);
                 listener.onSplashAdFailToShow();
@@ -181,6 +182,7 @@ public class SplashAd {
             case "png":
             case "gif":
             case "webp":
+                isVideo = false;
                 draweeView.setVisibility(View.VISIBLE);
                 draweeView.setController(Fresco.newDraweeControllerBuilder()
                         .setControllerListener(new BaseControllerListener<ImageInfo>() {
@@ -206,19 +208,7 @@ public class SplashAd {
                         .build());
                 break;
             case "mp4":
-                videoView.setVisibility(View.VISIBLE);
-                String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
-                videoView.setVideoPath(Uri.parse(videoUrl));
-                videoView.setLooping(true);
-                videoView.muteSound(true);
-                videoView.setOnStartListener(new MyVideoView.OnStartListener() {
-                    @Override
-                    public void onStart() {
-                        startTick();
-                        listener.onSplashAdSuccessToShow();
-                        waitTimer.cancel();
-                    }
-                });
+                isVideo = true;
                 break;
             default:
                 imageView.setVisibility(View.VISIBLE);
@@ -357,6 +347,9 @@ public class SplashAd {
         countDownTimer = new CountDownTimer(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                if (tvJump == null) {
+                    return;
+                }
                 String value = String.valueOf((int) (millisUntilFinished / 1000) + 1);
                 if (TextUtils.isEmpty(jumpText)) {
                     tvJump.setText(value + " 跳过");
@@ -374,8 +367,31 @@ public class SplashAd {
     }
 
     public void startTimer() {
-        tvJump.setVisibility(View.VISIBLE);
-        countDownTimer.start();
+        if (isVideo) {
+            showVideo();
+        } else {
+            tvJump.setVisibility(View.VISIBLE);
+            countDownTimer.start();
+        }
+    }
+
+    public void showVideo() {
+        videoView.setVisibility(View.VISIBLE);
+        layoutBottomLogo.setVisibility(View.GONE);
+        String videoUrl = proxy.getProxyUrl(splashAdBean.getResUrl());
+        videoView.setVideoPath(Uri.parse(videoUrl));
+        videoView.setLooping(false);
+        videoView.muteSound(true);
+        videoView.setOnStartListener(new MyVideoView.OnStartListener() {
+            @Override
+            public void onStart() {
+                startTick();
+                listener.onSplashAdSuccessToShow();
+                waitTimer.cancel();
+                tvJump.setVisibility(View.VISIBLE);
+                countDownTimer.start();
+            }
+        });
     }
 
     private void goAdWeb() {
