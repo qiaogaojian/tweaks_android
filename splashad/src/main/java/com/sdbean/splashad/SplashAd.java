@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.danikula.videocache.HttpProxyCacheServer;
@@ -63,7 +64,7 @@ public class SplashAd {
     private int            waitTime = 3; // 下载资源等待时间
     private CountDownTimer waitTimer;// 网络不好时 最多等3秒下载资源 下不完就先显示默认图
 
-    private CountDownTimer       countDownTimer;
+    private PreciseCountdown     countDownTimer;
     private HttpProxyCacheServer proxy;
     private boolean              isNoAd  = false;
     private boolean              isVideo = false;
@@ -321,29 +322,47 @@ public class SplashAd {
             layoutBottomLogo.setVisibility(View.VISIBLE);
         }
 
-        countDownTimer = new CountDownTimer(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
+        countDownTimer = new PreciseCountdown(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {
-                if (tvJump == null) {
-                    return;
-                }
-                String value = String.valueOf((int) (millisUntilFinished / 1000) + 1);
-                if (TextUtils.isEmpty(jumpText)) {
-                    tvJump.setText(value + " 跳过");
-                } else {
-                    tvJump.setText(value + " " + jumpText);
-                }
+            public void onTick(final long millisUntilFinished) {
+                activity.get().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tvJump == null) {
+                            return;
+                        }
+                        final String value = String.valueOf((int) (millisUntilFinished/1000));
+                        if (TextUtils.isEmpty(jumpText)) {
+                            tvJump.setText(value + " 跳过");
+                        } else {
+                            tvJump.setText(value + " " + jumpText);
+                        }
+                    }
+                });
             }
 
             @Override
-            public void onFinish() {
-                listener.onSplashAdFinish();
-                hide();
+            public void onFinished() {
+                activity.get().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onTick(0);
+                        listener.onSplashAdFinish();
+                        hide();
+                    }
+                });
             }
         };
     }
 
+    private boolean hasStartTimer = false;
+
     public void startTimer() {
+        if (hasStartTimer) {
+            return;
+        }
+        hasStartTimer = true;
+
         if (isVideo) {
             showVideo();
         } else {
