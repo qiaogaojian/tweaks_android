@@ -154,7 +154,13 @@ public class MyVideoView extends TextureView implements TextureView.SurfaceTextu
             mMediaPlayer.setSurface(surface);
             mMediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
             mMediaPlayer.prepareAsync();
-            mMediaPlayer.start();
+            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
+//            mMediaPlayer.start();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SecurityException e) {
