@@ -58,7 +58,7 @@ public class MyVideoView extends TextureView implements TextureView.SurfaceTextu
         setMeasuredDimension(w, h);
         fullScreenTransform.reset();
         fullScreenTransform.set(defTransform);
-        Toast.makeText(getContext(), "w / h:" + w + '/' + h, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "w / h:" + w + '/' + h, Toast.LENGTH_SHORT).show();
         if ((float) h / w > (float) mRatioHeight / mRatioWidth) {           // 长手机, 宽拉伸, 高不变
             float scaleX = ((float) h / w) / ((float) mRatioHeight / mRatioWidth);
             fullScreenTransform.postScale(scaleX, 1f, w * 0.5f, h * 0.5f);
