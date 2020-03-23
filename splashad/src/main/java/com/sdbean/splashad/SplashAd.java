@@ -141,7 +141,7 @@ public class SplashAd {
         this.container = container;
         this.listener = listener;
         isNoAd = false;
-        if (proxy == null && splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
+        if (splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
             proxy = new HttpProxyCacheServer.Builder(this.activity.get()).maxCacheSize(ByteConstants.MB * 200).build();
         }
         init();
@@ -289,39 +289,6 @@ public class SplashAd {
         if (splashAdBean != null && splashAdBean.getType() != null && splashAdBean.getType().equals("mp4")) {
             isVideo = true;
         }
-    }
-
-    private void hide() {
-        container.setVisibility(View.GONE);
-        splashLayout.setVisibility(View.GONE);
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-            countDownTimer = null;
-        }
-        if (proxy != null) {
-            proxy.shutdown();
-            proxy = null;
-        }
-
-        activity = null;
-        splashLayout = null;
-        layoutBottomLogo = null;
-        ivLogo = null;
-        ivLogoBottom = null;
-        tvCopyRight = null;
-        tvJump = null;
-        imageView = null;
-        draweeView = null;
-        videoView = null;
-        container.removeAllViews();
-        container = null;
-    }
-
-    private void startTick() {
-        if (!isVideo) {
-            layoutBottomLogo.setVisibility(View.VISIBLE);
-        }
-
         countDownTimer = new PreciseCountdown(isNoAd ? 5000 : splashAdBean.getStayTime() * 1000, 1000) {
             @Override
             public void onTick(final long millisUntilFinished) {
@@ -353,6 +320,38 @@ public class SplashAd {
                 });
             }
         };
+    }
+
+    private void hide() {
+//        container.setVisibility(View.GONE);
+//        splashLayout.setVisibility(View.GONE);
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+        if (proxy != null) {
+            proxy.shutdown();
+            proxy = null;
+        }
+
+//        activity = null;
+//        splashLayout = null;
+//        layoutBottomLogo = null;
+//        ivLogo = null;
+//        ivLogoBottom = null;
+//        tvCopyRight = null;
+//        tvJump = null;
+//        imageView = null;
+//        draweeView = null;
+//        videoView = null;
+//        container.removeAllViews();
+//        container = null;
+    }
+
+    private void startTick() {
+        if (!isVideo) {
+            layoutBottomLogo.setVisibility(View.VISIBLE);
+        }
     }
 
     private boolean hasStartTimer = false;
