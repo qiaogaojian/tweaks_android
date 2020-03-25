@@ -327,7 +327,6 @@ public class SplashAd {
 //        splashLayout.setVisibility(View.GONE);
         if (countDownTimer != null) {
             countDownTimer.cancel();
-            countDownTimer = null;
         }
         if (proxy != null) {
             proxy.shutdown();
