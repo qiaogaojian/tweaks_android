@@ -27,7 +27,7 @@ public class SplashAdBean implements Parcelable {
     }
 
     public String getType() {
-        return type == null ? "jpg" : type;
+        return type == null ? "null" : type;
     }
 
     public void setType(String type) {

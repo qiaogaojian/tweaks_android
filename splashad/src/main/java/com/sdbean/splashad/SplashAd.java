@@ -183,6 +183,11 @@ public class SplashAd {
         }.start();
 
         switch (splashAdBean.getType()) {
+            case "null":
+                startTick();
+                imageView.setVisibility(View.VISIBLE);
+                listener.onSplashAdFailToShow();
+                break;
             case "jpg":
             case "png":
             case "gif":

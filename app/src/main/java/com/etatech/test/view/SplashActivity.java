@@ -28,7 +28,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             adBean.setAdUrl("https://www.douyu.com/510229");
             adBean.setResUrl("http://img.53site.com/Werewolf/AD/w2b.mp4");
             adBean.setStayTime(5);
-            adBean.setType("mp4");
+//            adBean.setType("mp4");
             final SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
                 @Override
                 public void onSplashAdSuccessToShow() {
