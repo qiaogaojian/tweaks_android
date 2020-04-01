@@ -105,7 +105,9 @@ public class SplashAd {
      */
     public void setCopyRight(String copyRight) {
         this.copyRight = copyRight;
-        tvCopyRight.setText(copyRight);
+        if (tvCopyRight != null) {
+            tvCopyRight.setText(copyRight);
+        }
     }
 
     /**
@@ -303,7 +305,7 @@ public class SplashAd {
                         if (tvJump == null) {
                             return;
                         }
-                        final String value = String.valueOf((int) (millisUntilFinished/1000));
+                        final String value = String.valueOf((int) (millisUntilFinished / 1000));
                         if (TextUtils.isEmpty(jumpText)) {
                             tvJump.setText(value + " 跳过");
                         } else {
