@@ -1,8 +1,11 @@
 package com.sdbean.splashad;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Animatable;
@@ -31,6 +34,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * Created by Michael
@@ -401,9 +405,19 @@ public class SplashAd {
         }
         listener.onSplashAdClicked();
 
-        Intent intent = new Intent("android.intent.action.VIEW");
-        Uri downloadUrl = Uri.parse(splashAdBean.getAdUrl());
-        intent.setData(downloadUrl);
-        activity.get().startActivity(intent);
+//        Intent intent = new Intent("android.intent.action.VIEW");
+//        Uri downloadUrl = Uri.parse(splashAdBean.getAdUrl());
+//        intent.setData(downloadUrl);
+//        activity.get().startActivity(intent);
+
+        try {
+            Uri uri = Uri.parse(splashAdBean.getAdUrl());
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+            browserIntent.setDataAndType(uri, "text/html");
+            browserIntent.addCategory(Intent.CATEGORY_BROWSABLE);
+            activity.get().startActivity(browserIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
