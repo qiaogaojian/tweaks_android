@@ -182,9 +182,9 @@ public class AntiEmulator {
     }
 
     public static boolean EasyProtector(Context context) {
-        if (EasyProtectorLib.checkIsRoot()) {
-            return true;
-        }
+//        if (EasyProtectorLib.checkIsRoot()) {  // 暂时屏蔽root检测
+//            return true;
+//        }
 
         if (EasyProtectorLib.checkXposedExistAndDisableIt()) {
             return true;
@@ -212,7 +212,18 @@ public class AntiEmulator {
     }
 
     public static boolean checkEmulator(Context context) {
-        if (AntiEmulator.checkBlueStacksFiles() || AntiEmulator.checkCupInfo() || AntiEmulator.checkPipes() || AntiEmulator.checkQEmuDriverFile() || AntiEmulator.CheckEmulatorFiles() || AntiEmulator.CheckEmulatorBuild()) {
+        if (checkBlueStacksFiles()
+                || checkCupInfo()
+                || checkPipes()
+                || checkQEmuDriverFile()
+                || CheckEmulatorFiles()
+                || CheckEmulatorBuild()
+                || CheckOperatorNameAndroid(context)
+                || hasGenyFiles()
+                || EmulatorDetector(context)
+                || EasyProtector(context)
+                || Antifake(context)
+        ) {
             return true;
         }
         return false;
