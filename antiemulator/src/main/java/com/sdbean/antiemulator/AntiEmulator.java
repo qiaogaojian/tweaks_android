@@ -203,7 +203,12 @@ public class AntiEmulator {
     }
 
     public static boolean Antifake(Context context) {
-        return EmulatorDetectUtil.isEmulator(context);
+        try {
+            return EmulatorDetectUtil.isEmulator(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static boolean checkEmulator(Context context) {
