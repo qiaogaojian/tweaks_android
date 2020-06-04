@@ -1,1 +1,1 @@
-include ':app', ':splashad'
+include ':app', ':splashad', ':antiemulator'

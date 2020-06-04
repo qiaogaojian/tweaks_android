@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.etatech.test"
-        minSdkVersion 18
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -99,4 +99,5 @@ dependencies {
 //    implementation 'com.sdbean.splashad:splashad:1.2'
 
     implementation project(':splashad')
+    implementation project(':antiemulator')
 }

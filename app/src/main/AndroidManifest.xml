@@ -16,11 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.TestDarkModeActivity"></activity>
-        <activity android:name=".view.TestClickAreaActivity" />
-        <activity android:name=".view.TestSplashAdActivity" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.AntiEmulatorActivity"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
@@ -29,6 +26,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".view.TestDarkModeActivity" />
+        <activity android:name=".view.TestClickAreaActivity" />
+        <activity android:name=".view.TestSplashAdActivity" />
+        <activity
+            android:name=".view.SplashActivity"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".view.TestJavaRequestActivity" />
         <activity android:name=".view.TestMvvmActivity" />
