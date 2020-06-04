@@ -6,27 +6,18 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.view.custom.floatmenu.FloatItem;
-import com.etatech.test.view.custom.floatmenu.FloatLogoMenu;
-import com.etatech.test.view.custom.floatmenu.FloatMenuView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -152,6 +143,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
             @Override
             public void call(Object o) {
                 intent.setClass(MainActivity.this, TestDarkModeActivity.class);
+                startActivity(intent);
+            }
+        });
+        ClickUtil.setOnClick(binding.btnTestVmant, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, AntiEmulatorActivity.class);
                 startActivity(intent);
             }
         });
