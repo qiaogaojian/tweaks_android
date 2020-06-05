@@ -1,8 +1,19 @@
 package com.sdbean.antiemulator;
 
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.lahm.library.EasyProtectorLib;
 import com.lahm.library.EmulatorCheckCallback;
@@ -18,6 +29,9 @@ import java.io.InputStreamReader;
 
 
 public class AntiEmulator {
+
+    public static final int MESSAGE_FROM_CLIENT = 100;
+    public static final int MESSAGE_FROM_SERVICE = 200;
 
     private static String[] known_pipes = {
             "/dev/socket/qemud",
