@@ -19,13 +19,12 @@
         <activity
             android:name=".view.AntiEmulatorActivity"
             android:launchMode="standard"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:screenOrientation="portrait">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".view.TestDarkModeActivity" />
         <activity android:name=".view.TestClickAreaActivity" />
@@ -35,11 +34,11 @@
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".view.TestJavaRequestActivity" />
         <activity android:name=".view.TestMvvmActivity" />
