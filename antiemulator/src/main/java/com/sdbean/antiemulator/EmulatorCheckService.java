@@ -34,6 +34,8 @@ public class EmulatorCheckService extends Service {
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("result", AntiEmulator.checkEmulator(EmulatorCheckService.this));
                     msg.setData(bundle);
+                    stopSelf();
+                    Log.e(TAG, "stopSelf");
                     try {
                         client.send(msg);
                     } catch (RemoteException e) {

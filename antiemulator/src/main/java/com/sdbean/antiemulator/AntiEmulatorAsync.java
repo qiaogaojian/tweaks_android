@@ -33,8 +33,11 @@ public class AntiEmulatorAsync {
         public void handleMessage(Message message) {
             switch (message.what) {
                 case MESSAGE_FROM_SERVICE:
-                    Log.e(TAG, "receive message from service:" + message.getData().getBoolean("result",false));
-                    listener.onResult(message.getData().getBoolean("result",false));
+                    Log.e(TAG, "receive message from service:" + message.getData().getBoolean("result", false));
+                    listener.onResult(message.getData().getBoolean("result", false));
+                    mContext.unbindService(mConnection);
+                    mContext = null;
+                    Log.e(TAG, "unbindService");
                     break;
                 default:
                     super.handleMessage(message);
@@ -73,14 +76,16 @@ public class AntiEmulatorAsync {
     };
 
     private static CheckEmulatorListener listener;
-    public static void checkEmulator(Context context, CheckEmulatorListener checkEmulatorListener)
-    {
+    private static Context mContext;
+
+    public static void checkEmulator(Context context, CheckEmulatorListener checkEmulatorListener) {
+        mContext = context;
         listener = checkEmulatorListener;
         Intent intent = new Intent(context, EmulatorCheckService.class);
-        context.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        mContext.bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
-    public interface CheckEmulatorListener{
+    public interface CheckEmulatorListener {
         void onResult(boolean isEmulator);
     }
 
