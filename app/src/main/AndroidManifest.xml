@@ -16,15 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.TestIpcAidlActivity"></activity>
+        
         <activity
             android:name=".view.AntiEmulatorActivity"
             android:launchMode="standard"
             android:screenOrientation="portrait">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".view.TestDarkModeActivity" />
         <activity android:name=".view.TestClickAreaActivity" />
@@ -45,12 +49,6 @@
         <activity android:name=".view.TestSvgActivity" />
         <activity android:name=".view.TestAnimationActivity" />
         <activity android:name=".view.ActivityTestSort" />
-
-        <service
-            android:name=".service.FloatingService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".view.TestFloatingViewActivity" />
         <activity android:name=".view.LeakSensorManagerActivity" />
         <activity android:name=".view.LeakTimerTaskActivity" />
@@ -69,6 +67,17 @@
         <activity android:name=".view.AdaptWidthActivity" />
         <activity android:name=".view.AdaptHeightActivity" />
         <activity android:name=".view.MainActivity" />
+
+        <service
+            android:name=".service.FloatingService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".service.IpcAidlService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote" />
     </application>
 
 </manifest>

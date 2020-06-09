@@ -97,6 +97,7 @@ dependencies {
 
     // 开屏广告
     implementation project(':splashad')
-//    implementation 'com.sdbean.antiemulator:antiemulator:1.0.0'
+    // 虚拟机检测
     implementation project(':antiemulator')
+//    implementation 'com.sdbean.antiemulator:antiemulator:1.0.2'
 }

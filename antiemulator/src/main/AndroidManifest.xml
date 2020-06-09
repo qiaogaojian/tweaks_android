@@ -7,7 +7,7 @@
             android:name=".EmulatorCheckService"
             android:enabled="true"
             android:exported="false"
-            android:process=":remote"></service>
+            android:process=":remote"/>
     </application>
 
 </manifest>

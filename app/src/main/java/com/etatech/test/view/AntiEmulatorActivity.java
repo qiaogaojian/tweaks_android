@@ -6,6 +6,7 @@ import android.text.Html;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestAntiEmulatorBinding;
+import com.etatech.test.utils.App;
 import com.etatech.test.utils.BaseActivity;
 import com.sdbean.antiemulator.AntiEmulator;
 import com.sdbean.antiemulator.AntiEmulatorAsync;
