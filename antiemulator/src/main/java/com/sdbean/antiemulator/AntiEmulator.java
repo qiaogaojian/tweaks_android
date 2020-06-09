@@ -117,10 +117,13 @@ public class AntiEmulator {
         String HARDWARE = android.os.Build.HARDWARE;
         String MODEL = android.os.Build.MODEL;
         String PRODUCT = android.os.Build.PRODUCT;
-        if (BOARD == "unknown" || BOOTLOADER == "unknown"
-                || BRAND == "generic" || DEVICE == "generic"
-                || MODEL == "sdk" || PRODUCT == "sdk"
-                || HARDWARE == "goldfish") {
+        if (BOARD.equals("unknown")
+                || BOOTLOADER.equals("unknown")
+                || BRAND.equals("generic")
+                || DEVICE.equals("generic")
+                || MODEL.equals("sdk")
+                || PRODUCT.equals("sdk")
+                || HARDWARE.equals("goldfish")) {
             return true;
         }
         return false;
@@ -196,9 +199,9 @@ public class AntiEmulator {
     }
 
     public static boolean EasyProtector(Context context) {
-//        if (EasyProtectorLib.checkIsRoot()) {  // 暂时屏蔽root检测
-//            return true;
-//        }
+        //        if (EasyProtectorLib.checkIsRoot()) {  // 暂时屏蔽root检测
+        //            return true;
+        //        }
 
         if (EasyProtectorLib.checkXposedExistAndDisableIt()) {
             return true;
