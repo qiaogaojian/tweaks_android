@@ -25,7 +25,7 @@ public class IpcAidlService extends Service {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case MESSAGE_FROM_CLIENT:
+                case MESSAGE_FROM_CLIENT:it
                     LogUtils.e("Receive Message from Client:" + msg.getData().getString("msg"));
 
                     // 获取客户端传递过来的Messenger，通过这个Messenger回传消息给客户端
@@ -33,7 +33,7 @@ public class IpcAidlService extends Service {
                     // 当然，回传消息还是要通过message
                     Message msgToClient = Message.obtain(null, MESSAGE_FROM_SERVICE);
                     Bundle bundle = new Bundle();
-                    bundle.putString("msg", "**********Service**********");
+                    bundle.putString("msg", "Process=>" + android.os.Process.myPid());
                     msgToClient.setData(bundle);
                     try {
                         clientMessenger.send(msgToClient);
