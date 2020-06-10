@@ -69,10 +69,10 @@
 
     <declare-styleable name="MarqueeTextView">
         <attr name="scroll_interval" format="integer" />
-        <attr name="scroll_first_delay" format="integer"/>
+        <attr name="scroll_first_delay" format="integer" />
         <attr name="scroll_mode">
-            <enum name="mode_forever" value="100"/>
-            <enum name="mode_once" value="101"/>
+            <enum name="mode_forever" value="100" />
+            <enum name="mode_once" value="101" />
         </attr>
     </declare-styleable>
 
@@ -91,23 +91,23 @@
     </declare-styleable>
 
     <declare-styleable name="NumberProgressBar">
-        <attr name="progress_current" format="integer"/>
-        <attr name="progress_max" format="integer"/>
+        <attr name="progress_current" format="integer" />
+        <attr name="progress_max" format="integer" />
 
-        <attr name="progress_unreached_color" format="color"/>
-        <attr name="progress_reached_color" format="color"/>
+        <attr name="progress_unreached_color" format="color" />
+        <attr name="progress_reached_color" format="color" />
 
-        <attr name="progress_reached_bar_height" format="dimension"/>
-        <attr name="progress_unreached_bar_height" format="dimension"/>
+        <attr name="progress_reached_bar_height" format="dimension" />
+        <attr name="progress_unreached_bar_height" format="dimension" />
 
-        <attr name="progress_text_size" format="dimension"/>
-        <attr name="progress_text_color" format="color"/>
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
 
-        <attr name="progress_text_offset" format="dimension"/>
+        <attr name="progress_text_offset" format="dimension" />
 
         <attr name="progress_text_visibility" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
         </attr>
     </declare-styleable>
 
@@ -117,7 +117,7 @@
 
     <declare-styleable name="LeanTextView">
         <attr name="degree" format="integer" />
-        <attr name="skew_degree" format="integer"/>
+        <attr name="skew_degree" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="ParallelogramImageView">
@@ -138,5 +138,11 @@
 
     <declare-styleable name="ClipConstraintLayout">
         <attr name="hasPadding" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TestLinearGradientShaderView">
+        <attr name="gradient_text" format="string" />
+        <attr name="gradient_text_size" format="integer" />
+        <attr name="gradient_width" format="integer" />
     </declare-styleable>
 </resources>

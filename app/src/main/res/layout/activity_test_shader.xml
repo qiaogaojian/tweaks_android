@@ -10,6 +10,9 @@
         <com.etatech.test.view.custom.shader.TestLinearGradientShaderView
             android:layout_width="match_parent"
             android:layout_height="600pt"
+            app:gradient_text="TEST TEXT"
+            app:gradient_text_size="60"
+            app:gradient_width="300"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
