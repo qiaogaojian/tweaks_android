@@ -25,7 +25,7 @@ public class IpcAidlService extends Service {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case MESSAGE_FROM_CLIENT:it
+                case MESSAGE_FROM_CLIENT:
                     LogUtils.e("Receive Message from Client:" + msg.getData().getString("msg"));
 
                     // 获取客户端传递过来的Messenger，通过这个Messenger回传消息给客户端

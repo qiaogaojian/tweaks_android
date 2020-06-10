@@ -16,8 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.TestIpcAidlActivity"></activity>
-        
+        <activity android:name=".view.TestShaderActivity"></activity>
+        <activity android:name=".view.TestIpcAidlActivity" />
         <activity
             android:name=".view.AntiEmulatorActivity"
             android:launchMode="standard"
@@ -72,7 +72,6 @@
             android:name=".service.FloatingService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".service.IpcAidlService"
             android:enabled="true"
