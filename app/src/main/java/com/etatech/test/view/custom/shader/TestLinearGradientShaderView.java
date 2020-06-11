@@ -23,8 +23,8 @@ import com.etatech.test.R;
  */
 public class TestLinearGradientShaderView extends View {
     private int offset = 0;
-    private Paint textPaint;
-    private Paint rectPaint;
+    private Paint rectPaint = new Paint();
+    private Paint textPaint = new Paint();
     private LinearGradient linearGradient;
     private int viewHeight;
     private int viewWidth;
@@ -32,6 +32,8 @@ public class TestLinearGradientShaderView extends View {
     private int textWidth;
     private int textTopPos;
     private int textDownPos;
+    private int textLeftPos;
+    private int textRightPos;
 
     private String text;
     private int textSize;
@@ -48,11 +50,9 @@ public class TestLinearGradientShaderView extends View {
         TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.TestLinearGradientShaderView);
         text = arr.getString(R.styleable.TestLinearGradientShaderView_gradient_text);
         textSize = arr.getInteger(R.styleable.TestLinearGradientShaderView_gradient_text_size, 30);
-        gradientWidth = arr.getInteger(R.styleable.TestLinearGradientShaderView_gradient_width, 30);
+        gradientWidth = arr.getInteger(R.styleable.TestLinearGradientShaderView_gradient_width, (int) textPaint.measureText(text));
 
-        rectPaint = new Paint();
-        textPaint = new Paint();
-        textPaint.setTextSize(100);
+        textPaint.setTextSize(textSize);
     }
 
     @Override
@@ -63,9 +63,11 @@ public class TestLinearGradientShaderView extends View {
 
         Paint.FontMetrics fontMetrics = textPaint.getFontMetrics();
         textHeight = (int) Math.ceil(fontMetrics.descent - fontMetrics.ascent);
-        textWidth = (int) textPaint.measureText("TEST SHADER");
+        textWidth = (int) textPaint.measureText(text);
         textTopPos = (int) Math.ceil((viewHeight - textHeight) / 2.0);
         textDownPos = (int) Math.ceil((viewHeight + textHeight) / 2.0);
+        textLeftPos = (int) Math.ceil((viewWidth - textWidth) / 2.0);
+        textRightPos = (int) Math.ceil((viewWidth + textWidth) / 2.0);
 
         int leftBound = -gradientWidth;
         int rightBound = viewWidth;
@@ -96,7 +98,7 @@ public class TestLinearGradientShaderView extends View {
         super.onDraw(canvas);
         canvas.drawColor(Color.parseColor("#232323"));
         textPaint.setAlpha(255);
-        canvas.drawText("TEST SHADER", textTopPos, textDownPos, textPaint);
+        canvas.drawText(text, textLeftPos, textDownPos, textPaint);
 
         rectPaint.setStyle(Paint.Style.STROKE);
         rectPaint.setStrokeWidth(3);
