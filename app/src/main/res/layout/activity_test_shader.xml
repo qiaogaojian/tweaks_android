@@ -8,13 +8,21 @@
         android:layout_height="match_parent">
 
         <com.etatech.test.view.custom.shader.TestLinearGradientShaderView
+            android:id="@+id/test_shader1"
             android:layout_width="match_parent"
             android:layout_height="600pt"
             app:gradient_text="TEST TEXT"
-            app:gradient_text_size="60"
-            app:gradient_width="300"
+            app:gradient_text_size="200"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.etatech.test.view.custom.shader.TestBitmapShaderView
+            android:layout_width="match_parent"
+            android:layout_height="600pt"
+            android:background="@color/code_blue"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/test_shader1" />
 
     </android.support.constraint.ConstraintLayout>
 
