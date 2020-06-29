@@ -23,12 +23,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
     @Override
     public void init() {
+        // 打开应用时 视频广告
         if (getIntent() == null || getIntent().getExtras() == null) {
             SplashAdBean adBean = new SplashAdBean();
             adBean.setAdUrl("https://www.douyu.com/510229");
             adBean.setResUrl("https://vd3.bdstatic.com/mda-jbcku58bvs34kjav/mda-jbcku58bvs34kjav.mp4");
             adBean.setStayTime(5);
-//            adBean.setType("mp4");
+            adBean.setType("mp4");
             final SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
                 @Override
                 public void onSplashAdSuccessToShow() {
@@ -84,6 +85,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             }, 3000);
             return;
         }
+
+        // 测试时 无广告
         if (getIntent().getExtras().getBoolean("noAd", false)) {
             SplashAd splashAd = new SplashAd(this, binding.splashContainer, new SplashAdListener() {
                 @Override
@@ -121,7 +124,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             splashAd.setCopyRight("Copyright 2016 - 2019 Mega Information Technology Co.,Ltd. All Rights Reserved");
             splashAd.setJumpText("跳过");
             splashAd.showDefault(getResources().getDrawable(R.drawable.splash_bg));
-        } else {
+        }
+        // 测试时 有广告
+        else {
             SplashAdBean adBean = (SplashAdBean) getIntent().getExtras().get("splashAdBean");
             final SplashAd splashAd = new SplashAd(this, adBean, binding.splashContainer, new SplashAdListener() {
                 @Override
