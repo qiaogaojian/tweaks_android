@@ -167,6 +167,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestMultiAnimation, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestMultiAnimationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

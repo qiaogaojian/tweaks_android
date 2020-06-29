@@ -86,8 +86,6 @@ public class DataBindingTools {
         }
         Glide.with(view.getContext())
              .load(resId)
-             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-             .dontAnimate()
              .into(view);
     }
 }
