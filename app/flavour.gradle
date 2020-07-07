@@ -1,0 +1,91 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
+ext {
+    zipObb = this.&zipObb
+    getCurrentFlavor = this.&getCurrentFlavor
+}
+
+//外部压缩方法入口，参数是所有需要压缩文件的目录以及输出路径，同样没有添加压缩密码逻辑，小伙伴们需要的自己添加吧
+def static zipObb(File[] fs, String zipFilePath) {
+    if (fs == null) {
+        throw new NullPointerException("fs == null");
+    }
+    ZipOutputStream zos = null;
+    try {
+        zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFilePath)));
+        for (File file : fs) {
+            if (file == null || !file.exists()) {
+                continue;
+            }
+            compress(file, zos, file.getName());
+        }
+        System.out.println("Finish")
+        zos.flush();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        if (zos != null) {
+            try {
+                zos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+//内部递归压缩方法
+def static compress(File sourceFile, ZipOutputStream zos, String name) throws Exception {
+    System.out.println("Compress")
+
+    byte[] buf = new byte[2048];
+    if (sourceFile.isFile()) {
+        // 向zip输出流中添加一个zip实体，构造器中name为zip实体的文件的名字
+        zos.putNextEntry(new ZipEntry(name));
+        // copy文件到zip输出流中
+        int len;
+        FileInputStream inputStream = new FileInputStream(sourceFile);
+        while ((len = inputStream.read(buf)) != -1) {
+            zos.write(buf, 0, len);
+        }
+        // Complete the entry
+        zos.closeEntry();
+        inputStream.close();
+    } else {
+        File[] listFiles = sourceFile.listFiles();
+        if (listFiles == null || listFiles.length == 0) {
+            // 需要保留原来的文件结构时,需要对空文件夹进行处理
+            zos.putNextEntry(new ZipEntry(name + "/"));
+            // 没有文件，不需要文件的copy
+            zos.closeEntry();
+        } else {
+            for (File file : listFiles) {
+                compress(file, zos, name + "/" + file.getName());
+            }
+        }
+    }
+}
+
+def String getCurrentFlavor() {
+
+    Gradle gradle = getGradle()
+    String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+
+    Pattern pattern;
+
+    if (tskReqStr.contains("assemble"))
+        pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
+    else
+        pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
+    println(tskReqStr)
+    Matcher matcher = pattern.matcher(tskReqStr)
+    if (matcher.find())
+        return matcher.group(1).toLowerCase()
+    else {
+        println "NO MATCH FOUND"
+        return ""
+    }
+}

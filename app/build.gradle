@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply from: "./flavour.gradle"
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -33,6 +33,57 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+
+        google { dimension "default" }
+        others { dimension "default" }
+
+        /** 在AndroidManifest.xml中加入
+         <meta-data android:name="Channel"
+         android:value="${CHANNEL_NAME}" />
+         **/
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [CHANNEL_NAME: name]
+        }
+
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res']
+            java.srcDirs = ['src/main/java']
+            assets.srcDirs = ['src/main/assets']
+        }
+        google {
+            res.srcDirs = ['src/googlePlay/res']
+            java.srcDirs = ['src/googlePlay/java']
+            assets.srcDirs = ['src/googlePlay/assets']
+        }
+        others {
+            res.srcDirs = ['src/normal/res']
+            java.srcDirs = ['src/normal/java']
+            assets.srcDirs = ['src/normal/assets']
+        }
+    }
+
+
+//添加到文件最后
+//自动打包扩展文件obb
+    task zipObb {
+        //获取debug还是release模式输出到不同地址
+        String outputFilePath
+        if (gradle.startParameter.taskNames.toString().contains("Debug")) {
+            outputFilePath = "./app/build/outputs/apk/google/debug/main." + android.defaultConfig.versionCode + '.' + android.defaultConfig.applicationId + ".obb"
+        } else {
+            outputFilePath = "./app/release/main." + android.defaultConfig.versionCode + '.' + android.defaultConfig.applicationId + ".obb"
+        }
+        File file = new File('./app/src/normal/res/raw/test.mp3')
+        //此处添加更多文件 也可以通过配置文件的方式输入需要打包obb的所有资源文件
+        File[] files = [file] as File[]
+        zipObb(files, outputFilePath)
     }
 }
 
