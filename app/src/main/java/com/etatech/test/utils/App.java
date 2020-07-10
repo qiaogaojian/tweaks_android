@@ -5,6 +5,7 @@ import android.content.ComponentCallbacks2;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Debug;
+import android.os.Environment;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
@@ -27,6 +28,8 @@ public class App extends Application {
     public         boolean  isWide;
     public         int      screenHeight;
     public         int      screenWidth;
+    public  static String   filesPath;
+    public  static String   externalPath;
 
     @Override
     public void onCreate() {
@@ -49,6 +52,9 @@ public class App extends Application {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
+        filesPath = getFilesDir().getAbsolutePath();
+        externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
     public static App getInstance() {

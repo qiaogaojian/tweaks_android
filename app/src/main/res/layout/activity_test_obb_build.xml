@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300pt"
+            android:gravity="center"
+            android:textColor="@color/code_blue"
+            android:textSize="36pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Obb File Path" />
+
+        <Button
+            android:id="@+id/btn_unzip"
+            style="@style/Button"
+            android:layout_marginTop="1000pt"
+            android:text="unzip Obb File"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_get_path"
+            style="@style/Button"
+            android:layout_marginTop="30pt"
+            android:text="get Obb path"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_unzip" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

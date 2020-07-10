@@ -8,6 +8,7 @@ import android.os.Environment;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.etatech.test.R;
+import com.etatech.test.ResourcesHelper;
 
 /**
  * Created by Michael
@@ -16,10 +17,10 @@ import com.etatech.test.R;
  */
 public class SoundManager {
     private volatile static SoundManager soundManager;
-    private                 Context      mContext;
-    private                 MediaPlayer  singlePlayer = null;
-    private                 MediaPlayer  multiPlayer  = null;
-    private                 MediaPlayer  musicPlayer  = null;
+    private Context mContext;
+    private MediaPlayer singlePlayer = null;
+    private MediaPlayer multiPlayer = null;
+    private MediaPlayer musicPlayer = null;
 
     private SoundManager(Context context) {
         this.mContext = context;
@@ -75,7 +76,7 @@ public class SoundManager {
                     Uri uri = Uri.fromFile(FileUtils.getFileByPath(path));
                     singlePlayer = MediaPlayer.create(mContext, uri);
                 } else {
-                    singlePlayer = MediaPlayer.create(mContext, R.raw.test);
+                    singlePlayer = MediaPlayer.create(mContext, ResourcesHelper.getObbResourceUri("test.mp3"));
                 }
 
                 singlePlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -106,7 +107,7 @@ public class SoundManager {
                     Uri uri = Uri.fromFile(FileUtils.getFileByPath(path));
                     multiPlayer = MediaPlayer.create(mContext, uri);
                 } else {
-                    multiPlayer = MediaPlayer.create(mContext, R.raw.test);
+                    multiPlayer = MediaPlayer.create(mContext, ResourcesHelper.getObbResourceUri("test.mp3"));
                 }
 
                 multiPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -143,7 +144,7 @@ public class SoundManager {
                     Uri uri = Uri.fromFile(FileUtils.getFileByPath(path));
                     musicPlayer = MediaPlayer.create(mContext, uri);
                 } else {
-                    musicPlayer = MediaPlayer.create(mContext, R.raw.test);
+                    musicPlayer = MediaPlayer.create(mContext, ResourcesHelper.getObbResourceUri("test.mp3"));
                 }
 
                 musicPlayer.setLooping(true);
