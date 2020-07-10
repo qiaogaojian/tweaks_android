@@ -9,7 +9,7 @@ ext {
 }
 
 //外部压缩方法入口，参数是所有需要压缩文件的目录以及输出路径，同样没有添加压缩密码逻辑，小伙伴们需要的自己添加吧
-def static zipObb(File[] fs, String zipFilePath) {
+def static zipObb(List<File> fs, String zipFilePath) {
     if (fs == null) {
         throw new NullPointerException("fs == null");
     }
