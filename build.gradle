@@ -26,6 +26,8 @@ allprojects {
             }
             url 'http://47.94.255.178:8081/repository/android'
         }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
     }
 }
 
