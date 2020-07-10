@@ -2,6 +2,11 @@ import groovy.io.FileType
 
 apply plugin: 'com.android.application'
 apply from: "./flavour.gradle"
+
+def keyConfigFile = rootProject.file("app/etatech.properties")
+def keyConfig = new Properties()
+keyConfig.load(new FileInputStream(keyConfigFile))
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -13,16 +18,57 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            // 混淆
-            minifyEnabled true
-            // Zipalign优化
-            zipAlignEnabled true
-            // 移除无用的resource文件
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+    signingConfigs {
+        //可以根据不同需要配置不同的信息，在需要的地方引用即可
+        debug {
+            // 配置的这几行都是生成keystore时需要的
+            v1SigningEnabled true
+            v2SigningEnabled true
+            keyAlias keyConfig['keystoreAlias']
+            keyPassword keyConfig['keyPassword']
+            storeFile file(keyConfig['keystoreFile'])
+            storePassword keyConfig['storePassword']
         }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+            keyAlias keyConfig['keystoreAlias']
+            keyPassword keyConfig['keyPassword']
+            storeFile file(keyConfig['keystoreFile'])
+            storePassword keyConfig['storePassword']
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"//在BuildConfig文件中生成LOG_DEBUG字段
+            minifyEnabled false     //是否运行混淆文件
+
+            zipAlignEnabled false   //是否使用Zipalign优化
+            //Android SDK中含一个“zipalign”的工具，它能够对打包的应用程序进行优化
+            //在你的应用程序上运行zipalign，使得在运行时Android与应用程序间的交互更加有效率
+
+            debuggable true         //能否进行debug
+
+            shrinkResources false   // 移除无用的resource文件
+
+            signingConfig signingConfigs.debug//签名配置
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true      // 混淆
+            zipAlignEnabled true    // Zipalign优化
+            shrinkResources true    // 移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    dexOptions {
+        maxProcessCount 8       //设置可以同时启动的DEX进程的最大数量
+        javaMaxHeapSize "2g"    //设置dex操作的最大内存分配池大小
+        preDexLibraries true    //使Gradle能够预先解决库依赖关系
     }
 
     lintOptions {
@@ -33,6 +79,7 @@ android {
     dataBinding {
         enabled = true
     }
+
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
@@ -69,28 +116,6 @@ android {
             java.srcDirs = ['src/normal/java']
             assets.srcDirs = ['src/normal/assets']
         }
-    }
-
-
-//添加到文件最后
-//自动打包扩展文件obb
-    task zipObb {
-        //获取debug还是release模式输出到不同地址
-        String outputFilePath
-        if (gradle.startParameter.taskNames.toString().contains("Debug")) {
-            outputFilePath = "./app/build/outputs/apk/google/debug/main." + android.defaultConfig.versionCode + '.' + android.defaultConfig.applicationId + ".obb"
-        } else {
-            outputFilePath = "./app/google/release/main." + android.defaultConfig.versionCode + '.' + android.defaultConfig.applicationId + ".obb"
-        }
-
-        def list = []
-        //此目录添加需要打包obb的所有资源文件
-        def dir = new File('./app/src/normal/res/')
-        dir.eachFileRecurse (FileType.FILES) { file ->
-            list << file
-        }
-
-        zipObb(list, outputFilePath)
     }
 }
 
@@ -164,4 +189,27 @@ dependencies {
     // 虚拟机检测
     implementation project(':antiemulator')
 //    implementation 'com.sdbean.antiemulator:antiemulator:1.0.3'
+}
+
+//添加到文件最后
+//自动打包扩展文件obb
+task zipObb {
+    doLast {
+        //获取debug还是release模式输出到不同地址
+        String outputFilePath
+        if (gradle.startParameter.taskNames.toString().contains("Debug")) {
+            outputFilePath = "./app/build/outputs/apk/google/debug/main." + android.defaultConfig.versionCode + '.' + android.defaultConfig.applicationId + ".obb"
+        } else {
+            outputFilePath = "./app/google/release/main." + android.defaultConfig.versionCode + '.' + android.defaultConfig.applicationId + ".obb"
+        }
+
+        def list = []
+        //此目录添加需要打包obb的所有资源文件
+        def dir = new File('./app/src/normal/res/')
+        dir.eachFileRecurse(FileType.FILES) { file ->
+            list << file
+        }
+
+        zipObb(list, outputFilePath)
+    }
 }
