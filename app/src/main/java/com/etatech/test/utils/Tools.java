@@ -157,7 +157,7 @@ public class Tools {
         return result;
     }
 
-    public static String getColorStrAlpha(Context context,int color) {
+    public static String getColorStrAlpha(Context context, int color) {
         return '#' + Integer.toHexString(ContextCompat.getColor(context, color));
     }
 
@@ -174,6 +174,7 @@ public class Tools {
     }
 
     public static String getCurrentTime() {
+        // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
