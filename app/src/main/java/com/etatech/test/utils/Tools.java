@@ -2,18 +2,26 @@ package com.etatech.test.utils;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.text.Html;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.etatech.test.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static com.etatech.test.utils.App.logArr;
 
 /**
  * Created by Michael
@@ -148,4 +156,27 @@ public class Tools {
         }
         return result;
     }
+
+    public static String getColorStrAlpha(Context context,int color) {
+        return '#' + Integer.toHexString(ContextCompat.getColor(context, color));
+    }
+
+    // 这里的context如果使用Application的 颜色只返回白天模式的
+    public static String getColorStr(Context context, int color) {
+        String retColor = "#" + Integer.toHexString(ContextCompat.getColor(context, color) & 0x00ffffff);
+        return retColor;
+    }
+
+    public static void addLog(Context context, String log, int color) {
+        logArr.add(Html.fromHtml(
+                String.format("<font color=%s>%s:%s</font>",
+                        Tools.getColorStr(context, color), getCurrentTime(), log)));
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
+
 }
