@@ -56,8 +56,6 @@ public class TestSurfaceviewActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_surfaceview);
 
-        logArr = new ArrayList<String>();
-
         scrollRoot = findViewById(R.id.include_scroll_text);
         scrollTextView = (ScrollTextView) findViewById(R.id.stv_surface_view);
         tvState = (TextView) findViewById(R.id.tv_surfaceview_state);
@@ -72,6 +70,7 @@ public class TestSurfaceviewActivity extends BaseActivity implements View.OnClic
         btnGone.setOnClickListener(this);
         btnClear.setOnClickListener(this);
 
+        logArr = new ArrayList<String>();
         adapter = new StateLogAdapter(logArr);
         logList.setLayoutManager(new LinearLayoutManager(this));
         logList.setAdapter(adapter);

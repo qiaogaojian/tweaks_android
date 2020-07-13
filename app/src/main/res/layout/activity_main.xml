@@ -237,6 +237,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_multi_animation" />
 
+            <Button
+                android:id="@+id/btn_test_lifecycle"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Lifecycle"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_obb_build" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
