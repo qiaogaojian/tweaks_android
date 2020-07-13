@@ -170,7 +170,9 @@ public class Tools {
     public static void addLog(Context context, String log, int color) {
         logArr.add(Html.fromHtml(
                 String.format("<font color=%s>%s:%s</font>",
-                        Tools.getColorStr(context, color), getCurrentTime(), log)));
+                        Tools.getColorStr(context, color),
+                        getCurrentTime(),
+                        log)));
     }
 
     public static String getCurrentTime() {
