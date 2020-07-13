@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Debug;
 import android.os.Environment;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.Spanned;
 import android.util.Log;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
@@ -14,6 +15,9 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael
@@ -30,6 +34,7 @@ public class App extends Application {
     public         int      screenWidth;
     public  static String   filesPath;
     public  static String   externalPath;
+    public  static List<Spanned> logArr;
 
     @Override
     public void onCreate() {
@@ -55,6 +60,7 @@ public class App extends Application {
 
         filesPath = getFilesDir().getAbsolutePath();
         externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        logArr = new ArrayList<>();
     }
 
     public static App getInstance() {

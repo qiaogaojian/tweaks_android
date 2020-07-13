@@ -41,7 +41,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvLog.setText(">>>" + position + "." + logArrList.get(position));
+        holder.tvLog.setText(logArrList.get(position),TextView.BufferType.SPANNABLE);
         holder.tvLog.setTypeface(App.getInstance().getTypeface());
     }
 
