@@ -213,3 +213,28 @@ task zipObb {
         zipObb(list, outputFilePath)
     }
 }
+
+task curBranch {
+    doLast {
+        gitBranch()
+        switchDev()
+        gitBranch()
+    }
+}
+
+def gitBranch() {
+    def branch = ""
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    println(branch)
+}
+
+def switchDev() {
+    def branch = ""
+    def proc = "git branch".execute()
+    proc.in.eachLine { line -> println line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+}
