@@ -214,6 +214,12 @@ task zipObb {
     }
 }
 
+task hello{
+    doLast{
+        println "Hello"
+    }
+}
+
 task curBranch {
     doLast {
         gitBranch()
@@ -232,9 +238,15 @@ def gitBranch() {
 }
 
 def switchDev() {
-    def branch = ""
     def proc = "git checkout invest".execute()
     proc.in.eachLine { line -> println line }
     proc.err.eachLine { line -> println line }
     proc.waitFor()
 }
+
+task installGitHooks(type: Copy) {
+    from new File(rootProject.rootDir, 'pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks') }
+}
+
+build.dependsOn installGitHooks
