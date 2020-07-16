@@ -1,4 +1,7 @@
 import groovy.io.FileType
+import org.gradle.internal.logging.text.StyledTextOutput;
+import org.gradle.internal.logging.text.StyledTextOutputFactory;
+import static org.gradle.internal.logging.text.StyledTextOutput.Style;
 
 apply plugin: 'com.android.application'
 apply from: "./flavour.gradle"
@@ -214,8 +217,8 @@ task zipObb {
     }
 }
 
-task checkBranch{
-    doLast{
+task checkBranch {
+    doLast {
         gitBranch()
         switchDev()
         gitBranch()
@@ -224,9 +227,17 @@ task checkBranch{
 
 task curBranch {
     doLast {
-        gitBranch()
-        switchDev()
-        gitBranch()
+        def branch = ""
+        def proc = "git rev-parse --abbrev-ref HEAD".execute()
+        proc.in.eachLine { line -> branch = line }
+        proc.err.eachLine { line -> println line }
+        proc.waitFor()
+        def out = services.get(StyledTextOutputFactory).create("blah")
+        if (branch != "master") {
+            out.withStyle(Style.Info).println('colored text')
+        } else {
+            out.withStyle(Style.Error).println('colored text')
+        }
     }
 }
 
