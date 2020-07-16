@@ -234,9 +234,9 @@ task curBranch {
         proc.waitFor()
         def out = services.get(StyledTextOutputFactory).create("blah")
         if (branch != "master") {
-            out.style(Style.Failure).println('当前分支不是提交分支')
+            out.style(Style.Failure).println('This branch allow commit')
         } else {
-            out.style(Style.Success).println('当前分支是提交分支')
+            out.style(Style.Success).println('This branch don\'t allow commit')
         }
     }
 }
