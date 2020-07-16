@@ -5,7 +5,7 @@
 git stash -q --keep-index
 
 # run the tests with the gradle wrapper
-./gradlew app:curBranch
+./gradlew app:printStyle
 
 # store the last exit code in a variable
 RESULT=$?
