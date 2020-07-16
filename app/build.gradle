@@ -214,9 +214,11 @@ task zipObb {
     }
 }
 
-task hello{
+task checkBranch{
     doLast{
-        println "Hello"
+        gitBranch()
+        switchDev()
+        gitBranch()
     }
 }
 
