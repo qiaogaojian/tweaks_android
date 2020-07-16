@@ -234,9 +234,18 @@ task curBranch {
         proc.waitFor()
         def out = services.get(StyledTextOutputFactory).create("blah")
         if (branch != "master") {
-            out.withStyle(Style.Info).println('colored text')
+            out.withStyle(Style.Failure).println('当前分支不是提交分支')
         } else {
-            out.withStyle(Style.Error).println('colored text')
+            out.withStyle(Style.Failure).println('当前分支是提交分支')
+        }
+    }
+}
+
+task color {
+    doLast {
+        def out = services.get(StyledTextOutputFactory).create("blah")
+        StyledTextOutput.Style.values().each {
+            out.style(it).println("This line has the style $it")
         }
     }
 }
