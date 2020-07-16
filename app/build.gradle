@@ -240,7 +240,7 @@ def gitBranch() {
 }
 
 def switchDev() {
-    def proc = "git checkout invest".execute()
+    def proc = "git checkout master".execute()
     proc.in.eachLine { line -> println line }
     proc.err.eachLine { line -> println line }
     proc.waitFor()
