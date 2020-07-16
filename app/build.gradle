@@ -234,14 +234,14 @@ task curBranch {
         proc.waitFor()
         def out = services.get(StyledTextOutputFactory).create("blah")
         if (branch != "master") {
-            out.withStyle(Style.Failure).println('当前分支不是提交分支')
+            out.style(Style.Failure).println('当前分支不是提交分支')
         } else {
-            out.withStyle(Style.Failure).println('当前分支是提交分支')
+            out.style(Style.Success).println('当前分支是提交分支')
         }
     }
 }
 
-task color {
+task printStyle {
     doLast {
         def out = services.get(StyledTextOutputFactory).create("blah")
         StyledTextOutput.Style.values().each {
