@@ -415,7 +415,9 @@ public class SplashAd {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW);
             browserIntent.setDataAndType(uri, "text/html");
             browserIntent.addCategory(Intent.CATEGORY_BROWSABLE);
-            activity.get().startActivity(browserIntent);
+            if (browserIntent.resolveActivity(activity.get().getPackageManager())!=null) {
+                activity.get().startActivity(browserIntent);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
