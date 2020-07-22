@@ -27,7 +27,7 @@ public class JavaTest {
         for (int i = 0; i < 10; i++) {
             linkedList.add(new TestBean(i+""));
         }
-        for (TestBean s : linkedList) {
+        for (TestBean s : linkedList) {   // 如果集合中储存的是值类型 无法修改
             if (s.getValue().equals("6")) {
                 s.setValue("666");
             }
