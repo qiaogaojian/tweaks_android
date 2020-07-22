@@ -233,8 +233,8 @@ task curBranch {
         proc.err.eachLine { line -> println line }
         proc.waitFor()
         def out = services.get(StyledTextOutputFactory).create("blah")
-        println(branch+':')
-        if (branch== "master") {
+        println(branch + ':')
+        if (branch == "master") {
             out.style(Style.Failure).println('This branch allow commit')
         } else {
             println("******************************************************************************************************************************************************************")
