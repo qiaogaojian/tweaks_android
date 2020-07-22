@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_chat"
+            android:layout_width="1080pt"
+            android:layout_height="0pt"
+            android:layout_marginBottom="30pt"
+            android:background="@color/code_blue"
+            android:padding="60pt"
+            app:layout_constraintBottom_toTopOf="@id/tv_address"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_log" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="600pt"
+            android:layout_height="100pt"
+            android:layout_marginBottom="290pt"
+            android:gravity="center"
+            android:textColor="@color/code_black"
+            android:textSize="30pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_connect"
+            tools:text="192.168.1.10:80" />
+
+        <Button
+            android:id="@+id/btn_host"
+            style="@style/Button"
+            android:layout_marginBottom="290pt"
+            android:text="Host Server"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/btn_connect"
+            app:layout_constraintRight_toRightOf="@id/btn_connect" />
+
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="336pt"
+            android:layout_height="100pt"
+            android:layout_marginBottom="160pt"
+            android:gravity="center"
+            android:hint="input ip address"
+            android:textSize="30pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/et_port"
+            tools:text="192.168.1.116" />
+
+        <EditText
+            android:id="@+id/et_port"
+            android:layout_width="200pt"
+            android:layout_height="100pt"
+            android:layout_marginBottom="160pt"
+            android:gravity="center"
+            android:hint="input port"
+            android:textSize="30pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/et_address"
+            app:layout_constraintRight_toLeftOf="@id/btn_connect"
+            tools:text="80" />
+
+        <Button
+            android:id="@+id/btn_connect"
+            style="@style/Button"
+            android:layout_marginBottom="160pt"
+            android:text="Connect Server"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/et_port"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="600pt"
+            android:layout_height="100pt"
+            android:layout_marginTop="130pt"
+            android:layout_marginBottom="30pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_send" />
+
+        <Button
+            android:id="@+id/btn_send"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="Send Message"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/et_message"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

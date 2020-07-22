@@ -188,6 +188,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestSocket, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestSocketActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
