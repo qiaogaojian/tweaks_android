@@ -28,7 +28,6 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.ViewHolder> {
     }
 
     public void setLogArrList(List<Spanned> logArrList) {
-        this.logArrList = logArrList;
         notifyDataSetChanged();
     }
 
