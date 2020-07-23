@@ -9,11 +9,13 @@ import com.etatech.test.adapter.LogAdapter;
 import com.etatech.test.databinding.ActivityTestSocketBinding;
 import com.etatech.test.network.Socket.BaseSocketClient;
 import com.etatech.test.network.Socket.BaseSocketServer;
+import com.etatech.test.network.Socket.TcpClient;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.ui.ClickUtil;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import rx.functions.Action1;
 
@@ -34,6 +36,8 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
         adapter = new LogAdapter(logArr);
         binding.listChat.setLayoutManager(new LinearLayoutManager(this));
         binding.listChat.setAdapter(adapter);
+
+        initDataReceiver();
 
         ClickUtil.setOnClick(binding.btnHost, new Action1() {
             @Override
@@ -73,5 +77,60 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
                 }
             }
         });
+
+        ClickUtil.setOnClick(binding.btnConnect, new Action1() {
+            @Override
+            public void call(Object o) {
+                connect();
+            }
+        });
+        ClickUtil.setOnClick(binding.btnSend, new Action1() {
+            @Override
+            public void call(Object o) {
+                send();
+            }
+        });
     }
+
+    private void connect() {
+        String ip = binding.etAddress.getText().toString();
+        String port = binding.etPort.getText().toString();
+
+        TcpClient.getInstance().connect(ip, Integer.parseInt(port));
+    }
+
+    private void send() {
+        if (TcpClient.getInstance().isConnect()) {
+            byte[] data = binding.etMessage.getText().toString().getBytes();
+            TcpClient.getInstance().sendByteCmd(data, 1001);
+        }
+    }
+
+    private void initDataReceiver() {
+        TcpClient.getInstance().setOnDataReceiveListener(listener);
+    }
+
+    private TcpClient.OnDataReceiveListener listener = new TcpClient.OnDataReceiveListener() {
+        @Override
+        public void onConnectSuccess() {
+            Tools.addLog(TestSocketActivity.this, "已连接", R.color.code_orange);
+            adapter.setLogArrList(logArr);
+        }
+
+        @Override
+        public void onConnectFail() {
+            Tools.addLog(TestSocketActivity.this, "未连接", R.color.code_orange);
+            adapter.setLogArrList(logArr);
+        }
+
+        @Override
+        public void onDataReceive(byte[] buffer, int size, int requestCode) {
+            byte[] data = new byte[size];
+            System.arraycopy(buffer, 0, data, 0, size);
+
+            final String oxVlaue = Arrays.toString(data);
+            Tools.addLog(TestSocketActivity.this, "onDataReceive requestCode = " + requestCode + ",content = " + oxVlaue, R.color.code_orange);
+            adapter.setLogArrList(logArr);
+        }
+    };
 }
