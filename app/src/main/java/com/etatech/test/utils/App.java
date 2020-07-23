@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
+import com.etatech.test.netstate.NetWorkMonitorManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,8 @@ public class App extends Application {
         filesPath = getFilesDir().getAbsolutePath();
         externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         logArr = new ArrayList<>();
+
+        NetWorkMonitorManager.getInstance().init(this);
     }
 
     public static App getInstance() {

@@ -14,7 +14,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.etatech.test"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -192,6 +192,9 @@ dependencies {
     // 虚拟机检测
     implementation project(':antiemulator')
 //    implementation 'com.sdbean.antiemulator:antiemulator:1.0.3'
+    // 网络状态检测
+    implementation project(':netstate')
+//    implementation 'com.sdbean.netstate:netstate:1.0.0'
 }
 
 //添加到文件最后

@@ -15,6 +15,9 @@ import com.etatech.test.R;
 import com.etatech.test.adapter.LogAdapter;
 import com.etatech.test.adapter.StateLogAdapter;
 import com.etatech.test.databinding.ActivityTestLifecycleBinding;
+import com.etatech.test.netstate.NetWorkMonitor;
+import com.etatech.test.netstate.NetWorkMonitorManager;
+import com.etatech.test.netstate.NetWorkState;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.Tools;
 
@@ -51,6 +54,7 @@ public class TestLifecycleActivity extends BaseActivity<ActivityTestLifecycleBin
         super.onStart();
         Tools.addLog(this,"onStart", R.color.code_green_blue);
         adapter.setLogArrList(logArr);
+        NetWorkMonitorManager.getInstance().register(this);
     }
 
     @Override
@@ -80,4 +84,12 @@ public class TestLifecycleActivity extends BaseActivity<ActivityTestLifecycleBin
         Tools.addLog(this,"onDestroy", R.color.code_red);
         adapter.setLogArrList(logArr);
     }
+
+    //不加注解默认监听所有的状态，方法名随意，只需要参数是一个NetWorkState即可
+    //@NetWorkMonitor(monitorFilter = {NetWorkState.GPRS})//只接受网络状态变为GPRS类型的消息
+    public void onNetWorkStateChange(NetWorkState netWorkState) {
+        Tools.addLog(this,"onNetWorkStateChange >>> :" + netWorkState.name(), R.color.code_red);
+        adapter.setLogArrList(logArr);
+    }
+
 }
