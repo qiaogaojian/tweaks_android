@@ -83,6 +83,7 @@ public class TestLifecycleActivity extends BaseActivity<ActivityTestLifecycleBin
         super.onDestroy();
         Tools.addLog(this,"onDestroy", R.color.code_red);
         adapter.setLogArrList(logArr);
+        NetWorkMonitorManager.getInstance().unregister(this);
     }
 
     //不加注解默认监听所有的状态，方法名随意，只需要参数是一个NetWorkState即可
