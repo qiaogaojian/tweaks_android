@@ -15,6 +15,8 @@ import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.ui.ClickUtil;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 
 import rx.functions.Action1;
@@ -22,8 +24,9 @@ import rx.functions.Action1;
 import static com.etatech.test.utils.App.logArr;
 
 public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> {
-    private LogAdapter adapter;
-    BaseSocketClient client;
+    private static WeakReference<LogAdapter> adapter;
+    private static WeakReference<TestSocketActivity> curActivity;
+    private BaseSocketClient client;
     private int serverPort = 9799;
 
     @Override
@@ -33,11 +36,13 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
 
     @Override
     public void init() {
-        adapter = new LogAdapter(logArr);
+        adapter = new WeakReference<LogAdapter>(new LogAdapter(logArr));
         binding.listChat.setLayoutManager(new LinearLayoutManager(this));
-        binding.listChat.setAdapter(adapter);
+        binding.listChat.setAdapter(adapter.get());
 
         initDataReceiver();
+
+        curActivity = new WeakReference<TestSocketActivity>(this);
 
         ClickUtil.setOnClick(binding.btnHost, new Action1() {
             @Override
@@ -47,7 +52,7 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
                 String ip = Tools.getIPAddress(true);
                 binding.tvAddress.setText(ip + ':' + serverPort);
                 Tools.addLog(TestSocketActivity.this, "Server Hosted, the IP Address is:" + ip + "Host is:" + serverPort, R.color.code_orange);
-                adapter.setLogArrList(logArr);
+                adapter.get().setLogArrList(logArr);
             }
         });
         ClickUtil.setOnClick(binding.btnConnect, new Action1() {
@@ -60,7 +65,7 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
                 try {
                     client.connectServer();
                     Tools.addLog(TestSocketActivity.this, "Server Connected, the IP Address is:" + ip + "Host is:" + port, R.color.code_orange);
-                    adapter.setLogArrList(logArr);
+                    adapter.get().setLogArrList(logArr);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -97,6 +102,7 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
         String port = binding.etPort.getText().toString();
 
         TcpClient.getInstance().connect(ip, Integer.parseInt(port));
+
     }
 
     private void send() {
@@ -110,17 +116,17 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
         TcpClient.getInstance().setOnDataReceiveListener(listener);
     }
 
-    private TcpClient.OnDataReceiveListener listener = new TcpClient.OnDataReceiveListener() {
+    private static TcpClient.OnDataReceiveListener listener = new TcpClient.OnDataReceiveListener() {
         @Override
         public void onConnectSuccess() {
-            Tools.addLog(TestSocketActivity.this, "已连接", R.color.code_orange);
-            adapter.setLogArrList(logArr);
+            Tools.addLog(curActivity.get(), "已连接", R.color.code_orange);
+            adapter.get().setLogArrList(logArr);
         }
 
         @Override
         public void onConnectFail() {
-            Tools.addLog(TestSocketActivity.this, "未连接", R.color.code_orange);
-            adapter.setLogArrList(logArr);
+            Tools.addLog(curActivity.get(), "未连接", R.color.code_orange);
+            adapter.get().setLogArrList(logArr);
         }
 
         @Override
@@ -128,9 +134,20 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
             byte[] data = new byte[size];
             System.arraycopy(buffer, 0, data, 0, size);
 
-            final String oxVlaue = Arrays.toString(data);
-            Tools.addLog(TestSocketActivity.this, "onDataReceive requestCode = " + requestCode + ",content = " + oxVlaue, R.color.code_orange);
-            adapter.setLogArrList(logArr);
+            final String oxVlaue;
+            try {
+                oxVlaue = new String(data, "UTF-8");
+                Tools.addLog(curActivity.get(), "onDataReceive requestCode = " + requestCode + ",content = " + oxVlaue, R.color.code_orange);
+                adapter.get().setLogArrList(logArr);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        listener = null;
+    }
 }
