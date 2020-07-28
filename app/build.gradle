@@ -237,11 +237,10 @@ task curBranch {
         proc.waitFor()
         def out = services.get(StyledTextOutputFactory).create("blah")
         println(branch + ':')
-        if (branch == "master") {
-            out.style(Style.Failure).println('This branch allow commit')
+        if (branch == "dev") {
+            out.style(Style.Success).println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This branch allow commit ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         } else {
-            println("******************************************************************************************************************************************************************")
-            out.style(Style.Success).println('This branch don\'t allow commit')
+            out.style(Style.Failure).println("******************************************************************* This branch don't allow commit! *******************************************************************")
         }
     }
 }
