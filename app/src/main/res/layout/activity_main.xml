@@ -257,6 +257,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_lifecycle" />
 
+            <Button
+                android:id="@+id/btn_test_export_svg"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Export Svg"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_socket" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
