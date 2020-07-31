@@ -202,6 +202,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestRecyclerviewAnimation, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestRecyclerviewAnimationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

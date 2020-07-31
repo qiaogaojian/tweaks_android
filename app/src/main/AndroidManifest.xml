@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestExportSvgActivity"></activity>
+        <activity android:name=".view.TestRecyclerviewAnimationActivity"></activity>
+        <activity android:name=".view.TestExportSvgActivity" />
         <activity android:name=".view.TestSocketActivity" />
         <activity android:name=".view.TestLifecycleActivity" />
         <activity android:name=".view.TestObbBuildActivity" />

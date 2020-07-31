@@ -267,6 +267,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_socket" />
 
+            <Button
+                android:id="@+id/btn_test_recyclerview_animation"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test List Animation"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_export_svg" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
