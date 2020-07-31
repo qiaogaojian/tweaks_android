@@ -1,9 +1,4 @@
-package com.etatech.test.Java.Socket;
-
-import com.blankj.utilcode.util.LogUtils;
-import com.etatech.test.R;
-import com.etatech.test.utils.App;
-import com.etatech.test.utils.Tools;
+package com.etatech.test.Java.socket;
 
 import java.io.IOException;
 import java.io.InputStream;

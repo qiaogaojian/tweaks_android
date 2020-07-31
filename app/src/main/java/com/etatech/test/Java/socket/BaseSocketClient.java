@@ -1,6 +1,4 @@
-package com.etatech.test.Java.Socket;
-
-import android.os.Handler;
+package com.etatech.test.Java.socket;
 
 import java.io.IOException;
 import java.io.OutputStream;
