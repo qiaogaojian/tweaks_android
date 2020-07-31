@@ -125,6 +125,7 @@ public class RxJavaTest {
         });
     }
 
+    // 遍历列表
     public static void Test3() {
         Observable.just("Hello", "World").subscribe(new Consumer<String>() {
             @Override
@@ -169,6 +170,7 @@ public class RxJavaTest {
         });
     }
 
+    // 延时执行
     public static void Test5() {
         Observable.timer(1, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
             @Override
@@ -193,6 +195,7 @@ public class RxJavaTest {
         });
     }
 
+    // 固定间隔执行
     public static void Test6() {
         Observable.interval(1, TimeUnit.SECONDS, Schedulers.trampoline())
                 .take(6)
