@@ -147,6 +147,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
         valueAnimator.start();
     }
 
+    // 默认选择第一个
     private void defaultSelect() {
         for (Boolean tag : selectTags) {
             if (tag) {
