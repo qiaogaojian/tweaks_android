@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ItemRecyclerviewAnimationBinding;
 import com.etatech.test.utils.ui.ClickUtil;
@@ -54,22 +56,12 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
         selectTags.set(0, true);
     }
 
-    public void refresh(List<Integer> roleList) {
-        this.roleList.clear();
-        this.roleList.addAll(roleList);
-        this.selectTags.clear();
-        for (int i = 0; i < roleList.size(); i++) {
-            selectTags.add(false);
-        }
-        selectTags.set(0, true);
-        notifyDataSetChanged();
-    }
-
     public void add(Integer roleId) {
         state = 1;
         roleList.add(0, roleId);
         selectTags.add(0, false);
-        notifyItemInserted(0);
+        defaultSelect();
+        notifyDataSetChanged();
     }
 
     public void remove(int position, RecyclerView.ViewHolder vh) {
@@ -96,6 +88,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
             @Override
             public void call(Object o) {
                 selectRole(roleList, position);
+                defaultSelect();
                 notifyDataSetChanged();
             }
         });
@@ -146,11 +139,21 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
                 holder.binding.layoutItemRole.setVisibility(View.GONE);
                 roleList.remove(pos);
                 selectTags.remove(pos);
-                notifyItemRemoved(pos);
+                defaultSelect();
+                notifyDataSetChanged();
             }
         });
 
         valueAnimator.start();
+    }
+
+    private void defaultSelect() {
+        for (Boolean tag : selectTags) {
+            if (tag) {
+                return;
+            }
+        }
+        selectTags.set(0, true);
     }
 
     private void selectRole(List<Integer> roleList, int position) {
