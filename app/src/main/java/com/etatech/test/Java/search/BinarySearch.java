@@ -3,7 +3,7 @@ package com.etatech.test.Java.search;
 /**
  * Created by Michael
  * Date:  2020/8/22
- * Func:
+ * Func: binary search max search Num = log(n,2) + 1
  */
 public class BinarySearch {
     private static int count = 0;
