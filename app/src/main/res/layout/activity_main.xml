@@ -277,6 +277,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_export_svg" />
 
+            <Button
+                android:id="@+id/btn_test_astar"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Astar Algorithm"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_recyclerview_animation" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
