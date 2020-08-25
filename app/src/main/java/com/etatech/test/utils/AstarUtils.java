@@ -18,16 +18,12 @@ public class AstarUtils {
     public static Vector2 index2pos(int index, int lengh) {
         Vector2 pos = new Vector2();
         pos.setX(index % lengh + 1);
-        pos.setY((int) Math.ceil((index + 1) / lengh));
+        pos.setY((int) Math.ceil(index / lengh) + 1);
         return pos;
     }
 
     public static int pos2index(Vector2 pos, int lengh) {
-        if (pos.getX() == lengh)
-        {
-            return pos.getY() - 1 * lengh + pos.getX() - 1;
-        }
-        return pos.getY() * lengh + pos.getX() - 1;
+        return (pos.getY() - 1) * lengh + pos.getX() - 1;
     }
 
     public static int getPosDistance(Vector2 pos1, Vector2 pos2) {

@@ -19,7 +19,7 @@ public class Vector2 {
     }
 
     public boolean isValid(int lenth) {
-        if (x >= 0 && y >= 0 && x < 10 && y < 10)
+        if (x >= 1 && y >= 1 && x <= lenth && y <= lenth)
         {
             return true;
         }
