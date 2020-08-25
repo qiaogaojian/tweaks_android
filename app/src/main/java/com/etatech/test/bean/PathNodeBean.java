@@ -9,6 +9,8 @@ public class PathNodeBean {
     private int f;
     private int g;
     private int h;
+    private Vector2 pos;
+    private int index;
     private int reachSate;  // -1 不能走 0 未发现 1 已发现未走 2 已发现已走 3 目的地
 
     public int getF() {
@@ -33,6 +35,22 @@ public class PathNodeBean {
 
     public void setH(int h) {
         this.h = h;
+    }
+
+    public Vector2 getPos() {
+        return pos;
+    }
+
+    public void setPos(Vector2 pos) {
+        this.pos = pos;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public int getReachSate() {
