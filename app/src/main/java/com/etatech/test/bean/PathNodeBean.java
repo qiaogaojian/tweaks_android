@@ -66,7 +66,7 @@ public class PathNodeBean {
     }
 
     public boolean findNode() {
-        if (this.reachSate == 0)
+        if (this.reachSate == 0 || this.reachSate == 3)
         {
             this.reachSate = 1;
             return true;

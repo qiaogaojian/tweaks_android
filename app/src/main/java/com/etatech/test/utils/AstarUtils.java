@@ -15,6 +15,8 @@ public class AstarUtils {
 
     private static List<PathNodeBean> openList  = new ArrayList<>();
     private static List<PathNodeBean> closeList = new ArrayList<>();
+    private static PathNodeBean       curNode;
+    private static List<PathNodeBean> nodeList;
 
     public static Vector2 index2pos(int index, int lengh) {
         Vector2 pos = new Vector2();
@@ -34,31 +36,34 @@ public class AstarUtils {
         return distance;
     }
 
-    public static void findPath(List<PathNodeBean> nodeList, PathNodeBean start, PathNodeBean end) {
-
-        PathNodeBean curNode = start;
+    public static void findPath(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
+        nodeList = oriList;
+        curNode = start;
 
         while (curNode.getIndex() != end.getIndex())
         {
-            nextStep(nodeList, start, end, curNode);
-
-            if (openList.size() > 0)
-            {
-                PathNodeBean minFNode = openList.get(0);
-                for (int i = 0; i < openList.size(); i++)
-                {
-                    if (openList.get(i).getF() < minFNode.getF())
-                    {
-                        minFNode = openList.get(i);
-                    }
-                }
-                curNode = minFNode;
-            }
+            nextStep(nodeList, start, end);
         }
     }
 
-    public static void nextStep(List<PathNodeBean> nodeList, PathNodeBean start, PathNodeBean end, PathNodeBean curNode) {
+    public static boolean nextStep(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
+        if (nodeList == null)
+        {
+            nodeList = oriList;
+            curNode = start;
+        }
+
         closeList.add(curNode);
+
+        nodeList.get(curNode.getIndex()).setReachSate(2);
+        for (int i = 0; i < openList.size(); i++)
+        {
+            if (openList.get(i).getIndex() == curNode.getIndex())
+            {
+                openList.remove(i);
+                break;
+            }
+        }
 
         Vector2 startPos = start.getPos();
         Vector2 endPos   = end.getPos();
@@ -112,5 +117,31 @@ public class AstarUtils {
 
             openList.add(nodeList.get(AstarUtils.pos2index(curDownPos, 10)));
         }
+
+        if (openList.size() > 0)
+        {
+            PathNodeBean minFNode = openList.get(0);
+            for (int i = 0; i < openList.size(); i++)
+            {
+                if (openList.get(i).getF() < minFNode.getF())
+                {
+                    minFNode = openList.get(i);
+                }
+            }
+            AstarUtils.curNode = minFNode;
+        }
+
+        for (int i = 0; i < closeList.size(); i++)
+        {
+            if (closeList.get(i).getIndex() == end.getIndex())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<PathNodeBean> getNodeList() {
+        return nodeList;
     }
 }
