@@ -147,5 +147,7 @@ public class AstarUtils {
 
     public static void reset() {
         nodeList.clear();
+        openList.clear();
+        closeList.clear();
     }
 }
