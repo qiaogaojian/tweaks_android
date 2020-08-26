@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.etatech.test.R" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/piv_bg"
+            android:layout_width="999pt"
+            android:layout_height="1304pt"
+            android:scaleType="fitXY"
+            app:imgRes="@{R.drawable.mask_bg}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/mask_bg" />
+
+        <com.etatech.test.utils.MaskableFrameLayout
+            android:id="@+id/frm_mask_animated"
+            android:layout_width="999pt"
+            android:layout_height="1304pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:side_padding="30">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_path_node"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:padding="60pt"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="100"
+                tools:layoutManager="GridLayoutManager"
+                tools:listitem="@layout/item_path_node"
+                tools:spanCount="7" />
+
+        </com.etatech.test.utils.MaskableFrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

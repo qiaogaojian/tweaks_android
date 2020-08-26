@@ -145,4 +145,9 @@
         <attr name="gradient_text_size" format="integer" />
         <attr name="gradient_width" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="MaskLayout">
+        <attr name="side_padding" format="integer" />
+        <attr name="isHorizon" format="boolean" />
+    </declare-styleable>
 </resources>
