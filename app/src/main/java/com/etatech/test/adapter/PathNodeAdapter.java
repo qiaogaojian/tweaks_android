@@ -26,6 +26,12 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
 
     public PathNodeAdapter(List<PathNodeBean> nodeList) {
         this.nodeList = nodeList;
+        notifyDataSetChanged();
+    }
+
+    public void refreshPath(List<PathNodeBean> list) {
+        nodeList = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -38,13 +44,15 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         PathNodeBean node = nodeList.get(position);
-        if (node.getF() != 0) {
+        if (node.getF() != 0)
+        {
             holder.binding.tvF.setText(node.getF() + "");
             holder.binding.tvG.setText(node.getG() + "");
             holder.binding.tvH.setText(node.getH() + "");
         }
 
-        switch (node.getReachSate()) {
+        switch (node.getReachSate())
+        {
             case -1:
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#F92671"));
                 break;
@@ -53,12 +61,15 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
                 break;
             case 1:
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#2DE2A6"));
+                holder.binding.tvF.setText(node.getF() + "");
+                holder.binding.tvG.setText(node.getG() + "");
+                holder.binding.tvH.setText(node.getH() + "");
                 break;
             case 2:
-                holder.binding.ivBg.setBackgroundColor(Color.parseColor("#A0DA2D"));
+                holder.binding.ivBg.setBackgroundColor(Color.parseColor("#AE81FF"));
                 break;
             case 3:
-                holder.binding.ivBg.setBackgroundColor(Color.parseColor("#AE81FF"));
+                holder.binding.ivBg.setBackgroundColor(Color.parseColor("#A0DA2D"));
                 break;
         }
     }
