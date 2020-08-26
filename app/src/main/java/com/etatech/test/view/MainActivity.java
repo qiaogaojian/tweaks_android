@@ -216,6 +216,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestMask, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestMaskLayoutActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
