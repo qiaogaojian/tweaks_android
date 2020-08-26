@@ -47,7 +47,7 @@ public class AstarUtils {
     }
 
     public static boolean nextStep(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
-        if (nodeList == null)
+        if (nodeList == null || nodeList.size() == 0)
         {
             nodeList = oriList;
             curNode = start;
@@ -123,7 +123,7 @@ public class AstarUtils {
             PathNodeBean minFNode = openList.get(0);
             for (int i = 0; i < openList.size(); i++)
             {
-                if (openList.get(i).getF() < minFNode.getF())
+                if (openList.get(i).getF() <= minFNode.getF())
                 {
                     minFNode = openList.get(i);
                 }
@@ -143,5 +143,9 @@ public class AstarUtils {
 
     public static List<PathNodeBean> getNodeList() {
         return nodeList;
+    }
+
+    public static void reset() {
+        nodeList.clear();
     }
 }
