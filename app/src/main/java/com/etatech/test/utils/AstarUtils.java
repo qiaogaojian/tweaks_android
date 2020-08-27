@@ -69,7 +69,7 @@ public class AstarUtils {
         Vector2 curTopPos = new Vector2(curNode.getPos().getX(), curNode.getPos().getY() - 1);
         Vector2 curDownPos = new Vector2(curNode.getPos().getX(), curNode.getPos().getY() + 1);
 
-        System.out.println(String.format("startPos:%s-%s leftPos:%s-%s rightPos:%s-%s topPos:%s-%s downPos:%s-%s endPos:%s-%s "
+        System.out.println(String.format("AstarUtils startPos:%s-%s leftPos:%s-%s rightPos:%s-%s topPos:%s-%s downPos:%s-%s endPos:%s-%s "
                 , startPos.getX(), startPos.getY()
                 , curLeftPos.getX(), curLeftPos.getY()
                 , curRightPos.getX(), curRightPos.getY()
@@ -78,7 +78,7 @@ public class AstarUtils {
                 , endPos.getX(), endPos.getY()));
 
         if (curLeftPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).findNode()) {
-            System.out.println(String.format("curLeftPos valid! pos:%s-%s index:%s", curLeftPos.getX(), curLeftPos.getY(), AstarUtils.pos2index(curLeftPos, 10)));
+            System.out.println(String.format("AstarUtils curLeftPos valid! pos:%s-%s index:%s", curLeftPos.getX(), curLeftPos.getY(), AstarUtils.pos2index(curLeftPos, 10)));
             nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).setG(AstarUtils.getPosDistance(startPos, curLeftPos));
             nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).setH(AstarUtils.getPosDistance(curLeftPos, endPos));
             nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).calF();
@@ -86,7 +86,7 @@ public class AstarUtils {
             openList.add(nodeList.get(AstarUtils.pos2index(curLeftPos, 10)));
         }
         if (curRightPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curRightPos, 10)).findNode()) {
-            System.out.println(String.format("curRightPos valid! pos:%s-%s index:%s", curRightPos.getX(), curRightPos.getY(), AstarUtils.pos2index(curRightPos, 10)));
+            System.out.println(String.format("AstarUtils curRightPos valid! pos:%s-%s index:%s", curRightPos.getX(), curRightPos.getY(), AstarUtils.pos2index(curRightPos, 10)));
             nodeList.get(AstarUtils.pos2index(curRightPos, 10)).setG(AstarUtils.getPosDistance(startPos, curRightPos));
             nodeList.get(AstarUtils.pos2index(curRightPos, 10)).setH(AstarUtils.getPosDistance(curRightPos, endPos));
             nodeList.get(AstarUtils.pos2index(curRightPos, 10)).calF();
@@ -94,7 +94,7 @@ public class AstarUtils {
             openList.add(nodeList.get(AstarUtils.pos2index(curRightPos, 10)));
         }
         if (curTopPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curTopPos, 10)).findNode()) {
-            System.out.println(String.format("curTopPos valid! pos:%s-%s index:%s", curTopPos.getX(), curTopPos.getY(), AstarUtils.pos2index(curTopPos, 10)));
+            System.out.println(String.format("AstarUtils curTopPos valid! pos:%s-%s index:%s", curTopPos.getX(), curTopPos.getY(), AstarUtils.pos2index(curTopPos, 10)));
             nodeList.get(AstarUtils.pos2index(curTopPos, 10)).setG(AstarUtils.getPosDistance(startPos, curTopPos));
             nodeList.get(AstarUtils.pos2index(curTopPos, 10)).setH(AstarUtils.getPosDistance(curTopPos, endPos));
             nodeList.get(AstarUtils.pos2index(curTopPos, 10)).calF();
@@ -102,7 +102,7 @@ public class AstarUtils {
             openList.add(nodeList.get(AstarUtils.pos2index(curTopPos, 10)));
         }
         if (curDownPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curDownPos, 10)).findNode()) {
-            System.out.println(String.format("curDownPos valid! pos:%s-%s index:%s", curDownPos.getX(), curDownPos.getY(), AstarUtils.pos2index(curDownPos, 10)));
+            System.out.println(String.format("AstarUtils curDownPos valid! pos:%s-%s index:%s", curDownPos.getX(), curDownPos.getY(), AstarUtils.pos2index(curDownPos, 10)));
             nodeList.get(AstarUtils.pos2index(curDownPos, 10)).setG(AstarUtils.getPosDistance(startPos, curDownPos));
             nodeList.get(AstarUtils.pos2index(curDownPos, 10)).setH(AstarUtils.getPosDistance(curDownPos, endPos));
             nodeList.get(AstarUtils.pos2index(curDownPos, 10)).calF();
