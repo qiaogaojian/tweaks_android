@@ -32,8 +32,20 @@ public class AstarUtils {
 
     public static int getPosDistance(Vector2 pos1, Vector2 pos2) {
         int distance = 0;
-        distance += Math.abs(pos1.getX() - pos2.getX());
-        distance += Math.abs(pos1.getY() - pos2.getY());
+        if (pos1.getX() == pos2.getX() || pos1.getY() == pos2.getY()) {
+            distance += Math.abs(pos1.getX() - pos2.getX()) * 10;
+            distance += Math.abs(pos1.getY() - pos2.getY()) * 10;
+        } else {
+            int dx = pos1.getX() - pos2.getX();
+            int dy = pos1.getY() - pos2.getY();
+            if (dx > dy) {
+                distance += (Math.abs(pos1.getX() - pos2.getX()) - dy) * 10;
+                distance += Math.abs(pos1.getY() - pos2.getY()) * 14;
+            } else {
+                distance += Math.abs(pos1.getX() - pos2.getX()) * 14;
+                distance += (Math.abs(pos1.getY() - pos2.getY()) - dx) * 10;
+            }
+        }
         return distance;
     }
 
@@ -83,15 +95,16 @@ public class AstarUtils {
                 , curDownPos.getX(), curDownPos.getY()
                 , endPos.getX(), endPos.getY()));
 
+        addNeighborToOpenList(curTopLeftPos, startPos, endPos);
+        addNeighborToOpenList(curTopRightPos, startPos, endPos);
+        addNeighborToOpenList(curDownLeftPos, startPos, endPos);
+        addNeighborToOpenList(curDownRightPos, startPos, endPos);
+
         addNeighborToOpenList(curLeftPos, startPos, endPos);
         addNeighborToOpenList(curRightPos, startPos, endPos);
         addNeighborToOpenList(curTopPos, startPos, endPos);
         addNeighborToOpenList(curDownPos, startPos, endPos);
 
-        //        addNeighborToOpenList(curTopLeftPos, startPos, endPos);
-        //        addNeighborToOpenList(curTopRightPos, startPos, endPos);
-        //        addNeighborToOpenList(curDownLeftPos, startPos, endPos);
-        //        addNeighborToOpenList(curDownRightPos, startPos, endPos);
 
         if (openList.size() > 0) {
             PathNodeBean minFNode = openList.get(0);
