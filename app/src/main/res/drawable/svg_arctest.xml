@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200pt"
+    android:height="200pt"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+<!--    <path-->
+<!--        android:name="arc"-->
+<!--        android:fillColor="#F92671"-->
+<!--        android:pathData="M 0,55-->
+<!--                          L 50,50    弧线起点-->
+<!--                          A 50 50    弧线长短半径-->
+<!--                            0 1 1    图形旋转角度 长短弧 顺逆时针-->
+<!--                            50,60    弧线终点 -->
+<!--                          " />-->
+
+    <path
+        android:name="bg"
+        android:fillColor="@color/code_blue"
+        android:pathData="M 0,0 L 0,200 200,200 200,0" />
+
+    <path
+        android:name="arc"
+        android:fillColor="#F92671"
+        android:pathData="M 0,55
+                          L 50,50
+                          A 70 50
+                            30 1 1
+                            50,60
+                          " />
+
+</vector>
