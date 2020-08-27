@@ -15,8 +15,9 @@ public class AstarUtils {
 
     private static List<PathNodeBean> openList = new ArrayList<>();
     private static List<PathNodeBean> closeList = new ArrayList<>();
-    private static PathNodeBean curNode;
+    private static List<PathNodeBean> pathList = new ArrayList<>();
     private static List<PathNodeBean> nodeList;
+    private static PathNodeBean curNode;
 
     public static Vector2 index2pos(int index, int lengh) {
         Vector2 pos = new Vector2();
@@ -69,6 +70,11 @@ public class AstarUtils {
         Vector2 curTopPos = new Vector2(curNode.getPos().getX(), curNode.getPos().getY() - 1);
         Vector2 curDownPos = new Vector2(curNode.getPos().getX(), curNode.getPos().getY() + 1);
 
+        Vector2 curTopLeftPos = new Vector2(curNode.getPos().getX() - 1, curNode.getPos().getY() - 1);
+        Vector2 curTopRightPos = new Vector2(curNode.getPos().getX() + 1, curNode.getPos().getY() - 1);
+        Vector2 curDownLeftPos = new Vector2(curNode.getPos().getX() - 1, curNode.getPos().getY() + 1);
+        Vector2 curDownRightPos = new Vector2(curNode.getPos().getX() + 1, curNode.getPos().getY() + 1);
+
         System.out.println(String.format("AstarUtils startPos:%s-%s leftPos:%s-%s rightPos:%s-%s topPos:%s-%s downPos:%s-%s endPos:%s-%s "
                 , startPos.getX(), startPos.getY()
                 , curLeftPos.getX(), curLeftPos.getY()
@@ -77,38 +83,15 @@ public class AstarUtils {
                 , curDownPos.getX(), curDownPos.getY()
                 , endPos.getX(), endPos.getY()));
 
-        if (curLeftPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).findNode()) {
-            System.out.println(String.format("AstarUtils curLeftPos valid! pos:%s-%s index:%s", curLeftPos.getX(), curLeftPos.getY(), AstarUtils.pos2index(curLeftPos, 10)));
-            nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).setG(AstarUtils.getPosDistance(startPos, curLeftPos));
-            nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).setH(AstarUtils.getPosDistance(curLeftPos, endPos));
-            nodeList.get(AstarUtils.pos2index(curLeftPos, 10)).calF();
+        addNeighborToOpenList(curLeftPos, startPos, endPos);
+        addNeighborToOpenList(curRightPos, startPos, endPos);
+        addNeighborToOpenList(curTopPos, startPos, endPos);
+        addNeighborToOpenList(curDownPos, startPos, endPos);
 
-            openList.add(nodeList.get(AstarUtils.pos2index(curLeftPos, 10)));
-        }
-        if (curRightPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curRightPos, 10)).findNode()) {
-            System.out.println(String.format("AstarUtils curRightPos valid! pos:%s-%s index:%s", curRightPos.getX(), curRightPos.getY(), AstarUtils.pos2index(curRightPos, 10)));
-            nodeList.get(AstarUtils.pos2index(curRightPos, 10)).setG(AstarUtils.getPosDistance(startPos, curRightPos));
-            nodeList.get(AstarUtils.pos2index(curRightPos, 10)).setH(AstarUtils.getPosDistance(curRightPos, endPos));
-            nodeList.get(AstarUtils.pos2index(curRightPos, 10)).calF();
-
-            openList.add(nodeList.get(AstarUtils.pos2index(curRightPos, 10)));
-        }
-        if (curTopPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curTopPos, 10)).findNode()) {
-            System.out.println(String.format("AstarUtils curTopPos valid! pos:%s-%s index:%s", curTopPos.getX(), curTopPos.getY(), AstarUtils.pos2index(curTopPos, 10)));
-            nodeList.get(AstarUtils.pos2index(curTopPos, 10)).setG(AstarUtils.getPosDistance(startPos, curTopPos));
-            nodeList.get(AstarUtils.pos2index(curTopPos, 10)).setH(AstarUtils.getPosDistance(curTopPos, endPos));
-            nodeList.get(AstarUtils.pos2index(curTopPos, 10)).calF();
-
-            openList.add(nodeList.get(AstarUtils.pos2index(curTopPos, 10)));
-        }
-        if (curDownPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curDownPos, 10)).findNode()) {
-            System.out.println(String.format("AstarUtils curDownPos valid! pos:%s-%s index:%s", curDownPos.getX(), curDownPos.getY(), AstarUtils.pos2index(curDownPos, 10)));
-            nodeList.get(AstarUtils.pos2index(curDownPos, 10)).setG(AstarUtils.getPosDistance(startPos, curDownPos));
-            nodeList.get(AstarUtils.pos2index(curDownPos, 10)).setH(AstarUtils.getPosDistance(curDownPos, endPos));
-            nodeList.get(AstarUtils.pos2index(curDownPos, 10)).calF();
-
-            openList.add(nodeList.get(AstarUtils.pos2index(curDownPos, 10)));
-        }
+        //        addNeighborToOpenList(curTopLeftPos, startPos, endPos);
+        //        addNeighborToOpenList(curTopRightPos, startPos, endPos);
+        //        addNeighborToOpenList(curDownLeftPos, startPos, endPos);
+        //        addNeighborToOpenList(curDownRightPos, startPos, endPos);
 
         if (openList.size() > 0) {
             PathNodeBean minFNode = openList.get(0);
@@ -122,6 +105,16 @@ public class AstarUtils {
 
         for (int i = 0; i < closeList.size(); i++) {
             if (closeList.get(i).getIndex() == end.getIndex()) {
+                curNode = end;
+                do {
+                    pathList.add(curNode);
+                    curNode = curNode.getParent();
+                } while (curNode != null);
+
+                for (int j = 0; j < pathList.size(); j++) {
+                    nodeList.get(pathList.get(j).getIndex()).setPath(true);
+                }
+
                 return 1;
             }
         }
@@ -129,6 +122,18 @@ public class AstarUtils {
             return 2;
         }
         return 0;
+    }
+
+    private static void addNeighborToOpenList(Vector2 curPos, Vector2 startPos, Vector2 endPos) {
+        if (curPos.isValid(10) && nodeList.get(AstarUtils.pos2index(curPos, 10)).findNode()) {
+            System.out.println(String.format("AstarUtils curLeftPos valid! pos:%s-%s index:%s", curPos.getX(), curPos.getY(), AstarUtils.pos2index(curPos, 10)));
+            nodeList.get(AstarUtils.pos2index(curPos, 10)).setG(AstarUtils.getPosDistance(startPos, curPos));
+            nodeList.get(AstarUtils.pos2index(curPos, 10)).setH(AstarUtils.getPosDistance(curPos, endPos));
+            nodeList.get(AstarUtils.pos2index(curPos, 10)).calF();
+            nodeList.get(AstarUtils.pos2index(curPos, 10)).setParent(curNode);
+
+            openList.add(nodeList.get(AstarUtils.pos2index(curPos, 10)));
+        }
     }
 
     public static List<PathNodeBean> getNodeList() {
@@ -139,5 +144,6 @@ public class AstarUtils {
         nodeList.clear();
         openList.clear();
         closeList.clear();
+        pathList.clear();
     }
 }

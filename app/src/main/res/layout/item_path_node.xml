@@ -57,5 +57,15 @@
             app:layout_constraintRight_toRightOf="parent"
             tools:text="F" />
 
+        <ImageView
+            android:id="@+id/iv_path"
+            android:layout_width="30pt"
+            android:layout_height="30pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/circle_path" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

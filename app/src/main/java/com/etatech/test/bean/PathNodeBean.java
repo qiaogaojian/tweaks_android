@@ -12,6 +12,8 @@ public class PathNodeBean {
     private Vector2 pos;
     private int     index;
     private int     reachSate;  // -1 不能走 0 未发现 1 已发现未走 2 已发现已走 3 目的地
+    private PathNodeBean parent;
+    private boolean isPath;
 
     public int getF() {
         return g + h;
@@ -63,6 +65,22 @@ public class PathNodeBean {
 
     public void setReachSate(int reachSate) {
         this.reachSate = reachSate;
+    }
+
+    public PathNodeBean getParent() {
+        return parent;
+    }
+
+    public void setParent(PathNodeBean parent) {
+        this.parent = parent;
+    }
+
+    public boolean isPath() {
+        return isPath;
+    }
+
+    public void setPath(boolean path) {
+        isPath = path;
     }
 
     public boolean findNode() {

@@ -13,6 +13,7 @@ import com.etatech.test.R;
 import com.etatech.test.bean.PathNodeBean;
 import com.etatech.test.databinding.ItemPathNodeBinding;
 import com.etatech.test.utils.App;
+import com.etatech.test.utils.ui.ImageUtil;
 
 import java.util.List;
 
@@ -44,15 +45,13 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         PathNodeBean node = nodeList.get(position);
-        if (node.getF() != 0)
-        {
+        if (node.getF() != 0) {
             holder.binding.tvF.setText(node.getF() + "");
             holder.binding.tvG.setText(node.getG() + "");
             holder.binding.tvH.setText(node.getH() + "");
         }
 
-        switch (node.getReachSate())
-        {
+        switch (node.getReachSate()) {
             case -1:
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#F92671"));
                 break;
@@ -71,6 +70,12 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
             case 3:
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#A0DA2D"));
                 break;
+        }
+
+        if (node.isPath()) {
+            holder.binding.ivPath.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.ivPath.setVisibility(View.INVISIBLE);
         }
     }
 

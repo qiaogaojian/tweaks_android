@@ -51,6 +51,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
             public void call(Object o) {
                 if (reachState == 1) {
                     ToastUtils.showShort("Has Reach End");
+                    nodeAdapter.refreshPath(AstarUtils.getNodeList());
                     return;
                 } else if (reachState == 2) {
                     ToastUtils.showShort("No Road");
@@ -82,7 +83,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
         // 障碍
         Random random = new Random();
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 30; i++) {
             nodeList.get(random.nextInt(100)).setReachSate(-1);
         }
 
