@@ -53,6 +53,7 @@ public class TestLinearGradientShaderView extends View {
         gradientWidth = arr.getInteger(R.styleable.TestLinearGradientShaderView_gradient_width, (int) textPaint.measureText(text));
 
         textPaint.setTextSize(textSize);
+        arr.recycle();
     }
 
     @Override

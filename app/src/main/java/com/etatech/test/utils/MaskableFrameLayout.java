@@ -24,6 +24,7 @@ public class MaskableFrameLayout extends FrameLayout {
         TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.MaskLayout);
         sidePadding = arr.getInteger(R.styleable.MaskLayout_side_padding, sidePadding);
         isHorizon = arr.getBoolean(R.styleable.MaskLayout_isHorizon, isHorizon);
+        arr.recycle();
     }
 
     //Drawing

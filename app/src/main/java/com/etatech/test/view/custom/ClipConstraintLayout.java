@@ -43,6 +43,7 @@ public class ClipConstraintLayout extends ConstraintLayout {
         isPadding = arr.getBoolean(R.styleable.ClipConstraintLayout_hasPadding, isPadding);
         path = new Path();
         region = new Region();
+        arr.recycle();
     }
 
     @Override
