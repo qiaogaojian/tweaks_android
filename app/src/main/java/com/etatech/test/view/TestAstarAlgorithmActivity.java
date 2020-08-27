@@ -3,13 +3,11 @@ package com.etatech.test.view;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.adapter.PathNodeAdapter;
 import com.etatech.test.bean.PathNodeBean;
-import com.etatech.test.bean.Vector2;
 import com.etatech.test.databinding.ActivityTestAstarAlgorithmBinding;
 import com.etatech.test.utils.AstarUtils;
 import com.etatech.test.utils.BaseActivity;
@@ -23,10 +21,10 @@ import rx.functions.Action1;
 
 public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAlgorithmBinding> {
     private List<PathNodeBean> nodeList;
-    private PathNodeAdapter    nodeAdapter;
-    private int                start;
-    private int                end;
-    private boolean            reachEnd;
+    private PathNodeAdapter nodeAdapter;
+    private int start;
+    private int end;
+    private int reachState; // 0 未到达 1 已到达 2 此路不通
 
 
     @Override
@@ -51,12 +49,14 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         ClickUtil.setOnClick(binding.btnNext, new Action1() {
             @Override
             public void call(Object o) {
-                if (reachEnd)
-                {
-                    ToastUtils.showShort("Has Reach End!");
+                if (reachState == 1) {
+                    ToastUtils.showShort("Has Reach End");
+                    return;
+                } else if (reachState == 2) {
+                    ToastUtils.showShort("No Road");
                     return;
                 }
-                reachEnd = AstarUtils.nextStep(nodeList, nodeList.get(start), nodeList.get(end));
+                reachState = AstarUtils.nextStep(nodeList, nodeList.get(start), nodeList.get(end));
                 nodeAdapter.refreshPath(AstarUtils.getNodeList());
             }
         });
@@ -72,8 +72,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
     private List<PathNodeBean> initPath() {
         nodeList = new ArrayList<>();
-        for (int i = 0; i < 100; i++)
-        {
+        for (int i = 0; i < 100; i++) {
             PathNodeBean node = new PathNodeBean();
             node.setPos(AstarUtils.index2pos(i, 10));
             node.setIndex(i);
@@ -83,8 +82,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
         // 障碍
         Random random = new Random();
-        for (int i = 0; i < 30; i++)
-        {
+        for (int i = 0; i < 60; i++) {
             nodeList.get(random.nextInt(100)).setReachSate(-1);
         }
 
