@@ -2,6 +2,7 @@ package com.etatech.test.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +15,12 @@ import com.etatech.test.R;
 import com.etatech.test.bean.PathNodeBean;
 import com.etatech.test.databinding.ItemPathNodeBinding;
 import com.etatech.test.utils.App;
+import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.ui.ImageUtil;
 
 import java.util.List;
+
+import rx.functions.Action1;
 
 /**
  * Created by Michael
@@ -32,7 +36,7 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
     }
 
     public void refreshPath(List<PathNodeBean> list) {
-        if (list==null||list.size()==0){
+        if (list == null || list.size() == 0) {
             ToastUtils.showShort("empty node list");
         }
         nodeList = list;
@@ -47,7 +51,7 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VH holder, int position) {
+    public void onBindViewHolder(@NonNull VH holder, final int position) {
         PathNodeBean node = nodeList.get(position);
         if (node.getF() != 0) {
             holder.binding.tvF.setText(node.getF() + "");
@@ -85,6 +89,19 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
         } else {
             holder.binding.ivPath.setVisibility(View.INVISIBLE);
         }
+
+        ClickUtil.setOnClick(holder.binding.getRoot(), new Action1() {
+            @Override
+            public void call(Object o) {
+                if (nodeList.get(position).getReachSate() == -1) {
+                    nodeList.get(position).setReachSate(0);
+                    notifyItemChanged(position);
+                } else if (nodeList.get(position).getReachSate() == 0) {
+                    nodeList.get(position).setReachSate(-1);
+                    notifyItemChanged(position);
+                }
+            }
+        });
     }
 
     @Override
