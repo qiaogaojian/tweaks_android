@@ -104,7 +104,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         end = random.nextInt(100);
         nodeList.get(start).setReachSate(2);
         nodeList.get(end).setReachSate(3);
-        nodeList.get(end).setPath(true);
+        nodeList.get(end).setEnd(true);
         System.out.println(String.format("startPos index:%d", start));
 
         return nodeList;

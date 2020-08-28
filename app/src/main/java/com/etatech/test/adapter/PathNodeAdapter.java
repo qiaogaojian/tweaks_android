@@ -84,10 +84,16 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
                 break;
         }
 
-        if (node.isPath()) {
+        if (node.isPath() && !node.isEnd()) {
             holder.binding.ivPath.setVisibility(View.VISIBLE);
         } else {
             holder.binding.ivPath.setVisibility(View.INVISIBLE);
+        }
+
+        if (node.isEnd()) {
+            holder.binding.ivEnd.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.ivEnd.setVisibility(View.INVISIBLE);
         }
 
         ClickUtil.setOnClick(holder.binding.getRoot(), new Action1() {

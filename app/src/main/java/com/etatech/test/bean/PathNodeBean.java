@@ -14,6 +14,7 @@ public class PathNodeBean {
     private int reachSate;  // -1 不能走 0 未发现 1 已发现未走 2 已发现已走 3 目的地
     private PathNodeBean parent;
     private boolean isPath;
+    private boolean isEnd;  // 是否终点
 
     public int getF() {
         return g + h;
@@ -81,6 +82,14 @@ public class PathNodeBean {
 
     public void setPath(boolean path) {
         isPath = path;
+    }
+
+    public boolean isEnd() {
+        return isEnd;
+    }
+
+    public void setEnd(boolean end) {
+        isEnd = end;
     }
 
     public boolean findNode() {
