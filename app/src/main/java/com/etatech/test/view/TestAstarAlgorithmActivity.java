@@ -37,9 +37,9 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         nodeAdapter = new PathNodeAdapter(initPath());
         binding.rvPathNode.setAdapter(nodeAdapter);
         binding.rvPathNode.setLayoutManager(new GridLayoutManager(this, 10));
-        if (AstarUtils.isDiagonal()){
+        if (AstarUtils.isDiagonal()) {
             binding.btnWalkType.setText("Straight");
-        }else{
+        } else {
             binding.btnWalkType.setText("Diagonal");
         }
 
@@ -56,7 +56,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
             }
         });
 
-        ClickUtil.setOnClick(binding.btnNext, new Action1() {
+        ClickUtil.setFastClick(binding.btnNext, new Action1() {
             @Override
             public void call(Object o) {
                 if (reachState == 1) {
@@ -75,6 +75,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         ClickUtil.setOnClick(binding.btnReset, new Action1() {
             @Override
             public void call(Object o) {
+                reachState = 0;
                 AstarUtils.reset();
                 nodeAdapter.refreshPath(initPath());
             }

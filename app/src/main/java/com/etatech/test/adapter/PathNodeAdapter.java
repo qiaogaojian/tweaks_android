@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.bean.PathNodeBean;
 import com.etatech.test.databinding.ItemPathNodeBinding;
@@ -31,6 +32,9 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
     }
 
     public void refreshPath(List<PathNodeBean> list) {
+        if (list==null||list.size()==0){
+            ToastUtils.showShort("empty node list");
+        }
         nodeList = list;
         notifyDataSetChanged();
     }
