@@ -6,12 +6,12 @@ package com.etatech.test.bean;
  * Func:
  */
 public class PathNodeBean {
-    private int     f;
-    private int     g;
-    private int     h;
+    private int f;
+    private int g;
+    private int h;
     private Vector2 pos;
-    private int     index;
-    private int     reachSate;  // -1 不能走 0 未发现 1 已发现未走 2 已发现已走 3 目的地
+    private int index;
+    private int reachSate;  // -1 不能走 0 未发现 1 已发现未走 2 已发现已走 3 目的地
     private PathNodeBean parent;
     private boolean isPath;
 
@@ -84,11 +84,20 @@ public class PathNodeBean {
     }
 
     public boolean findNode() {
-        if (this.reachSate == 0 || this.reachSate == 3)
-        {
+        if (this.reachSate == 0 || this.reachSate == 3) {
             this.reachSate = 1;
             return true;
         }
         return false;
+    }
+
+    public boolean checkNode() {
+        if (this.reachSate == -1) {
+            return false;
+        }
+        if (!this.pos.isValid(10)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -21,20 +21,20 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="100"
-            tools:spanCount="10"
             tools:layoutManager="GridLayoutManager"
-            tools:listitem="@layout/item_path_node" />
-
+            tools:listitem="@layout/item_path_node"
+            tools:spanCount="10" />
 
         <Button
-            android:id="@+id/btn_pre"
+            android:id="@+id/btn_walk_type"
             style="@style/Button"
             android:layout_marginBottom="100pt"
-            android:text="pre"
+            android:text="Diagonal"
             android:typeface="@{@string/typeface}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/btn_next" />
+            app:layout_constraintRight_toLeftOf="@id/btn_next"
+            tools:text="Straight" />
 
         <Button
             android:id="@+id/btn_next"
@@ -43,14 +43,14 @@
             android:text="next"
             android:typeface="@{@string/typeface}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/btn_pre"
-            app:layout_constraintRight_toLeftOf="@id/btn_continue" />
+            app:layout_constraintLeft_toRightOf="@id/btn_walk_type"
+            app:layout_constraintRight_toLeftOf="@id/btn_reset" />
 
         <Button
-            android:id="@+id/btn_continue"
+            android:id="@+id/btn_reset"
             style="@style/Button"
             android:layout_marginBottom="100pt"
-            android:text="continue"
+            android:text="reset"
             android:typeface="@{@string/typeface}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/btn_next"

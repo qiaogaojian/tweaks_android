@@ -24,8 +24,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
     private PathNodeAdapter nodeAdapter;
     private int start;
     private int end;
-    private int reachState; // 0 未到达 1 已到达 2 此路不通
-
+    private int reachState;             // 0 未到达 1 已到达 2 此路不通
 
     @Override
     public ActivityTestAstarAlgorithmBinding onCreateView(Bundle savedInstanceState) {
@@ -38,11 +37,22 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         nodeAdapter = new PathNodeAdapter(initPath());
         binding.rvPathNode.setAdapter(nodeAdapter);
         binding.rvPathNode.setLayoutManager(new GridLayoutManager(this, 10));
+        if (AstarUtils.isDiagonal()){
+            binding.btnWalkType.setText("Straight");
+        }else{
+            binding.btnWalkType.setText("Diagonal");
+        }
 
-        ClickUtil.setOnClick(binding.btnPre, new Action1() {
+        ClickUtil.setOnClick(binding.btnWalkType, new Action1() {
             @Override
             public void call(Object o) {
-
+                if (AstarUtils.isDiagonal()) {
+                    AstarUtils.setIsDiagonal(false);
+                    binding.btnWalkType.setText("Straight");
+                } else {
+                    AstarUtils.setIsDiagonal(true);
+                    binding.btnWalkType.setText("Diagonal");
+                }
             }
         });
 
@@ -62,10 +72,11 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
             }
         });
 
-        ClickUtil.setOnClick(binding.btnContinue, new Action1() {
+        ClickUtil.setOnClick(binding.btnReset, new Action1() {
             @Override
             public void call(Object o) {
-
+                AstarUtils.reset();
+                nodeAdapter.refreshPath(initPath());
             }
         });
     }
@@ -92,6 +103,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         end = random.nextInt(100);
         nodeList.get(start).setReachSate(2);
         nodeList.get(end).setReachSate(3);
+        nodeList.get(end).setPath(true);
         System.out.println(String.format("startPos index:%d", start));
 
         return nodeList;

@@ -18,6 +18,7 @@ public class AstarUtils {
     private static List<PathNodeBean> pathList = new ArrayList<>();
     private static List<PathNodeBean> nodeList;
     private static PathNodeBean curNode;
+    private static boolean isDiagonal;          // 是否斜角行进
 
     public static Vector2 index2pos(int index, int lengh) {
         Vector2 pos = new Vector2();
@@ -94,11 +95,35 @@ public class AstarUtils {
                 , curTopPos.getX(), curTopPos.getY()
                 , curDownPos.getX(), curDownPos.getY()
                 , endPos.getX(), endPos.getY()));
+        if (isDiagonal) {
+            Vector2 topLeftDown = new Vector2(curTopLeftPos.getX(), curTopLeftPos.getY() + 1);
+            Vector2 topLeftRight = new Vector2(curTopLeftPos.getX() + 1, curTopLeftPos.getY());
+            if (topLeftDown.isValid(10) && nodeList.get(AstarUtils.pos2index(topLeftDown, 10)).checkNode() ||
+                    topLeftRight.isValid(10) && nodeList.get(AstarUtils.pos2index(topLeftRight, 10)).checkNode()) {
+                addNeighborToOpenList(curTopLeftPos, startPos, endPos);
+            }
 
-        addNeighborToOpenList(curTopLeftPos, startPos, endPos);
-        addNeighborToOpenList(curTopRightPos, startPos, endPos);
-        addNeighborToOpenList(curDownLeftPos, startPos, endPos);
-        addNeighborToOpenList(curDownRightPos, startPos, endPos);
+            Vector2 topRightDown = new Vector2(curTopRightPos.getX(), curTopRightPos.getY() + 1);
+            Vector2 topRightLeft = new Vector2(curTopRightPos.getX() - 1, curTopRightPos.getY());
+            if (topRightDown.isValid(10) && nodeList.get(AstarUtils.pos2index(topRightDown, 10)).checkNode() ||
+                    topRightLeft.isValid(10) && nodeList.get(AstarUtils.pos2index(topRightLeft, 10)).checkNode()) {
+                addNeighborToOpenList(curTopRightPos, startPos, endPos);
+            }
+
+            Vector2 downLeftTop = new Vector2(curDownLeftPos.getX(), curDownLeftPos.getY() - 1);
+            Vector2 downLeftRight = new Vector2(curDownLeftPos.getX() + 1, curDownLeftPos.getY());
+            if (downLeftTop.isValid(10) && nodeList.get(AstarUtils.pos2index(downLeftTop, 10)).checkNode() ||
+                    downLeftRight.isValid(10) && nodeList.get(AstarUtils.pos2index(downLeftRight, 10)).checkNode()) {
+                addNeighborToOpenList(curDownLeftPos, startPos, endPos);
+            }
+
+            Vector2 downRightTop = new Vector2(curDownRightPos.getX(), curDownRightPos.getY() - 1);
+            Vector2 downRightLeft = new Vector2(curDownRightPos.getX() - 1, curDownRightPos.getY());
+            if (downRightTop.isValid(10) && nodeList.get(AstarUtils.pos2index(downRightTop, 10)).checkNode() ||
+                    downRightLeft.isValid(10) && nodeList.get(AstarUtils.pos2index(downRightLeft, 10)).checkNode()) {
+                addNeighborToOpenList(curDownRightPos, startPos, endPos);
+            }
+        }
 
         addNeighborToOpenList(curLeftPos, startPos, endPos);
         addNeighborToOpenList(curRightPos, startPos, endPos);
@@ -153,10 +178,22 @@ public class AstarUtils {
         return nodeList;
     }
 
+    public static boolean isDiagonal() {
+        return isDiagonal;
+    }
+
+    public static void setIsDiagonal(boolean isDiagonal) {
+        AstarUtils.isDiagonal = isDiagonal;
+    }
+
     public static void reset() {
-        nodeList.clear();
-        openList.clear();
-        closeList.clear();
-        pathList.clear();
+        if (nodeList != null)
+            nodeList.clear();
+        if (openList != null)
+            openList.clear();
+        if (closeList != null)
+            closeList.clear();
+        if (pathList != null)
+            pathList.clear();
     }
 }
