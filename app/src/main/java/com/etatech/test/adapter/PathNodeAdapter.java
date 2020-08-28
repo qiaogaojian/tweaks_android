@@ -49,6 +49,10 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
             holder.binding.tvF.setText(node.getF() + "");
             holder.binding.tvG.setText(node.getG() + "");
             holder.binding.tvH.setText(node.getH() + "");
+        } else {
+            holder.binding.tvF.setText("");
+            holder.binding.tvG.setText("");
+            holder.binding.tvH.setText("");
         }
 
         switch (node.getReachSate()) {
