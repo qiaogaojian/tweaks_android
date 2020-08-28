@@ -36,14 +36,14 @@ public class AstarUtils {
             distance += Math.abs(pos1.getX() - pos2.getX()) * 10;
             distance += Math.abs(pos1.getY() - pos2.getY()) * 10;
         } else {
-            int dx = pos1.getX() - pos2.getX();
-            int dy = pos1.getY() - pos2.getY();
+            int dx = Math.abs(pos1.getX() - pos2.getX());
+            int dy = Math.abs(pos1.getY() - pos2.getY());
             if (dx > dy) {
-                distance += (Math.abs(pos1.getX() - pos2.getX()) - dy) * 10;
-                distance += Math.abs(pos1.getY() - pos2.getY()) * 14;
+                distance += (dx - dy) * 10;
+                distance += dy * 14;
             } else {
-                distance += Math.abs(pos1.getX() - pos2.getX()) * 14;
-                distance += (Math.abs(pos1.getY() - pos2.getY()) - dx) * 10;
+                distance += (dy - dx) * 10;
+                distance += dx * 14;
             }
         }
         return distance;
