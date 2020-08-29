@@ -15,6 +15,7 @@ public class PathNodeBean {
     private PathNodeBean parent;
     private boolean isPath;
     private boolean isEnd;  // 是否终点
+    private boolean isStart; // 是否起点
 
     public int getF() {
         return g + h;
@@ -90,6 +91,14 @@ public class PathNodeBean {
 
     public void setEnd(boolean end) {
         isEnd = end;
+    }
+
+    public boolean isStart() {
+        return isStart;
+    }
+
+    public void setStart(boolean start) {
+        isStart = start;
     }
 
     public boolean findNode() {
