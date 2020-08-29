@@ -142,9 +142,22 @@ public class ClickUtil {
      * 长按点击事件
      *
      * @param view
-     * @param activity
      * @param action
      */
+    public static void setOnLongClick(final View view, final Action1 action) {
+        RxView.longClicks(view)
+                .throttleFirst(1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(action, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                        setOnLongClick(view, action);//重新订阅
+                        Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     public static void setOnLongClick(final View view, final RxAppCompatActivity activity, final Action1 action) {
         RxView.longClicks(view)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))

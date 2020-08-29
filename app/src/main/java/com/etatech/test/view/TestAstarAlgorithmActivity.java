@@ -73,6 +73,14 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
             }
         });
 
+        ClickUtil.setOnLongClick(binding.btnNext, this, new Action1() {
+            @Override
+            public void call(Object o) {
+                List<PathNodeBean> pathList = astarUtils.findPath(nodeList, nodeList.get(start), nodeList.get(end));
+                nodeAdapter.refreshPath(astarUtils.getNodeList());
+            }
+        });
+
         ClickUtil.setFastClick(binding.btnReset, new Action1() {
             @Override
             public void call(Object o) {
@@ -104,6 +112,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         start = random.nextInt(100);
         end = random.nextInt(100);
         nodeList.get(start).setReachSate(2);
+        nodeList.get(start).setStart(true);
         nodeList.get(end).setReachSate(3);
         nodeList.get(end).setEnd(true);
         System.out.println(String.format("startPos index:%d", start));

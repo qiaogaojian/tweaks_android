@@ -1,5 +1,6 @@
 package com.etatech.test.utils;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.bean.PathNodeBean;
 import com.etatech.test.bean.Vector2;
 
@@ -13,25 +14,25 @@ import java.util.List;
  */
 public class AstarUtils {
 
-    private  List<PathNodeBean> openList = new ArrayList<>();
-    private  List<PathNodeBean> closeList = new ArrayList<>();
-    private  List<PathNodeBean> pathList = new ArrayList<>();
-    private  List<PathNodeBean> nodeList;
-    private  PathNodeBean curNode;
-    private  boolean isDiagonal;          // 是否斜角行进
+    private List<PathNodeBean> openList = new ArrayList<>();
+    private List<PathNodeBean> closeList = new ArrayList<>();
+    private List<PathNodeBean> pathList = new ArrayList<>();
+    private List<PathNodeBean> nodeList;
+    private PathNodeBean curNode;
+    private boolean isDiagonal;          // 是否斜角行进
 
-    public  Vector2 index2pos(int index, int lengh) {
+    public Vector2 index2pos(int index, int lengh) {
         Vector2 pos = new Vector2();
         pos.setX(index % lengh + 1);
         pos.setY((int) Math.ceil(index / lengh) + 1);
         return pos;
     }
 
-    public  int pos2index(Vector2 pos, int lengh) {
+    public int pos2index(Vector2 pos, int lengh) {
         return (pos.getY() - 1) * lengh + pos.getX() - 1;
     }
 
-    public  int getPosDistance(Vector2 pos1, Vector2 pos2) {
+    public int getPosDistance(Vector2 pos1, Vector2 pos2) {
         int distance = 0;
         if (pos1.getX() == pos2.getX() || pos1.getY() == pos2.getY()) {
             distance += Math.abs(pos1.getX() - pos2.getX()) * 10;
@@ -50,16 +51,21 @@ public class AstarUtils {
         return distance;
     }
 
-    public  void findPath(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
-        nodeList = oriList;
-        curNode = start;
-
-        while (curNode.getIndex() != end.getIndex()) {
-            nextStep(nodeList, start, end);
+    public List<PathNodeBean> findPath(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
+        while (true) {
+            int state = nextStep(oriList, start, end);
+            if (state == 1) {
+                ToastUtils.showShort("Has Reach End");
+                break;
+            } else if (state == 2) {
+                ToastUtils.showShort("No Road");
+                break;
+            }
         }
+        return pathList;
     }
 
-    public  int nextStep(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
+    public int nextStep(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
         if (nodeList == null || nodeList.size() == 0) {
             nodeList = oriList;
             curNode = start;
@@ -162,7 +168,7 @@ public class AstarUtils {
         return 0;
     }
 
-    private  void addNeighborToOpenList(Vector2 curPos, Vector2 startPos, Vector2 endPos) {
+    private void addNeighborToOpenList(Vector2 curPos, Vector2 startPos, Vector2 endPos) {
         if (curPos.isValid(10) && nodeList.get(pos2index(curPos, 10)).findNode()) {
             System.out.println(String.format("AstarUtils curLeftPos valid! pos:%s-%s index:%s", curPos.getX(), curPos.getY(), pos2index(curPos, 10)));
             nodeList.get(pos2index(curPos, 10)).setG(getPosDistance(startPos, curPos));
@@ -174,19 +180,19 @@ public class AstarUtils {
         }
     }
 
-    public  List<PathNodeBean> getNodeList() {
+    public List<PathNodeBean> getNodeList() {
         return nodeList;
     }
 
-    public  boolean isDiagonal() {
+    public boolean isDiagonal() {
         return isDiagonal;
     }
 
-    public  void setIsDiagonal(boolean diagonal) {
+    public void setIsDiagonal(boolean diagonal) {
         isDiagonal = diagonal;
     }
 
-    public  void reset() {
+    public void reset() {
         if (nodeList != null)
             nodeList.clear();
         if (openList != null)
