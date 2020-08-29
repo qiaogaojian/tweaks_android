@@ -25,6 +25,26 @@
             tools:listitem="@layout/item_path_node"
             tools:spanCount="10" />
 
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="1000pt"
+            android:layout_height="wrap_content"
+            android:text="
+UI说明:\n
+    格子左上角F值 左下角G值 右下角H值 蓝色格子:未发现 绿色:已发现并加入openlist 紫色:已走过并加入closelist 红色:障碍物\n\n
+操作说明:\n
+    可以通过点击格子控制障碍物布局: 点击蓝色格子会变成红色格子,点击红色格子会变成蓝色格子\n\n
+按钮说明:\n
+    Straight/Diagonal: 只能直线行走/允许斜线行走 \n
+    Next: 点击单步执行 长按直接找到路径 \n
+    Reset: 重置"
+            android:textColor="@color/code_black"
+            android:textSize="30pt"
+            app:layout_constraintBottom_toTopOf="@id/btn_next"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_path_node" />
+
         <Button
             android:id="@+id/btn_walk_type"
             style="@style/Button"
