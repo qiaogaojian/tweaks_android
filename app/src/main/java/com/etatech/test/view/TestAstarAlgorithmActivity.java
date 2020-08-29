@@ -25,6 +25,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
     private int start;
     private int end;
     private int reachState;             // 0 未到达 1 已到达 2 此路不通
+    private AstarUtils astarUtils;
 
     @Override
     public ActivityTestAstarAlgorithmBinding onCreateView(Bundle savedInstanceState) {
@@ -33,11 +34,11 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
     @Override
     public void init() {
-
+        astarUtils = new AstarUtils();
         nodeAdapter = new PathNodeAdapter(initPath());
         binding.rvPathNode.setAdapter(nodeAdapter);
         binding.rvPathNode.setLayoutManager(new GridLayoutManager(this, 10));
-        if (AstarUtils.isDiagonal()) {
+        if (astarUtils.isDiagonal()) {
             binding.btnWalkType.setText("Straight");
         } else {
             binding.btnWalkType.setText("Diagonal");
@@ -46,11 +47,11 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         ClickUtil.setOnClick(binding.btnWalkType, new Action1() {
             @Override
             public void call(Object o) {
-                if (AstarUtils.isDiagonal()) {
-                    AstarUtils.setIsDiagonal(false);
+                if (astarUtils.isDiagonal()) {
+                    astarUtils.setIsDiagonal(false);
                     binding.btnWalkType.setText("Straight");
                 } else {
-                    AstarUtils.setIsDiagonal(true);
+                    astarUtils.setIsDiagonal(true);
                     binding.btnWalkType.setText("Diagonal");
                 }
             }
@@ -61,14 +62,14 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
             public void call(Object o) {
                 if (reachState == 1) {
                     ToastUtils.showShort("Has Reach End");
-                    nodeAdapter.refreshPath(AstarUtils.getNodeList());
+                    nodeAdapter.refreshPath(astarUtils.getNodeList());
                     return;
                 } else if (reachState == 2) {
                     ToastUtils.showShort("No Road");
                     return;
                 }
-                reachState = AstarUtils.nextStep(nodeList, nodeList.get(start), nodeList.get(end));
-                nodeAdapter.refreshPath(AstarUtils.getNodeList());
+                reachState = astarUtils.nextStep(nodeList, nodeList.get(start), nodeList.get(end));
+                nodeAdapter.refreshPath(astarUtils.getNodeList());
             }
         });
 
@@ -76,7 +77,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
             @Override
             public void call(Object o) {
                 reachState = 0;
-                AstarUtils.reset();
+                astarUtils.reset();
                 nodeAdapter.refreshPath(initPath());
             }
         });
@@ -87,7 +88,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         nodeList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             PathNodeBean node = new PathNodeBean();
-            node.setPos(AstarUtils.index2pos(i, 10));
+            node.setPos(astarUtils.index2pos(i, 10));
             node.setIndex(i);
             node.setReachSate(0);
             nodeList.add(node);
@@ -113,6 +114,6 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AstarUtils.reset();
+        astarUtils.reset();
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import com.etatech.test.R;
 import com.etatech.test.adapter.PathNodeAdapter;
 import com.etatech.test.bean.PathNodeBean;
+import com.etatech.test.bean.Vector2;
 import com.etatech.test.databinding.ActivityTestMaskLayoutBinding;
 import com.etatech.test.utils.AstarUtils;
 import com.etatech.test.utils.BaseActivity;
@@ -36,8 +37,6 @@ public class TestMaskLayoutActivity extends BaseActivity<ActivityTestMaskLayoutB
     private List<PathNodeBean> getData() {
         List<PathNodeBean> nodeList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            PathNodeBean node = new PathNodeBean();
-            node.setPos(AstarUtils.index2pos(i, 10));
             nodeList.add(new PathNodeBean());
         }
 
