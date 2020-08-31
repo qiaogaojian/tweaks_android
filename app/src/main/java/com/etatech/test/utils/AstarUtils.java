@@ -13,7 +13,8 @@ import java.util.List;
  * Func:
  */
 public class AstarUtils {
-
+    private int height;
+    private int width;
     private List<PathNodeBean> openList = new ArrayList<>();
     private List<PathNodeBean> closeList = new ArrayList<>();
     private List<PathNodeBean> pathList = new ArrayList<>();
@@ -32,7 +33,7 @@ public class AstarUtils {
         return (pos.getY() - 1) * lengh + pos.getX() - 1;
     }
 
-    public int getPosDistance(Vector2 pos1, Vector2 pos2) {
+    private int getPosDistance(Vector2 pos1, Vector2 pos2) {
         int distance = 0;
         if (pos1.getX() == pos2.getX() || pos1.getY() == pos2.getY()) {
             distance += Math.abs(pos1.getX() - pos2.getX()) * 10;
@@ -65,6 +66,12 @@ public class AstarUtils {
         return pathList;
     }
 
+    /**
+     * @param oriList 地图列表
+     * @param start   起点
+     * @param end     终点
+     * @return 0 未到达 1 已到达 2 此路不通
+     */
     public int nextStep(List<PathNodeBean> oriList, PathNodeBean start, PathNodeBean end) {
         if (nodeList == null || nodeList.size() == 0) {
             nodeList = oriList;
@@ -89,11 +96,6 @@ public class AstarUtils {
         Vector2 curTopPos = new Vector2(curNode.getPos().getX(), curNode.getPos().getY() - 1);
         Vector2 curDownPos = new Vector2(curNode.getPos().getX(), curNode.getPos().getY() + 1);
 
-        Vector2 curTopLeftPos = new Vector2(curNode.getPos().getX() - 1, curNode.getPos().getY() - 1);
-        Vector2 curTopRightPos = new Vector2(curNode.getPos().getX() + 1, curNode.getPos().getY() - 1);
-        Vector2 curDownLeftPos = new Vector2(curNode.getPos().getX() - 1, curNode.getPos().getY() + 1);
-        Vector2 curDownRightPos = new Vector2(curNode.getPos().getX() + 1, curNode.getPos().getY() + 1);
-
         System.out.println(String.format("AstarUtils startPos:%s-%s leftPos:%s-%s rightPos:%s-%s topPos:%s-%s downPos:%s-%s endPos:%s-%s "
                 , startPos.getX(), startPos.getY()
                 , curLeftPos.getX(), curLeftPos.getY()
@@ -101,7 +103,13 @@ public class AstarUtils {
                 , curTopPos.getX(), curTopPos.getY()
                 , curDownPos.getX(), curDownPos.getY()
                 , endPos.getX(), endPos.getY()));
+
         if (isDiagonal) {
+            Vector2 curTopLeftPos = new Vector2(curNode.getPos().getX() - 1, curNode.getPos().getY() - 1);
+            Vector2 curTopRightPos = new Vector2(curNode.getPos().getX() + 1, curNode.getPos().getY() - 1);
+            Vector2 curDownLeftPos = new Vector2(curNode.getPos().getX() - 1, curNode.getPos().getY() + 1);
+            Vector2 curDownRightPos = new Vector2(curNode.getPos().getX() + 1, curNode.getPos().getY() + 1);
+
             Vector2 topLeftDown = new Vector2(curTopLeftPos.getX(), curTopLeftPos.getY() + 1);
             Vector2 topLeftRight = new Vector2(curTopLeftPos.getX() + 1, curTopLeftPos.getY());
             if (topLeftDown.isValid(10) && nodeList.get(pos2index(topLeftDown, 10)).checkNode() ||
