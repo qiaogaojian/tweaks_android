@@ -2,9 +2,7 @@ package com.etatech.test.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +10,9 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
-import com.etatech.test.bean.PathNodeBean;
+import com.etatech.test.bean.NodeBean;
 import com.etatech.test.databinding.ItemPathNodeBinding;
-import com.etatech.test.utils.App;
 import com.etatech.test.utils.ui.ClickUtil;
-import com.etatech.test.utils.ui.ImageUtil;
 
 import java.util.List;
 
@@ -28,14 +24,14 @@ import rx.functions.Action1;
  * Func:
  */
 public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
-    private List<PathNodeBean> nodeList;
+    private List<NodeBean> nodeList;
 
-    public PathNodeAdapter(List<PathNodeBean> nodeList) {
+    public PathNodeAdapter(List<NodeBean> nodeList) {
         this.nodeList = nodeList;
         notifyDataSetChanged();
     }
 
-    public void refreshPath(List<PathNodeBean> list) {
+    public void refreshPath(List<NodeBean> list) {
         if (list == null || list.size() == 0) {
             ToastUtils.showShort("empty node list");
         }
@@ -52,7 +48,7 @@ public class PathNodeAdapter extends RecyclerView.Adapter<PathNodeAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, final int position) {
-        PathNodeBean node = nodeList.get(position);
+        NodeBean node = nodeList.get(position);
         if (node.getF() != 0) {
             holder.binding.tvF.setText(node.getF() + "");
             holder.binding.tvG.setText(node.getG() + "");

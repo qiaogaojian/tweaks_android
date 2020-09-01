@@ -5,14 +5,14 @@ package com.etatech.test.bean;
  * Date:  2020/8/25
  * Func:
  */
-public class PathNodeBean {
+public class NodeBean {
     private int f;
     private int g;
     private int h;
     private Vector2 pos;
     private int index;
     private int reachSate;  // -1 不能走 0 未发现 1 已发现未走 2 已发现已走 3 目的地
-    private PathNodeBean parent;
+    private NodeBean parent;
     private boolean isPath;
     private boolean isEnd;  // 是否终点
     private boolean isStart; // 是否起点
@@ -69,11 +69,11 @@ public class PathNodeBean {
         this.reachSate = reachSate;
     }
 
-    public PathNodeBean getParent() {
+    public NodeBean getParent() {
         return parent;
     }
 
-    public void setParent(PathNodeBean parent) {
+    public void setParent(NodeBean parent) {
         this.parent = parent;
     }
 

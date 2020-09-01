@@ -5,14 +5,12 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
-import com.etatech.test.bean.PathNodeBean;
+import com.etatech.test.bean.NodeBean;
 import com.etatech.test.databinding.ItemDungeonGridBinding;
-import com.etatech.test.databinding.ItemPathNodeBinding;
 import com.etatech.test.utils.ui.ClickUtil;
 
 import java.util.List;
@@ -25,9 +23,9 @@ import rx.functions.Action1;
  * Func:
  */
 public class DungeonGridAdapter extends RecyclerView.Adapter<DungeonGridAdapter.VH> {
-    private List<PathNodeBean> nodeList;
+    private List<NodeBean> nodeList;
 
-    public void refreshPath(List<PathNodeBean> list) {
+    public void refreshPath(List<NodeBean> list) {
         if (list == null || list.size() == 0) {
             ToastUtils.showShort("empty node list");
         }
@@ -44,7 +42,7 @@ public class DungeonGridAdapter extends RecyclerView.Adapter<DungeonGridAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, final int position) {
-        PathNodeBean node = nodeList.get(position);
+        NodeBean node = nodeList.get(position);
 
         switch (node.getReachSate()) {
             case -1:
@@ -80,7 +78,7 @@ public class DungeonGridAdapter extends RecyclerView.Adapter<DungeonGridAdapter.
 
     @Override
     public int getItemCount() {
-        return nodeList.size();
+        return nodeList == null ? 0 : nodeList.size();
     }
 
     class VH extends RecyclerView.ViewHolder {

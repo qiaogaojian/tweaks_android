@@ -3,6 +3,7 @@ package com.etatech.test.utils;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +11,7 @@ import android.text.Html;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.etatech.test.R;
+import com.etatech.test.bean.Vector2;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -321,6 +323,17 @@ public class Tools {
         return "";
     }
 
+    public static Vector2 index2pos(int index, int lengh) {
+        Vector2 pos = new Vector2();
+        pos.setX(index % lengh + 1);
+        pos.setY((int) Math.ceil(index / lengh) + 1);
+        return pos;
+    }
+
+    public static int pos2index(Vector2 pos, int lengh) {
+        return (pos.getY() - 1) * lengh + pos.getX() - 1;
+    }
+
     private static Random random = new Random();
 
     public static int randomRange(int min, int max) {
@@ -333,4 +346,21 @@ public class Tools {
         }
     }
 
+    public static int randomRange(int max) {
+        return randomRange(0, max);
+    }
+
+    public static boolean isOverLap(Rect rect1, Rect rect2) {
+        return rect1.left <= rect2.right
+                && rect2.left <= rect1.right
+                && rect1.top <= rect2.bottom
+                && rect2.top <= rect1.bottom;
+    }
+
+    public static boolean isConnect(Rect rect1, Rect rect2) {
+        return rect1.left <= rect2.right + 1
+                && rect2.left <= rect1.right + 1
+                && rect1.top <= rect2.bottom + 1
+                && rect2.top <= rect1.bottom + 1;
+    }
 }

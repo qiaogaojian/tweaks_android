@@ -1,16 +1,13 @@
 package com.etatech.test.view;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.etatech.test.R;
 import com.etatech.test.adapter.PathNodeAdapter;
-import com.etatech.test.bean.PathNodeBean;
-import com.etatech.test.bean.Vector2;
+import com.etatech.test.bean.NodeBean;
 import com.etatech.test.databinding.ActivityTestMaskLayoutBinding;
-import com.etatech.test.utils.AstarUtils;
 import com.etatech.test.utils.BaseActivity;
 
 import java.util.ArrayList;
@@ -34,10 +31,10 @@ public class TestMaskLayoutActivity extends BaseActivity<ActivityTestMaskLayoutB
         nodeAdapter.notifyDataSetChanged();
     }
 
-    private List<PathNodeBean> getData() {
-        List<PathNodeBean> nodeList = new ArrayList<>();
+    private List<NodeBean> getData() {
+        List<NodeBean> nodeList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            nodeList.add(new PathNodeBean());
+            nodeList.add(new NodeBean());
         }
 
         // 障碍

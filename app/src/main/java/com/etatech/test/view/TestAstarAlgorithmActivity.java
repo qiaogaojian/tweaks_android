@@ -7,10 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.adapter.PathNodeAdapter;
-import com.etatech.test.bean.PathNodeBean;
+import com.etatech.test.bean.NodeBean;
 import com.etatech.test.databinding.ActivityTestAstarAlgorithmBinding;
 import com.etatech.test.utils.AstarUtils;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.ui.ClickUtil;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.Random;
 import rx.functions.Action1;
 
 public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAlgorithmBinding> {
-    private List<PathNodeBean> nodeList;
+    private List<NodeBean> nodeList;
     private PathNodeAdapter nodeAdapter;
     private int start;
     private int end;
@@ -76,7 +77,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
         ClickUtil.setOnLongClick(binding.btnNext, this, new Action1() {
             @Override
             public void call(Object o) {
-                List<PathNodeBean> pathList = astarUtils.findPath(nodeList, nodeList.get(start), nodeList.get(end));
+                List<NodeBean> pathList = astarUtils.findPath(nodeList, nodeList.get(start), nodeList.get(end));
                 nodeAdapter.refreshPath(astarUtils.getNodeList());
             }
         });
@@ -92,11 +93,11 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
     }
 
 
-    private List<PathNodeBean> initPath() {
+    private List<NodeBean> initPath() {
         nodeList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            PathNodeBean node = new PathNodeBean();
-            node.setPos(astarUtils.index2pos(i, 10));
+            NodeBean node = new NodeBean();
+            node.setPos(Tools.index2pos(i, 10));
             node.setIndex(i);
             node.setReachSate(0);
             nodeList.add(node);
