@@ -324,7 +324,13 @@ public class Tools {
     private static Random random = new Random();
 
     public static int randomRange(int min, int max) {
-        return min + random.nextInt(max - min);
+        if (min < max) {
+            return min + random.nextInt(max - min);
+        } else if (min == max) {
+            return min;
+        } else {
+            return -1;
+        }
     }
 
 }

@@ -2,7 +2,9 @@ package com.etatech.test.Java;
 
 import com.etatech.test.utils.Tools;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Created by Michael
@@ -40,8 +42,19 @@ public class JavaTest {
     }
 
     private static void testRandomRange() {
-        for (int i = 0; i < 100; i++) {
-            System.out.print(String.format("%d ", Tools.randomRange(10, 20)));
+        HashMap<Integer, Integer> countMap = new HashMap<>();
+        for (int i = 0; i < 1000000; i++) {
+            int randomNum = Tools.randomRange(10, 16);
+            if (countMap.containsKey(randomNum)) {
+                countMap.put(randomNum, countMap.get(randomNum) + 1);
+            } else {
+                countMap.put(randomNum, 1);
+            }
+        }
+
+        System.out.println();
+        for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
+            System.out.println(String.format("key: %d count: %d", entry.getKey(), entry.getValue()));
         }
     }
 }
