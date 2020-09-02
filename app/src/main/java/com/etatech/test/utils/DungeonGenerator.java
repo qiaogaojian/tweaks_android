@@ -37,7 +37,7 @@ public class DungeonGenerator {
             NodeBean node = new NodeBean();
             node.setPos(Tools.index2pos(i, 10));
             node.setIndex(i);
-            node.setReachSate(-1);
+            node.setTileType(NodeBean.TileType.Wall);
             nodeList.add(node);
         }
 
@@ -45,6 +45,7 @@ public class DungeonGenerator {
     }
 
     private void generateRooms() {
+        // *2 + 1 是为了获得奇数
         for (int i = 0; i < roomTryNum; i++) {
             int size = Tools.randomRange(roomSize / 2, roomSize) * 2 + 1;
             int addSize = Tools.randomRange(0, 1 + size / 2);
@@ -76,11 +77,34 @@ public class DungeonGenerator {
             for (int x = room.left; x <= room.right; x++) {
                 for (int y = room.top; y <= room.bottom; y++) {
                     Vector2 curPos = new Vector2(x, y);
-                    nodeList.get(Tools.pos2index(curPos, width)).setReachSate(1);
+                    nodeList.get(Tools.pos2index(curPos, width)).setTileType(NodeBean.TileType.Floor);
                 }
             }
         }
     }
 
+    private void generateMaze() {
+        for (int y = 0; y < this.height; y++) {
+            for (int x = 0; x < this.width; x++) {
+                Vector2 pos = new Vector2(x, y);
+                if (getTileType(pos) != NodeBean.TileType.Wall) {
+                    continue;
+                }
+                growMaze(pos);
+            }
+        }
+    }
+
+    private void growMaze(Vector2 start) {
+        List<Vector2> mazes = new ArrayList<>();
+        Vector2 lastDir = new Vector2(0, 0);
+
+        mazes.add(start);
+
+    }
+
+    private NodeBean.TileType getTileType(Vector2 pos) {
+        return nodeList.get(Tools.pos2index(pos, this.width)).getTileType();
+    }
 
 }

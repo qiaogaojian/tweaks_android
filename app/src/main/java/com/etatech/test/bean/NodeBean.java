@@ -16,6 +16,7 @@ public class NodeBean {
     private boolean isPath;
     private boolean isEnd;  // 是否终点
     private boolean isStart; // 是否起点
+    private TileType tileType;
 
     public int getF() {
         return g + h;
@@ -101,6 +102,29 @@ public class NodeBean {
         isStart = start;
     }
 
+    public TileType getTileType() {
+        return tileType;
+    }
+
+    public void setTileType(TileType tileType) {
+        this.tileType = tileType;
+        switch (tileType){
+            case Floor:
+            case OpenDoor:
+            case Stairs:
+            case Grass:
+                reachSate = 0;
+                break;
+            case Wall:
+            case LowWall:
+            case Table:
+            case ClosedDoor:
+            case Tree:
+                reachSate = -1;
+                break;
+        }
+    }
+
     public boolean findNode() {
         if (this.reachSate == 0 || this.reachSate == 3) {
             this.reachSate = 1;
@@ -117,5 +141,17 @@ public class NodeBean {
             return false;
         }
         return true;
+    }
+
+    public enum TileType {
+        Floor,
+        Wall,
+        LowWall,
+        Table,
+        OpenDoor,
+        ClosedDoor,
+        Stairs,
+        Grass,
+        Tree
     }
 }

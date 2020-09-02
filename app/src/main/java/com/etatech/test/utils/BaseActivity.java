@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -17,8 +18,8 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
  * Func:
  */
 public abstract class BaseActivity<DataBindingType extends ViewDataBinding> extends RxAppCompatActivity {
-    public  DataBindingType binding;
-    private boolean         darkModeOpen;
+    public DataBindingType binding;
+    private boolean darkModeOpen;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,4 +53,22 @@ public abstract class BaseActivity<DataBindingType extends ViewDataBinding> exte
             recreate();
         }
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL: {
+
+                break;
+            }
+        }
+        return super.onTouchEvent(event);
+    }
+
+
 }
