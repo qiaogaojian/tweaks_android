@@ -37,6 +37,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
     public void init() {
         astarUtils = new AstarUtils();
         generator = new DungeonGenerator();
+        generator.Init(width, height, 100, 5);
 
         dungeonAdapter = new DungeonGridAdapter();
         binding.rvDungeon.setAdapter(dungeonAdapter);
@@ -46,7 +47,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
         ClickUtil.setOnClick(binding.btnGenerateDungeon, new Action1() {
             @Override
             public void call(Object o) {
-                generator.Init(width, height, 100, 5);
+                generator.generateRoom();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }
         });
@@ -54,7 +55,8 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
         ClickUtil.setOnClick(binding.btnNext, new Action1() {
             @Override
             public void call(Object o) {
-
+                generator.generateMaze();
+                dungeonAdapter.refreshPath(generator.getNodeList());
             }
         });
 
