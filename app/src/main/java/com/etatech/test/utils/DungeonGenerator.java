@@ -51,8 +51,8 @@ public class DungeonGenerator {
     }
 
     public void generateRoom() {
-        int size = Tools.randomRange(roomSize / 2, roomSize) * 2 + 1;
-        int addSize = Tools.randomRange(0, 1 + size / 2);
+        int size = Tools.randomRange(roomSize / 2, 3 + roomSize) * 2 + 1;
+        int addSize = Tools.randomRange(0, 1 + size / 2) * 2;
         int roomWidth = size;
         int roomHeight = size;
 
@@ -154,7 +154,7 @@ public class DungeonGenerator {
                 growMaze(pos);
             }
         }
-       return mazeList.size();
+        return mazeList.size();
     }
 
     public void carveMaze(int i) {
@@ -197,6 +197,10 @@ public class DungeonGenerator {
                 lastPos = nextPos;
             }
         }
+    }
+
+    private void connectRegions() {
+
     }
 
     private boolean canCarve(Vector2 pos, Vector2 checkPos) {
