@@ -95,6 +95,35 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
             }
         });
 
+        ClickUtil.setOnLongClick(binding.btnNext, new Action1() {
+            @Override
+            public void call(Object o) {
+                final int mazeNum =  generator.generateMazes();
+                Observable.interval(0, 200, TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .take(mazeNum)
+                        .subscribe(new Observer<Long>() {
+                            @Override
+                            public void onNext(Long value) {
+                                System.out.println(String.format("try create maze tile no:%d", value));
+
+                                generator.carveMaze(value.intValue());
+                                dungeonAdapter.refreshPath(generator.getNodeList());
+                            }
+
+                            @Override
+                            public void onCompleted() {
+                                System.out.println(String.format("complete generate maze tile by %d times", mazeNum));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+                        });
+            }
+        });
+
         ClickUtil.setOnClick(binding.btnReset, new Action1() {
             @Override
             public void call(Object o) {

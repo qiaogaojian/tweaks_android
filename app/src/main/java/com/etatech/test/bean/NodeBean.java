@@ -124,6 +124,9 @@ public class NodeBean {
             case Grass:
                 reachSate = 1;
                 break;
+            case Maze:
+
+                break;
         }
     }
 
@@ -154,6 +157,7 @@ public class NodeBean {
         ClosedDoor,
         Stairs,
         Grass,
-        Tree
+        Tree,
+        Maze
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class DungeonGenerator {
     private List<Rect> roomList;
+    private List<Vector2> mazeList;
     private List<NodeBean> nodeList;
     private int width;
     private int height;
@@ -38,6 +39,7 @@ public class DungeonGenerator {
         this.roomTryNum = roomTryNum;
         this.roomSize = roomSize;
         roomList = new ArrayList<>();
+        mazeList = new ArrayList<>();
         nodeList = new ArrayList<>();
         for (int i = 0; i < height * width; i++) {
             NodeBean node = new NodeBean();
@@ -116,8 +118,8 @@ public class DungeonGenerator {
         }
         return roomList.size();
     }
-    
-    public void carveRoom(int i){
+
+    public void carveRoom(int i) {
         Rect room = roomList.get(i);
         for (int x = room.left; x <= room.right; x++) {
             for (int y = room.top; y <= room.bottom; y++) {
@@ -137,6 +139,27 @@ public class DungeonGenerator {
                 growMaze(pos);
             }
         }
+        for (int i = 0; i < mazeList.size(); i++) {
+            carve(mazeList.get(i), NodeBean.TileType.Grass);
+        }
+    }
+
+    public int generateMazes() {
+        for (int y = 1; y <= this.height; y += 2) {
+            for (int x = 1; x <= this.width; x += 2) {
+                Vector2 pos = new Vector2(x, y);
+                if (getTileType(pos) != NodeBean.TileType.Wall) {
+                    continue;
+                }
+                growMaze(pos);
+            }
+        }
+       return mazeList.size();
+    }
+
+    public void carveMaze(int i) {
+        Vector2 maze = mazeList.get(i);
+        carve(maze, NodeBean.TileType.Grass);
     }
 
     private void growMaze(Vector2 start) {
@@ -165,8 +188,10 @@ public class DungeonGenerator {
                     nextPos = findCells.get(Tools.randomRange(findCells.size()));
                 }
 
-                carve(new Vector2(curPos.getX() + nextPos.getX(), curPos.getY() + nextPos.getY()), NodeBean.TileType.Grass);
-                carve(new Vector2(curPos.getX() + nextPos.getX() * 2, curPos.getY() + nextPos.getY() * 2), NodeBean.TileType.Grass);
+                mazeList.add(new Vector2(curPos.getX() + nextPos.getX(), curPos.getY() + nextPos.getY()));
+                mazeList.add(new Vector2(curPos.getX() + nextPos.getX() * 2, curPos.getY() + nextPos.getY() * 2));
+                carve(new Vector2(curPos.getX() + nextPos.getX(), curPos.getY() + nextPos.getY()), NodeBean.TileType.Maze);
+                carve(new Vector2(curPos.getX() + nextPos.getX() * 2, curPos.getY() + nextPos.getY() * 2), NodeBean.TileType.Maze);
 
                 mazes.add(new Vector2(curPos.getX() + nextPos.getX() * 2, curPos.getY() + nextPos.getY() * 2));
                 lastPos = nextPos;
@@ -191,7 +216,7 @@ public class DungeonGenerator {
     }
 
     void carve(Vector2 curPos, NodeBean.TileType type) {
-        nodeList.get(Tools.pos2index(curPos, width)).setTileType(NodeBean.TileType.Floor);
+        nodeList.get(Tools.pos2index(curPos, width)).setTileType(type);
     }
 
     void carve(Vector2 curPos) {
