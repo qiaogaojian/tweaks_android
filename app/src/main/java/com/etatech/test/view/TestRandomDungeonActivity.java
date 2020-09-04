@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.etatech.test.R;
 import com.etatech.test.adapter.DungeonGridAdapter;
 import com.etatech.test.bean.NodeBean;
@@ -17,8 +18,13 @@ import com.etatech.test.utils.ui.ClickUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDungeonBinding> {
     private DungeonGridAdapter dungeonAdapter;
@@ -49,6 +55,34 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
             public void call(Object o) {
                 generator.generateRoom();
                 dungeonAdapter.refreshPath(generator.getNodeList());
+            }
+        });
+
+        ClickUtil.setOnLongClick(binding.btnGenerateDungeon, new Action1() {
+            @Override
+            public void call(Object o) {
+                Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .take(100)
+                        .subscribe(new Observer<Long>() {
+                            @Override
+                            public void onNext(Long value) {
+                                System.out.println(String.format("try create room times:%d", value));
+
+                                generator.generateRoom();
+                                dungeonAdapter.refreshPath(generator.getNodeList());
+                            }
+
+                            @Override
+                            public void onCompleted() {
+                                System.out.println(String.format("complete generate room by %d times", 100));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+                        });
             }
         });
 
