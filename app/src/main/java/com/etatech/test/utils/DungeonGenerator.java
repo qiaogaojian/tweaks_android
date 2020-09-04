@@ -84,7 +84,7 @@ public class DungeonGenerator {
         }
     }
 
-    public void generateRooms() {
+    public int generateRooms() {
         // *2 + 1 是为了获得奇数
         for (int i = 0; i < roomTryNum; i++) {
             int size = Tools.randomRange(roomSize / 2, roomSize) * 2 + 1;
@@ -112,13 +112,17 @@ public class DungeonGenerator {
             if (isOverlap) {
                 continue;
             }
-
             roomList.add(room);
-            for (int x = room.left; x <= room.right; x++) {
-                for (int y = room.top; y <= room.bottom; y++) {
-                    Vector2 curPos = new Vector2(x, y);
-                    carve(curPos);
-                }
+        }
+        return roomList.size();
+    }
+    
+    public void carveRoom(int i){
+        Rect room = roomList.get(i);
+        for (int x = room.left; x <= room.right; x++) {
+            for (int y = room.top; y <= room.bottom; y++) {
+                Vector2 curPos = new Vector2(x, y);
+                carve(curPos);
             }
         }
     }

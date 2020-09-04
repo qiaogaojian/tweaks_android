@@ -61,22 +61,23 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
         ClickUtil.setOnLongClick(binding.btnGenerateDungeon, new Action1() {
             @Override
             public void call(Object o) {
-                Observable.interval(0, 100, TimeUnit.MILLISECONDS)
+                final int roomNum =  generator.generateRooms();
+                Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .take(100)
+                        .take(roomNum)
                         .subscribe(new Observer<Long>() {
                             @Override
                             public void onNext(Long value) {
-                                System.out.println(String.format("try create room times:%d", value));
+                                System.out.println(String.format("try create room no:%d", value));
 
-                                generator.generateRoom();
+                                generator.carveRoom(value.intValue());
                                 dungeonAdapter.refreshPath(generator.getNodeList());
                             }
 
                             @Override
                             public void onCompleted() {
-                                System.out.println(String.format("complete generate room by %d times", 100));
+                                System.out.println(String.format("complete generate room by %d times", roomNum));
                             }
 
                             @Override
