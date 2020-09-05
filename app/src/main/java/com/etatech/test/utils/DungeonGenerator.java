@@ -62,8 +62,8 @@ public class DungeonGenerator {
             roomHeight += addSize;
         }
 
-        int posX = Tools.randomRange(1, (width - roomWidth) / 2) * 2 ;
-        int posY = Tools.randomRange(1, (height - roomHeight) / 2) * 2;
+        int posX = Tools.randomRange(1, (width - roomWidth) / 2 + 1) * 2;
+        int posY = Tools.randomRange(1, (height - roomHeight) / 2 + 1) * 2;
 
         Rect room = new Rect(posX, posY, posX + roomWidth, posY + roomHeight);
         boolean isOverlap = false;
@@ -100,8 +100,8 @@ public class DungeonGenerator {
                 roomHeight += addSize;
             }
 
-            int posX = Tools.randomRange(1, (width - roomWidth) / 2) * 2;
-            int posY = Tools.randomRange(1, (height - roomHeight) / 2) * 2;
+            int posX = Tools.randomRange(1, (width - roomWidth) / 2 + 1) * 2;
+            int posY = Tools.randomRange(1, (height - roomHeight) / 2 + 1) * 2;
 
             Rect room = new Rect(posX, posY, posX + roomWidth, posY + roomHeight);
             boolean isOverlap = false;
