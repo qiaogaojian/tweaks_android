@@ -43,7 +43,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
     public void init() {
         astarUtils = new AstarUtils();
         generator = new DungeonGenerator();
-        generator.Init(width, height, 100, 5);
+        generator.Init(width, height, 1000, 1);
 
         dungeonAdapter = new DungeonGridAdapter();
         binding.rvDungeon.setAdapter(dungeonAdapter);
@@ -62,7 +62,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
             @Override
             public void call(Object o) {
                 final int roomNum =  generator.generateRooms();
-                Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
+                Observable.interval(0, 100, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .take(roomNum)

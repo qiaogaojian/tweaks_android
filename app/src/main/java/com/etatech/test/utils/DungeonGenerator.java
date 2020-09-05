@@ -51,7 +51,7 @@ public class DungeonGenerator {
     }
 
     public void generateRoom() {
-        int size = Tools.randomRange(roomSize / 2, 3 + roomSize) * 2 + 1;
+        int size = Tools.randomRange(1, 3 + roomSize) * 2 + 1;
         int addSize = Tools.randomRange(0, 1 + size / 2) * 2;
         int roomWidth = size;
         int roomHeight = size;
@@ -62,8 +62,8 @@ public class DungeonGenerator {
             roomHeight += addSize;
         }
 
-        int posX = Tools.randomRange((width - roomWidth) / 2) * 2 + 1;
-        int posY = Tools.randomRange((height - roomHeight) / 2) * 2 + 1;
+        int posX = Tools.randomRange(1, (width - roomWidth) / 2) * 2 ;
+        int posY = Tools.randomRange(1, (height - roomHeight) / 2) * 2;
 
         Rect room = new Rect(posX, posY, posX + roomWidth, posY + roomHeight);
         boolean isOverlap = false;
@@ -78,8 +78,8 @@ public class DungeonGenerator {
         }
 
         roomList.add(room);
-        for (int x = room.left; x <= room.right; x++) {
-            for (int y = room.top; y <= room.bottom; y++) {
+        for (int x = posX; x < posX + roomWidth; x++) {
+            for (int y = posY; y < posY + roomHeight; y++) {
                 Vector2 curPos = new Vector2(x, y);
                 carve(curPos);
             }
@@ -89,8 +89,8 @@ public class DungeonGenerator {
     public int generateRooms() {
         // *2 + 1 是为了获得奇数
         for (int i = 0; i < roomTryNum; i++) {
-            int size = Tools.randomRange(roomSize / 2, roomSize) * 2 + 1;
-            int addSize = Tools.randomRange(0, 1 + size / 2);
+            int size = Tools.randomRange(1, 3 + roomSize) * 2 + 1;
+            int addSize = Tools.randomRange(0, 1 + size / 2) * 2;
             int roomWidth = size;
             int roomHeight = size;
 
@@ -100,8 +100,8 @@ public class DungeonGenerator {
                 roomHeight += addSize;
             }
 
-            int posX = Tools.randomRange((width - roomWidth) / 2) * 2 + 1;
-            int posY = Tools.randomRange((height - roomHeight) / 2) * 2 + 1;
+            int posX = Tools.randomRange(1, (width - roomWidth) / 2) * 2;
+            int posY = Tools.randomRange(1, (height - roomHeight) / 2) * 2;
 
             Rect room = new Rect(posX, posY, posX + roomWidth, posY + roomHeight);
             boolean isOverlap = false;
@@ -121,8 +121,8 @@ public class DungeonGenerator {
 
     public void carveRoom(int i) {
         Rect room = roomList.get(i);
-        for (int x = room.left; x <= room.right; x++) {
-            for (int y = room.top; y <= room.bottom; y++) {
+        for (int x = room.left; x < room.right; x++) {
+            for (int y = room.top; y < room.bottom; y++) {
                 Vector2 curPos = new Vector2(x, y);
                 carve(curPos);
             }
