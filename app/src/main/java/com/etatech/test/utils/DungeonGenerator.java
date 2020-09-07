@@ -130,8 +130,8 @@ public class DungeonGenerator {
     }
 
     public void generateMaze() {
-        for (int y = 1; y <= this.height; y += 2) {
-            for (int x = 1; x <= this.width; x += 2) {
+        for (int y = 2; y <= this.height; y += 2) {
+            for (int x = 2; x <= this.width; x += 2) {
                 Vector2 pos = new Vector2(x, y);
                 if (getTileType(pos) != NodeBean.TileType.Wall) {
                     continue;
@@ -145,8 +145,8 @@ public class DungeonGenerator {
     }
 
     public int generateMazes() {
-        for (int y = 1; y <= this.height; y += 2) {
-            for (int x = 1; x <= this.width; x += 2) {
+        for (int y = 2; y <= this.height; y += 2) {
+            for (int x = 2; x <= this.width; x += 2) {
                 Vector2 pos = new Vector2(x, y);
                 if (getTileType(pos) != NodeBean.TileType.Wall) {
                     continue;
