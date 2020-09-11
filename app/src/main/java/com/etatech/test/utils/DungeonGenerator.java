@@ -7,7 +7,6 @@ import com.etatech.test.bean.NodeBean;
 import com.etatech.test.bean.Vector2;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +20,7 @@ public class DungeonGenerator {
     private List<Rect> roomList;
     private List<Vector2> mazeList;
     private List<NodeBean> nodeList;
-    private int[][] _regions;
-    private int currentRegionIndex = 0;
+
     private int width;
     private int height;
     private int roomTryNum;
@@ -35,6 +33,8 @@ public class DungeonGenerator {
             new Vector2(1, 0)
     };
 
+    private int[][] regionMarkArray;    // 标记区域二维数组(房间和单个迷宫)
+    private int regionMarkIndex = 0;    // 当前区域标记id
 
     public List<NodeBean> getNodeList() {
         return nodeList;
@@ -48,7 +48,7 @@ public class DungeonGenerator {
         roomList = new ArrayList<>();
         mazeList = new ArrayList<>();
         nodeList = new ArrayList<>();
-        _regions = new int[height][width];
+        regionMarkArray = new int[height][width];
         for (int i = 0; i < height * width; i++) {
             NodeBean node = new NodeBean();
             node.setPos(Tools.index2pos(i, 10));
@@ -219,13 +219,12 @@ public class DungeonGenerator {
         HashMap<Vector2, List<Integer>> connectRegions = new HashMap<>();
         for (int i = 1; i < width; i++) {
             for (int j = 1; j < height; j++) {
-                if (!isWall(new Vector2(i, j)))
-                {
+                if (!isWall(new Vector2(i, j))) {
                     List<Integer> regions = new ArrayList<>();
                     for (Vector2 pos : checkPos) {
                         Vector2 curPos = new Vector2(pos.getX() + i, pos.getY() + j);
                         if (curPos.isValid(width)) {
-                            int region = _regions[curPos.getX()][curPos.getY()];
+                            int region = regionMarkArray[curPos.getX()][curPos.getY()];
                             if (region != 0) {
                                 regions.add(region);
                             }
@@ -246,7 +245,7 @@ public class DungeonGenerator {
 
         List<Integer> merged = new ArrayList<>();
         List<Integer> openRegions = new ArrayList<>();
-        for (int i = 0; i < currentRegionIndex; i++) {
+        for (int i = 0; i < regionMarkIndex; i++) {
             merged.add(i);
             openRegions.add(i);
         }
@@ -263,7 +262,7 @@ public class DungeonGenerator {
             int dest = sources.get(0);
             sources.remove(0);
 
-            for (int i = 1; i < currentRegionIndex; i++) {
+            for (int i = 1; i < regionMarkIndex; i++) {
                 if (sources.contains(merged.get(i))) ;
                 {
                     merged.set(i, dest);
@@ -293,7 +292,7 @@ public class DungeonGenerator {
     }
 
     private void startRegion() {
-        currentRegionIndex++;
+        regionMarkIndex++;
     }
 
     private boolean canCarve(Vector2 pos, Vector2 checkPos) {
@@ -323,7 +322,7 @@ public class DungeonGenerator {
 
     void carve(Vector2 curPos, NodeBean.TileType type) {
         nodeList.get(Tools.pos2index(curPos, width)).setTileType(type);
-        _regions[curPos.getX()][curPos.getY()] = currentRegionIndex;
+        regionMarkArray[curPos.getX()][curPos.getY()] = regionMarkIndex;
     }
 
     void carve(Vector2 curPos) {
