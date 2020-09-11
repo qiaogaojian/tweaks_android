@@ -37,6 +37,11 @@ public class DungeonGenerator {
     private int regionMarkIndex = -1;    // 当前区域标记id
 
     public List<NodeBean> getNodeList() {
+        for (int i = 0; i < regionMarkArray.length; i++) {
+            for (int j = 0; j < regionMarkArray[i].length; j++) {
+                nodeList.get(Tools.pos2index(new Vector2(j + 1, i + 1), width)).setRegionMark(regionMarkArray[i][j]);
+            }
+        }
         return nodeList;
     }
 
@@ -240,7 +245,7 @@ public class DungeonGenerator {
                     }
                 }
 
-                if (connectRegions.size() >= 2) {
+                if (connectRegions.size() == 2) {
                     connectPos2RegionsMap.put(new Vector2(i, j), connectRegions);
                 }
             }
@@ -298,6 +303,9 @@ public class DungeonGenerator {
             List<Vector2> temConnectors = new ArrayList<>();
             for (int i = 0; i < allConnectors.size(); i++) {
                 Vector2 connectorPos = allConnectors.get(i);
+                //                if (Tools.randomRange(10)==1){ // 构造循环路径
+                //                    addJunction(connectorPos);
+                //                }
                 if (needRemoveCurConnector(mergedRegions, connectPos2RegionsMap, curConnectorPos, connectorPos)) {
                     continue;
                 }

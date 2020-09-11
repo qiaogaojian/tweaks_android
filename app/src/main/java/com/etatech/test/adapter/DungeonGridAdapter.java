@@ -43,7 +43,7 @@ public class DungeonGridAdapter extends RecyclerView.Adapter<DungeonGridAdapter.
     @Override
     public void onBindViewHolder(@NonNull VH holder, final int position) {
         NodeBean node = nodeList.get(position);
-
+        holder.binding.tvRegionMark.setText(node.getRegionMark() + "");
         switch (node.getReachSate()) {
             case -1:
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#F92671"));

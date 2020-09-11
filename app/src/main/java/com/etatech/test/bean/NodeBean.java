@@ -17,6 +17,7 @@ public class NodeBean {
     private boolean isEnd;  // 是否终点
     private boolean isStart; // 是否起点
     private TileType tileType;
+    private int regionMark;
 
     public int getF() {
         return g + h;
@@ -102,13 +103,21 @@ public class NodeBean {
         isStart = start;
     }
 
+    public int getRegionMark() {
+        return regionMark;
+    }
+
+    public void setRegionMark(int regionMark) {
+        this.regionMark = regionMark;
+    }
+
     public TileType getTileType() {
         return tileType;
     }
 
     public void setTileType(TileType tileType) {
         this.tileType = tileType;
-        switch (tileType){
+        switch (tileType) {
             case Floor:
             case OpenDoor:
             case Stairs:
