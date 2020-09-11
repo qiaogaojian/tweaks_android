@@ -234,7 +234,7 @@ public class DungeonGenerator {
                     Vector2 curPos = new Vector2(pos.getX() + i, pos.getY() + j);
                     if (curPos.isValid(width)) {
                         int regionMark = regionMarkArray[curPos.getX() - 1][curPos.getY() - 1];
-                        if (regionMark != 0) {
+                        if (regionMark >= 0) {
                             connectRegions.add(regionMark);
                         }
                     }
@@ -255,7 +255,8 @@ public class DungeonGenerator {
         List<Integer> mergedRegions = new ArrayList<>();
         // 合并完剩下的的区域标记
         List<Integer> openRegions = new ArrayList<>();
-        for (int i = 0; i < regionMarkIndex; i++) {
+        // regionMarkIndex范围: 从 0 到 regionMarkIndex
+        for (int i = 0; i <= regionMarkIndex; i++) {
             mergedRegions.add(i);
             openRegions.add(i);
         }
@@ -275,10 +276,12 @@ public class DungeonGenerator {
             int dest = connectRegions.get(0);
             connectRegions.remove(0);
             for (int i = 0; i < regionMarkIndex; i++) {
-                int mergedRegionMark = mergedRegions.get(i);
-                if (connectRegions.contains(mergedRegionMark)) ;
-                {
-                    mergedRegions.set(i, dest);
+                Integer mergedRegionMark = mergedRegions.get(i);
+
+                for (int j = 0; j < connectRegions.size(); j++) {
+                    if (connectRegions.get(j) == mergedRegionMark) {
+                        mergedRegions.set(i, dest);
+                    }
                 }
             }
 
