@@ -112,6 +112,7 @@ public class NodeBean {
             case Floor:
             case OpenDoor:
             case Stairs:
+            case Maze:
                 reachSate = 0;
                 break;
             case Wall:
@@ -123,9 +124,6 @@ public class NodeBean {
                 break;
             case Grass:
                 reachSate = 1;
-                break;
-            case Maze:
-
                 break;
         }
     }
