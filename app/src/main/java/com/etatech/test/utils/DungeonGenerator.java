@@ -39,7 +39,7 @@ public class DungeonGenerator {
     public List<NodeBean> getNodeList() {
         for (int i = 0; i < regionMarkArray.length; i++) {
             for (int j = 0; j < regionMarkArray[i].length; j++) {
-                nodeList.get(Tools.pos2index(new Vector2(j + 1, i + 1), width)).setRegionMark(regionMarkArray[i][j]);
+                nodeList.get(Tools.pos2index(new Vector2(j + 1, i + 1), width)).setRegionMark(regionMarkArray[j][i]);
             }
         }
         return nodeList;
@@ -346,7 +346,7 @@ public class DungeonGenerator {
 
     void carve(Vector2 curPos, NodeBean.TileType type) {
         nodeList.get(Tools.pos2index(curPos, width)).setTileType(type);
-        regionMarkArray[curPos.getX()][curPos.getY()] = regionMarkIndex;
+        regionMarkArray[curPos.getX()-1][curPos.getY()-1] = regionMarkIndex;
     }
 
     void carve(Vector2 curPos) {
