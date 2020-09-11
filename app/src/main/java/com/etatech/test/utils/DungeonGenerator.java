@@ -220,20 +220,22 @@ public class DungeonGenerator {
         for (int i = 1; i < width; i++) {
             for (int j = 1; j < height; j++) {
                 if (!isWall(new Vector2(i, j))) {
-                    List<Integer> regions = new ArrayList<>();
-                    for (Vector2 pos : checkPos) {
-                        Vector2 curPos = new Vector2(pos.getX() + i, pos.getY() + j);
-                        if (curPos.isValid(width)) {
-                            int region = regionMarkArray[curPos.getX()][curPos.getY()];
-                            if (region != 0) {
-                                regions.add(region);
-                            }
+                    continue;
+                }
+
+                List<Integer> regions = new ArrayList<>();
+                for (Vector2 pos : checkPos) {
+                    Vector2 curPos = new Vector2(pos.getX() + i, pos.getY() + j);
+                    if (curPos.isValid(width)) {
+                        int region = regionMarkArray[curPos.getX()][curPos.getY()];
+                        if (region != 0) {
+                            regions.add(region);
                         }
                     }
+                }
 
-                    if (regions.size() >= 2) {
-                        connectRegions.put(new Vector2(i, j), regions);
-                    }
+                if (regions.size() >= 2) {
+                    connectRegions.put(new Vector2(i, j), regions);
                 }
             }
         }
