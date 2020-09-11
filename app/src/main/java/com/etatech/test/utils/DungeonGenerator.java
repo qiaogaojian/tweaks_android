@@ -227,7 +227,7 @@ public class DungeonGenerator {
                 for (Vector2 pos : checkPos) {
                     Vector2 curPos = new Vector2(pos.getX() + i, pos.getY() + j);
                     if (curPos.isValid(width)) {
-                        int region = regionMarkArray[curPos.getX()][curPos.getY()];
+                        int region = regionMarkArray[curPos.getX()-1][curPos.getY()-1];
                         if (region != 0) {
                             regions.add(region);
                         }
