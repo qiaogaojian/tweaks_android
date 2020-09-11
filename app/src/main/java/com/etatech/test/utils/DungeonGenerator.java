@@ -34,7 +34,7 @@ public class DungeonGenerator {
     };
 
     private int[][] regionMarkArray;    // 标记区域二维数组(房间和单个迷宫)
-    private int regionMarkIndex = 0;    // 当前区域标记id
+    private int regionMarkIndex = -1;    // 当前区域标记id
 
     public List<NodeBean> getNodeList() {
         return nodeList;
@@ -49,6 +49,11 @@ public class DungeonGenerator {
         mazeList = new ArrayList<>();
         nodeList = new ArrayList<>();
         regionMarkArray = new int[height][width];
+        for (int i = 0; i < regionMarkArray.length; i++) {
+            for (int j = 0; j < regionMarkArray[i].length; j++) {
+                regionMarkArray[i][j] = -1;
+            }
+        }
         for (int i = 0; i < height * width; i++) {
             NodeBean node = new NodeBean();
             node.setPos(Tools.index2pos(i, 10));
@@ -216,81 +221,87 @@ public class DungeonGenerator {
     }
 
     public void connectRegions() {
-        HashMap<Vector2, List<Integer>> connectRegions = new HashMap<>();
+        // 潜在连接位置和连接区域映射
+        HashMap<Vector2, List<Integer>> connectPos2RegionsMap = new HashMap<>();
         for (int i = 1; i < width; i++) {
             for (int j = 1; j < height; j++) {
                 if (!isWall(new Vector2(i, j))) {
                     continue;
                 }
 
-                List<Integer> regions = new ArrayList<>();
+                List<Integer> connectRegions = new ArrayList<>();
                 for (Vector2 pos : checkPos) {
                     Vector2 curPos = new Vector2(pos.getX() + i, pos.getY() + j);
                     if (curPos.isValid(width)) {
-                        int region = regionMarkArray[curPos.getX()-1][curPos.getY()-1];
-                        if (region != 0) {
-                            regions.add(region);
+                        int regionMark = regionMarkArray[curPos.getX() - 1][curPos.getY() - 1];
+                        if (regionMark != 0) {
+                            connectRegions.add(regionMark);
                         }
                     }
                 }
 
-                if (regions.size() >= 2) {
-                    connectRegions.put(new Vector2(i, j), regions);
+                if (connectRegions.size() >= 2) {
+                    connectPos2RegionsMap.put(new Vector2(i, j), connectRegions);
                 }
             }
         }
 
-        List<Vector2> connectors = new ArrayList<>();
-        for (Vector2 pos : connectRegions.keySet()) {
-            connectors.add(pos);
+        List<Vector2> allConnectors = new ArrayList<>();
+        for (Vector2 pos : connectPos2RegionsMap.keySet()) {
+            allConnectors.add(pos);
         }
 
-        List<Integer> merged = new ArrayList<>();
+        // 合并的区域标记
+        List<Integer> mergedRegions = new ArrayList<>();
+        // 合并完剩下的的区域标记
         List<Integer> openRegions = new ArrayList<>();
         for (int i = 0; i < regionMarkIndex; i++) {
-            merged.add(i);
+            mergedRegions.add(i);
             openRegions.add(i);
         }
 
         while (openRegions.size() > 1) {
-            Vector2 connector = connectors.get(Tools.randomRange(connectors.size()));
-            addJunction(connector);
+            Vector2 curConnectorPos = allConnectors.get(Tools.randomRange(allConnectors.size()));
+            addJunction(curConnectorPos);
 
-            List<Integer> sources = connectRegions.get(connector);
-            for (int i = 1; i < sources.size(); i++) {
-                sources.set(i, merged.get(sources.get(i)));
+            List<Integer> connectRegions = connectPos2RegionsMap.get(curConnectorPos);
+            for (int i = 0; i < connectRegions.size(); i++) {
+                int regionMark = connectRegions.get(i);
+                int mergedRegionMark = mergedRegions.get(regionMark);
+                connectRegions.set(i, mergedRegionMark);
             }
 
-            int dest = sources.get(0);
-            sources.remove(0);
-
-            for (int i = 1; i < regionMarkIndex; i++) {
-                if (sources.contains(merged.get(i))) ;
+            // 合并区域
+            int dest = connectRegions.get(0);
+            connectRegions.remove(0);
+            for (int i = 0; i < regionMarkIndex; i++) {
+                int mergedRegionMark = mergedRegions.get(i);
+                if (connectRegions.contains(mergedRegionMark)) ;
                 {
-                    merged.set(i, dest);
+                    mergedRegions.set(i, dest);
                 }
             }
 
             List<Integer> temList = new ArrayList<>();
-            for (Integer source : sources) {
+            for (Integer regionMark : connectRegions) {
                 for (int i = 0; i < openRegions.size(); i++) {
-                    if (openRegions.get(i) != source) {
-                        temList.add(source);
+                    if (openRegions.get(i) != regionMark) {
+                        temList.add(regionMark);
                     }
                 }
             }
             openRegions = temList;
 
             List<Vector2> temConnectors = new ArrayList<>();
-            for (int i = 0; i < connectors.size(); i++) {
-                Vector2 pos = connectors.get(i);
-                if (!WhetherRemove(merged, connectRegions, connector, pos)) {
-                    temConnectors.add(connectors.get(i));
+            for (int i = 0; i < allConnectors.size(); i++) {
+                Vector2 connectorPos = allConnectors.get(i);
+                if (needRemoveCurConnector(mergedRegions, connectPos2RegionsMap, curConnectorPos, connectorPos)) {
+                    continue;
                 }
+                temConnectors.add(allConnectors.get(i));
             }
-            connectors = temConnectors;
+            allConnectors = temConnectors;
         }
-
     }
 
     private void startRegion() {
@@ -335,17 +346,24 @@ public class DungeonGenerator {
         nodeList.get(Tools.pos2index(pos, width)).setTileType(NodeBean.TileType.OpenDoor);
     }
 
-    private boolean WhetherRemove(List<Integer> merged, HashMap<Vector2, List<Integer>> connectorRegions, Vector2 connector, Vector2 pos) {
-        if (new Vector2(connector.getX() - pos.getX(), connector.getY() - pos.getY()).SqrValue() < 1.5f) {
+    // 是否删除当前连接点
+    private boolean needRemoveCurConnector(List<Integer> mergedRegions,
+                                           HashMap<Vector2, List<Integer>> connectPos2RegionsMap,
+                                           Vector2 curConnectorPos,
+                                           Vector2 connectorPos) {
+        if (new Vector2(curConnectorPos.getX() - connectorPos.getX(), curConnectorPos.getY() - connectorPos.getY()).SqrValue() < 1.5f) {
             return true;
         }
 
-        List<Integer> tempList = connectorRegions.get(pos);
-        for (int i = 0; i < tempList.size(); i++) {
-            tempList.set(i, merged.get(tempList.get(i)));
+        List<Integer> connectRegions = connectPos2RegionsMap.get(connectorPos);
+        for (int i = 0; i < connectRegions.size(); i++) {
+            int regionMark = connectRegions.get(i);
+            int mergedRegionMark = mergedRegions.get(regionMark);
+
+            connectRegions.set(i, mergedRegionMark);
         }
 
-        HashSet<Integer> set = new HashSet<>(tempList);
+        HashSet<Integer> set = new HashSet<>(connectRegions);
         if (set.size() > 1) {
             return false;
         }
