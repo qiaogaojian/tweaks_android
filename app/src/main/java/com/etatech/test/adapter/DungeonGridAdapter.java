@@ -49,7 +49,11 @@ public class DungeonGridAdapter extends RecyclerView.Adapter<DungeonGridAdapter.
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#F92671"));
                 break;
             case 0:
-                holder.binding.ivBg.setBackgroundColor(Color.parseColor("#65D9EF"));
+                if (node.getTileType().equals(NodeBean.TileType.OpenDoor)) {
+                    holder.binding.ivBg.setBackgroundColor(Color.parseColor("#FA961E"));
+                } else {
+                    holder.binding.ivBg.setBackgroundColor(Color.parseColor("#65D9EF"));
+                }
                 break;
             case 1:
                 holder.binding.ivBg.setBackgroundColor(Color.parseColor("#2DE2A6"));

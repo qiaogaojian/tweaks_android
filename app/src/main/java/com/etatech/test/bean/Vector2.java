@@ -19,11 +19,14 @@ public class Vector2 {
     }
 
     public boolean isValid(int lenth) {
-        if (x >= 1 && y >= 1 && x <= lenth && y <= lenth)
-        {
+        if (x >= 1 && y >= 1 && x <= lenth && y <= lenth) {
             return true;
         }
         return false;
+    }
+
+    public double SqrValue() {
+        return Math.sqrt(x * x + y * y);
     }
 
     public int getX() {

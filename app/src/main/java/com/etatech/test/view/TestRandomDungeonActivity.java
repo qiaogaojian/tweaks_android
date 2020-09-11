@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.etatech.test.R;
 import com.etatech.test.adapter.DungeonGridAdapter;
 import com.etatech.test.bean.NodeBean;
@@ -17,7 +16,6 @@ import com.etatech.test.utils.ui.ClickUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -47,13 +45,13 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         dungeonAdapter = new DungeonGridAdapter();
         binding.rvDungeon.setAdapter(dungeonAdapter);
-        dungeonAdapter.refreshPath(getTestData());
+        dungeonAdapter.refreshPath(generator.getNodeList());
         binding.rvDungeon.setLayoutManager(new GridLayoutManager(this, 51));
 
         ClickUtil.setOnClick(binding.btnGenerateDungeon, new Action1() {
             @Override
             public void call(Object o) {
-                generator.generateRoom();
+                generator.generateRooms();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }
         });
@@ -61,7 +59,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
         ClickUtil.setOnLongClick(binding.btnGenerateDungeon, new Action1() {
             @Override
             public void call(Object o) {
-                final int roomNum =  generator.generateRooms();
+                final int roomNum =  generator.generateRoomsData();
                 Observable.interval(0, 100, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -127,7 +125,8 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
         ClickUtil.setOnClick(binding.btnReset, new Action1() {
             @Override
             public void call(Object o) {
-
+                generator.connectRegions();
+                dungeonAdapter.refreshPath(generator.getNodeList());
             }
         });
     }
