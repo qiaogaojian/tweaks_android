@@ -15,18 +15,18 @@ import java.util.List;
  * Created by Michael
  * Date:  2020/9/1
  * Func: 生成随机地图
- *  1. 生成房间
- *      根据设置长宽生成大地图
- *      随机生成奇数长宽的矩形
- *      在大地图范围内随机一个位置
- *      判断矩形边界是否越界 是否和已有矩形重叠
- *      把符合条件的矩形放入大地图
- *
- *  2. 生成迷宫路径
- *
- *  3. 连接路径和房间
- *  4. 移除无效路径
- *  5. 平整路径
+ * 1. 生成房间
+ * 根据设置长宽生成大地图
+ * 随机生成奇数长宽的矩形
+ * 在大地图范围内随机一个位置
+ * 判断矩形边界是否越界 是否和已有矩形重叠
+ * 把符合条件的矩形放入大地图
+ * <p>
+ * 2. 生成迷宫路径
+ * <p>
+ * 3. 连接路径和房间
+ * 4. 移除无效路径
+ * 5. 平整路径
  */
 public class DungeonGenerator {
     private List<Rect> roomList;
@@ -259,7 +259,9 @@ public class DungeonGenerator {
                 }
 
                 if (connectRegions.size() == 2) {
-                    connectPos2RegionsMap.put(new Vector2(i, j), connectRegions);
+                    if (connectRegions.get(0) != connectRegions.get(1)) {
+                        connectPos2RegionsMap.put(new Vector2(i, j), connectRegions);
+                    }
                 }
             }
         }
@@ -361,7 +363,7 @@ public class DungeonGenerator {
 
     void carve(Vector2 curPos, NodeBean.TileType type) {
         nodeList.get(Tools.pos2index(curPos, width)).setTileType(type);
-        regionMarkArray[curPos.getX()-1][curPos.getY()-1] = regionMarkIndex;
+        regionMarkArray[curPos.getX() - 1][curPos.getY() - 1] = regionMarkIndex;
     }
 
     void carve(Vector2 curPos) {

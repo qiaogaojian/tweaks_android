@@ -29,8 +29,8 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
     private List<NodeBean> nodeList;
     private AstarUtils astarUtils;
     private DungeonGenerator generator;
-    private final int height = 51;
-    private final int width = 51;
+    private final int height = 11;
+    private final int width = 11;
 
     @Override
     public ActivityTestRandomDungeonBinding onCreateView(Bundle savedInstanceState) {
@@ -41,12 +41,12 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
     public void init() {
         astarUtils = new AstarUtils();
         generator = new DungeonGenerator();
-        generator.Init(width, height, 1000, 1);
+        generator.Init(width, height, 1000, 0);
 
         dungeonAdapter = new DungeonGridAdapter();
         binding.rvDungeon.setAdapter(dungeonAdapter);
         dungeonAdapter.refreshPath(generator.getNodeList());
-        binding.rvDungeon.setLayoutManager(new GridLayoutManager(this, 51));
+        binding.rvDungeon.setLayoutManager(new GridLayoutManager(this, width));
 
         ClickUtil.setOnClick(binding.btnGenerateDungeon, new Action1() {
             @Override
