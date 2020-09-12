@@ -75,7 +75,7 @@ public class DungeonGenerator {
         }
         for (int i = 0; i < height * width; i++) {
             NodeBean node = new NodeBean();
-            node.setPos(Tools.index2pos(i, 10));
+            node.setPos(Tools.index2pos(i, width));
             node.setIndex(i);
             node.setTileType(NodeBean.TileType.Wall);
             nodeList.add(node);
@@ -374,6 +374,35 @@ public class DungeonGenerator {
             return false;
         }
         return true;
+    }
+
+    public void RemoveDeadEnd() {
+        boolean done = false;
+        while (!done) {
+            done = true;
+
+            for (int i = 0; i < nodeList.size(); i++) {
+                if (nodeList.get(i).getTileType() != NodeBean.TileType.Grass) {
+                    continue;
+                }
+                int canWalkNum = 0;
+                Vector2 nodePos = nodeList.get(i).getPos();
+                for (Vector2 pos : checkPos) {
+                    Vector2 curPos = new Vector2(pos.getX() + nodePos.getX(), pos.getY() + nodePos.getY());
+
+                    if (curPos.isValid(width) &&
+                            nodeList.get(Tools.pos2index(curPos, width)).getTileType() != NodeBean.TileType.Wall) {
+                        canWalkNum++;
+                    }
+                }
+                if (canWalkNum != 1) {
+                    continue;
+                }
+                done = false;
+                nodeList.get(i).setTileType(NodeBean.TileType.Wall);
+                regionMarkArray[nodePos.getX() - 1][nodePos.getY() - 1] = -1;
+            }
+        }
     }
 
     private void startRegion() {

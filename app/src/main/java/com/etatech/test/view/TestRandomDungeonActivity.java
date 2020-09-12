@@ -29,8 +29,8 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
     private List<NodeBean> nodeList;
     private AstarUtils astarUtils;
     private DungeonGenerator generator;
-    private final int height = 11;
-    private final int width = 11;
+    private final int height = 51;
+    private final int width = 51;
 
     @Override
     public ActivityTestRandomDungeonBinding onCreateView(Bundle savedInstanceState) {
@@ -126,6 +126,14 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
             @Override
             public void call(Object o) {
                 generator.connectRegions();
+                dungeonAdapter.refreshPath(generator.getNodeList());
+            }
+        });
+
+        ClickUtil.setOnLongClick(binding.btnReset, new Action1() {
+            @Override
+            public void call(Object o) {
+                generator.RemoveDeadEnd();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }
         });
