@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.crypto.Cipher;
+
 /**
  * Created by Michael
  * Date:  2020/9/1
@@ -237,9 +239,16 @@ public class DungeonGenerator {
         }
     }
 
+
+    // 记录哪个区域已经被合并了 这个列表是被合并区域的原始记录
+    List<Integer> mergedRegions = new ArrayList<>();
+    // 合并完剩下的的区域标记
+    List<Integer> openRegions = new ArrayList<>();
+
     public void connectRegions() {
         // 潜在连接位置和连接区域映射 用于找到所有连接两个区域的格子
         HashMap<Vector2, List<Integer>> connectPos2RegionsMap = new HashMap<>();
+
         for (int i = 1; i < width; i++) {
             for (int j = 1; j < height; j++) {
                 // 排除已经是区域的格子
@@ -259,9 +268,10 @@ public class DungeonGenerator {
                 }
 
                 if (connectRegions.size() == 2) {
-                    if (connectRegions.get(0) != connectRegions.get(1)) {
-                        connectPos2RegionsMap.put(new Vector2(i, j), connectRegions);
+                    if (connectRegions.get(0) == connectRegions.get(1)) {
+                        continue;
                     }
+                    connectPos2RegionsMap.put(new Vector2(i, j), connectRegions);
                 }
             }
         }
@@ -270,11 +280,10 @@ public class DungeonGenerator {
         for (Vector2 pos : connectPos2RegionsMap.keySet()) {
             allConnectors.add(pos);
         }
+        if (allConnectors.isEmpty()) {
+            return;
+        }
 
-        // 记录哪个区域已经被合并了 这个列表是被合并区域的原始记录
-        List<Integer> mergedRegions = new ArrayList<>();
-        // 合并完剩下的的区域标记
-        List<Integer> openRegions = new ArrayList<>();
         // regionMarkIndex范围: 从 0 到 regionMarkIndex
         for (int i = 0; i <= regionMarkIndex; i++) {
             mergedRegions.add(i);
@@ -284,36 +293,36 @@ public class DungeonGenerator {
         // 连接所有区域直到连成一个大区域
         while (openRegions.size() > 1) {
             Vector2 curConnectorPos = allConnectors.get(Tools.randomRange(allConnectors.size()));
-            // 标记连接点
-            addJunction(curConnectorPos);
+
             // 合并连接的区域 选择一个区域然后把所有和他连接的区域标记成它一样
             List<Integer> connectRegions = connectPos2RegionsMap.get(curConnectorPos);
             for (int i = 0; i < connectRegions.size(); i++) {
-                int regionMark = connectRegions.get(i);
-                int mergedRegionMark = mergedRegions.get(regionMark);
+                int temRegionMarkIndex = connectRegions.get(i);
+                int mergedRegionMark = mergedRegions.get(temRegionMarkIndex);
                 connectRegions.set(i, mergedRegionMark);
             }
 
-            // 合并区域
-            int dest = connectRegions.get(0);
-            connectRegions.remove(0);
-            for (int i = 0; i < regionMarkIndex; i++) {
+            // 合并区域 第一个区域把第二个区域合并到自己中
+            int firstRegionMark = connectRegions.remove(0);
+            for (int i = 0; i < mergedRegions.size(); i++) {
                 Integer mergedRegionMark = mergedRegions.get(i);
 
-                for (int j = 0; j < connectRegions.size(); j++) {
-                    if (connectRegions.get(j) == mergedRegionMark) {
-                        mergedRegions.set(i, dest);
-                    }
+                if (connectRegions.get(0) == mergedRegionMark) {
+                    mergedRegions.set(i, firstRegionMark);
                 }
             }
 
+            // 标记连接点
+            addJunction(curConnectorPos, firstRegionMark);
+
+            // 丢弃被合并的第二个区域
+            int secondRegionMark = connectRegions.get(0);
             List<Integer> temList = new ArrayList<>();
-            for (Integer regionMark : connectRegions) {
-                for (int i = 0; i < openRegions.size(); i++) {
-                    if (openRegions.get(i) != regionMark) {
-                        temList.add(openRegions.get(i));
-                    }
+            for (int i = 0; i < openRegions.size(); i++) {
+                if (openRegions.get(i) == secondRegionMark) {
+                    continue;
                 }
+                temList.add(openRegions.get(i));
             }
             openRegions = temList;
 
@@ -330,6 +339,41 @@ public class DungeonGenerator {
             }
             allConnectors = temConnectors;
         }
+        for (int i = 0; i < regionMarkArray.length; i++) {
+            for (int j = 0; j < regionMarkArray[i].length; j++) {
+                int temMarkIndex = regionMarkArray[j][i];
+                if (temMarkIndex == -1) {
+                    continue;
+                }
+                regionMarkArray[j][i] = mergedRegions.get(temMarkIndex);
+            }
+        }
+    }
+
+    // 是否删除当前连接点
+    private boolean needRemoveCurConnector(List<Integer> mergedRegions,
+                                           HashMap<Vector2, List<Integer>> connectPos2RegionsMap,
+                                           Vector2 curConnectorPos,
+                                           Vector2 connectorPos) {
+        // 把自己和挨着自己的连接点删除
+        if (new Vector2(curConnectorPos.getX() - connectorPos.getX(), curConnectorPos.getY() - connectorPos.getY()).SqrValue() < 1.5f) {
+            return true;
+        }
+
+        // 遍历每一个连接点 把合并后的区域标记赋值给这个连接点的两个区域 然后对比这两个区域 如果相等就移除这个节点
+        List<Integer> connectRegions = connectPos2RegionsMap.get(connectorPos);
+        for (int i = 0; i < connectRegions.size(); i++) {
+            int temRegionMarkIndex = connectRegions.get(i);
+            int mergedRegionMark = mergedRegions.get(temRegionMarkIndex);
+
+            connectRegions.set(i, mergedRegionMark);
+        }
+
+        HashSet<Integer> set = new HashSet<>(connectRegions);
+        if (set.size() > 1) {
+            return false;
+        }
+        return true;
     }
 
     private void startRegion() {
@@ -370,32 +414,8 @@ public class DungeonGenerator {
         carve(curPos, NodeBean.TileType.Floor);
     }
 
-    private void addJunction(Vector2 pos) {
+    private void addJunction(Vector2 pos, int firstMark) {
         nodeList.get(Tools.pos2index(pos, width)).setTileType(NodeBean.TileType.OpenDoor);
+        regionMarkArray[pos.getX() - 1][pos.getY() - 1] = mergedRegions.get(firstMark);
     }
-
-    // 是否删除当前连接点
-    private boolean needRemoveCurConnector(List<Integer> mergedRegions,
-                                           HashMap<Vector2, List<Integer>> connectPos2RegionsMap,
-                                           Vector2 curConnectorPos,
-                                           Vector2 connectorPos) {
-        if (new Vector2(curConnectorPos.getX() - connectorPos.getX(), curConnectorPos.getY() - connectorPos.getY()).SqrValue() < 1.5f) {
-            return true;
-        }
-
-        List<Integer> connectRegions = connectPos2RegionsMap.get(connectorPos);
-        for (int i = 0; i < connectRegions.size(); i++) {
-            int regionMark = connectRegions.get(i);
-            int mergedRegionMark = mergedRegions.get(regionMark);
-
-            connectRegions.set(i, mergedRegionMark);
-        }
-
-        HashSet<Integer> set = new HashSet<>(connectRegions);
-        if (set.size() > 1) {
-            return false;
-        }
-        return true;
-    }
-
 }
