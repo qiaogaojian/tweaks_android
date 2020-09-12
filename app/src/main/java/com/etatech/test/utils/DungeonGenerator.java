@@ -14,7 +14,19 @@ import java.util.List;
 /**
  * Created by Michael
  * Date:  2020/9/1
- * Func:
+ * Func: 生成随机地图
+ *  1. 生成房间
+ *      根据设置长宽生成大地图
+ *      随机生成奇数长宽的矩形
+ *      在大地图范围内随机一个位置
+ *      判断矩形边界是否越界 是否和已有矩形重叠
+ *      把符合条件的矩形放入大地图
+ *
+ *  2. 生成迷宫路径
+ *
+ *  3. 连接路径和房间
+ *  4. 移除无效路径
+ *  5. 平整路径
  */
 public class DungeonGenerator {
     private List<Rect> roomList;
@@ -226,10 +238,11 @@ public class DungeonGenerator {
     }
 
     public void connectRegions() {
-        // 潜在连接位置和连接区域映射
+        // 潜在连接位置和连接区域映射 用于找到所有连接两个区域的格子
         HashMap<Vector2, List<Integer>> connectPos2RegionsMap = new HashMap<>();
         for (int i = 1; i < width; i++) {
             for (int j = 1; j < height; j++) {
+                // 排除已经是区域的格子
                 if (!isWall(new Vector2(i, j))) {
                     continue;
                 }
@@ -256,7 +269,7 @@ public class DungeonGenerator {
             allConnectors.add(pos);
         }
 
-        // 合并的区域标记
+        // 记录哪个区域已经被合并了 这个列表是被合并区域的原始记录
         List<Integer> mergedRegions = new ArrayList<>();
         // 合并完剩下的的区域标记
         List<Integer> openRegions = new ArrayList<>();
@@ -266,10 +279,12 @@ public class DungeonGenerator {
             openRegions.add(i);
         }
 
+        // 连接所有区域直到连成一个大区域
         while (openRegions.size() > 1) {
             Vector2 curConnectorPos = allConnectors.get(Tools.randomRange(allConnectors.size()));
+            // 标记连接点
             addJunction(curConnectorPos);
-
+            // 合并连接的区域 选择一个区域然后把所有和他连接的区域标记成它一样
             List<Integer> connectRegions = connectPos2RegionsMap.get(curConnectorPos);
             for (int i = 0; i < connectRegions.size(); i++) {
                 int regionMark = connectRegions.get(i);
@@ -294,7 +309,7 @@ public class DungeonGenerator {
             for (Integer regionMark : connectRegions) {
                 for (int i = 0; i < openRegions.size(); i++) {
                     if (openRegions.get(i) != regionMark) {
-                        temList.add(regionMark);
+                        temList.add(openRegions.get(i));
                     }
                 }
             }
