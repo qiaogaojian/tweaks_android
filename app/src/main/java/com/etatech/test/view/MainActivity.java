@@ -230,6 +230,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestScrollto, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestScrollToActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
