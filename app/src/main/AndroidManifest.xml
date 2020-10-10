@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestScrollToActivity"></activity>
+        <activity android:name=".view.TestWheelPickerActivity"></activity>
+        <activity android:name=".view.TestScrollToActivity" />
         <activity android:name=".view.TestRandomDungeonActivity" />
         <activity android:name=".view.TestMaskLayoutActivity" />
         <activity android:name=".view.TestAstarAlgorithmActivity" />
