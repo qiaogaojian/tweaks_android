@@ -196,6 +196,9 @@ dependencies {
     // 网络状态检测
     implementation project(':netstate')
 //    implementation 'com.sdbean.netstate:netstate:1.0.0'
+
+    implementation project(':wheelpicker')
+
 }
 
 //添加到文件最后
