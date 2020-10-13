@@ -156,17 +156,12 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
     }
 
     private final void init() {
-        setLayoutManager(linearLayoutManager = new LinearLayoutManager(getContext()) {
-
+        setLayoutManager(linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        addOnScrollListener(new OnScrollListener() {
             @Override
-            public int scrollVerticallyBy(int dy, Recycler recycler, State state) {
-                // if (dy==0) {
-                //     selectedPosition = getChildViewHolder(findChildViewUnder(getMeasuredWidth() / 2, getMeasuredHeight() / 2)).getAdapterPosition();
-                //     Log.e("scrollVerticallyBy", "scroll:" + dy + "***" +
-                //             selectedPosition);
-                // }
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
                 refreshScrollTranslate();
-                return super.scrollVerticallyBy(dy, recycler, state);
             }
         });
     }
