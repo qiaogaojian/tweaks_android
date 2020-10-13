@@ -244,6 +244,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestCustomview, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestCustomViewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

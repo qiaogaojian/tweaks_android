@@ -327,6 +327,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_scrollto" />
 
+            <Button
+                android:id="@+id/btn_test_customview"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Custom View"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_wheelpicker" />
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
