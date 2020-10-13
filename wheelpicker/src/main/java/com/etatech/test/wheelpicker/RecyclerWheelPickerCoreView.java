@@ -4,10 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,24 +21,6 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
     }
 
     protected WheelAdapter<T> adapter;
-
-    /**
-     * 设置选中区域顶部的蒙层
-     *
-     * @param selectedTopAreaDrawer
-     */
-    public void setSelectedTopAreaDrawer(AreaDrawer selectedTopAreaDrawer) {
-        this.selectedTopAreaDrawer = selectedTopAreaDrawer;
-    }
-
-    /**
-     * 设置选中区域底部的蒙层
-     *
-     * @param selectedBottomAreaDrawer
-     */
-    public void setSelectedBottomAreaDrawer(AreaDrawer selectedBottomAreaDrawer) {
-        this.selectedBottomAreaDrawer = selectedBottomAreaDrawer;
-    }
 
     /**
      * 设置选中区域高度，建议设计的每个滚动元素的高度保持一致
@@ -133,14 +111,14 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
         super.onViewAdded(child);
         refreshScrollTranslate();
     }
-//
-//        @Override
-//        protected void onAttachedToWindow() {
-//            super.onAttachedToWindow();
-////            mWidth=ViewUtils.calculateViewSize(this)[0];
-////            mWidth=getMeasuredWidth();
-//            if (adapter != null) adapter.notifyDataSetChanged();
-//        }
+    //
+    //        @Override
+    //        protected void onAttachedToWindow() {
+    //            super.onAttachedToWindow();
+    ////            mWidth=ViewUtils.calculateViewSize(this)[0];
+    ////            mWidth=getMeasuredWidth();
+    //            if (adapter != null) adapter.notifyDataSetChanged();
+    //        }
 
 
     private LinearLayoutManager linearLayoutManager;
@@ -177,59 +155,23 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
         }
     }
 
-    /**
-     * 默认的
-     */
-    public AreaDrawer DEFAULT_SELECTED_AREA_DRAWER = new AreaDrawer() {
-        @Override
-        public void onDraw(Context context, Canvas canvas, Rect rect) {
-            if (paint == null) {
-                paint = new Paint();
-                paint.setAntiAlias(true);
-                paint.setStrokeWidth(DensityUtil.dip2px(context, 1));
-                paint.setColor(Color.parseColor("#cdced3"));
-            }
-            canvas.drawLine(0, rect.top, rect.right, rect.top, paint);
-            canvas.drawLine(0, rect.bottom, rect.right, rect.bottom, paint);
-        }
-
-        Paint paint;
-    };
-
-    private AreaDrawer selectedAreaDrawer = DEFAULT_SELECTED_AREA_DRAWER;
-    private AreaDrawer selectedTopAreaDrawer = null;
-    private AreaDrawer selectedBottomAreaDrawer = null;
-
-    /**
-     * 设置选中区域的蒙层，比如上下各有一个灰色的分割线
-     *
-     * @param selectedAreaDrawer
-     */
-    public void setSelectedAreaDrawer(AreaDrawer selectedAreaDrawer) {
-        this.selectedAreaDrawer = selectedAreaDrawer;
-    }
-
     private final void init() {
         setLayoutManager(linearLayoutManager = new LinearLayoutManager(getContext()) {
 
             @Override
             public int scrollVerticallyBy(int dy, Recycler recycler, State state) {
-//                if (dy==0) {
-//                    selectedPosition = getChildViewHolder(findChildViewUnder(getMeasuredWidth() / 2, getMeasuredHeight() / 2)).getAdapterPosition();
-//                    Log.e("scrollVerticallyBy", "scroll:" + dy + "***" +
-//                            selectedPosition);
-//                }
+                // if (dy==0) {
+                //     selectedPosition = getChildViewHolder(findChildViewUnder(getMeasuredWidth() / 2, getMeasuredHeight() / 2)).getAdapterPosition();
+                //     Log.e("scrollVerticallyBy", "scroll:" + dy + "***" +
+                //             selectedPosition);
+                // }
                 refreshScrollTranslate();
                 return super.scrollVerticallyBy(dy, recycler, state);
             }
         });
     }
 
-    /**
-     * 刷新每个元素的UI，控制滚动动画以及缩放效果
-     *
-     * @param v
-     */
+    // 刷新每个元素的UI，控制滚动动画以及缩放效果
     protected final void refreshItemTranslate(View v) {
         v.getLayoutParams().width = mWidth;
         int h = v.getTop() + selectedAreaHeight / 2;//选中view的中线
@@ -249,9 +191,7 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
         adapter.onWheelScrollTranslate(viewHolder, progress);
     }
 
-    /**
-     * 刷新滚动时的缩放效果
-     */
+    // 刷新滚动时的缩放效果
     private void refreshScrollTranslate() {
         for (int i = 0; i < getChildCount(); i++) {
             refreshItemTranslate(getChildAt(i));
@@ -301,11 +241,11 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
                         @Override
                         public void onAnimationUpdate(ValueAnimator animation) {
                             linearLayoutManager.scrollToPositionWithOffset(i, (int) animation.getAnimatedValue());
-//                        Log.e("onScrollStateChanged", "d2=" + (int) animation.getAnimatedValue());
+                            // Log.e("onScrollStateChanged", "d2=" + (int) animation.getAnimatedValue());
                         }
                     });
                     valueAnimator.start();
-//                Log.e("onScrollStateChanged", "d=" + d);
+                    // Log.e("onScrollStateChanged", "d=" + d);
                 }
                 if (adapter != null) {
                     int getSelectedIndex = getSelectedIndex();
@@ -327,29 +267,8 @@ class RecyclerWheelPickerCoreView<T> extends RecyclerView {
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
-        Rect top = new Rect(0, 0,
-                mWidth, mHeight / 2 - selectedAreaHeight / 2);
-        Rect center = new Rect(0, top.bottom,
-                mWidth, mHeight / 2 + selectedAreaHeight / 2);
-        Rect bottom = new Rect(0, center.bottom,
-                mWidth, mHeight);
-        if (selectedTopAreaDrawer != null) {
-            selectedTopAreaDrawer.onDraw(getContext(), canvas, top);
-        }
-        if (selectedAreaDrawer != null) {
-            selectedAreaDrawer.onDraw(getContext(), canvas, center);
-        }
-
-        if (selectedBottomAreaDrawer != null) {
-            selectedBottomAreaDrawer.onDraw(getContext(), canvas, bottom);
-        }
-    }
-
-    @Override
     public void scrollToPosition(int position) {
-//        super.scrollToPosition(position);
+        // super.scrollToPosition(position);
         linearLayoutManager.scrollToPositionWithOffset(position, 0);
     }
 

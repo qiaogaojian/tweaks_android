@@ -3,7 +3,6 @@ package com.etatech.test.view;
 import android.app.AlertDialog;
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.etatech.test.R;
@@ -20,10 +18,7 @@ import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.wheelpicker.RecyclerWheelPicker;
 import com.etatech.test.wheelpicker.TextViewWheelAdapter;
-import com.etatech.test.wheelpicker.extra.LinearLayoutX;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.etatech.test.wheelpicker.LinearLayoutX;
 
 import rx.functions.Action1;
 
@@ -61,7 +56,7 @@ public class TestWheelPickerActivity extends BaseActivity<ActivityTestWheelPicke
 
     public void textPicker() {
         RecyclerWheelPicker<String> picker = new RecyclerWheelPicker(this);
-        picker.setMaxShowSize(7);
+        picker.setMaxShowSize(3);
         picker.setOrientation(RecyclerWheelPicker.HORIZONTAL);
         picker.setSelectedAreaHeight(100);
         picker.setAdapter(new TextViewWheelAdapter<String>() {

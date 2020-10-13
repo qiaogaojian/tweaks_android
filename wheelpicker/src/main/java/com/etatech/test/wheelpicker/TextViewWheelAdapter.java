@@ -16,9 +16,14 @@ import android.widget.TextView;
  */
 public abstract class TextViewWheelAdapter<T> extends WheelAdapter<T> {
     private static final int textId = 0x3467;
+    private boolean activeAni = false;
 
     public static int getTextId() {
         return textId;
+    }
+
+    public void setActiveAni(boolean activeAni) {
+        this.activeAni = activeAni;
     }
 
     @Override
@@ -52,7 +57,17 @@ public abstract class TextViewWheelAdapter<T> extends WheelAdapter<T> {
 
     @Override
     protected void onWheelScrollTranslate(RecyclerView.ViewHolder holder, float progress) {
+        System.out.println("Progress: " + progress);
         TextView textView = holder.itemView.findViewById(textId);
+
+        if (Math.abs(progress) > 0.8) {
+            textView.setTextColor(Color.argb(255, 250, 150, 30));
+        } else {
+            textView.setTextColor(Color.argb(255, 90, 90, 90));
+        }
+        if (!activeAni) {
+            return;
+        }
         textView.setScaleY(Math.abs(progress) * 0.6f + 0.4f);
         textView.setScaleX(Math.abs(progress) * 0.6f + 0.4f);
         textView.setTextColor(Color.argb((int) (120 + 125 * Math.abs(progress)), 90, 90, 90));

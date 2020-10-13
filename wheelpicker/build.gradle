@@ -32,3 +32,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: project.aar_url) {
+            authentication(userName: project.username, password: project.password)
+        }
+        pom.version = project.sdk_version
+        pom.artifactId = project.artifactId
+        pom.groupId = project.groupId
+    }
+}

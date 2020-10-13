@@ -79,34 +79,7 @@ public class RecyclerWheelPicker<T> extends LinearLayout {
     public WheelAdapter<T> getAdapter() {
         return coreView.adapter;
     }
-
-    /**
-     * 设置选中区域顶部的蒙层
-     *
-     * @param selectedTopAreaDrawer
-     */
-    public void setSelectedTopAreaDrawer(AreaDrawer selectedTopAreaDrawer) {
-        coreView.setSelectedTopAreaDrawer(selectedTopAreaDrawer);
-    }
-
-    /**
-     * 设置选中区域底部的蒙层
-     *
-     * @param selectedBottomAreaDrawer
-     */
-    public void setSelectedBottomAreaDrawer(AreaDrawer selectedBottomAreaDrawer) {
-        coreView.setSelectedBottomAreaDrawer(selectedBottomAreaDrawer);
-    }
-
-    /**
-     * 设置选中区域的蒙层，比如上下各有一个灰色的分割线
-     *
-     * @param selectedAreaDrawer
-     */
-    public void setSelectedAreaDrawer(AreaDrawer selectedAreaDrawer) {
-        coreView.setSelectedAreaDrawer(selectedAreaDrawer);
-    }
-
+    
     /**
      * 设置选中区域高度，建议设计的每个滚动元素的高度保持一致
      *

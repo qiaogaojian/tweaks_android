@@ -1,4 +1,4 @@
-package com.etatech.test.wheelpicker.extra;
+package com.etatech.test.wheelpicker;
 
 import android.content.Context;
 import android.os.Build;
