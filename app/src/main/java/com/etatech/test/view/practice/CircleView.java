@@ -1,4 +1,4 @@
-package com.etatech.test.view.custom.practice;
+package com.etatech.test.view.practice;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -31,6 +31,7 @@ public class CircleView extends View {
 
         TypedArray attr = getContext().obtainStyledAttributes(attrs, R.styleable.CircleView);
         radius = AdaptScreenUtils.pt2Px(attr.getInteger(R.styleable.CircleView_radius, 100));
+        String height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
         color = attr.getColor(R.styleable.CircleView_color, Color.RED);
 
         paint.setColor(color);

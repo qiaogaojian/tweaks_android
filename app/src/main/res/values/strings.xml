@@ -3,6 +3,7 @@
     <string name="typeface">fonts/gen_shin_gothic.ttf</string>
     <string name="typeface_code">fonts/source_code_pro.ttf</string>
 
+    <string name="title_cirle_view">CircleView</string>
     <string name="title_draw_color">drawColor()</string>
     <string name="title_draw_circle">drawCircle()</string>
     <string name="title_draw_rect">drawRect()</string>
