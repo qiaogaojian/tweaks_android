@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice2DrawCircleView extends View {
 
     public Practice2DrawCircleView(Context context) {
@@ -31,19 +33,19 @@ public class Practice2DrawCircleView extends View {
         Paint paint = new Paint();
 
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(300, 300, 200, paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(150), paint);
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
-        canvas.drawCircle(800, 300, 200, paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(150), paint);
 
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(300, 800, 200, paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(150), paint);
 
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(100);
+        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(50));
         paint.setColor(Color.BLACK);
-        canvas.drawCircle(800, 800, 200, paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(150), paint);
     }
 }
