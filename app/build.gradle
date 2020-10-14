@@ -24,15 +24,15 @@ android {
 
     signingConfigs {
         //可以根据不同需要配置不同的信息，在需要的地方引用即可
-        debug {
-            // 配置的这几行都是生成keystore时需要的
-            v1SigningEnabled true
-            v2SigningEnabled true
-            keyAlias keyConfig['keystoreAlias']
-            keyPassword keyConfig['keyPassword']
-            storeFile file(keyConfig['keystoreFile'])
-            storePassword keyConfig['storePassword']
-        }
+        //debug {
+        //    // 配置的这几行都是生成keystore时需要的
+        //    v1SigningEnabled true
+        //    v2SigningEnabled true
+        //    keyAlias keyConfig['keystoreAlias']
+        //    keyPassword keyConfig['keyPassword']
+        //    storeFile file(keyConfig['keystoreFile'])
+        //    storePassword keyConfig['storePassword']
+        //}
         release {
             v1SigningEnabled true
             v2SigningEnabled true
