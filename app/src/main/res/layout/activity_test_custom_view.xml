@@ -14,42 +14,18 @@
             android:layout_height="100pt"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/code_blue"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="@color/code_black" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-<!--        <ScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/ll_content"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_title"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:gravity="center"-->
-<!--                    android:padding="30pt"-->
-<!--                    android:text="Custom View"-->
-<!--                    android:textColor="@color/code_black"-->
-<!--                    android:textSize="66pt" />-->
-
-<!--                <com.etatech.test.view.custom.practice.CircleView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="300pt"-->
-<!--                    android:background="@color/code_green"-->
-<!--                    app:color="@color/code_red"-->
-<!--                    app:radius="150" />-->
-
-<!--            </LinearLayout>-->
-
-<!--        </ScrollView>-->
+            android:layout_height="0pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tablayout" />
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.hencoder.hencoderpracticedraw1.practice;
+package com.etatech.test.view.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
