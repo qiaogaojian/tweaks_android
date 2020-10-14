@@ -9,6 +9,8 @@ import com.etatech.test.databinding.ActivityTestCustomViewBinding;
 import com.etatech.test.utils.BaseActivity;
 
 public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewBinding> {
+
+
     @Override
     public ActivityTestCustomViewBinding onCreateView(Bundle savedInstanceState) {
         return DataBindingUtil.setContentView(this,R.layout.activity_test_custom_view);
