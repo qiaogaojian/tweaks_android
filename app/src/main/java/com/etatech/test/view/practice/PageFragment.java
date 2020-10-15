@@ -49,4 +49,6 @@ public class PageFragment extends Fragment {
             practiceLayoutRes = args.getInt("practiceLayoutRes");
         }
     }
+
+
 }

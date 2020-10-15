@@ -13,14 +13,24 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestCustomViewBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.view.practice.PageFragment;
+import com.etatech.test.view.practice.PagePageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewBinding> {
     List<PageModel> pageModels = new ArrayList<>();
+    List<List<PageModel>> pagePageModels = new ArrayList<>();
 
-    {
+
+    @Override
+    public ActivityTestCustomViewBinding onCreateView(Bundle savedInstanceState) {
+        return DataBindingUtil.setContentView(this, R.layout.activity_test_custom_view);
+    }
+
+    @Override
+    public void init() {
+        pageModels = new ArrayList<>();
         pageModels.add(new PageModel(R.layout.sample_circle, R.string.title_cirle_view, R.layout.practice_circle_view));
         pageModels.add(new PageModel(R.layout.sample_color, R.string.title_draw_color, R.layout.practice_color));
         pageModels.add(new PageModel(R.layout.sample_circle, R.string.title_draw_circle, R.layout.practice_circle));
@@ -33,47 +43,43 @@ public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewB
         pageModels.add(new PageModel(R.layout.sample_path, R.string.title_draw_path, R.layout.practice_path));
         pageModels.add(new PageModel(R.layout.sample_histogram, R.string.title_draw_histogram, R.layout.practice_histogram));
         pageModels.add(new PageModel(R.layout.sample_pie_chart, R.string.title_draw_pie_chart, R.layout.practice_pie_chart));
-    }
+        pagePageModels.add(pageModels);
 
-    @Override
-    public ActivityTestCustomViewBinding onCreateView(Bundle savedInstanceState) {
-        return DataBindingUtil.setContentView(this, R.layout.activity_test_custom_view);
-    }
 
-    @Override
-    public void init() {
-        FragmentPagerAdapter pageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        FragmentPagerAdapter pagePageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int pos) {
-                PageModel pageModel = pageModels.get(pos);
-                return PageFragment.newInstance(pageModel.sampleLayoutRes, pageModel.practiceLayoutRes);
+                List<PageModel> pageModels = pagePageModels.get(pos);
+                PagePageFragment pagePageFragment = new PagePageFragment();
+                pagePageFragment.setPageModels(pageModels);
+                return pagePageFragment;
             }
 
             @Override
             public int getCount() {
-                return pageModels.size();
+                return pagePageModels.size();
             }
 
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                PageModel pageModel = pageModels.get(position);
-                return getString(pageModel.titleRes);
+                return "Practice" + (position + 1);
             }
         };
 
-        binding.viewpager.setAdapter(pageAdapter);
+        binding.viewpager.setOffscreenPageLimit(2); // 注意：特意设置预加载
+        binding.viewpager.setAdapter(pagePageAdapter);
         binding.tablayout.setupWithViewPager(binding.viewpager);
 
     }
 
-    private class PageModel {
+    public class PageModel {
         @LayoutRes
-        int sampleLayoutRes;
+        public int sampleLayoutRes;
         @StringRes
-        int titleRes;
+        public int titleRes;
         @LayoutRes
-        int practiceLayoutRes;
+        public int practiceLayoutRes;
 
         PageModel(@LayoutRes int sampleLayoutRes, @StringRes int titleRes, @LayoutRes int practiceLayoutRes) {
             this.sampleLayoutRes = sampleLayoutRes;
