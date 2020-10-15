@@ -12,8 +12,10 @@ import android.view.ViewStub;
 import com.etatech.test.R;
 
 public class PageFragment extends Fragment {
-    @LayoutRes int sampleLayoutRes;
-    @LayoutRes int practiceLayoutRes;
+    @LayoutRes
+    int sampleLayoutRes;
+    @LayoutRes
+    int practiceLayoutRes;
 
     public static PageFragment newInstance(@LayoutRes int sampleLayoutRes, @LayoutRes int practiceLayoutRes) {
         PageFragment fragment = new PageFragment();
@@ -49,6 +51,4 @@ public class PageFragment extends Fragment {
             practiceLayoutRes = args.getInt("practiceLayoutRes");
         }
     }
-
-
 }

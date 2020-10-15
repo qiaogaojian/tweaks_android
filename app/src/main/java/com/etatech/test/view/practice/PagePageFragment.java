@@ -25,9 +25,9 @@ import java.util.List;
  * Desc:
  */
 public class PagePageFragment extends Fragment {
-    List<TestCustomViewActivity.PageModel> pageModels = new ArrayList<>();
+    List<PageModel> pageModels = new ArrayList<>();
 
-    public void setPageModels(List<TestCustomViewActivity.PageModel> pageModels) {
+    public void setPageModels(List<PageModel> pageModels) {
         this.pageModels = pageModels;
     }
 
@@ -40,7 +40,7 @@ public class PagePageFragment extends Fragment {
         FragmentPagerAdapter pageAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int pos) {
-                TestCustomViewActivity.PageModel pageModel = pageModels.get(pos);
+                PageModel pageModel = pageModels.get(pos);
                 return PageFragment.newInstance(pageModel.sampleLayoutRes, pageModel.practiceLayoutRes);
             }
 
@@ -52,7 +52,7 @@ public class PagePageFragment extends Fragment {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                TestCustomViewActivity.PageModel pageModel = pageModels.get(position);
+                PageModel pageModel = pageModels.get(position);
                 return getString(pageModel.titleRes);
             }
         };

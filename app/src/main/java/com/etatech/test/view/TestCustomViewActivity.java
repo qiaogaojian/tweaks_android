@@ -13,6 +13,7 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestCustomViewBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.view.practice.PageFragment;
+import com.etatech.test.view.practice.PageModel;
 import com.etatech.test.view.practice.PagePageFragment;
 
 import java.util.ArrayList;
@@ -73,18 +74,5 @@ public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewB
 
     }
 
-    public class PageModel {
-        @LayoutRes
-        public int sampleLayoutRes;
-        @StringRes
-        public int titleRes;
-        @LayoutRes
-        public int practiceLayoutRes;
 
-        PageModel(@LayoutRes int sampleLayoutRes, @StringRes int titleRes, @LayoutRes int practiceLayoutRes) {
-            this.sampleLayoutRes = sampleLayoutRes;
-            this.titleRes = titleRes;
-            this.practiceLayoutRes = practiceLayoutRes;
-        }
-    }
 }
