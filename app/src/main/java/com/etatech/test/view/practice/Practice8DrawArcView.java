@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice8DrawArcView extends View {
 
     public Practice8DrawArcView(Context context) {
@@ -26,14 +28,14 @@ public class Practice8DrawArcView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-//        练习内容：使用 canvas.drawArc() 方法画弧形和扇形
-        Paint paint  = new Paint();
+        //        练习内容：使用 canvas.drawArc() 方法画弧形和扇形
+        Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        canvas.drawArc(500,300,1000,600,240,100,true,paint);
+        canvas.drawArc(AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(720), AdaptScreenUtils.pt2Px(500), 240, 100, true, paint);
 
-        canvas.drawArc(500,300,1000,600,30,120,false,paint);
+        canvas.drawArc(AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(720), AdaptScreenUtils.pt2Px(500), 30, 120, false, paint);
 
         paint.setStyle(Paint.Style.STROKE);
-        canvas.drawArc(500,300,1000,600,180,50,false,paint);
+        canvas.drawArc(AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(720), AdaptScreenUtils.pt2Px(500), 180, 50, false, paint);
     }
 }

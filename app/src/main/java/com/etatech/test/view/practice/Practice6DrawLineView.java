@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice6DrawLineView extends View {
 
     public Practice6DrawLineView(Context context) {
@@ -30,6 +32,6 @@ public class Practice6DrawLineView extends View {
         Paint paint = new Paint();
         paint.setStrokeWidth(20);
         paint.setColor(Color.BLACK);
-        canvas.drawLine(500,500,1000,800,paint);
+        canvas.drawLine(AdaptScreenUtils.pt2Px(360),AdaptScreenUtils.pt2Px(360),AdaptScreenUtils.pt2Px(720),AdaptScreenUtils.pt2Px(720),paint);
     }
 }

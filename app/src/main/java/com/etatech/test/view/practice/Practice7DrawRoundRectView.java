@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice7DrawRoundRectView extends View {
 
     public Practice7DrawRoundRectView(Context context) {
@@ -29,6 +31,6 @@ public class Practice7DrawRoundRectView extends View {
 //        练习内容：使用 canvas.drawRoundRect() 方法画圆角矩形
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        canvas.drawRoundRect(500,300,1000,800,30,30,paint);
+        canvas.drawRoundRect( AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(720), AdaptScreenUtils.pt2Px(500), AdaptScreenUtils.pt2Px(30), AdaptScreenUtils.pt2Px(30),paint);
     }
 }

@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice3DrawRectView extends View {
 
     public Practice3DrawRectView(Context context) {
@@ -29,6 +31,6 @@ public class Practice3DrawRectView extends View {
         // 练习内容：使用 canvas.drawRect() 方法画矩形
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        canvas.drawRect(400,300,680,580,paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(300),AdaptScreenUtils.pt2Px(300),AdaptScreenUtils.pt2Px(600),AdaptScreenUtils.pt2Px(500),paint);
     }
 }

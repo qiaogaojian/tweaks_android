@@ -33,19 +33,19 @@ public class Practice2DrawCircleView extends View {
         Paint paint = new Paint();
 
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(150), paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(200), AdaptScreenUtils.pt2Px(150), paint);
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
-        canvas.drawCircle(AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(150), paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(200), AdaptScreenUtils.pt2Px(150), paint);
 
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(150), paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(300), AdaptScreenUtils.pt2Px(600), AdaptScreenUtils.pt2Px(150), paint);
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(AdaptScreenUtils.pt2Px(50));
         paint.setColor(Color.BLACK);
-        canvas.drawCircle(AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(150), paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(800), AdaptScreenUtils.pt2Px(600), AdaptScreenUtils.pt2Px(150), paint);
     }
 }

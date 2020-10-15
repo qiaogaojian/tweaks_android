@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice5DrawOvalView extends View {
 
     public Practice5DrawOvalView(Context context) {
@@ -26,10 +28,10 @@ public class Practice5DrawOvalView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-//        练习内容：使用 canvas.drawOval() 方法画椭圆
+        // 练习内容：使用 canvas.drawOval() 方法画椭圆
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawOval(500f,300f,1000f,600f,paint);
+        canvas.drawOval(AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(720), AdaptScreenUtils.pt2Px(500), paint);
     }
 }

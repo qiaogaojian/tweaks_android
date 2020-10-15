@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice10HistogramView extends View {
 
     public Practice10HistogramView(Context context) {
@@ -34,32 +36,32 @@ public class Practice10HistogramView extends View {
 
         canvas.drawColor(Color.parseColor("#ff556677"));
         paint.setColor(Color.parseColor("#DDDDDD"));
-        canvas.drawLine(100, 800, 100, 100, paint);
-        canvas.drawLine(100, 800, 1200, 800, paint);
+        canvas.drawLine(AdaptScreenUtils.pt2Px(200), AdaptScreenUtils.pt2Px(700), AdaptScreenUtils.pt2Px(200), AdaptScreenUtils.pt2Px(100), paint);
+        canvas.drawLine(AdaptScreenUtils.pt2Px(200), AdaptScreenUtils.pt2Px(700), AdaptScreenUtils.pt2Px(880), AdaptScreenUtils.pt2Px(700), paint);
 
         paint.setColor(Color.GREEN);
-        canvas.drawRect(150, 790, 250, 800, paint);
-        canvas.drawRect(300, 750, 400, 800, paint);
-        canvas.drawRect(450, 750, 550, 800, paint);
-        canvas.drawRect(600, 500, 700, 800, paint);
-        canvas.drawRect(750, 350, 850, 800, paint);
-        canvas.drawRect(900, 300, 1000, 800, paint);
-        canvas.drawRect(1050, 550, 1150, 800, paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(250), AdaptScreenUtils.pt2Px(690), AdaptScreenUtils.pt2Px(330), AdaptScreenUtils.pt2Px(700), paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(350), AdaptScreenUtils.pt2Px(650), AdaptScreenUtils.pt2Px(430), AdaptScreenUtils.pt2Px(700), paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(450), AdaptScreenUtils.pt2Px(650), AdaptScreenUtils.pt2Px(530), AdaptScreenUtils.pt2Px(700), paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(550), AdaptScreenUtils.pt2Px(600), AdaptScreenUtils.pt2Px(630), AdaptScreenUtils.pt2Px(700), paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(650), AdaptScreenUtils.pt2Px(450), AdaptScreenUtils.pt2Px(730), AdaptScreenUtils.pt2Px(700), paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(750), AdaptScreenUtils.pt2Px(400), AdaptScreenUtils.pt2Px(830), AdaptScreenUtils.pt2Px(700), paint);
+        canvas.drawRect(AdaptScreenUtils.pt2Px(850), AdaptScreenUtils.pt2Px(650), AdaptScreenUtils.pt2Px(930), AdaptScreenUtils.pt2Px(700), paint);
 
 
         Paint textPaint = new Paint();
         textPaint.setColor(Color.parseColor("#DDDDDD"));
-        textPaint.setTextSize(30);
+        textPaint.setTextSize(AdaptScreenUtils.pt2Px(20));
         textPaint.setTextAlign(Paint.Align.CENTER);
         Rect bounds = new Rect();
         textPaint.getTextBounds("Froyo", 0, "Froyo".length(), bounds);
 
-        canvas.drawText("Froyo", 200, 800 + bounds.height(), textPaint);
-        canvas.drawText("GB", 350, 800 + bounds.height(), textPaint);
-        canvas.drawText("ICS", 500, 800 + bounds.height(), textPaint);
-        canvas.drawText("JB", 650, 800 + bounds.height(), textPaint);
-        canvas.drawText("KitKat", 800, 800 + bounds.height(), textPaint);
-        canvas.drawText("L", 950, 800 + bounds.height(), textPaint);
-        canvas.drawText("M", 1100, 800 + bounds.height(), textPaint);
+        canvas.drawText("Froyo", AdaptScreenUtils.pt2Px(290), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
+        canvas.drawText("GB", AdaptScreenUtils.pt2Px(390), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
+        canvas.drawText("ICS", AdaptScreenUtils.pt2Px(490), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
+        canvas.drawText("JB", AdaptScreenUtils.pt2Px(590), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
+        canvas.drawText("KitKat", AdaptScreenUtils.pt2Px(690), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
+        canvas.drawText("L", AdaptScreenUtils.pt2Px(790), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
+        canvas.drawText("M", AdaptScreenUtils.pt2Px(890), AdaptScreenUtils.pt2Px(700) + bounds.height(), textPaint);
     }
 }

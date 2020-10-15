@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice4DrawPointView extends View {
 
     public Practice4DrawPointView(Context context) {
@@ -32,11 +34,11 @@ public class Practice4DrawPointView extends View {
         Paint paint = new Paint();
 
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(100);
-        canvas.drawPoint(500,300,paint);
+        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(100));
+        canvas.drawPoint(AdaptScreenUtils.pt2Px(300),AdaptScreenUtils.pt2Px(300),paint);
 
         paint.setStrokeCap(Paint.Cap.SQUARE);
-        paint.setStrokeWidth(100);
-        canvas.drawPoint(1000,300,paint);
+        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(100));
+        canvas.drawPoint(AdaptScreenUtils.pt2Px(600),AdaptScreenUtils.pt2Px(300),paint);
     }
 }
