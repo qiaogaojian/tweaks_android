@@ -29,8 +29,8 @@ public class Practice10HistogramView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //        综合练习
-        //        练习内容：使用各种 Canvas.drawXXX() 方法画直方图
+        // 综合练习
+        // 练习内容：使用各种 Canvas.drawXXX() 方法画直方图
 
         Paint paint = new Paint();
 
