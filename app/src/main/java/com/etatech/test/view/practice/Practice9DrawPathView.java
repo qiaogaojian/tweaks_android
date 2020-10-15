@@ -43,7 +43,7 @@ public class Practice9DrawPathView extends View {
         Path oriPath = new Path();
         oriPath.addArc(AdaptScreenUtils.pt2Px(0),AdaptScreenUtils.pt2Px(0),AdaptScreenUtils.pt2Px(200),AdaptScreenUtils.pt2Px(200),-225,225);
         oriPath.arcTo(AdaptScreenUtils.pt2Px(200),AdaptScreenUtils.pt2Px(0),AdaptScreenUtils.pt2Px(400),AdaptScreenUtils.pt2Px(200),-180,225,false);
-        oriPath.lineTo(AdaptScreenUtils.pt2Px(200),AdaptScreenUtils.pt2Px(342));
+        oriPath.lineTo(AdaptScreenUtils.pt2Px(200),AdaptScreenUtils.pt2Px(342));  // 200 * (sin(45°)+cos(45°)) + 200
         oriPath.close();
 
         heartPath.addPath(oriPath);
