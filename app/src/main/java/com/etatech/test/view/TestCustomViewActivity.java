@@ -1,20 +1,16 @@
 package com.etatech.test.view;
 
 import android.databinding.DataBindingUtil;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestCustomViewBinding;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.view.practice.PageFragment;
-import com.etatech.test.view.practice.PageModel;
-import com.etatech.test.view.practice.PagePageFragment;
+import com.etatech.test.view.practice1.PageModel;
+import com.etatech.test.view.practice1.PagePageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
