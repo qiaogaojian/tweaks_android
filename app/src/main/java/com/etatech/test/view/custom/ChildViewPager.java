@@ -22,6 +22,7 @@ public class ChildViewPager extends ViewPager {
         super(context, attrs);
     }
 
+    // 用来解决嵌套ViewPager滑动冲突
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         int curPosition;
@@ -40,7 +41,6 @@ public class ChildViewPager extends ViewPager {
                 } else {//其他情况，由孩子拦截触摸事件
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
-
         }
         return super.dispatchTouchEvent(ev);
     }
