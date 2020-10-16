@@ -3,12 +3,17 @@ package com.etatech.test.view.practice2;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
 public class Practice01LinearGradientView extends View {
+    Paint normalPaint = new Paint();
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     public Practice01LinearGradientView(Context context) {
@@ -32,6 +37,24 @@ public class Practice01LinearGradientView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawCircle(300, 300, 200, paint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(300),
+                AdaptScreenUtils.pt2Px(300),
+                AdaptScreenUtils.pt2Px(200), normalPaint);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(800),
+                AdaptScreenUtils.pt2Px(300),
+                AdaptScreenUtils.pt2Px(200), paint);
+
+        // 需要关闭硬件加速才能正常显示 这里起点和终点位置是绝对位置
+        Shader shader = new LinearGradient(
+                AdaptScreenUtils.pt2Px(360),
+                AdaptScreenUtils.pt2Px(700),
+                AdaptScreenUtils.pt2Px(720),
+                AdaptScreenUtils.pt2Px(700),
+                Color.RED, Color.BLUE, Shader.TileMode.CLAMP);
+        Paint lgPaint = new Paint(Paint.ANTI_ALIAS_FLAG); // 不新建的话会影响到上面的paint
+        lgPaint.setShader(shader);
+        canvas.drawCircle(AdaptScreenUtils.pt2Px(540),
+                AdaptScreenUtils.pt2Px(700),
+                AdaptScreenUtils.pt2Px(200), lgPaint);
     }
 }

@@ -88,6 +88,4 @@ public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewB
         binding.tablayout.setupWithViewPager(binding.viewpager);
 
     }
-
-
 }
