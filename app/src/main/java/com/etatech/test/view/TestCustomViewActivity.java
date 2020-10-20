@@ -142,6 +142,5 @@ public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewB
         binding.viewpager.setOffscreenPageLimit(2); // 注意：特意设置预加载
         binding.viewpager.setAdapter(pagePageAdapter);
         binding.tablayout.setupWithViewPager(binding.viewpager);
-
     }
 }

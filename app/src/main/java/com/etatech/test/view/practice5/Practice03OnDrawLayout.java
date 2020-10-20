@@ -26,6 +26,11 @@ public class Practice03OnDrawLayout extends LinearLayout {
 
     {
         // 在这里插入 setWillNotDraw(false) 以启用完整的绘制流程
+        // 出于效率的考虑，ViewGroup 默认会绕过 draw() 方法，换而直接执行 dispatchDraw()，以此来简化绘制流程。
+        // 所以如果你自定义了某个 ViewGroup 的子类（比如 LinearLayout）并且需要在它的除 dispatchDraw() 以外的
+        // 任何一个绘制方法内绘制内容，你可能会需要调用 View.setWillNotDraw(false) 这行代码来切换到完整的绘制流程
+        // （是「可能」而不是「必须」的原因是，有些 ViewGroup 是已经调用过 setWillNotDraw(false) 了的，例如 ScrollView）。
+        setWillNotDraw(false);
     }
 
     @Override
@@ -61,7 +66,10 @@ public class Practice03OnDrawLayout extends LinearLayout {
             int repitition = (int) Math.ceil((float) getWidth() / getHeight());
             for (int i = 0; i < spots.length * repitition; i++) {
                 Practice03OnDrawLayout.Pattern.Spot spot = spots[i % spots.length];
-                canvas.drawCircle(i / spots.length * getHeight() * PATTERN_RATIO + spot.relativeX * getHeight(), spot.relativeY * getHeight(), spot.relativeSize * getHeight(), patternPaint);
+                canvas.drawCircle(i / spots.length * getHeight() * PATTERN_RATIO + spot.relativeX * getHeight(),
+                        spot.relativeY * getHeight(),
+                        spot.relativeSize * getHeight(),
+                        patternPaint);
             }
         }
 
