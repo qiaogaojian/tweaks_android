@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.etatech.test.R;
-import com.hencoder.hencoderpracticedraw6.Utils;
+import com.etatech.test.view.practice6.Utils;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
+import static com.etatech.test.view.practice6.Utils.dpToPixel;
 
 public class Sample01Translation extends RelativeLayout {
     Button animateBt;

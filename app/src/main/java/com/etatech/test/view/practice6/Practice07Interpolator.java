@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.etatech.test.R;
-import com.hencoder.hencoderpracticedraw6.Utils;
+import com.etatech.test.view.practice6.Utils;
 
 /**
  * Interpolator 就别练了，没什么好练的，Practice 和 Sample 的代码是一毛一样的。

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.etatech.test.R;
-import com.hencoder.hencoderpracticedraw6.Utils;
+import com.etatech.test.view.practice6.Utils;
 
 public class Sample05MultiProperties extends ConstraintLayout {
     Button animateBt;

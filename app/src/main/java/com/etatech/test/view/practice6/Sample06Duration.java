@@ -11,7 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.etatech.test.R;
-import com.hencoder.hencoderpracticedraw6.Utils;
+import com.etatech.test.view.practice6.Utils;
 
 public class Sample06Duration extends LinearLayout {
     SeekBar durationSb;

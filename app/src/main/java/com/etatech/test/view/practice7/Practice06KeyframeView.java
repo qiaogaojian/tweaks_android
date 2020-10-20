@@ -1,4 +1,4 @@
-package com.etatech.test.view.practice6;
+package com.etatech.test.view.practice7;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,14 +11,30 @@ import android.view.View;
 
 import static com.etatech.test.view.practice6.Utils.dpToPixel;
 
-public class Practice08ObjectAnimatorView extends View {
+public class Practice06KeyframeView extends View {
     final float radius = dpToPixel(80);
 
+    float progress = 0;
     RectF arcRectF = new RectF();
+
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    // TODO 为 progress 添加 getter 和 setter 方法（setter 方法记得加 invalidate()）
-    float progress = 0;
+    public Practice06KeyframeView(Context context) {
+        super(context);
+    }
+
+    public Practice06KeyframeView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public Practice06KeyframeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    {
+        paint.setTextSize(dpToPixel(40));
+        paint.setTextAlign(Paint.Align.CENTER);
+    }
 
     public float getProgress() {
         return progress;
@@ -27,23 +43,6 @@ public class Practice08ObjectAnimatorView extends View {
     public void setProgress(float progress) {
         this.progress = progress;
         invalidate();
-    }
-
-    public Practice08ObjectAnimatorView(Context context) {
-        super(context);
-    }
-
-    public Practice08ObjectAnimatorView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public Practice08ObjectAnimatorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    {
-        paint.setTextSize(dpToPixel(40));
-        paint.setTextAlign(Paint.Align.CENTER);
     }
 
     @Override

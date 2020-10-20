@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import com.etatech.test.R;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static com.hencoder.hencoderpracticedraw6.Utils.dpToPixel;
+import static com.etatech.test.view.practice6.Utils.dpToPixel;
 
 public class Practice01Translation extends RelativeLayout {
     Button animateBt;

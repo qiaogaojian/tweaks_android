@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.etatech.test.R;
-import com.hencoder.hencoderpracticedraw6.Utils;
+import com.etatech.test.view.practice6.Utils;
 
 public class Sample07Interpolator extends LinearLayout {
     Spinner spinner;

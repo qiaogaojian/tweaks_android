@@ -1,4 +1,4 @@
-package com.hencoder.hencoderpracticedraw6;
+package com.etatech.test.view.practice6;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
