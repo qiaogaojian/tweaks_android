@@ -25,7 +25,9 @@ public class Practice03Scale extends RelativeLayout {
     public Practice03Scale(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
     int state = 0;
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -39,9 +41,9 @@ public class Practice03Scale extends RelativeLayout {
                 // 在这里处理点击事件，通过 View.animate().scaleX/Y() 来让 View 放缩
 
                 if (state % 2 == 0) {
-                    imageView.animate().scaleX(2f);
+                    imageView.animate().scaleX(1.5f);
                 } else {
-                    imageView.animate().scaleX(1f);
+                    imageView.animate().scaleX(1.5f);
                 }
                 state++;
             }

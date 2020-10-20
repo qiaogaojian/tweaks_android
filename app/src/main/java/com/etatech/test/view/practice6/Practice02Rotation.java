@@ -51,7 +51,7 @@ int state = 0;
                 if (state % 2 == 0) {
                     imageView.animate().rotationY(180).setDuration(1000);
                 } else {
-                    imageView.animate().rotationY(-180).setDuration(1000);
+                    imageView.animate().rotationY(0).setDuration(1000);
                 }
                 state++;
                 return false;
