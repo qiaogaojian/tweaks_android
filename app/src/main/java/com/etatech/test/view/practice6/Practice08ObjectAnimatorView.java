@@ -1,4 +1,4 @@
-package com.etatech.test.view.practice6.practice08;
+package com.etatech.test.view.practice6;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,6 +19,15 @@ public class Practice08ObjectAnimatorView extends View {
 
     // TODO 为 progress 添加 getter 和 setter 方法（setter 方法记得加 invalidate()）
     float progress = 0;
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
+        invalidate();
+    }
 
     public Practice08ObjectAnimatorView(Context context) {
         super(context);

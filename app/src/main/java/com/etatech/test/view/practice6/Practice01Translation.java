@@ -48,11 +48,18 @@ public class Practice01Translation extends RelativeLayout {
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                // TODO 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+                // 在这里处理点击事件，通过 View.animate().translationX/Y/Z() 来让 View 平移
+
+                if (state % 2 == 0) {
+                    imageView.animate().translationX(300);
+                } else {
+                    imageView.animate().translationX(0);
+                }
+                state++;
             }
         });
     }
-
+    int state = 0;
     /**
      * 为音乐图标设置三角形的 Outline。
      */

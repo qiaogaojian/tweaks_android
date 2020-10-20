@@ -26,6 +26,8 @@ public class Practice05MultiProperties extends ConstraintLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    int state = 0; // 0 隐藏 1 出现
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -38,7 +40,21 @@ public class Practice05MultiProperties extends ConstraintLayout {
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO 在这里处理点击事件，同时对多个属性做动画
+                if (state % 2 == 0) {
+                    // 在这里处理点击事件，同时对多个属性做动画
+                    imageView.animate().alpha(1)
+                            .scaleX(1)
+                            .scaleY(1)
+                            .rotation(360)
+                            .translationX(300);
+                } else {
+                    imageView.animate().alpha(0)
+                            .scaleX(0)
+                            .scaleY(0)
+                            .rotation(-360)
+                            .translationX(-300);
+                }
+                state++;
             }
         });
     }

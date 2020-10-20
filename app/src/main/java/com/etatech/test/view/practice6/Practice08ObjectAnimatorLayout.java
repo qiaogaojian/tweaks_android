@@ -1,5 +1,6 @@
-package com.etatech.test.view.practice6.practice08;
+package com.etatech.test.view.practice6;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -24,6 +25,8 @@ public class Practice08ObjectAnimatorLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    int state = 0;
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -34,10 +37,19 @@ public class Practice08ObjectAnimatorLayout extends RelativeLayout {
         animateBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO 在这里处理点击事件，用 ObjectAnimator 播放动画
+                // 在这里处理点击事件，用 ObjectAnimator 播放动画
                 // 1. 用 ObjectAnimator 创建 Animator 对象
                 // 2. 用 start() 执行动画
                 // *. 记得在 Practice08ObjectAnimatorView 中为 progress 添加 setter/ getter 方法！
+
+                if (state % 2 == 0) {
+                    ObjectAnimator progressAni = ObjectAnimator.ofFloat(view, "progress", 65);
+                    progressAni.setDuration(1000).start();
+                } else {
+                    ObjectAnimator progressAni = ObjectAnimator.ofFloat(view, "progress", 0);
+                    progressAni.setDuration(1000).start();
+                }
+                state++;
             }
         });
     }
