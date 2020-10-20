@@ -43,7 +43,7 @@ public class Practice03Scale extends RelativeLayout {
                 if (state % 2 == 0) {
                     imageView.animate().scaleX(1.5f);
                 } else {
-                    imageView.animate().scaleX(1.5f);
+                    imageView.animate().scaleX(1f);
                 }
                 state++;
             }
