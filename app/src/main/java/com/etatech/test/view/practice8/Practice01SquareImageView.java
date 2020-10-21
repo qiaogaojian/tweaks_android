@@ -29,8 +29,15 @@ public class Practice01SquareImageView extends android.support.v7.widget.AppComp
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         // 先用 getMeasuredWidth() 和 getMeasuredHeight() 取到 super.onMeasure() 的计算结果
+        int height = getMeasuredHeight();
+        int width = getMeasuredWidth();
 
         // 然后通过计算，让宽度和高度一致
+        if (height >= width) {
+            setMeasuredDimension(width, width);
+        } else {
+            setMeasuredDimension(height, height);
+        }
 
         // 再用 setMeasuredDimension(width, height) 来保存最终的宽度和高度
     }
