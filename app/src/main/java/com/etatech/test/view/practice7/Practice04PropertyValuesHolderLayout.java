@@ -1,5 +1,7 @@
 package com.etatech.test.view.practice7;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -39,6 +41,10 @@ public class Practice04PropertyValuesHolderLayout extends RelativeLayout {
                 // 第二个： scaleY 从 0 到 1
                 // 第三个： alpha 从 0 到 1
 
+                PropertyValuesHolder proper1 = PropertyValuesHolder.ofFloat("scaleX",0,1);
+                PropertyValuesHolder proper2 = PropertyValuesHolder.ofFloat("scaleY",0,1);
+                PropertyValuesHolder proper3 = PropertyValuesHolder.ofFloat("alpha",0,1);
+                ObjectAnimator.ofPropertyValuesHolder(view,proper1,proper2,proper3).setDuration(2000).start();
                 // 然后，用 ObjectAnimator.ofPropertyValuesHolder() 把三个属性合并，创建 Animator 然后执行
             }
         });
