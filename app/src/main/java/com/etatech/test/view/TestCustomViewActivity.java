@@ -126,6 +126,10 @@ public class TestCustomViewActivity extends BaseActivity<ActivityTestCustomViewB
         pageModels.add(new PageModel(R.layout.sample_keyframe, R.string.title_keyframe, R.layout.practice_keyframe));
         pagePageModels.add(pageModels);
 
+        pageModels = new ArrayList<>();
+        pageModels.add(new PageModel(R.layout.sample_square_image_view, R.string.title_square_image_view, R.layout.practice_square_image_view));
+        pagePageModels.add(pageModels);
+
         FragmentPagerAdapter pagePageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int pos) {
