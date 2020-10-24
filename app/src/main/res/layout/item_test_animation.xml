@@ -18,6 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/iv_front"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/card_front" />
@@ -40,6 +41,7 @@
             tools:visibility="invisible">
 
             <ImageView
+                android:id="@+id/iv_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/card_back" />

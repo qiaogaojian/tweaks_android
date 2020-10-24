@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
+import android.renderscript.ScriptGroup;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ItemTestAnimationBinding;
 import com.etatech.test.utils.ui.ClickUtil;
+import com.mega.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -63,6 +65,9 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> 
         } else if (position % 6 == 5) {
             offset = offsetY * 0;
         }
+
+        ImageLoader.displayImage(holder.binding.ivBack, R.drawable.card_back);
+        ImageLoader.displayImage(holder.binding.ivFront, R.drawable.card_front);
 
         ObjectAnimator transY = ObjectAnimator.ofFloat(holder.binding.layoutCard, View.TRANSLATION_Y, 0f, offset);
         transY.setDuration(0);
