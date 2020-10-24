@@ -66,8 +66,8 @@ public class PM25View_Practice_Resolve_Size extends PM25View {
 
         // ----
         // 打开resolveSize 则符合用户设定
-        // w = resolveSize(w, widthMeasureSpec);
-        // h = resolveSize(h, widthMeasureSpec);
+        w = resolveSize(w, widthMeasureSpec);
+        h = resolveSize(h, widthMeasureSpec);
 
         setMeasuredDimension(w, h);
         // 这句代码调用了

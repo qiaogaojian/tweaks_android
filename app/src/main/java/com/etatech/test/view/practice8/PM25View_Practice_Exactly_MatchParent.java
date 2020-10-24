@@ -2,6 +2,7 @@ package com.etatech.test.view.practice8;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 
@@ -42,8 +43,8 @@ public class PM25View_Practice_Exactly_MatchParent extends PM25View {
             case EXACTLY:
                 // ----
                 // 指定 MATCH_PARENT，MeasureSpec.getMode 会返回 EXACTLY
-//                Log.w(TAG, "width mode == exactly");
-//                w = getMeasuredWidth();
+               Log.w(TAG, "width mode == exactly");
+               w = getMeasuredWidth();
                 break;
         }
 
@@ -56,8 +57,8 @@ public class PM25View_Practice_Exactly_MatchParent extends PM25View {
             case EXACTLY:
                 // ----
                 // 指定 MATCH_PARENT，MeasureSpec.getMode 会返回 EXACTLY
-//                Log.w(TAG, "height mode == exactly");
-//                h = getMeasuredHeight();
+               Log.w(TAG, "height mode == exactly");
+               h = getMeasuredHeight();
                 break;
         }
 

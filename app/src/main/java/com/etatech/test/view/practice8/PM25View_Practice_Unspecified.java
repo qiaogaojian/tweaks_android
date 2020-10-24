@@ -49,7 +49,7 @@ public class PM25View_Practice_Unspecified extends PM25View {
                 // 横向的ScrollView 自定义控件
                 // 不限定宽度，可以任意指定值
                 // w = 200;
-                // w = 3000;
+                w = 3000;
                 break;
             case MeasureSpec.AT_MOST:
                 // ----
@@ -83,12 +83,12 @@ public class PM25View_Practice_Unspecified extends PM25View {
         Log.w(TAG, count + " >>> " + "w =  " + w + ", h == " + h);
 
         // 强制设定为宽高相等
-//        if (h > w) {
-//            h = w;
-//        }
-//        if (w > h) {
-//            w = h;
-//        }
+       if (h > w) {
+           h = w;
+       }
+       if (w > h) {
+           w = h;
+       }
         setMeasuredDimension(w, h);
 
         // 这句代码调用了
