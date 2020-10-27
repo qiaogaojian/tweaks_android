@@ -18,10 +18,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="540pt"
             android:layout_marginTop="300pt"
-            app:align="left"
+            app:align="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:number="666666" />
+            app:number="123456" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -29,6 +29,7 @@ import com.etatech.test.R;
  */
 public class Demo1View extends View {
     private Paint paint;
+    private Paint bgPaint;
     private Paint textPaint;
     private Matrix matrix;
     private Bitmap bitmap1;     // 灰手
@@ -112,6 +113,7 @@ public class Demo1View extends View {
 
     {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         matrix = new Matrix();
         topLeftPos = new Point(0, 0);
@@ -177,7 +179,9 @@ public class Demo1View extends View {
         super.onDraw(canvas);
         System.out.println(String.format("scale Down: %.2f scale Up: %.2f light scale: %.2f curNum: %d", scaleDown, scaleUp, lightScale, curNum));
         // 辅助绘制
-        canvas.drawColor(Color.parseColor("#66A0DA2D"));
+        bgPaint.setColor(Color.parseColor("#66A0DA2D"));
+        canvas.drawRoundRect(0, 0, centerPos.x * 2, centerPos.y * 2, 15, 15, bgPaint);
+        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
         canvas.drawPath(path, paint);
