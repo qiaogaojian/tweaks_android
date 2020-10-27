@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -40,6 +42,8 @@ public class Demo1View extends View {
     private float text1Offset = 0f;
     private Point topLeftPos;
     private Point centerPos;
+
+    Path path = new Path();
 
     public float getScaleUp() {
         return scaleUp;
@@ -117,8 +121,13 @@ public class Demo1View extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         centerPos.x = getMeasuredWidth() / 2;
         centerPos.y = getMeasuredHeight() / 2;
-        topLeftPos.x = centerPos.x - (bitmap1.getWidth() + 10 + (int) textPaint.measureText(String.valueOf(initNum))) / 2;
-        topLeftPos.y = centerPos.y - (bitmap1.getHeight() + 30) / 2;
+        topLeftPos.x = centerPos.x - (bitmap1.getWidth() + 20 + (int) textPaint.measureText(String.valueOf(initNum))) / 2;
+        topLeftPos.y = centerPos.y - (bitmap1.getHeight() + 50) / 2;
+
+        path.moveTo(0, centerPos.y);
+        path.lineTo(centerPos.x * 2, centerPos.y);
+        path.moveTo(centerPos.x, 0);
+        path.lineTo(centerPos.x, centerPos.y * 2);
     }
 
     @Override
@@ -127,8 +136,9 @@ public class Demo1View extends View {
         System.out.println(String.format("scale Down: %.2f scale Up: %.2f light scale: %.2f curNum: %d", scaleDown, scaleUp, lightScale, curNum));
         // 辅助绘制
         canvas.drawColor(Color.parseColor("#66A0DA2D"));
-        canvas.drawLine(0, centerPos.y, centerPos.x * 2, centerPos.y, textPaint);
-        canvas.drawLine(centerPos.x, 0, centerPos.x, centerPos.y * 2, textPaint);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setPathEffect(new DashPathEffect(new float[]{10, 5}, 0));
+        canvas.drawPath(path, paint);
 
         if (curNum % 2 == 0) {
             matrix.reset();
