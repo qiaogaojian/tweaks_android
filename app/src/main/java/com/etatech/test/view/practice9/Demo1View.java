@@ -254,8 +254,8 @@ public class Demo1View extends View {
         ObjectAnimator upAni = ObjectAnimator.ofFloat(this, "scaleUp", 0.8f, 1.0f);
         ObjectAnimator lightUpAni = ObjectAnimator.ofFloat(this, "lightScale", 0.3f, 1f);
         ObjectAnimator lightTransAni = ObjectAnimator.ofFloat(this, "lightOffset", 60f, 0f);
-        ObjectAnimator text1DownAni = ObjectAnimator.ofFloat(this, "text1Offset", 0, textPaint.getTextSize());
-        ObjectAnimator text1UpAni = ObjectAnimator.ofFloat(this, "text1Offset", -textPaint.getTextSize(), 0);
+        ObjectAnimator text1DownAni = ObjectAnimator.ofFloat(this, "text1Offset", 0, -textPaint.getTextSize());
+        ObjectAnimator text1UpAni = ObjectAnimator.ofFloat(this, "text1Offset", textPaint.getTextSize(), 0);
 
         aniSet.play(upAni).with(lightUpAni).with(lightTransAni).with(text1UpAni).after(downAni).after(text1DownAni);
         upAni.addListener(new Animator.AnimatorListener() {
