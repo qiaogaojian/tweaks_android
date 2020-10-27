@@ -187,6 +187,7 @@ dependencies {
 
     implementation 'com.leo618:zip:0.0.1'
     implementation 'com.github.japgolly.android:svg-android:2.0.6'
+    implementation 'com.yanzhikai:BooheeRuler:0.0.7'
 
     // 开屏广告
     implementation project(':splashad')

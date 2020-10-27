@@ -16,12 +16,21 @@
             android:id="@+id/demo1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300pt"
+            android:layout_marginTop="200pt"
             app:align="center"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:number="123456" />
+
+        <com.etatech.test.view.practice9.Demo2MainView
+            android:id="@+id/demo2"
+            android:layout_width="match_parent"
+            android:layout_height="600pt"
+            android:layout_marginTop="3pt"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/demo1" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

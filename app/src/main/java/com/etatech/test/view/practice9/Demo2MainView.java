@@ -1,0 +1,105 @@
+package com.etatech.test.view.practice9;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
+
+import com.blankj.utilcode.util.AdaptScreenUtils;
+
+/**
+ * Created by Michael
+ * Date:  2020/10/27
+ * Desc:
+ */
+public class Demo2MainView extends ViewGroup {
+    private Demo2View ruler;
+    private int minWeight = 0;
+    private int maxWeight = 500;
+    private float curWeight = 0;
+    private Point centerPos = new Point(0, 0);
+    private int rulerSize = AdaptScreenUtils.pt2Px(200);
+    private Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint text2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private int textSize = AdaptScreenUtils.pt2Px(150);
+
+    public void setCurWeight(float curWeight) {
+        this.curWeight = curWeight;
+        postInvalidate();
+    }
+
+    public Demo2MainView(Context context) {
+        super(context);
+        initRuler(context);
+    }
+
+    public Demo2MainView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initRuler(context);
+    }
+
+    public Demo2MainView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initRuler(context);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        centerPos.x = getMeasuredWidth() / 2;
+        centerPos.y = getMeasuredHeight() / 2;
+        // 要测量子view 不然子view没有onMeasure()回调
+        for (int i = 0; i < getChildCount(); i++) {
+            if (getChildAt(i).getVisibility() != GONE) {
+                measureChild(getChildAt(i), widthMeasureSpec, heightMeasureSpec);
+            }
+        }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        ruler.layout(0, 0, r - l, b - t);
+    }
+
+    private void initRuler(Context context) {
+
+        ruler = new Demo2View(context, this);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        ruler.setLayoutParams(layoutParams);
+        addView(ruler);
+
+        setWillNotDraw(false); // 设置ViewGroup可绘制
+
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+tat
+        textPaint.setTextSize(textSize);
+        textPaint.setColor(Color.parseColor("#A0DA2D"));
+        textPaint.setStyle(Paint.Style.FILL);
+        canvas.drawText(curWeight + "",
+                centerPos.x - textPaint.measureText(curWeight + "") / 2,
+                centerPos.y - textSize,
+                textPaint);
+        text2Paint.setTextSize(textSize * 0.6f);
+        text2Paint.setColor(Color.parseColor("#A0DA2D"));
+        canvas.drawText("kg",
+                centerPos.x + 20 + textPaint.measureText(curWeight + "") / 2,
+                centerPos.y - textSize - textPaint.getTextSize() / 2,
+                text2Paint);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        textPaint.setStyle(Paint.Style.STROKE);
+        textPaint.setStrokeWidth(AdaptScreenUtils.pt2Px(8));
+        textPaint.setStrokeCap(Paint.Cap.ROUND);
+        canvas.drawLine(centerPos.x, centerPos.y - rulerSize / 2, centerPos.x, centerPos.y + rulerSize / 2, textPaint);
+    }
+}
