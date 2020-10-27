@@ -155,4 +155,12 @@
         <attr name="radius" format="integer" />
         <attr name="color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="Demo1View">
+        <attr name="number" format="integer" />
+        <attr name="align">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

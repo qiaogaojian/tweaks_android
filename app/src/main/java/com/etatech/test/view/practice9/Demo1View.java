@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -33,8 +34,9 @@ public class Demo1View extends View {
     private Bitmap bitmap1;     // 灰手
     private Bitmap bitmap2;     // 橙手
     private Bitmap bitmap3;     // 发光
+    private ThumbAlign align;
+    private int initNum = 0;    // 偶数:未点赞 奇数:点赞
     private int curNum = 0;     // 偶数:未点赞 奇数:点赞
-    private int initNum = 666;   // 偶数:未点赞 奇数:点赞
     private float scaleUp = 1.f;
     private float scaleDown = 1.f;
     private float lightScale = 1.f;
@@ -42,6 +44,7 @@ public class Demo1View extends View {
     private float text1Offset = 0f;
     private Point topLeftPos;
     private Point centerPos;
+
 
     Path path = new Path();
 
@@ -90,16 +93,21 @@ public class Demo1View extends View {
         postInvalidate();
     }
 
+    public void setInitNum(int num) {
+        initNum = num;
+        postInvalidate();
+    }
+
     public Demo1View(Context context) {
         super(context);
     }
 
     public Demo1View(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-    }
+        TypedArray attr = getContext().obtainStyledAttributes(attrs, R.styleable.Demo1View);
+        initNum = attr.getInteger(R.styleable.Demo1View_number, 0);
 
-    public Demo1View(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        align = ThumbAlign.values()[attr.getInt(R.styleable.Demo1View_align, 0)];
     }
 
     {
@@ -119,15 +127,49 @@ public class Demo1View extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        centerPos.x = getMeasuredWidth() / 2;
-        centerPos.y = getMeasuredHeight() / 2;
-        topLeftPos.x = centerPos.x - (bitmap1.getWidth() + 20 + (int) textPaint.measureText(String.valueOf(initNum))) / 2;
+
+        int w = 0;
+        int h = 0;
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        switch (widthMode) {
+            case MeasureSpec.AT_MOST:
+            case MeasureSpec.UNSPECIFIED:
+                w = bitmap1.getWidth() + 20 + (int) textPaint.measureText(String.valueOf(initNum));
+                break;
+            case MeasureSpec.EXACTLY:
+                w = getMeasuredWidth();
+                break;
+        }
+
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        switch (heightMode) {
+            case MeasureSpec.AT_MOST:
+            case MeasureSpec.UNSPECIFIED:
+                h = bitmap1.getHeight() + 50;
+                break;
+            case MeasureSpec.EXACTLY:
+                h = getMeasuredHeight();
+                break;
+        }
+
+        resolveSize(w, widthMeasureSpec);
+        resolveSize(h, heightMeasureSpec);
+
+        centerPos.x = w / 2;
+        centerPos.y = h / 2;
+        if (align == ThumbAlign.left) {
+            topLeftPos.x = 0;
+        } else {
+            topLeftPos.x = centerPos.x - (bitmap1.getWidth() + 20 + (int) textPaint.measureText(String.valueOf(initNum))) / 2;
+        }
         topLeftPos.y = centerPos.y - (bitmap1.getHeight() + 50) / 2;
 
         path.moveTo(0, centerPos.y);
         path.lineTo(centerPos.x * 2, centerPos.y);
         path.moveTo(centerPos.x, 0);
         path.lineTo(centerPos.x, centerPos.y * 2);
+
+        setMeasuredDimension(w, h);
     }
 
     @Override
@@ -279,5 +321,10 @@ public class Demo1View extends View {
             }
         }
         return super.onTouchEvent(event);
+    }
+
+    public enum ThumbAlign {
+        left,
+        center
     }
 }
