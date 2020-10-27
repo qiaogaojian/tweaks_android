@@ -7,16 +7,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.os.Debug;
+import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.etatech.test.R;
 
 /**
@@ -32,12 +32,14 @@ public class Demo1View extends View {
     private Bitmap bitmap2;     // 橙手
     private Bitmap bitmap3;     // 发光
     private int curNum = 0;     // 偶数:未点赞 奇数:点赞
-    private int initNum = 4309;   // 偶数:未点赞 奇数:点赞
+    private int initNum = 666;   // 偶数:未点赞 奇数:点赞
     private float scaleUp = 1.f;
     private float scaleDown = 1.f;
     private float lightScale = 1.f;
     private float lightOffset = 0f;
     private float text1Offset = 0f;
+    private Point topLeftPos;
+    private Point centerPos;
 
     public float getScaleUp() {
         return scaleUp;
@@ -100,6 +102,8 @@ public class Demo1View extends View {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         matrix = new Matrix();
+        topLeftPos = new Point(0, 0);
+        centerPos = new Point(0, 0);
 
         bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_messages_like_unselected);
         bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_messages_like_selected);
@@ -109,35 +113,48 @@ public class Demo1View extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        centerPos.x = getMeasuredWidth() / 2;
+        centerPos.y = getMeasuredHeight() / 2;
+        topLeftPos.x = centerPos.x - (bitmap1.getWidth() + 10 + (int) textPaint.measureText(String.valueOf(initNum))) / 2;
+        topLeftPos.y = centerPos.y - (bitmap1.getHeight() + 30) / 2;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         System.out.println(String.format("scale Down: %.2f scale Up: %.2f light scale: %.2f curNum: %d", scaleDown, scaleUp, lightScale, curNum));
+        // 辅助绘制
+        canvas.drawColor(Color.parseColor("#66A0DA2D"));
+        canvas.drawLine(0, centerPos.y, centerPos.x * 2, centerPos.y, textPaint);
+        canvas.drawLine(centerPos.x, 0, centerPos.x, centerPos.y * 2, textPaint);
 
         if (curNum % 2 == 0) {
             matrix.reset();
-            matrix.postScale(scaleDown, scaleDown, bitmap1.getWidth() / 2, bitmap1.getHeight() + 20);
+            matrix.postScale(scaleDown, scaleDown, bitmap1.getWidth() / 2 + topLeftPos.x, bitmap1.getHeight() + 20 + topLeftPos.y);
 
             canvas.save();
             canvas.concat(matrix);
-            canvas.drawBitmap(bitmap1, 0, 30, paint);
+            canvas.drawBitmap(bitmap1, 0 + topLeftPos.x, 30 + topLeftPos.y, paint);
             canvas.restore();
 
             drawNumSplit(canvas, curNum > 0 ? initNum + 1 : initNum, initNum);
             // canvas.drawText(String.valueOf(initNum), bitmap1.getWidth() + 10, bitmap1.getHeight() + 20, textPaint);
         } else {
             matrix.reset();
-            matrix.postScale(scaleUp, scaleUp, bitmap1.getWidth() / 2, bitmap1.getHeight() + 20);
+            matrix.postScale(scaleUp, scaleUp, bitmap1.getWidth() / 2 + topLeftPos.x, bitmap1.getHeight() + 20 + topLeftPos.y);
             canvas.save();
             canvas.concat(matrix);
-            canvas.drawBitmap(bitmap2, 0, 30, paint);
+            canvas.drawBitmap(bitmap2, 0 + topLeftPos.x, 30 + topLeftPos.y, paint);
             canvas.restore();
 
             matrix.reset();
             matrix.preTranslate(0, lightOffset);
-            matrix.postScale(lightScale, lightScale, bitmap3.getWidth() / 2, bitmap3.getHeight() / 2);
+            matrix.postScale(lightScale, lightScale, bitmap3.getWidth() / 2 + topLeftPos.x, bitmap3.getHeight() / 2 + topLeftPos.y);
             canvas.save();
             canvas.concat(matrix);
-            canvas.drawBitmap(bitmap3, 5, 0, paint);
+            canvas.drawBitmap(bitmap3, 5 + topLeftPos.x, 0 + topLeftPos.y, paint);
             canvas.restore();
 
             drawNumSplit(canvas, initNum, initNum + 1);
@@ -155,9 +172,15 @@ public class Demo1View extends View {
             }
 
             if (textBefore.charAt(i) != textAfter.charAt(i)) {
-                canvas.drawText(textAfter.charAt(i) + "", bitmap1.getWidth() + 10 + textPaint.measureText(curText), bitmap1.getHeight() + 20 + text1Offset, textPaint);
+                canvas.drawText(textAfter.charAt(i) + "",
+                        bitmap1.getWidth() + 10 + textPaint.measureText(curText) + topLeftPos.x,
+                        bitmap1.getHeight() + 20 + text1Offset + topLeftPos.y,
+                        textPaint);
             } else {
-                canvas.drawText(textAfter.charAt(i) + "", bitmap1.getWidth() + 10 + textPaint.measureText(curText), bitmap1.getHeight() + 20, textPaint);
+                canvas.drawText(textAfter.charAt(i) + "",
+                        bitmap1.getWidth() + 10 + textPaint.measureText(curText) + topLeftPos.x,
+                        bitmap1.getHeight() + 20 + topLeftPos.y,
+                        textPaint);
             }
 
             curText += textAfter.charAt(i);
