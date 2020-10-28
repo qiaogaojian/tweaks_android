@@ -78,7 +78,7 @@ public class Demo2MainView extends ViewGroup {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-tat
+
         textPaint.setTextSize(textSize);
         textPaint.setColor(Color.parseColor("#A0DA2D"));
         textPaint.setStyle(Paint.Style.FILL);

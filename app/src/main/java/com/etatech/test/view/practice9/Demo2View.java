@@ -24,7 +24,7 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
  */
 public class Demo2View extends View {
     private int minWeight = 0;
-    private int maxWeight = 10;
+    private int maxWeight = 100;
     private int curWeight = 0;
     private float mLastX = 0;
     private float mCurScale = 0;
@@ -137,7 +137,7 @@ public class Demo2View extends View {
     }
 
     private float scrollXToScale(int scrollX) {
-        return scrollX / sizePerSmall / 10f;
+        return scrollX / 10f / sizePerSmall;
     }
 
     @Override
@@ -161,6 +161,7 @@ public class Demo2View extends View {
                 float moveX = mLastX - currentX;
                 mLastX = currentX;
                 scrollBy((int) moveX, 0);
+                System.out.println(String.format("Demo2View onTouchEvent moveX:%s", moveX));
                 break;
             case MotionEvent.ACTION_CANCEL:
                 if (!mOverScroller.isFinished()) {
@@ -200,8 +201,10 @@ public class Demo2View extends View {
         if (x != getScrollX()) {
             super.scrollTo(x, y);
         }
+        System.out.println(String.format("Demo2View scrollTo x:%s", x));
         mCurScale = scrollXToScale(x);
-        parent.setCurWeight(mCurScale);
+        parent.setCurWeight(Math.round(mCurScale * 10) / 10f);
+        System.out.println(String.format("Demo2View scrollto mCurScale:%s", mCurScale));
     }
 
     private void fling(int vX) {
@@ -210,7 +213,7 @@ public class Demo2View extends View {
     }
 
     private void scrollBackToCurScale() {
-        mCurScale = Math.round(mCurScale);
+        mCurScale = Math.round(mCurScale * 10) / 10f;
         mOverScroller.startScroll(getScrollX(), 0, scaleToScrollX(mCurScale) - getScrollX(), 0, 1000);
         invalidate();
     }
@@ -219,7 +222,7 @@ public class Demo2View extends View {
     public void computeScroll() {
         if (mOverScroller.computeScrollOffset()) {
             scrollTo(mOverScroller.getCurrX(), mOverScroller.getCurrY());
-            if (!mOverScroller.computeScrollOffset() && mCurScale != Math.round(mCurScale)) {
+            if (!mOverScroller.computeScrollOffset() && mCurScale != Math.round(mCurScale * 10) / 10f) {
                 scrollBackToCurScale();
             }
             invalidate();
