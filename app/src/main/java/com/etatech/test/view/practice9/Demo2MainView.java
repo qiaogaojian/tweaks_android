@@ -17,18 +17,35 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
  */
 public class Demo2MainView extends ViewGroup {
     private Demo2View ruler;
-    private int minWeight = 0;
-    private int maxWeight = 500;
-    private float curWeight = 0;
+    private int minScale = 0;
+    private int maxScale = 100;
+
+    private float curScale = 0;
     private Point centerPos = new Point(0, 0);
     private int rulerSize = AdaptScreenUtils.pt2Px(200);
     private Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint text2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int textSize = AdaptScreenUtils.pt2Px(150);
 
-    public void setCurWeight(float curWeight) {
-        this.curWeight = curWeight;
+    public void setCurScale(float curScale) {
+        this.curScale = curScale;
         postInvalidate();
+    }
+
+    public int getMinScale() {
+        return minScale;
+    }
+
+    public void setMinScale(int minScale) {
+        this.minScale = minScale;
+    }
+
+    public int getMaxScale() {
+        return maxScale;
+    }
+
+    public void setMaxScale(int maxScale) {
+        this.maxScale = maxScale;
     }
 
     public Demo2MainView(Context context) {
@@ -82,14 +99,14 @@ public class Demo2MainView extends ViewGroup {
         textPaint.setTextSize(textSize);
         textPaint.setColor(Color.parseColor("#A0DA2D"));
         textPaint.setStyle(Paint.Style.FILL);
-        canvas.drawText(curWeight + "",
-                centerPos.x - textPaint.measureText(curWeight + "") / 2,
+        canvas.drawText(curScale + "",
+                centerPos.x - textPaint.measureText(curScale + "") / 2,
                 centerPos.y - textSize,
                 textPaint);
         text2Paint.setTextSize(textSize * 0.3f);
         text2Paint.setColor(Color.parseColor("#A0DA2D"));
         canvas.drawText("kg",
-                centerPos.x + 20 + textPaint.measureText(curWeight + "") / 2,
+                centerPos.x + 20 + textPaint.measureText(curScale + "") / 2,
                 centerPos.y - textSize - textPaint.getTextSize() / 2,
                 text2Paint);
     }

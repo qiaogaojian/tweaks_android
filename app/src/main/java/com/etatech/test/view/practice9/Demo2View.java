@@ -23,9 +23,7 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
  * Desc:
  */
 public class Demo2View extends View {
-    private int minWeight = 0;
-    private int maxWeight = 100;
-    private int curWeight = 0;
+
     private float mLastX = 0;
     private float mCurScale = 0;
     private Point centerPos = new Point(0, 0);
@@ -66,7 +64,7 @@ public class Demo2View extends View {
         mMaximumVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
         mMinimumVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
 
-        mCurScale = maxWeight / 2;
+        mCurScale = parent.getMaxScale() / 2;
 
         // 第一次进入, 跳转到设定刻度
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -88,7 +86,7 @@ public class Demo2View extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mLength = (maxWeight - minWeight) * 10 * sizePerSmall;
+        mLength = (parent.getMaxScale() - parent.getMinScale()) * 10 * sizePerSmall;
         mHalfWidth = w / 2;
         mMinPositionX = 0;
         mMaxPositionX = mLength;
@@ -102,9 +100,9 @@ public class Demo2View extends View {
         paint.setColor(Color.parseColor("#CCCCCC"));
         paint.setStrokeWidth(AdaptScreenUtils.pt2Px(3));
         rulerPath.moveTo(centerPos.x, centerPos.y - rulerSize / 2);
-        rulerPath.lineTo(centerPos.x + maxWeight * 10 * sizePerSmall, centerPos.y - rulerSize / 2);
-        for (int i = minWeight; i <= maxWeight; i++) {
-            float curX = centerPos.x + sizePerSmall * 10 * (i - minWeight);
+        rulerPath.lineTo(centerPos.x + parent.getMaxScale() * 10 * sizePerSmall, centerPos.y - rulerSize / 2);
+        for (int i = parent.getMinScale(); i <= parent.getMaxScale(); i++) {
+            float curX = centerPos.x + sizePerSmall * 10 * (i - parent.getMinScale());
             rulerPath.moveTo(curX, centerPos.y - rulerSize / 2);
             rulerPath.lineTo(curX, centerPos.y + rulerSize / 2);
 
@@ -116,7 +114,7 @@ public class Demo2View extends View {
                     centerPos.y + rulerSize / 2 + paint.getTextSize(),
                     paint);
 
-            for (int j = 1; j < 10 && i < maxWeight; j++) {
+            for (int j = 1; j < 10 && i < parent.getMaxScale(); j++) {
                 rulerPath.moveTo(curX + sizePerSmall * j, centerPos.y - rulerSize / 2);
                 rulerPath.lineTo(curX + sizePerSmall * j, centerPos.y);
             }
@@ -161,7 +159,6 @@ public class Demo2View extends View {
                 float moveX = mLastX - currentX;
                 mLastX = currentX;
                 scrollBy((int) moveX, 0);
-                System.out.println(String.format("Demo2View onTouchEvent moveX:%s", moveX));
                 break;
             case MotionEvent.ACTION_CANCEL:
                 if (!mOverScroller.isFinished()) {
@@ -201,10 +198,8 @@ public class Demo2View extends View {
         if (x != getScrollX()) {
             super.scrollTo(x, y);
         }
-        System.out.println(String.format("Demo2View scrollTo x:%s", x));
         mCurScale = scrollXToScale(x);
-        parent.setCurWeight(Math.round(mCurScale * 10) / 10f);
-        System.out.println(String.format("Demo2View scrollto mCurScale:%s", mCurScale));
+        parent.setCurScale(Math.round(mCurScale * 10) / 10f);
     }
 
     private void fling(int vX) {
