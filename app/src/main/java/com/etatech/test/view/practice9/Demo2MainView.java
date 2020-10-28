@@ -86,7 +86,7 @@ public class Demo2MainView extends ViewGroup {
                 centerPos.x - textPaint.measureText(curWeight + "") / 2,
                 centerPos.y - textSize,
                 textPaint);
-        text2Paint.setTextSize(textSize * 0.6f);
+        text2Paint.setTextSize(textSize * 0.3f);
         text2Paint.setColor(Color.parseColor("#A0DA2D"));
         canvas.drawText("kg",
                 centerPos.x + 20 + textPaint.measureText(curWeight + "") / 2,

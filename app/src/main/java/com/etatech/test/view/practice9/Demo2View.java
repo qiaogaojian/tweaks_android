@@ -35,7 +35,7 @@ public class Demo2View extends View {
 
     private Path rulerPath;
     private int rulerSize = AdaptScreenUtils.pt2Px(200);
-    private int sizePerSmall = AdaptScreenUtils.pt2Px(20);
+    private int sizePerSmall = AdaptScreenUtils.pt2Px(27);
 
     private int mHalfWidth = 0;                          //一半宽度
     private int mLength = 0;                            // 长度
@@ -222,6 +222,7 @@ public class Demo2View extends View {
     public void computeScroll() {
         if (mOverScroller.computeScrollOffset()) {
             scrollTo(mOverScroller.getCurrX(), mOverScroller.getCurrY());
+            // 滑动结束 自动取整
             if (!mOverScroller.computeScrollOffset() && mCurScale != Math.round(mCurScale * 10) / 10f) {
                 scrollBackToCurScale();
             }
