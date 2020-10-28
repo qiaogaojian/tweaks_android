@@ -23,28 +23,21 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
  * Desc:
  */
 public class Demo2View extends View {
+    private Demo2MainView parent;
+
+    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Path rulerPath = new Path();
+    private Point centerPos = new Point(0, 0);
 
     private float mLastX = 0;
     private float mCurScale = 0;
-    private Point centerPos = new Point(0, 0);
 
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private int textSize = AdaptScreenUtils.pt2Px(150);
-
-    private Path rulerPath;
-    private int rulerSize = AdaptScreenUtils.pt2Px(200);
-    private int sizePerSmall = AdaptScreenUtils.pt2Px(27);
-
-    private int mHalfWidth = 0;                          //一半宽度
-    private int mLength = 0;                            // 长度
-    private int mMinPositionX = 0;                      // 最小可滑动值
-    private int mMaxPositionX = 0;                      // 最大可滑动值
-    private OverScroller mOverScroller;                 // 惯性滑动
-    private VelocityTracker mVelocityTracker;           // 获取速度
-    private int mMinimumVelocity;                       // 惯性最小速度
-    private int mMaximumVelocity;                       // 惯性最大速度
-
-    private Demo2MainView parent;
+    private OverScroller mOverScroller;                     // 惯性滑动
+    private int mMinPositionX = 0;                          // 最小可滑动值
+    private int mMaxPositionX = 0;                          // 最大可滑动值
+    private VelocityTracker mVelocityTracker;               // 获取速度
+    private int mMinimumVelocity;                           // 惯性最小速度
+    private int mMaximumVelocity;                           // 惯性最大速度
 
     public Demo2View(Context context, Demo2MainView mainView) {
         super(context);
@@ -79,57 +72,63 @@ public class Demo2View extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mLength = (parent.getMaxScale() - parent.getMinScale()) * 10 * sizePerSmall;
+
         centerPos.x = w / 2;
         centerPos.y = h / 2;
+
         mMinPositionX = 0;
-        mMaxPositionX = mLength;
+        mMaxPositionX = (parent.getMaxScale() - parent.getMinScale()) * 10 * parent.getRulerSmallWidth();
+
+        rulerPath.reset();  // 初始化Path用reset()方法
+        paint.setColor(Color.parseColor("#CCCCCC"));
+        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(3));
+        rulerPath.moveTo(centerPos.x, centerPos.y - parent.getRulerHeight() / 2);
+        rulerPath.lineTo(centerPos.x + parent.getMaxScale() * 10 * parent.getRulerSmallWidth(), centerPos.y - parent.getRulerHeight() / 2);
+        for (int i = parent.getMinScale(); i <= parent.getMaxScale(); i++) {
+            float curX = centerPos.x + parent.getRulerSmallWidth() * 10 * (i - parent.getMinScale());
+            rulerPath.moveTo(curX, centerPos.y - parent.getRulerHeight() / 2);
+            rulerPath.lineTo(curX, centerPos.y + parent.getRulerHeight() / 2);
+
+            paint.setColor(Color.BLACK);
+            paint.setStyle(Paint.Style.FILL);
+            paint.setTextSize(parent.getTextSize() * 0.6f);
+            Path textPath = new Path();
+            String text = i + "";
+            paint.getTextPath(text, 0, text.length(), 0f, paint.getFontSpacing(), textPath);
+            rulerPath.addPath(textPath);
+            // canvas.drawText(i + "",
+            //         curX - paint.measureText(i + "") / 2,
+            //         centerPos.y + parent.getRulerHeight() / 2 + paint.getTextSize(),
+            //         paint);
+
+            for (int j = 1; j < 10 && i < parent.getMaxScale(); j++) {
+                rulerPath.moveTo(curX + parent.getRulerSmallWidth() * j, centerPos.y - parent.getRulerHeight() / 2);
+                rulerPath.lineTo(curX + parent.getRulerSmallWidth() * j, centerPos.y);
+            }
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        rulerPath = new Path();
-        paint.setColor(Color.parseColor("#CCCCCC"));
-        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(3));
-        rulerPath.moveTo(centerPos.x, centerPos.y - rulerSize / 2);
-        rulerPath.lineTo(centerPos.x + parent.getMaxScale() * 10 * sizePerSmall, centerPos.y - rulerSize / 2);
         for (int i = parent.getMinScale(); i <= parent.getMaxScale(); i++) {
-            float curX = centerPos.x + sizePerSmall * 10 * (i - parent.getMinScale());
-            rulerPath.moveTo(curX, centerPos.y - rulerSize / 2);
-            rulerPath.lineTo(curX, centerPos.y + rulerSize / 2);
-
+            float curX = centerPos.x + parent.getRulerSmallWidth() * 10 * (i - parent.getMinScale());
             paint.setColor(Color.BLACK);
             paint.setStyle(Paint.Style.FILL);
-            paint.setTextSize(textSize * 0.6f);
-            canvas.drawText(i + "",
-                    curX - paint.measureText(i + "") / 2,
-                    centerPos.y + rulerSize / 2 + paint.getTextSize(),
+            paint.setTextSize(parent.getTextSize() * 0.6f);
+            String text = i + "";
+            canvas.drawText(text,
+                    curX - paint.measureText(text) / 2,
+                    centerPos.y + parent.getRulerHeight() / 2 + paint.getTextSize(),
                     paint);
 
-            for (int j = 1; j < 10 && i < parent.getMaxScale(); j++) {
-                rulerPath.moveTo(curX + sizePerSmall * j, centerPos.y - rulerSize / 2);
-                rulerPath.lineTo(curX + sizePerSmall * j, centerPos.y);
-            }
         }
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor("#CCCCCC"));
         paint.setStrokeWidth(AdaptScreenUtils.pt2Px(6));
         canvas.drawPath(rulerPath, paint);
-    }
-
-    private void goToScale(float scale) {
-        scrollTo(scaleToScrollX(scale), 0);
-    }
-
-    private int scaleToScrollX(float scale) {
-        return (int) (scale * 10 * sizePerSmall);
-    }
-
-    private float scrollXToScale(int scrollX) {
-        return scrollX / 10f / sizePerSmall;
     }
 
     @Override
@@ -217,5 +216,17 @@ public class Demo2View extends View {
             }
             invalidate();
         }
+    }
+
+    private void goToScale(float scale) {
+        scrollTo(scaleToScrollX(scale), 0);
+    }
+
+    private int scaleToScrollX(float scale) {
+        return (int) (scale * 10 * parent.getRulerSmallWidth());
+    }
+
+    private float scrollXToScale(int scrollX) {
+        return scrollX / 10f / parent.getRulerSmallWidth();
     }
 }
