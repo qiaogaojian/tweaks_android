@@ -89,13 +89,9 @@ public class Demo2View extends View {
             rulerPath.moveTo(curX, centerPos.y - parent.getRulerHeight() / 2);
             rulerPath.lineTo(curX, centerPos.y + parent.getRulerHeight() / 2);
 
-            paint.setColor(Color.BLACK);
-            paint.setStyle(Paint.Style.FILL);
-            paint.setTextSize(parent.getTextSize() * 0.6f);
-            Path textPath = new Path();
-            String text = i + "";
-            paint.getTextPath(text, 0, text.length(), 0f, paint.getFontSpacing(), textPath);
-            rulerPath.addPath(textPath);
+            // paint.setColor(Color.BLACK);
+            // paint.setStyle(Paint.Style.FILL);
+            // paint.setTextSize(parent.getTextSize() * 0.6f);
             // canvas.drawText(i + "",
             //         curX - paint.measureText(i + "") / 2,
             //         centerPos.y + parent.getRulerHeight() / 2 + paint.getTextSize(),
