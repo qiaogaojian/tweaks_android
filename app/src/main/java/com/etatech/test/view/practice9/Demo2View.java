@@ -82,6 +82,7 @@ public class Demo2View extends View {
         rulerPath.reset();  // 初始化Path用reset()方法
         paint.setColor(Color.parseColor("#CCCCCC"));
         paint.setStrokeWidth(AdaptScreenUtils.pt2Px(3));
+        paint.setStrokeCap(Paint.Cap.ROUND);
         rulerPath.moveTo(centerPos.x, centerPos.y - parent.getRulerHeight() / 2);
         rulerPath.lineTo(centerPos.x + parent.getMaxScale() * 10 * parent.getRulerSmallWidth(), centerPos.y - parent.getRulerHeight() / 2);
         for (int i = parent.getMinScale(); i <= parent.getMaxScale(); i++) {
