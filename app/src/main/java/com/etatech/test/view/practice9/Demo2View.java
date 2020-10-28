@@ -77,17 +77,11 @@ public class Demo2View extends View {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        centerPos.x = getMeasuredWidth() / 2;
-        centerPos.y = getMeasuredHeight() / 2;
-    }
-
-    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mLength = (parent.getMaxScale() - parent.getMinScale()) * 10 * sizePerSmall;
-        mHalfWidth = w / 2;
+        centerPos.x = w / 2;
+        centerPos.y = h / 2;
         mMinPositionX = 0;
         mMaxPositionX = mLength;
     }
