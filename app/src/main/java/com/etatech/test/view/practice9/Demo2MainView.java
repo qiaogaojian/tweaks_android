@@ -8,7 +8,8 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.etatech.test.utils.Tools;
+
 
 /**
  * Created by Michael
@@ -19,15 +20,15 @@ public class Demo2MainView extends ViewGroup {
     private Demo2View ruler;
     private int minScale = 0;
     private int maxScale = 100;
-    private int rulerHeight = AdaptScreenUtils.pt2Px(200);  // 尺子高度
-    private int rulerSmallWidth = AdaptScreenUtils.pt2Px(27);  // 尺子宽度(0.1 刻度代表的像素值)
+    private int rulerHeight = Tools.pt2Px(200);  // 尺子高度
+    private int rulerSmallWidth = Tools.pt2Px(27);  // 尺子宽度(0.1 刻度代表的像素值)
 
     private float curScale = 0;
     private Point centerPos = new Point(0, 0);
-    private int rulerSize = AdaptScreenUtils.pt2Px(200);
+    private int rulerSize = Tools.pt2Px(200);
     private Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint text2Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private int textSize = AdaptScreenUtils.pt2Px(150);
+    private int textSize = Tools.pt2Px(150);
 
     public void setCurScale(float curScale) {
         this.curScale = curScale;
@@ -143,7 +144,7 @@ public class Demo2MainView extends ViewGroup {
 
         // 最后绘制尺子指示标
         textPaint.setStyle(Paint.Style.STROKE);
-        textPaint.setStrokeWidth(AdaptScreenUtils.pt2Px(8));
+        textPaint.setStrokeWidth(Tools.pt2Px(8));
         textPaint.setStrokeCap(Paint.Cap.ROUND);
         canvas.drawLine(centerPos.x, centerPos.y - rulerSize / 2, centerPos.x, centerPos.y + rulerSize / 2, textPaint);
     }

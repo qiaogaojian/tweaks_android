@@ -3,13 +3,17 @@ package com.etatech.test.utils;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
+import android.util.DisplayMetrics;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.Utils;
 import com.etatech.test.R;
 import com.etatech.test.bean.Vector2;
 
@@ -362,5 +366,13 @@ public class Tools {
                 && rect2.left <= rect1.right + 1
                 && rect1.top <= rect2.bottom + 1
                 && rect2.top <= rect1.bottom + 1;
+    }
+
+    public static int pt2Px(float pt) {
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        if (App.getInstance() != null) {
+            return AdaptScreenUtils.pt2Px(pt);
+        }
+        return (int) (pt * metrics.xdpi / 72f + 0.5);
     }
 }

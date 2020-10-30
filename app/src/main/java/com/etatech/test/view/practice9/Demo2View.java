@@ -15,7 +15,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 import android.widget.OverScroller;
 
-import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.etatech.test.utils.Tools;
 
 /**
  * Created by Michael
@@ -81,7 +81,7 @@ public class Demo2View extends View {
 
         rulerPath.reset();  // 初始化Path用reset()方法
         paint.setColor(Color.parseColor("#CCCCCC"));
-        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(3));
+        paint.setStrokeWidth(Tools.pt2Px(3));
         paint.setStrokeCap(Paint.Cap.ROUND);
         rulerPath.moveTo(centerPos.x, centerPos.y - parent.getRulerHeight() / 2);
         rulerPath.lineTo(centerPos.x + parent.getMaxScale() * 10 * parent.getRulerSmallWidth(), centerPos.y - parent.getRulerHeight() / 2);
@@ -124,7 +124,7 @@ public class Demo2View extends View {
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor("#CCCCCC"));
-        paint.setStrokeWidth(AdaptScreenUtils.pt2Px(6));
+        paint.setStrokeWidth(Tools.pt2Px(6));
         canvas.drawPath(rulerPath, paint);
     }
 
