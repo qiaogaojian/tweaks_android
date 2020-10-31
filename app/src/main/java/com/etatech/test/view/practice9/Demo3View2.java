@@ -81,12 +81,12 @@ public class Demo3View2 extends View {
                 Color.parseColor("#66FBFBFE"),
                 Shader.TileMode.CLAMP);
         paint.setShader(shader);
-        // canvas.drawCircle(centerPos.x, centerPos.y, radius, paint);
+        canvas.drawCircle(centerPos.x, centerPos.y, radius, paint);
     }
 
     private void drawBgCircle(Canvas canvas, int offset, int curBgNum) {
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(bgOffset);
+        paint.setStrokeWidth(strokeWidth);
 
         Point bgCenter = calCirPos(centerPos, offset * 2, curRotation);
         Point gradientStartPos = calCirPos(centerPos, offset, curRotation);
