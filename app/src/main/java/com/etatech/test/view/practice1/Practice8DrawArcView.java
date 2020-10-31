@@ -29,7 +29,7 @@ public class Practice8DrawArcView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //        练习内容：使用 canvas.drawArc() 方法画弧形和扇形
+        // 练习内容：使用 canvas.drawArc() 方法画弧形和扇形
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         canvas.drawArc(AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(360), AdaptScreenUtils.pt2Px(720), AdaptScreenUtils.pt2Px(500), 240, 100, true, paint);
