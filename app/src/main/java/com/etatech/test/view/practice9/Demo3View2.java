@@ -95,7 +95,7 @@ public class Demo3View2 extends View {
                 gradientStartPos.x, gradientStartPos.y,
                 gradientEndPos.x, gradientEndPos.y,
                 Color.parseColor("#00FBFBFE"),
-                Color.parseColor("#20FBFBFE"),
+                Color.parseColor("#33FBFBFE"),
                 Shader.TileMode.CLAMP);
         Shader shader2 = new RadialGradient(
                 gradientEndPos.x, gradientEndPos.y,
