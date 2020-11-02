@@ -146,7 +146,7 @@ public class Demo3MainView extends ViewGroup {
                 });
                 aniSet.start();
             }
-        }, 300000);
+        }, 6000);
 
     }
 

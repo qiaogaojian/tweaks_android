@@ -21,6 +21,7 @@ import android.view.animation.LinearInterpolator;
 
 import com.etatech.test.utils.Tools;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -74,7 +75,7 @@ public class Demo3View3 extends View {
         basePos = new Point(0, 0);
         random = new Random();
 
-        // startAni();
+        startAni();
     }
 
     @Override
@@ -84,37 +85,39 @@ public class Demo3View3 extends View {
         hasInitCircle = false;
 
         circlePath = new Path();
-        for (int i = 0; i < 6; i++) {
-            float randomOffsetX = Tools.pt2Px(random.nextInt(30) - 15);
-            float randomOffsetY = Tools.pt2Px(random.nextInt(30) - 15);
+        for (int i = 0; i < 8; i++) {
+            float randomOffsetX = Tools.pt2Px(random.nextInt(32) - 16);
+            float randomOffsetY = Tools.pt2Px(random.nextInt(32) - 16);
             circlePath.addCircle(centerPos.x + randomOffsetX, centerPos.y + randomOffsetY, parent.getSmallRadius(), Path.Direction.CW);
         }
     }
 
     private float radiusOffset;
     private LerpPosition lerpPos;
+    private LerpPosition[] posList = new LerpPosition[50];
 
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
+
+        canvas.scale(-1, 1, centerPos.x, centerPos.y);
+
         paint.reset();
         paint.setAntiAlias(true);
         paint.setColor(Color.parseColor("#FFFDFDFE"));
-        basePos = Tools.calCirPos(centerPos, parent.getSmallRadius(), curRotaion);
-        canvas.drawCircle(basePos.x, basePos.y, parent.getCircleWidth1(), paint);
+        basePos = Tools.calCirPos(centerPos, parent.getSmallRadius(), curRotaion - 3);
+        // canvas.drawCircle(basePos.x, basePos.y, parent.getCircleWidth1(), paint);
 
         smallCirclePaint.setColor(Color.parseColor("#FFFDFDFE"));
         // for (int i = 0; i < 3; i++) {
         final float startArc = 30 + 8;
-        radiusOffset = random.nextFloat() * (float) Math.PI * parent.getSmallRadius() * 2f * (startArc / 360f) / 3;
         RadialGradient gradient = new RadialGradient(
                 basePos.x, basePos.y,
                 parent.getCircleWidth1() * 10,
-                Color.parseColor("#CCFDFDFE"),
+                Color.parseColor("#FFFDFDFE"),
                 Color.parseColor("#33FDFDFE"),
                 Shader.TileMode.CLAMP);
         smallCirclePaint.setShader(gradient);
-
 
         // ValueAnimator transAni = ValueAnimator.ofObject(new PointFEvaluator(), new PointF(basePos.x, basePos.y), new PointF(temPos.x, temPos.y)).setDuration(1000);
         // transAni.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -129,12 +132,14 @@ public class Demo3View3 extends View {
         // transAni.setInterpolator(new LinearInterpolator());
         // transAni.start();
 
-
-        if (lerpPos == null || lerpPos.isFinished()) {
-            lerpPos = new LerpPosition(new PointF(basePos.x, basePos.y), startArc, 60);
+        for (int i = 0; i < posList.length; i++) {
+            if (posList[i] == null || posList[i].isFinished()) {
+                posList[i] = new LerpPosition(new PointF(basePos.x, basePos.y), startArc, 60);
+            }
+            PointF offset = (PointF) posList[i].getCurValue();
+            canvas.drawCircle(offset.x, offset.y, parent.getCircleWidth1(), smallCirclePaint);
         }
-        PointF offset = (PointF) lerpPos.getCurValue();
-        canvas.drawCircle(offset.x, offset.y, parent.getCircleWidth1(), smallCirclePaint);
+
         postInvalidate();
 
         // }
@@ -143,11 +148,11 @@ public class Demo3View3 extends View {
         //     return;
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(parent.getCircleWidth2() / 2);
+        paint.setStrokeWidth(parent.getCircleWidth2()*0.6f);
         Shader sweepShader = new SweepGradient(
                 centerPos.x, centerPos.y,
-                new int[]{Color.parseColor("#FFFDFDFE"), Color.parseColor("#00FBFFFF")},
-                new float[]{0, 0.9f}
+                new int[]{Color.parseColor("#CCFDFDFE"), Color.parseColor("#00FBFFFF")},
+                new float[]{0, 0.96f}
         );
         paint.setShader(sweepShader);
         canvas.drawPath(circlePath, paint);
@@ -163,7 +168,7 @@ public class Demo3View3 extends View {
 
     private void startAni() {
         ObjectAnimator ani = ObjectAnimator.ofFloat(this, "rotation", -360f, 0f);
-        ani.setDuration(3000);
+        ani.setDuration(2000);
         ani.setInterpolator(new LinearInterpolator());
         ani.setRepeatCount(-1);
         ani.start();
@@ -178,10 +183,12 @@ public class Demo3View3 extends View {
         private int count = 0;
 
         public LerpPosition(PointF value1, float startArc, float v) {
+            radiusOffset = random.nextFloat() * (float) Math.PI * parent.getSmallRadius() * 2f * (startArc / 360f) / 3;
             this.value1 = value1;
             float radius = random.nextInt(100) >= 50 ? parent.getSmallRadius() + radiusOffset : parent.getSmallRadius() - radiusOffset;
             this.value2 = Tools.calCirPos(centerPos, radius, startArc);
             this.v = v;
+            this.count = random.nextInt((int) v);
             value3 = new PointF((value2.x - value1.x) / v, (value2.y - value1.y) / v);
         }
 
