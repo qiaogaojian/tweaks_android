@@ -33,6 +33,7 @@
             app:layout_constraintTop_toBottomOf="@+id/demo1" />
 
         <com.etatech.test.view.practice9.Demo3MainView
+            android:id="@+id/demo3"
             android:layout_width="match_parent"
             android:layout_height="800pt"
             android:layout_marginTop="3pt"
@@ -40,6 +41,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/demo2" />
+
+        <com.etatech.test.view.practice9.Demo4View
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/demo3" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

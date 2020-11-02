@@ -74,8 +74,18 @@ public class Demo3View3 extends View {
         centerPos = new Point(0, 0);
         basePos = new Point(0, 0);
         random = new Random();
+    }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         startAni();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        ani.end();
     }
 
     @Override
@@ -148,7 +158,7 @@ public class Demo3View3 extends View {
         //     return;
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(parent.getCircleWidth2()*0.6f);
+        paint.setStrokeWidth(parent.getCircleWidth2() * 0.6f);
         Shader sweepShader = new SweepGradient(
                 centerPos.x, centerPos.y,
                 new int[]{Color.parseColor("#CCFDFDFE"), Color.parseColor("#00FBFFFF")},
@@ -165,9 +175,10 @@ public class Demo3View3 extends View {
     }
 
     private boolean hasInitCircle = false;
+    ObjectAnimator ani;
 
     private void startAni() {
-        ObjectAnimator ani = ObjectAnimator.ofFloat(this, "rotation", -360f, 0f);
+        ani = ObjectAnimator.ofFloat(this, "rotation", -360f, 0f);
         ani.setDuration(2000);
         ani.setInterpolator(new LinearInterpolator());
         ani.setRepeatCount(-1);
