@@ -22,7 +22,6 @@ import com.etatech.test.utils.Tools;
 public class Demo3View extends View {
 
     private Paint textPaint;
-    private int stepNum = 666;
     private int distanceNum = 1700;
     private int calorieNum = 36000;
     private int bigTextSize = Tools.pt2Px(120);
@@ -72,7 +71,7 @@ public class Demo3View extends View {
         textPaint.setTextSize(bigTextSize);
         textPaint.setColor(Color.parseColor("#FFFBFBFE"));
         textPaint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText(stepNum + "", centerPos.x, centerPos.y, textPaint);
+        canvas.drawText(parent.getStepNum() + "", centerPos.x, centerPos.y, textPaint);
 
         textPaint.setTextSize(smallTextSize);
         textPaint.setColor(Color.parseColor("#CCFBFBFE"));

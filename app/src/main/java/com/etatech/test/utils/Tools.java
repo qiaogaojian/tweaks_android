@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -374,5 +375,11 @@ public class Tools {
             return AdaptScreenUtils.pt2Px(pt);
         }
         return (int) (pt * metrics.xdpi / 72f + 0.5);
+    }
+
+    public static Point calCirPos(Point center, float radius, float angle) {
+        int posX1 = center.x + (int) (radius * Math.cos(Math.toRadians(angle)));
+        int posY1 = center.y + (int) (radius * Math.sin(Math.toRadians(angle)));
+        return new Point(posX1, posY1);
     }
 }
