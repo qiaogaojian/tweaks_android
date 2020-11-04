@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -32,6 +33,7 @@ public class Demo4View extends View {
     private int degree = 45;
     private int curDegree = 0;
     private Matrix matrix;
+    Path path = new Path();
 
     public void setCurDegree(int curDegree) {
         this.curDegree = curDegree;
@@ -85,8 +87,26 @@ public class Demo4View extends View {
     }
 
     private void foldImage(Canvas canvas) {
-
         canvas.save();
+        path.reset();
+        switch (curDegree / 90) {
+            case 0:
+                path.addRect(0, 0, centerPos.x * 2, centerPos.y, Path.Direction.CW); // 上
+                break;
+            case 1:
+                path.addRect(0, 0, centerPos.x, centerPos.y * 2, Path.Direction.CW); // 左
+                break;
+            case 2:
+                path.addRect(0, centerPos.y, centerPos.x * 2, centerPos.y * 2, Path.Direction.CW); // 下
+                break;
+            case 3:
+                path.addRect(centerPos.x, 0, centerPos.x * 2, centerPos.y * 2, Path.Direction.CW); // 右
+                break;
+        }
+
+        canvas.clipPath(path);
+        float canvasR = 90 * (curDegree / 90);
+
         camera.save();
         matrix.reset();
         camera.rotateX(-degree * (float) Math.sin(Math.toRadians(curDegree)));
@@ -101,7 +121,39 @@ public class Demo4View extends View {
         canvas.restore();
         paint.setTextSize(66);
         paint.setColor(Color.BLACK);
+
+        canvas.save();
+        path.reset();
+        switch (curDegree / 90) {
+            case 0:
+                path.addRect(0, centerPos.y, centerPos.x * 2, centerPos.y * 2, Path.Direction.CW); // 下
+                break;
+            case 1:
+                path.addRect(centerPos.x, 0, centerPos.x * 2, centerPos.y * 2, Path.Direction.CW); // 右
+                break;
+            case 2:
+                path.addRect(0, 0, centerPos.x * 2, centerPos.y, Path.Direction.CW); // 上
+                break;
+            case 3:
+                path.addRect(0, 0, centerPos.x, centerPos.y * 2, Path.Direction.CW); // 左
+                break;
+        }
+        canvas.clipPath(path);
+        canvas.drawBitmap(bitmap, centerPos.x - bitmap.getWidth() / 2, centerPos.y - bitmap.getHeight() / 2, paint);
+
         canvas.drawText(curDegree + "", 0, centerPos.y, paint);
+        canvas.drawText(canvasR + "", 0, centerPos.y + 100, paint);
+
+        // canvas.save();
+        // path.reset();
+        // path.addRect(0, centerPos.y, centerPos.x * 2, centerPos.y * 2, Path.Direction.CW);
+        // canvas.clipPath(path);
+        //
+        // canvasR = 90 * (curDegree / 90);
+        // canvas.rotate(canvasR);
+        // canvas.drawBitmap(bitmap, centerPos.x - bitmap.getWidth() / 2, centerPos.y - bitmap.getHeight() / 2, paint);
+        // canvas.rotate(-canvasR);
+        // canvas.restore();
     }
 
     ObjectAnimator ani;
