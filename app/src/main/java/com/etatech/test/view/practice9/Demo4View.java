@@ -154,7 +154,7 @@ public class Demo4View extends View {
 
     private void rotateAni() {
         ani = ObjectAnimator.ofInt(this, "curDegree", 0, 360);
-        ani.setDuration(60000);
+        ani.setDuration(10000);
         ani.setRepeatCount(-1);
         ani.setRepeatMode(ValueAnimator.RESTART);
         ani.setInterpolator(new LinearInterpolator());
