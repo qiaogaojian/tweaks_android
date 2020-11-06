@@ -10,6 +10,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.etatech.test.utils.Tools;
@@ -87,6 +88,12 @@ public class Bezier2View extends View {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        point2.set(event.getX(), event.getY());
+        return true;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         float offsetLeftX = point2.x - point1.x;
@@ -113,15 +120,21 @@ public class Bezier2View extends View {
         canvas.drawRect(point3.x - pw, point3.y - pw, point3.x + pw, point3.y + pw, paint);
 
         paint.setColor(Color.RED);
+        path.reset();  // Path 要记得 reset 初始化
         path.moveTo(point1.x, point1.y);
         path.quadTo(pointLeft.x, pointLeft.y, pointRight.x, pointRight.y);
         canvas.drawPath(path, paint);
 
-        canvas.drawCircle(pointMid.x, pointMid.y, pw, paint);
         paint.setColor(Color.GREEN);
         canvas.drawLine(pointLeft.x, pointLeft.y, pointRight.x, pointRight.y, paint);
         canvas.drawCircle(pointLeft.x, pointLeft.y, pw, paint);
         canvas.drawCircle(pointRight.x, pointRight.y, pw, paint);
+
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(pointMid.x, pointMid.y, pw * 1.5f, paint);
+
+
     }
 
 
