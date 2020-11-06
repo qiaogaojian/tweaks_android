@@ -103,6 +103,8 @@ public class Demo4View extends View {
         canvas.translate(centerPos.x, centerPos.y);
         canvas.rotate(curDegree);
 
+        canvas.clipRect(-centerPos.x, 0, centerPos.x, centerPos.y);
+
         camera.rotateX(degree);
         camera.applyToCanvas(canvas);
 
@@ -134,8 +136,8 @@ public class Demo4View extends View {
 
         canvas.clipRect(-centerPos.x, -centerPos.y, centerPos.x, 0);
 
-        camera.rotateX(-degree);
-        camera.applyToCanvas(canvas);
+        // camera.rotateX(-degree);
+        // camera.applyToCanvas(canvas);
 
         canvas.rotate(-curDegree);
         canvas.translate(-centerPos.x, -centerPos.y);
