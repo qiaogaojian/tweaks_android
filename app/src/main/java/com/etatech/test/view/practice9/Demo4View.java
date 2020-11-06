@@ -103,6 +103,7 @@ public class Demo4View extends View {
         canvas.translate(centerPos.x, centerPos.y);
         canvas.rotate(curDegree);
 
+        canvas.drawLine(-centerPos.x, 0, centerPos.x, 0, paint);
         canvas.clipRect(-centerPos.x, 0, centerPos.x, centerPos.y);
 
         camera.rotateX(degree);
