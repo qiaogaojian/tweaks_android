@@ -203,7 +203,7 @@ public class Bezier3View extends View {
         paint.setColor(Color.RED);
         path.reset();  // Path 要记得 reset 初始化
         path.moveTo(point1.x, point1.y);
-        path.cubicTo(point2Left.x, point2Left.y, point2Mid.x, point2Mid.y, point2Right.x, point2Right.y);
+        path.cubicTo(point2Left.x, point2Left.y, point3Left.x, point3Left.y, point4Mid.x, point4Mid.y);
         canvas.drawPath(path, paint);
 
         paint.setColor(Color.GREEN);

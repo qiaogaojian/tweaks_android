@@ -46,7 +46,6 @@ public class Practice06KeyframeLayout extends RelativeLayout {
                 Keyframe frame1 = Keyframe.ofFloat(0, 0);  // 第一个参数是归一化的进度 第二个参数是动画数值
                 Keyframe frame2 = Keyframe.ofFloat(0.5f, 100);
                 Keyframe frame3 = Keyframe.ofFloat(1, 80);
-
                 PropertyValuesHolder proper = PropertyValuesHolder.ofKeyframe("progress", frame1, frame2, frame3);
                 ObjectAnimator.ofPropertyValuesHolder(view, proper).setDuration(2000).start();
             }

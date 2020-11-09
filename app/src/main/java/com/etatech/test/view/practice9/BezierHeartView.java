@@ -5,12 +5,12 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.etatech.test.utils.Tools;
@@ -20,18 +20,36 @@ import com.etatech.test.utils.Tools;
  * Date:  2020/11/7
  * Desc:
  */
-
 public class BezierHeartView extends View {
     private Paint paint;
     private PointF centerPos;
-    private PointF point1;
-    private PointF point2;
-    private PointF point3;
-    private PointF pointLeft;
-    private PointF pointMid;
-    private PointF pointRight;
+    private PointF pointRB1;
+    private PointF pointRB2;
+    private PointF pointRB3;
+    private PointF pointRB4;
+
+    private PointF pointRT1;
+    private PointF pointRT2;
+    private PointF pointRT3;
+    private PointF pointRT4;
+
+    private PointF pointLB1;
+    private PointF pointLB2;
+    private PointF pointLB3;
+    private PointF pointLB4;
+
+    private PointF pointLT1;
+    private PointF pointLT2;
+    private PointF pointLT3;
+    private PointF pointLT4;
+
+    private float offsetTopY;
+    private float offsetX;
+    private float offsetBottomY;
+
     private Path path = new Path();
-    private int bl = Tools.pt2Px(100);
+    private float len = Tools.pt2Px(200);
+    private float cLen = len * 0.551915024494f;
     private int pw = Tools.pt2Px(6);
     private float progress = 0;
     private ObjectAnimator ani;
@@ -62,6 +80,7 @@ public class BezierHeartView extends View {
 
     private void init() {
         paint = new Paint();
+        path = new Path();
     }
 
     @Override
@@ -79,63 +98,66 @@ public class BezierHeartView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        centerPos = new PointF(w / 2.0f, h / 2.0f + 100);
-        point1 = new PointF(centerPos.x - bl * 2, centerPos.y);
-        point2 = new PointF(centerPos.x, centerPos.y - bl * 3);
-        point3 = new PointF(centerPos.x + bl * 2, centerPos.y);
-        pointLeft = new PointF();
-        pointRight = new PointF();
-        pointMid = new PointF();
-    }
+        centerPos = new PointF(w / 2.0f, h / 2.0f);
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        point2.set(event.getX(), event.getY());
-        return true;
+        // 右下
+        pointRB1 = new PointF(centerPos.x + 0, centerPos.y + len);
+        pointRB2 = new PointF(centerPos.x + cLen, centerPos.y + len);
+        pointRB3 = new PointF(centerPos.x + len, centerPos.y + cLen);
+        pointRB4 = new PointF(centerPos.x + len, centerPos.y + 0);
+        // 右上
+        pointRT1 = new PointF(centerPos.x + 0, centerPos.y - len);
+        pointRT2 = new PointF(centerPos.x + cLen, centerPos.y - len);
+        pointRT3 = new PointF(centerPos.x + len, centerPos.y - cLen);
+        pointRT4 = new PointF(centerPos.x + len, centerPos.y - 0);
+        // 左下
+        pointLB1 = new PointF(centerPos.x - 0, centerPos.y + len);
+        pointLB2 = new PointF(centerPos.x - cLen, centerPos.y + len);
+        pointLB3 = new PointF(centerPos.x - len, centerPos.y + cLen);
+        pointLB4 = new PointF(centerPos.x - len, centerPos.y + 0);
+        // 左上
+        pointLT1 = new PointF(centerPos.x - 0, centerPos.y - len);
+        pointLT2 = new PointF(centerPos.x - cLen, centerPos.y - len);
+        pointLT3 = new PointF(centerPos.x - len, centerPos.y - cLen);
+        pointLT4 = new PointF(centerPos.x - len, centerPos.y - 0);
+
+        offsetTopY = len * 0.7f;
+        offsetX = len * 0.12f;
+        offsetBottomY = -len * 0.38f;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float offsetLeftX = point2.x - point1.x;
-        float offsetLeftY = point2.y - point1.y;
-        float offsetRightX = point3.x - point2.x;
-        float offsetRightY = point3.y - point2.y;
-        pointLeft.set(point1.x + offsetLeftX * progress, point1.y + offsetLeftY * progress);
-        pointRight.set(point2.x + offsetRightX * progress, point2.y + offsetRightY * progress);
-        float offsetMidX = pointRight.x - pointLeft.x;
-        float offsetMidY = pointRight.y - pointLeft.y;
-        pointMid.set(pointLeft.x + offsetMidX * progress, pointLeft.y + offsetMidY * progress);
-
         paint.reset();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.RED);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(pw);
 
-        canvas.drawLine(point1.x, point1.y, point2.x, point2.y, paint);
-        canvas.drawLine(point2.x, point2.y, point3.x, point3.y, paint);
-
-        canvas.drawRect(point1.x - pw, point1.y - pw, point1.x + pw, point1.y + pw, paint);
-        canvas.drawRect(point2.x - pw, point2.y - pw, point2.x + pw, point2.y + pw, paint);
-        canvas.drawRect(point3.x - pw, point3.y - pw, point3.x + pw, point3.y + pw, paint);
-
-        paint.setColor(Color.RED);
-        path.reset();  // Path 要记得 reset 初始化
-        path.moveTo(point1.x, point1.y);
-        path.quadTo(pointLeft.x, pointLeft.y, pointRight.x, pointRight.y);
+        path.reset();
+        // 右下
+        path.moveTo(pointRB1.x, pointRB1.y);
+        path.cubicTo(pointRB2.x, pointRB2.y + offsetBottomY * progress, pointRB3.x - offsetX * progress, pointRB3.y, pointRB4.x, pointRB4.y);
+        // 右上
+        path.moveTo(pointRT1.x, pointRT1.y + offsetTopY * progress);
+        path.cubicTo(pointRT2.x, pointRT2.y, pointRT3.x, pointRT3.y, pointRT4.x, pointRT4.y);
+        // 左下
+        path.moveTo(pointLB1.x, pointLB1.y);
+        path.cubicTo(pointLB2.x, pointLB2.y + offsetBottomY * progress, pointLB3.x + offsetX * progress, pointLB3.y, pointLB4.x, pointLB4.y);
+        // 左上
+        path.moveTo(pointLT1.x, pointLT1.y + offsetTopY * progress);
+        path.cubicTo(pointLT2.x, pointLT2.y, pointLT3.x, pointLT3.y, pointLT4.x, pointLT4.y);
         canvas.drawPath(path, paint);
 
-        paint.setColor(Color.GREEN);
-        canvas.drawLine(pointLeft.x, pointLeft.y, pointRight.x, pointRight.y, paint);
-        canvas.drawCircle(pointLeft.x, pointLeft.y, pw, paint);
-        canvas.drawCircle(pointRight.x, pointRight.y, pw, paint);
-
         paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(pointMid.x, pointMid.y, pw * 1.5f, paint);
-
-
+        paint.setPathEffect(new DashPathEffect(new float[]{10, 10}, 0));
+        path.reset();
+        path.moveTo(0, centerPos.y);
+        path.lineTo(centerPos.x * 2, centerPos.y);
+        path.moveTo(centerPos.x, 0);
+        path.lineTo(centerPos.x, centerPos.y * 2);
+        canvas.drawPath(path, paint);
     }
 
 
@@ -143,7 +165,7 @@ public class BezierHeartView extends View {
         ani = ObjectAnimator.ofFloat(this, "progress", 0, 1f);
         ani.setRepeatMode(ValueAnimator.RESTART);
         ani.setRepeatCount(-1);
-        ani.setDuration(3000);
+        ani.setDuration(6000);
         ani.start();
     }
 }

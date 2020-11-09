@@ -122,7 +122,7 @@ public class Bezier2View extends View {
         paint.setColor(Color.RED);
         path.reset();  // Path 要记得 reset 初始化
         path.moveTo(point1.x, point1.y);
-        path.quadTo(pointLeft.x, pointLeft.y, pointRight.x, pointRight.y);
+        path.quadTo(pointLeft.x, pointLeft.y, pointMid.x, pointMid.y);
         canvas.drawPath(path, paint);
 
         paint.setColor(Color.GREEN);
