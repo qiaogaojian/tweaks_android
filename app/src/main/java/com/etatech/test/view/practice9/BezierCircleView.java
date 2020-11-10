@@ -68,17 +68,18 @@ public class BezierCircleView extends View {
     }
 
     public void setProgress(float progress) {
-        if (progress < -0.1f || progress > 1.1f) {
-            return;
-        }
-        if (progress / 0.5f > 1) {
-            this.progress = 1 - (progress / 0.5f - 1) - 0.1f;
-            this.progressLeft = 1 - (progress / 0.5f - 1) - 0.1f;
-        } else {
-            this.progress = progress / 0.5f - 0.1f;
-            this.progressLeft = progress / 0.5f - 0.1f;
-        }
-        this.progressTrans = progress;
+        this.progress = progress;
+        // if (progress < -0.1f || progress > 1.1f) {
+        //     return;
+        // }
+        // if (progress / 0.5f > 1) {
+        //     this.progress = 1 - (progress / 0.5f - 1) - 0.1f;
+        //     this.progressLeft = 1 - (progress / 0.5f - 1) - 0.1f;
+        // } else {
+        //     this.progress = progress / 0.5f - 0.1f;
+        //     this.progressLeft = progress / 0.5f - 0.1f;
+        // }
+        // this.progressTrans = progress;
         postInvalidate();
     }
 
@@ -162,7 +163,7 @@ public class BezierCircleView extends View {
         pointLB4 = new PointF(len - len, centerPos.y + 0);
 
         offsetY = cLen * 0.5f;
-        offsetX = len;
+        offsetX = len * 2;
         offsetBottomY = -len * 0.38f;
     }
 
@@ -195,11 +196,13 @@ public class BezierCircleView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         paint.reset();
-        paint.setStrokeWidth(pw);
-        paint.setStyle(Paint.Style.STROKE);
+        paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.RED);
 
         updatePos();
+
+        canvas.drawCircle(len, centerPos.y, len, paint);
+        canvas.drawCircle(centerPos.x * 2 - len, centerPos.y, len, paint);
 
         path.reset();
         // 右上
@@ -207,16 +210,13 @@ public class BezierCircleView extends View {
         path.cubicTo(pointRT2.x, pointRT2.y, pointRT3.x + offsetX * progress, pointRT3.y, pointRT4.x + offsetX * progress, pointRT4.y);
 
         // 右下
-        path.moveTo(pointRB1.x, pointRB1.y);
-        path.cubicTo(pointRB2.x, pointRB2.y, pointRB3.x + offsetX * progress, pointRB3.y, pointRB4.x + offsetX * progress, pointRB4.y);
-
-        // 左上
-        path.moveTo(pointLT1.x, pointLT1.y);
-        path.cubicTo(pointLT2.x, pointLT2.y, pointLT3.x - offsetX * progressLeft, pointLT3.y, pointLT4.x - offsetX * progressLeft, pointLT4.y);
+        path.cubicTo(pointRB3.x + offsetX * progress, pointRB3.y, pointRB2.x, pointRB2.y, pointRB1.x, pointRB1.y);
 
         // 左下
-        path.moveTo(pointLB1.x, pointLB1.y);
         path.cubicTo(pointLB2.x, pointLB2.y, pointLB3.x - offsetX * progressLeft, pointLB3.y, pointLB4.x - offsetX * progressLeft, pointLB4.y);
+
+        // 左上
+        path.cubicTo(pointLT3.x - offsetX * progressLeft, pointLT3.y, pointLT2.x, pointLT2.y, pointLT1.x, pointLT1.y);
 
         canvas.drawPath(path, paint);
 
@@ -241,9 +241,9 @@ public class BezierCircleView extends View {
 
     private void startAni() {
         Keyframe frame1 = Keyframe.ofFloat(0, 0);
-        Keyframe frame2 = Keyframe.ofFloat(0.1f, -.1f);
+        Keyframe frame2 = Keyframe.ofFloat(0.1f, -0.1f);
         Keyframe frame3 = Keyframe.ofFloat(0.5f, 1f);
-        Keyframe frame4 = Keyframe.ofFloat(0.9f, -.1f);
+        Keyframe frame4 = Keyframe.ofFloat(0.9f, -0.1f);
         Keyframe frame5 = Keyframe.ofFloat(1f, 0);
 
         PropertyValuesHolder proper = PropertyValuesHolder.ofKeyframe("progress", frame1, frame2, frame3, frame4, frame5);
@@ -254,9 +254,9 @@ public class BezierCircleView extends View {
         ani1.start();
 
         Keyframe frame21 = Keyframe.ofFloat(0, 0);
-        Keyframe frame22 = Keyframe.ofFloat(0.1f, -.1f);
+        Keyframe frame22 = Keyframe.ofFloat(0.1f, -0.1f);
         Keyframe frame23 = Keyframe.ofFloat(0.5f, 1f);
-        Keyframe frame24 = Keyframe.ofFloat(0.9f, -.1f);
+        Keyframe frame24 = Keyframe.ofFloat(0.9f, -0.1f);
         Keyframe frame25 = Keyframe.ofFloat(1f, 0);
 
         PropertyValuesHolder proper2 = PropertyValuesHolder.ofKeyframe("progressLeft", frame21, frame22, frame23, frame24, frame25);
