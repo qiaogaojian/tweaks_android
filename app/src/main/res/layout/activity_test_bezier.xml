@@ -12,44 +12,58 @@
         android:layout_height="match_parent"
         tools:context=".view.TestBezierActivity">
 
-        <com.etatech.test.view.practice9.Bezier2View
-            android:id="@+id/bezier2"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="500pt"
-            android:background="@color/code_grey"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.etatech.test.view.practice9.Bezier3View
-            android:id="@+id/bezier3"
-            android:layout_width="match_parent"
-            android:layout_height="500pt"
-            android:layout_marginTop="3pt"
-            android:background="@color/code_grey"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bezier2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <com.etatech.test.view.practice9.BezierHeartView
-            android:id="@+id/bezier_heart"
-            android:layout_width="match_parent"
-            android:layout_height="500pt"
-            android:layout_marginTop="3pt"
-            android:background="@color/code_grey"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bezier3" />
+                <com.etatech.test.view.practice9.Bezier2View
+                    android:id="@+id/bezier2"
+                    android:layout_width="match_parent"
+                    android:layout_height="500pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <com.etatech.test.view.practice9.BezierCircleView
-            android:id="@+id/bezier_circle"
-            android:layout_width="match_parent"
-            android:layout_height="500pt"
-            android:layout_marginTop="3pt"
-            android:background="@color/code_grey"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bezier_heart" />
+                <com.etatech.test.view.practice9.Bezier3View
+                    android:id="@+id/bezier3"
+                    android:layout_width="match_parent"
+                    android:layout_height="500pt"
+                    android:layout_marginTop="3pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bezier2" />
 
+                <com.etatech.test.view.practice9.BezierHeartView
+                    android:id="@+id/bezier_heart"
+                    android:layout_width="match_parent"
+                    android:layout_height="500pt"
+                    android:layout_marginTop="3pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bezier3" />
+
+                <com.etatech.test.view.practice9.BezierCircleView
+                    android:id="@+id/bezier_circle"
+                    android:layout_width="match_parent"
+                    android:layout_height="500pt"
+                    android:layout_marginTop="3pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bezier_heart" />
+            </LinearLayout>
+
+        </ScrollView>
     </android.support.constraint.ConstraintLayout>
 </layout>
