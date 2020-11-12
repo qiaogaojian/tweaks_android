@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestBezierActivity"></activity>
+        <activity
+            android:name=".view.TestBezierActivity"
+            android:hardwareAccelerated="false" /> <!--关闭硬件加速-->
         <activity android:name=".view.TestCustomViewDemoActivity" />
         <activity
             android:name=".view.TestCustomViewActivity"
