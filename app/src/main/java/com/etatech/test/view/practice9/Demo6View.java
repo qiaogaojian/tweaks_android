@@ -1,5 +1,6 @@
 package com.etatech.test.view.practice9;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -198,6 +199,31 @@ public class Demo6View extends View {
         ani.setRepeatMode(ValueAnimator.RESTART);
         ani.setRepeatCount(-1);
         ani.setInterpolator(new LinearInterpolator());
+        ani.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                for (int i = 0; i < posList.size(); i++) {
+                    posList.get(i).reset();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                for (int i = 0; i < posList.size(); i++) {
+                    posList.get(i).reset();
+                }
+            }
+        });
         ani.start();
     }
 
@@ -262,6 +288,10 @@ public class Demo6View extends View {
             float posY = base.y + offsetY;
             target.set(posX, posY, posX + leafWidth * 2, posY + leafHeight * 2);
             return target;
+        }
+
+        private void reset() {
+            frameNum = 0;
         }
 
         public int getCurRotation() {
