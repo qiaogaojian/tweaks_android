@@ -266,7 +266,7 @@ public class Demo6View extends View {
 
             offsetX = Tools.randomRange(100, 300) / 100f;
             period = Tools.randomRange(frameHeight, frameHeight * 2);
-            delay = Tools.randomRange(10);
+            delay = Tools.randomRange(100) - 30;
             startRotation = Tools.randomRange(360);
             randomHeight = Tools.randomRange(fanHeight / 3, fanHeight);
         }
@@ -274,7 +274,7 @@ public class Demo6View extends View {
         public RectF getCurPos() {
             if (isFinished()) {
                 frameNum = 0;
-                delay = Tools.randomRange(10);
+                delay = Tools.randomRange(100) - 30;
             }
 
             float posX = base.x - offsetX * (frameNum - delay);
