@@ -128,6 +128,7 @@ public class Bezier3View extends View {
                         // 点击距离节点太远
                         break;
                     case 2:
+                        getParent().requestDisallowInterceptTouchEvent(true);
                         if (lastX + offsetX < 10
                                 || lastX + offsetX > centerPos.x * 2
                                 || lastY + offsetY < 0
@@ -138,6 +139,7 @@ public class Bezier3View extends View {
                         System.out.println(String.format("point2X: %d offsetX: %d point2Y: %d offsetY:%d", (int) point2.x, offsetX, (int) point2.y, offsetY));
                         break;
                     case 3:
+                        getParent().requestDisallowInterceptTouchEvent(true);
                         if (lastX + offsetX < 10
                                 || lastX + offsetX > centerPos.x * 2
                                 || lastY + offsetY < 0
