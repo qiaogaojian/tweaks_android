@@ -112,6 +112,26 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/demo8" />
+
+                <com.etatech.test.view.practice9.Demo10View
+                    android:id="@+id/demo10"
+                    android:layout_width="match_parent"
+                    android:layout_height="500pt"
+                    android:layout_marginTop="3pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/demo9" />
+
+                <com.etatech.test.view.practice9.Demo11View
+                    android:id="@+id/demo11"
+                    android:layout_width="match_parent"
+                    android:layout_height="500pt"
+                    android:layout_marginTop="3pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/demo10" />
             </LinearLayout>
 
         </ScrollView>
