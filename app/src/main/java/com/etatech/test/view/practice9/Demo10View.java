@@ -47,6 +47,10 @@ public class Demo10View extends ViewGroup {
     private float[] dst;
 
     public void setOffset(float offset) {
+        if (offset >= imgWidth || offset <= 0) {
+            return;
+        }
+
         this.offset = offset;
         postInvalidate();
     }
@@ -137,11 +141,14 @@ public class Demo10View extends ViewGroup {
                 canvas.drawPath(clip, paint);
             }
             paint.setColor(Color.BLACK);
+            paint.setTextSize(Tools.pt2Px(50));
+            canvas.drawText("拖动折叠图片", imgWidth + 10, centerPos.y, paint);
         }
     }
 
     PointF curPos = new PointF();
     PointF lastPos = new PointF();
+    float offsetMove = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) { // TouchEvent示例 点击 拖动 抬起 取消
@@ -152,10 +159,11 @@ public class Demo10View extends ViewGroup {
                 break;
             case MotionEvent.ACTION_MOVE:
                 getParent().requestDisallowInterceptTouchEvent(true);
-                float offsetMove = lastPos.x - curPos.x;
-                setOffset(offsetMove);
+                setOffset(offsetMove + lastPos.x - curPos.x);
                 break;
             case MotionEvent.ACTION_UP:
+                offsetMove = lastPos.x - curPos.x;
+                break;
             case MotionEvent.ACTION_CANCEL:
                 break;
         }
