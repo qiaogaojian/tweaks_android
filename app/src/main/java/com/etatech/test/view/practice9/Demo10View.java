@@ -149,6 +149,7 @@ public class Demo10View extends ViewGroup {
     PointF curPos = new PointF();
     PointF lastPos = new PointF();
     float offsetMove = 0;
+    float lastOffset = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) { // TouchEvent示例 点击 拖动 抬起 取消
@@ -159,10 +160,10 @@ public class Demo10View extends ViewGroup {
                 break;
             case MotionEvent.ACTION_MOVE:
                 getParent().requestDisallowInterceptTouchEvent(true);
-                setOffset(offsetMove + lastPos.x - curPos.x);
+                setOffset(lastOffset + lastPos.x - curPos.x);
                 break;
             case MotionEvent.ACTION_UP:
-                offsetMove = lastPos.x - curPos.x;
+                lastOffset = offset;
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
