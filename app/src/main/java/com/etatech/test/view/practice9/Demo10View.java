@@ -106,10 +106,10 @@ public class Demo10View extends ViewGroup {
             }
 
             clip.reset();
-            clip.moveTo(curWidth * (i - 1), 0);
-            clip.lineTo(curWidth * i, 0);
-            clip.lineTo(curWidth * i, imgHeight);
-            clip.lineTo(curWidth * (i - 1), imgHeight);
+            clip.moveTo(dst[0], dst[1]);
+            clip.lineTo(dst[2], dst[3]);
+            clip.lineTo(dst[4], dst[5]);
+            clip.lineTo(dst[6], dst[7]);
             clip.close();
             canvas.save();
             canvas.clipPath(clip);
@@ -125,6 +125,18 @@ public class Demo10View extends ViewGroup {
             p[1] = 0;
             matrix.mapPoints(p);
             canvas.restore();
+            int alpha = (int) (255 * offsetX / smallWidth);
+            if (alpha <= 0) {
+                alpha = 0;
+            }
+            if (alpha >= 255) {
+                alpha = 255;
+            }
+            paint.setColor(Color.parseColor(String.format("#%02x333333", alpha)));
+            if (i % 2 == 1) {
+                canvas.drawPath(clip, paint);
+            }
+            paint.setColor(Color.BLACK);
         }
     }
 
