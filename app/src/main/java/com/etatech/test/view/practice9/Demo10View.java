@@ -11,8 +11,10 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -67,6 +69,7 @@ public class Demo10View extends ViewGroup {
         imgHeight = bitmap.getHeight() * scale;
         smallWidth = imgWidth / (float) foldCount;
         matrix = new Matrix();
+        setWillNotDraw(false); // 设置ViewGroup可绘制
     }
 
     @Override
@@ -125,11 +128,33 @@ public class Demo10View extends ViewGroup {
         }
     }
 
+    PointF curPos = new PointF();
+    PointF lastPos = new PointF();
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) { // TouchEvent示例 点击 拖动 抬起 取消
+        curPos.set(event.getX(), event.getY());
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                lastPos.set(event.getX(), event.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                getParent().requestDisallowInterceptTouchEvent(true);
+                float offsetMove = lastPos.x - curPos.x;
+                setOffset(offsetMove);
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
+
+        return true;
+    }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        startAni();
+        // startAni();
     }
 
     @Override
