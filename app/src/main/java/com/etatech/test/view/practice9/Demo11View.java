@@ -40,7 +40,7 @@ public class Demo11View extends View {
     private float offsetY;
     private float offsetX;
     private float smallWidth;
-    private int foldCount = 6;
+    private int foldCount = 10;
     private int scale = 2;
 
     private Matrix matrix;
