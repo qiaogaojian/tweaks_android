@@ -48,13 +48,19 @@ public class Demo12View extends ViewGroup {
     private int mWidth;
     private int mHeight;
     private static final int standerSpeed = 2000;
-    private static final int filingSpeed = 800;
+    private static final int flingSpeed = 800;
     private int addCount;
     private int alreadyAdd = 0;
     private boolean isAdding = false;
     private int mCurScreen = 1;
     private float mDownX, mDownY, mTempY;
     private boolean isSliding = false;
+
+    private State mState = State.Normal;
+
+    public enum State {
+        Normal, ToPre, ToNext
+    }
 
     public Demo12View(Context context) {
         super(context);
@@ -150,6 +156,226 @@ public class Demo12View extends ViewGroup {
 
         mCamera.restore();
         canvas.restore();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        float x = ev.getX();
+        float y = ev.getY();
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isSliding = false;
+                mDownX = x;
+                mTempY = mDownY = y;
+                if (!mScroller.isFinished()) {
+                    //当上一次滑动没有结束时，再次点击，强制滑动在点击位置结束
+                    mScroller.setFinalY(mScroller.getCurrY());
+                    mScroller.abortAnimation();
+                    scrollTo(0, getScrollY());
+                    isSliding = true;
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (!isSliding) {
+                    isSliding = isCanSliding(ev);
+                }
+                break;
+            default:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return isSliding;
+    }
+
+
+    public boolean isCanSliding(MotionEvent ev) {
+        float moveX;
+        float moveY;
+        moveX = ev.getX();
+        mTempY = moveY = ev.getY();
+        if (Math.abs(moveY - mDownX) > mTouchSlop && (Math.abs(moveY - mDownY) > (Math.abs(moveX - mDownX)))) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+
+        mVelocityTracker.addMovement(event);
+        float y = event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                if (isSliding) {
+                    int realDelta = (int) (mDownY - y);
+                    mDownY = y;
+                    if (mScroller.isFinished()) {
+                        recycleMove(realDelta);
+                    }
+                }
+                getParent().requestDisallowInterceptTouchEvent(true);
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if (isSliding) {
+                    isSliding = false;
+                    mVelocityTracker.computeCurrentVelocity(1000);
+                    float yVelocity = mVelocityTracker.getYVelocity();
+                    if (yVelocity > standerSpeed || ((getScrollY() + mHeight / 2) / mHeight < mStartScreen)) {
+                        mState = State.ToPre;
+                    } else if (yVelocity < -standerSpeed || ((getScrollY() + mHeight / 2) / mHeight > mStartScreen)) {
+                        mState = State.ToNext;
+                    } else {
+                        mState = State.Normal;
+                    }
+                    changeByState(yVelocity);
+                }
+                if (mVelocityTracker != null) {
+                    mVelocityTracker.recycle();
+                    mVelocityTracker = null;
+                }
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (mScroller.computeScrollOffset()) {
+            if (mState == State.ToPre) {
+                scrollTo(mScroller.getCurrX(), mScroller.getCurrY() + mHeight * alreadyAdd);
+                if (getScrollY() < (mHeight + 2) && addCount > 0) {
+                    isAdding = true;
+                    addPre();
+                    alreadyAdd++;
+                    addCount--;
+                }
+            } else if (mState == State.ToNext) {
+                scrollTo(mScroller.getCurrX(), mScroller.getCurrY() - mHeight * alreadyAdd);
+                if (getScrollY() > (mHeight) && addCount > 0) {
+                    isAdding = true;
+                    addNext();
+                    alreadyAdd++;
+                    addCount--;
+                }
+            } else {
+                scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            }
+        }
+
+        if (mScroller.isFinished()) {
+            alreadyAdd = 0;
+            addCount = 0;
+        }
+    }
+
+    private void addPre() {
+        mCurScreen = ((mCurScreen - 1) + getChildCount()) % getChildCount();
+        int childCount = getChildCount();
+        View view = getChildAt(childCount - 1);
+        removeViewAt(childCount - 1);
+        addView(view, 0);
+    }
+
+    private void addNext() {
+        mCurScreen = (mCurScreen + 1) % getChildCount();
+        int childCount = getChildCount();
+        View view = getChildAt(0);
+        removeViewAt(0);
+        addView(view, childCount - 1);
+    }
+
+    private void toNormalAction() {
+        int startY;
+        int delta;
+        int duration;
+
+        mState = State.Normal;
+        addCount = 0;
+        startY = getScrollY();
+        delta = mHeight * mStartScreen - getScrollY();
+        duration = (Math.abs(delta)) * 3;
+        mScroller.startScroll(0, startY, 0, delta, duration);
+    }
+
+    private void toPreAction(float yVelocity) {
+        int startY;
+        int delta;
+        int duration;
+
+        mState = State.ToPre;
+        addPre();
+        int flingSpeedCount = (yVelocity - standerSpeed) > 0 ? (int) (yVelocity - standerSpeed) : 0;
+        addCount = flingSpeedCount / flingSpeed + 1;
+        startY = getScrollY() + mHeight;
+        setScrollY(startY);
+        delta = -(startY - mStartScreen * mHeight) - (addCount - 1) * mHeight;
+        duration = (Math.abs(delta)) * 3;
+        mScroller.startScroll(0, startY, 0, delta, duration);
+        addCount--;
+    }
+
+    private void toNextAction(float yVelocity) {
+        int startY;
+        int delta;
+        int duration;
+
+        mState = State.ToNext;
+        addNext();
+        int flingSpeedCount = (Math.abs(yVelocity) - standerSpeed) > 0 ?
+                (int) (Math.abs(yVelocity) - standerSpeed) : 0;
+        addCount = flingSpeedCount / flingSpeed + 1;
+        startY = getScrollY() - mHeight;
+        setScrollY(startY);
+        delta = mHeight * mStartScreen - startY + (addCount - 1) * mHeight;
+        duration = (Math.abs(delta)) * 3;
+        mScroller.startScroll(0, startY, 0, delta, duration);
+        addCount--;
+    }
+
+    private void changeByState(float yVelocity) {
+        alreadyAdd = 0;
+        if (getScrollY() != mHeight) {
+            switch (mState) {
+                case Normal:
+                    toNormalAction();
+                    break;
+                case ToPre:
+                    toPreAction(yVelocity);
+                    break;
+                case ToNext:
+                    toNextAction(yVelocity);
+                    break;
+            }
+        }
+    }
+
+    private void recycleMove(int delta) {
+        delta = delta % mHeight;
+        delta = (int) (delta / resistance);
+        if (Math.abs(delta) > mHeight / 4) {
+            return;
+        }
+        scrollBy(0, delta);
+
+        int scrollY = getScrollY();
+        if (scrollY < 5 && mStartScreen != 0) {
+            addPre();
+            scrollBy(0, mHeight);
+        } else if (scrollY > (getChildCount() - 1) * mHeight - 5) {
+            addNext();
+            scrollBy(0, -mHeight);
+        }
     }
 
     @Override
