@@ -145,22 +145,24 @@
                     android:layout_height="300pt"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="300pt"
-                    android:background="@color/code_grey"
+                    android:background="@color/code_black"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/demo11">
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/layout_user"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@color/code_white_yellow"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:padding="3pt">
 
                         <ImageView
                             android:id="@+id/iv_user"
                             android:layout_width="100pt"
                             android:layout_height="100pt"
                             android:layout_marginLeft="50pt"
-                            android:background="@color/code_white_yellow"
-                            android:padding="3pt"
                             android:src="@drawable/demo12_icon_user"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
