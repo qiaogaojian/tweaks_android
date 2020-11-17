@@ -10,11 +10,15 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         tools:context=".view.TestBezierActivity">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -22,6 +26,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="vertical">
 
                 <com.etatech.test.view.practice9.Bezier2View
@@ -132,6 +138,162 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/demo10" />
+
+                <com.etatech.test.view.practice9.Demo12View
+                    android:id="@+id/demo12"
+                    android:layout_width="800pt"
+                    android:layout_height="300pt"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="300pt"
+                    android:background="@color/code_grey"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/demo11">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/layout_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/iv_user"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginLeft="50pt"
+                            android:background="@color/code_white_yellow"
+                            android:padding="3pt"
+                            android:src="@drawable/demo12_icon_user"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!--    <EditText-->
+                        <!--        android:id="@+id/et_user"-->
+                        <!--        android:layout_width="0pt"-->
+                        <!--        android:layout_height="wrap_content"-->
+                        <!--        android:layout_marginLeft="30pt"-->
+                        <!--        android:layout_marginRight="30pt"-->
+                        <!--        android:hint="UserName"-->
+                        <!--        android:textSize="50pt"-->
+                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--        app:layout_constraintLeft_toRightOf="@id/iv_user"-->
+                        <!--        app:layout_constraintRight_toLeftOf="@id/iv_next"-->
+                        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+                        <ImageView
+                            android:id="@+id/iv_next1"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginRight="50pt"
+                            android:src="@drawable/demo12_icon_next"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/layout_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/code_white_yellow"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:padding="3pt">
+
+                        <ImageView
+                            android:id="@+id/iv_password"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginLeft="50pt"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:src="@drawable/demo12_icon_password"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!--    <EditText-->
+                        <!--        android:id="@+id/et_user"-->
+                        <!--        android:layout_width="0pt"-->
+                        <!--        android:layout_height="wrap_content"-->
+                        <!--        android:layout_marginLeft="30pt"-->
+                        <!--        android:layout_marginRight="30pt"-->
+                        <!--        android:hint="UserName"-->
+                        <!--        android:textSize="50pt"-->
+                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--        app:layout_constraintLeft_toRightOf="@id/iv_user"-->
+                        <!--        app:layout_constraintRight_toLeftOf="@id/iv_next"-->
+                        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+                        <ImageView
+                            android:id="@+id/iv_next2"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginRight="50pt"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:src="@drawable/demo12_icon_next"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/layout_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/code_white_yellow"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:padding="3pt">
+
+                        <ImageView
+                            android:id="@+id/iv_email"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginLeft="50pt"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:src="@drawable/demo12_icon_email"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!--    <EditText-->
+                        <!--        android:id="@+id/et_user"-->
+                        <!--        android:layout_width="0pt"-->
+                        <!--        android:layout_height="wrap_content"-->
+                        <!--        android:layout_marginLeft="30pt"-->
+                        <!--        android:layout_marginRight="30pt"-->
+                        <!--        android:hint="UserName"-->
+                        <!--        android:textSize="50pt"-->
+                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--        app:layout_constraintLeft_toRightOf="@id/iv_user"-->
+                        <!--        app:layout_constraintRight_toLeftOf="@id/iv_next"-->
+                        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+                        <ImageView
+                            android:id="@+id/iv_next3"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginRight="50pt"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:src="@drawable/demo12_icon_next"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </com.etatech.test.view.practice9.Demo12View>
+
+                <View
+                    android:id="@+id/bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000pt" />
+
             </LinearLayout>
 
         </ScrollView>
