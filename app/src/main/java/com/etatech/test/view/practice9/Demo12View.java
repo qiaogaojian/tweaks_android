@@ -1,27 +1,16 @@
 package com.etatech.test.view.practice9;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.PointF;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Scroller;
 
-import com.etatech.test.R;
-import com.etatech.test.utils.Tools;
 
 /**
  * Created by Michael
@@ -34,20 +23,14 @@ public class Demo12View extends ViewGroup {
     private Scroller mScroller;
     private float mAngle = 90;
 
-    private Context mContext;
     private Camera mCamera;
     private Matrix mMatrix;
 
     private int mWidth;
     private int mHeight;
-    private static final int standerSpeed = 2000;
-    private static final int flingSpeed = 800;
-    private int addCount;
-    private int alreadyAdd = 0;
     private boolean isAdding = false;
     private int mCurScreen = 1;
     private float mDownY;
-    private boolean isSliding = false;
 
     private State mState = State.Normal;
 
@@ -65,8 +48,7 @@ public class Demo12View extends ViewGroup {
 
     public Demo12View(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mContext = context;
-        init(mContext);
+        init(context);
     }
 
     private void init(Context context) {
@@ -95,13 +77,6 @@ public class Demo12View extends ViewGroup {
                 childTop = childTop + child.getMeasuredHeight();
             }
         }
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mWidth = w;
-        mHeight = h;
     }
 
     @Override
@@ -181,33 +156,9 @@ public class Demo12View extends ViewGroup {
 
     @Override
     public void computeScroll() {
-        super.computeScroll();
         if (mScroller.computeScrollOffset()) {
-            if (mState == State.ToPre) {
-                scrollTo(mScroller.getCurrX(), mScroller.getCurrY() + mHeight * alreadyAdd);
-                if (getScrollY() < (mHeight + 2) && addCount > 0) {
-                    isAdding = true;
-                    addPre();
-                    alreadyAdd++;
-                    addCount--;
-                }
-            } else if (mState == State.ToNext) {
-                scrollTo(mScroller.getCurrX(), mScroller.getCurrY() - mHeight * alreadyAdd);
-                if (getScrollY() > (mHeight) && addCount > 0) {
-                    isAdding = true;
-                    addNext();
-                    alreadyAdd++;
-                    addCount--;
-                }
-            } else {
-                scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-            }
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             postInvalidate();
-        }
-
-        if (mScroller.isFinished()) {
-            alreadyAdd = 0;
-            addCount = 0;
         }
     }
 
@@ -227,13 +178,29 @@ public class Demo12View extends ViewGroup {
         addView(view, childCount - 1);
     }
 
+    private void changeByState() {
+        if (getScrollY() != mHeight) {
+            switch (mState) {
+                case Normal:
+                    toNormalAction();
+                    break;
+                case ToPre:
+                    toPreAction();
+                    break;
+                case ToNext:
+                    toNextAction();
+                    break;
+            }
+            postInvalidate();
+        }
+    }
+
     private void toNormalAction() {
         int startY;
         int delta;
         int duration;
 
         mState = State.Normal;
-        addCount = 0;
         startY = getScrollY();
         delta = mHeight * mStartScreen - getScrollY();
         duration = (Math.abs(delta)) * 4;
@@ -266,24 +233,6 @@ public class Demo12View extends ViewGroup {
         delta = mHeight * mStartScreen - startY;
         duration = (Math.abs(delta)) * 3;
         mScroller.startScroll(0, startY, 0, delta, duration);
-    }
-
-    private void changeByState() {
-        alreadyAdd = 0;
-        if (getScrollY() != mHeight) {
-            switch (mState) {
-                case Normal:
-                    toNormalAction();
-                    break;
-                case ToPre:
-                    toPreAction();
-                    break;
-                case ToNext:
-                    toNextAction();
-                    break;
-            }
-            postInvalidate();
-        }
     }
 
     private void recycleMove(int delta) {
