@@ -139,7 +139,6 @@
                     android:layout_height="300pt"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="300pt"
-                    android:background="@color/code_black"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/demo11">
 
@@ -160,18 +159,18 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!--    <EditText-->
-                        <!--        android:id="@+id/et_user"-->
-                        <!--        android:layout_width="0pt"-->
-                        <!--        android:layout_height="wrap_content"-->
-                        <!--        android:layout_marginLeft="30pt"-->
-                        <!--        android:layout_marginRight="30pt"-->
-                        <!--        android:hint="UserName"-->
-                        <!--        android:textSize="50pt"-->
-                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--        app:layout_constraintLeft_toRightOf="@id/iv_user"-->
-                        <!--        app:layout_constraintRight_toLeftOf="@id/iv_next"-->
-                        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+                        <EditText
+                            android:id="@+id/et_user"
+                            android:layout_width="0pt"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30pt"
+                            android:layout_marginRight="30pt"
+                            android:hint="UserName"
+                            android:textSize="50pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/iv_user"
+                            app:layout_constraintRight_toLeftOf="@id/iv_next1"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/iv_next1"
@@ -202,18 +201,18 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!--    <EditText-->
-                        <!--        android:id="@+id/et_user"-->
-                        <!--        android:layout_width="0pt"-->
-                        <!--        android:layout_height="wrap_content"-->
-                        <!--        android:layout_marginLeft="30pt"-->
-                        <!--        android:layout_marginRight="30pt"-->
-                        <!--        android:hint="UserName"-->
-                        <!--        android:textSize="50pt"-->
-                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--        app:layout_constraintLeft_toRightOf="@id/iv_user"-->
-                        <!--        app:layout_constraintRight_toLeftOf="@id/iv_next"-->
-                        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+                        <EditText
+                            android:id="@+id/et_password"
+                            android:layout_width="0pt"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30pt"
+                            android:layout_marginRight="30pt"
+                            android:hint="UserName"
+                            android:textSize="50pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/iv_password"
+                            app:layout_constraintRight_toLeftOf="@id/iv_next2"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/iv_next2"
@@ -244,18 +243,18 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!--    <EditText-->
-                        <!--        android:id="@+id/et_user"-->
-                        <!--        android:layout_width="0pt"-->
-                        <!--        android:layout_height="wrap_content"-->
-                        <!--        android:layout_marginLeft="30pt"-->
-                        <!--        android:layout_marginRight="30pt"-->
-                        <!--        android:hint="UserName"-->
-                        <!--        android:textSize="50pt"-->
-                        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--        app:layout_constraintLeft_toRightOf="@id/iv_user"-->
-                        <!--        app:layout_constraintRight_toLeftOf="@id/iv_next"-->
-                        <!--        app:layout_constraintTop_toTopOf="parent" />-->
+                        <EditText
+                            android:id="@+id/et_email"
+                            android:layout_width="0pt"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30pt"
+                            android:layout_marginRight="30pt"
+                            android:hint="UserName"
+                            android:textSize="50pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/iv_email"
+                            app:layout_constraintRight_toLeftOf="@id/iv_next3"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/iv_next3"
@@ -286,18 +285,18 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                            <TextView
-                                android:id="@+id/et_user"
-                                android:layout_width="0pt"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="30pt"
-                                android:layout_marginRight="30pt"
-                                android:text="Welcome!"
-                                android:textSize="50pt"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toRightOf="@id/iv_welcome"
-                                app:layout_constraintRight_toLeftOf="@id/iv_next4"
-                                app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/tv_welcome"
+                            android:layout_width="0pt"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30pt"
+                            android:layout_marginRight="30pt"
+                            android:text="Welcome!"
+                            android:textSize="50pt"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/iv_welcome"
+                            app:layout_constraintRight_toLeftOf="@id/iv_next4"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/iv_next4"
