@@ -33,18 +33,10 @@ public class Demo12View extends ViewGroup {
     private float resistance = 1.8f;
     private Scroller mScroller;
     private float mAngle = 90;
-    private boolean isCan3D = true;
 
     private Context mContext;
-    private int mTouchSlop;
-    private VelocityTracker mVelocityTracker;
-    private int mMinimumVelocity;                           // 惯性最小速度
-    private int mMaximumVelocity;                           // 惯性最大速度
     private Camera mCamera;
     private Matrix mMatrix;
-
-    private Paint paint;
-    private ObjectAnimator ani;
 
     private int mWidth;
     private int mHeight;
@@ -54,7 +46,7 @@ public class Demo12View extends ViewGroup {
     private int alreadyAdd = 0;
     private boolean isAdding = false;
     private int mCurScreen = 1;
-    private float mDownX, mDownY, mTempY;
+    private float mDownY;
     private boolean isSliding = false;
 
     private State mState = State.Normal;
@@ -78,16 +70,9 @@ public class Demo12View extends ViewGroup {
     }
 
     private void init(Context context) {
-        paint = new Paint();
-
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mCamera = new Camera();
         mMatrix = new Matrix();
         mScroller = new Scroller(context);
-
-        mVelocityTracker = VelocityTracker.obtain();
-        mMaximumVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
-        mMinimumVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
     }
 
     @Override
@@ -165,90 +150,30 @@ public class Demo12View extends ViewGroup {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        float x = ev.getX();
-        float y = ev.getY();
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                isSliding = false;
-                mDownX = x;
-                mTempY = mDownY = y;
-                if (!mScroller.isFinished()) {
-                    //当上一次滑动没有结束时，再次点击，强制滑动在点击位置结束
-                    mScroller.setFinalY(mScroller.getCurrY());
-                    mScroller.abortAnimation();
-                    scrollTo(0, getScrollY());
-                    isSliding = true;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (!isSliding) {
-                    isSliding = isCanSliding(ev);
-                }
-                break;
-            default:
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return isSliding;
-    }
-
-
-    public boolean isCanSliding(MotionEvent ev) {
-        float moveX;
-        float moveY;
-        moveX = ev.getX();
-        mTempY = moveY = ev.getY();
-        if (Math.abs(moveY - mDownX) > mTouchSlop && (Math.abs(moveY - mDownY) > (Math.abs(moveX - mDownX)))) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mVelocityTracker == null) {
-            mVelocityTracker = VelocityTracker.obtain();
-        }
-
-        mVelocityTracker.addMovement(event);
         float y = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 return true;
             case MotionEvent.ACTION_MOVE:
-                if (isSliding) {
-                    int realDelta = (int) (mDownY - y);
-                    mDownY = y;
-                    if (mScroller.isFinished()) {
-                        recycleMove(realDelta);
-                    }
+                int realDelta = (int) (mDownY - y);
+                mDownY = y;
+                if (mScroller.isFinished()) {
+                    recycleMove(realDelta);
                 }
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                if (isSliding) {
-                    isSliding = false;
-                    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                    float yVelocity = mVelocityTracker.getYVelocity();
-                    if (yVelocity > standerSpeed || ((getScrollY() + mHeight / 2) / mHeight < mStartScreen)) {
-                        mState = State.ToPre;
-                    } else if (yVelocity < -standerSpeed || ((getScrollY() + mHeight / 2) / mHeight > mStartScreen)) {
-                        mState = State.ToNext;
-                    } else {
-                        mState = State.Normal;
-                    }
-                    changeByState(yVelocity);
+                if (((getScrollY() + mHeight / 2) / mHeight < mStartScreen)) {
+                    mState = State.ToPre;
+                } else if (((getScrollY() + mHeight / 2) / mHeight > mStartScreen)) {
+                    mState = State.ToNext;
+                } else {
+                    mState = State.Normal;
                 }
-                if (mVelocityTracker != null) {
-                    mVelocityTracker.recycle();
-                    mVelocityTracker = null;
-                }
+                changeByState();
+
                 break;
         }
         return true;
@@ -315,42 +240,35 @@ public class Demo12View extends ViewGroup {
         mScroller.startScroll(0, startY, 0, delta, duration);
     }
 
-    private void toPreAction(float yVelocity) {
+    private void toPreAction() {
         int startY;
         int delta;
         int duration;
 
         mState = State.ToPre;
         addPre();
-        int flingSpeedCount = (yVelocity - standerSpeed) > 0 ? (int) (yVelocity - standerSpeed) : 0;
-        addCount = flingSpeedCount / flingSpeed + 1;
         startY = getScrollY() + mHeight;
         setScrollY(startY);
-        delta = -(startY - mStartScreen * mHeight) - (addCount - 1) * mHeight;
+        delta = -(startY - mStartScreen * mHeight);
         duration = (Math.abs(delta)) * 3;
         mScroller.startScroll(0, startY, 0, delta, duration);
-        addCount--;
     }
 
-    private void toNextAction(float yVelocity) {
+    private void toNextAction() {
         int startY;
         int delta;
         int duration;
 
         mState = State.ToNext;
         addNext();
-        int flingSpeedCount = (Math.abs(yVelocity) - standerSpeed) > 0 ?
-                (int) (Math.abs(yVelocity) - standerSpeed) : 0;
-        addCount = flingSpeedCount / flingSpeed + 1;
         startY = getScrollY() - mHeight;
         setScrollY(startY);
-        delta = mHeight * mStartScreen - startY + (addCount - 1) * mHeight;
+        delta = mHeight * mStartScreen - startY;
         duration = (Math.abs(delta)) * 3;
         mScroller.startScroll(0, startY, 0, delta, duration);
-        addCount--;
     }
 
-    private void changeByState(float yVelocity) {
+    private void changeByState() {
         alreadyAdd = 0;
         if (getScrollY() != mHeight) {
             switch (mState) {
@@ -358,10 +276,10 @@ public class Demo12View extends ViewGroup {
                     toNormalAction();
                     break;
                 case ToPre:
-                    toPreAction(yVelocity);
+                    toPreAction();
                     break;
                 case ToNext:
-                    toNextAction(yVelocity);
+                    toNextAction();
                     break;
             }
             postInvalidate();
@@ -385,27 +303,4 @@ public class Demo12View extends ViewGroup {
             scrollBy(0, -mHeight);
         }
     }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        startAni();
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        endAni();
-    }
-
-    private void startAni() {
-
-    }
-
-    private void endAni() {
-        if (ani != null) {
-            ani.end();
-        }
-    }
-
 }
