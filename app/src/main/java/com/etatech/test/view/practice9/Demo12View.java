@@ -18,13 +18,12 @@ import android.widget.Scroller;
  * Desc:
  */
 public class Demo12View extends ViewGroup {
-    private int mStartScreen = 1;
-    private float resistance = 1.8f;
-    private Scroller mScroller;
+    private int mCurPos = 1;
     private float mAngle = 90;
 
     private Camera mCamera;
     private Matrix mMatrix;
+    private Scroller mScroller;
 
     private int mWidth;
     private int mHeight;
@@ -32,22 +31,12 @@ public class Demo12View extends ViewGroup {
     private int mCurScreen = 1;
     private float mDownY;
 
-    private State mState = State.Normal;
-
-    public enum State {
-        Normal, ToPre, ToNext
-    }
-
     public Demo12View(Context context) {
         this(context, null);
     }
 
     public Demo12View(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public Demo12View(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context, attrs);
         init(context);
     }
 
@@ -63,7 +52,7 @@ public class Demo12View extends ViewGroup {
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
-        scrollTo(0, mStartScreen * mHeight);
+        scrollTo(0, mCurPos * mHeight);
     }
 
     @Override
@@ -81,13 +70,8 @@ public class Demo12View extends ViewGroup {
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        if (!isAdding) {
-            for (int i = 0; i < getChildCount(); i++) {
-                drawScreen(canvas, i, getDrawingTime());
-            }
-        } else {
-            isAdding = false;
-            super.dispatchDraw(canvas);
+        for (int i = 0; i < getChildCount(); i++) {
+            drawScreen(canvas, i, getDrawingTime());
         }
     }
 
@@ -133,22 +117,15 @@ public class Demo12View extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 int realDelta = (int) (mDownY - y);
                 mDownY = y;
-                if (mScroller.isFinished()) {
-                    recycleMove(realDelta);
-                }
+                scrollBy(0, realDelta);
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                if (((getScrollY() + mHeight / 2) / mHeight < mStartScreen)) {
-                    mState = State.ToPre;
-                } else if (((getScrollY() + mHeight / 2) / mHeight > mStartScreen)) {
-                    mState = State.ToNext;
-                } else {
-                    mState = State.Normal;
-                }
-                changeByState();
-
+                int targetPos = (getScrollY() + mHeight / 2) / mHeight;
+                int dy = targetPos * mHeight - getScrollY();
+                mScroller.startScroll(0, getScrollY(), 0, dy);
+                invalidate();
                 break;
         }
         return true;
@@ -158,98 +135,7 @@ public class Demo12View extends ViewGroup {
     public void computeScroll() {
         if (mScroller.computeScrollOffset()) {
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-            postInvalidate();
-        }
-    }
-
-    private void addPre() {
-        mCurScreen = ((mCurScreen - 1) + getChildCount()) % getChildCount();
-        int childCount = getChildCount();
-        View view = getChildAt(childCount - 1);
-        removeViewAt(childCount - 1);
-        addView(view, 0);
-    }
-
-    private void addNext() {
-        mCurScreen = (mCurScreen + 1) % getChildCount();
-        int childCount = getChildCount();
-        View view = getChildAt(0);
-        removeViewAt(0);
-        addView(view, childCount - 1);
-    }
-
-    private void changeByState() {
-        if (getScrollY() != mHeight) {
-            switch (mState) {
-                case Normal:
-                    toNormalAction();
-                    break;
-                case ToPre:
-                    toPreAction();
-                    break;
-                case ToNext:
-                    toNextAction();
-                    break;
-            }
-            postInvalidate();
-        }
-    }
-
-    private void toNormalAction() {
-        int startY;
-        int delta;
-        int duration;
-
-        mState = State.Normal;
-        startY = getScrollY();
-        delta = mHeight * mStartScreen - getScrollY();
-        duration = (Math.abs(delta)) * 4;
-        mScroller.startScroll(0, startY, 0, delta, duration);
-    }
-
-    private void toPreAction() {
-        int startY;
-        int delta;
-        int duration;
-
-        mState = State.ToPre;
-        addPre();
-        startY = getScrollY() + mHeight;
-        setScrollY(startY);
-        delta = -(startY - mStartScreen * mHeight);
-        duration = (Math.abs(delta)) * 3;
-        mScroller.startScroll(0, startY, 0, delta, duration);
-    }
-
-    private void toNextAction() {
-        int startY;
-        int delta;
-        int duration;
-
-        mState = State.ToNext;
-        addNext();
-        startY = getScrollY() - mHeight;
-        setScrollY(startY);
-        delta = mHeight * mStartScreen - startY;
-        duration = (Math.abs(delta)) * 3;
-        mScroller.startScroll(0, startY, 0, delta, duration);
-    }
-
-    private void recycleMove(int delta) {
-        delta = delta % mHeight;
-        delta = (int) (delta / resistance);
-        if (Math.abs(delta) > mHeight / 4) {
-            return;
-        }
-        scrollBy(0, delta);
-
-        int scrollY = getScrollY();
-        if (scrollY < 5 && mStartScreen != 0) {
-            addPre();
-            scrollBy(0, mHeight);
-        } else if (scrollY > (getChildCount() - 1) * mHeight - 5) {
-            addNext();
-            scrollBy(0, -mHeight);
+            invalidate();
         }
     }
 }
