@@ -38,11 +38,12 @@ public class Demo12View extends ViewGroup {
     private Context mContext;
     private int mTouchSlop;
     private VelocityTracker mVelocityTracker;
+    private int mMinimumVelocity;                           // 惯性最小速度
+    private int mMaximumVelocity;                           // 惯性最大速度
     private Camera mCamera;
     private Matrix mMatrix;
 
     private Paint paint;
-    private Point centerPos;
     private ObjectAnimator ani;
 
     private int mWidth;
@@ -63,44 +64,46 @@ public class Demo12View extends ViewGroup {
     }
 
     public Demo12View(Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
     public Demo12View(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs, 0);
+    }
+
+    public Demo12View(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.mContext = context;
+        init(mContext);
     }
 
     private void init(Context context) {
         paint = new Paint();
-        centerPos = new Point();
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mCamera = new Camera();
         mMatrix = new Matrix();
         mScroller = new Scroller(context);
+
+        mVelocityTracker = VelocityTracker.obtain();
+        mMaximumVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
+        mMinimumVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        centerPos.set(getMeasuredWidth() / 2, getMeasuredHeight() / 2);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
-
-        for (int i = 0; i < getChildCount(); i++) {
-            if (getChildAt(i).getVisibility() != GONE) {
-                measureChild(getChildAt(i), widthMeasureSpec, heightMeasureSpec);
-            }
-        }
         scrollTo(0, mStartScreen * mHeight);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int childTop = 0;
-        for (int i = 0; i < getChildCount(); i++) {
+        int count = getChildCount();
+        for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 child.layout(0, childTop, child.getMeasuredWidth(), childTop + child.getMeasuredHeight());
@@ -112,19 +115,12 @@ public class Demo12View extends ViewGroup {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        centerPos.set(w / 2, h / 2);
         mWidth = w;
         mHeight = h;
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-    }
-
-    @Override
     protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
         if (!isAdding) {
             for (int i = 0; i < getChildCount(); i++) {
                 drawScreen(canvas, i, getDrawingTime());
@@ -139,22 +135,32 @@ public class Demo12View extends ViewGroup {
         int curScreenY = mHeight * i;
         int scrollY = getScrollY();
 
+        if (scrollY + mHeight < curScreenY) {
+            return;
+        }
+        if (curScreenY < getScrollY() - mHeight) {
+            return;
+        }
+
         float centerX = mWidth / 2;
         float centerY = (scrollY > curScreenY) ? curScreenY + mHeight : curScreenY;
         float degree = mAngle * (scrollY - curScreenY) / mHeight;
+        if (degree > 90 || degree < -90) {
+            return;
+        }
 
         canvas.save();
-        mCamera.save();
 
+        mCamera.save();
         mCamera.rotateX(degree);
         mCamera.getMatrix(mMatrix);
+        mCamera.restore();
+
         mMatrix.preTranslate(-centerX, -centerY);
         mMatrix.postTranslate(centerX, centerY);
         canvas.concat(mMatrix);
 
-        drawChild(canvas, getChildAt(i), getDrawingTime());
-
-        mCamera.restore();
+        drawChild(canvas, getChildAt(i), drawingTime);
         canvas.restore();
     }
 
@@ -228,7 +234,7 @@ public class Demo12View extends ViewGroup {
             case MotionEvent.ACTION_CANCEL:
                 if (isSliding) {
                     isSliding = false;
-                    mVelocityTracker.computeCurrentVelocity(1000);
+                    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
                     float yVelocity = mVelocityTracker.getYVelocity();
                     if (yVelocity > standerSpeed || ((getScrollY() + mHeight / 2) / mHeight < mStartScreen)) {
                         mState = State.ToPre;
@@ -271,6 +277,7 @@ public class Demo12View extends ViewGroup {
             } else {
                 scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             }
+            postInvalidate();
         }
 
         if (mScroller.isFinished()) {
@@ -304,7 +311,7 @@ public class Demo12View extends ViewGroup {
         addCount = 0;
         startY = getScrollY();
         delta = mHeight * mStartScreen - getScrollY();
-        duration = (Math.abs(delta)) * 3;
+        duration = (Math.abs(delta)) * 4;
         mScroller.startScroll(0, startY, 0, delta, duration);
     }
 
@@ -357,6 +364,7 @@ public class Demo12View extends ViewGroup {
                     toNextAction(yVelocity);
                     break;
             }
+            postInvalidate();
         }
     }
 

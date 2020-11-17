@@ -10,15 +10,11 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
         tools:context=".view.TestBezierActivity">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,8 +22,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
                 android:orientation="vertical">
 
                 <com.etatech.test.view.practice9.Bezier2View
@@ -154,8 +148,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/code_white_yellow"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
                         android:padding="3pt">
 
                         <ImageView
@@ -198,8 +190,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/code_white_yellow"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
                         android:padding="3pt">
 
                         <ImageView
@@ -207,8 +197,6 @@
                             android:layout_width="100pt"
                             android:layout_height="100pt"
                             android:layout_marginLeft="50pt"
-                            android:clipChildren="false"
-                            android:clipToPadding="false"
                             android:src="@drawable/demo12_icon_password"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -232,8 +220,6 @@
                             android:layout_width="100pt"
                             android:layout_height="100pt"
                             android:layout_marginRight="50pt"
-                            android:clipChildren="false"
-                            android:clipToPadding="false"
                             android:src="@drawable/demo12_icon_next"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
@@ -246,8 +232,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/code_white_yellow"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
                         android:padding="3pt">
 
                         <ImageView
@@ -255,8 +239,6 @@
                             android:layout_width="100pt"
                             android:layout_height="100pt"
                             android:layout_marginLeft="50pt"
-                            android:clipChildren="false"
-                            android:clipToPadding="false"
                             android:src="@drawable/demo12_icon_email"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -280,8 +262,48 @@
                             android:layout_width="100pt"
                             android:layout_height="100pt"
                             android:layout_marginRight="50pt"
-                            android:clipChildren="false"
-                            android:clipToPadding="false"
+                            android:src="@drawable/demo12_icon_next"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/layout_welcome"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/code_white_yellow"
+                        android:padding="3pt">
+
+                        <ImageView
+                            android:id="@+id/iv_welcome"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginLeft="50pt"
+                            android:src="@drawable/demo12_icon_email"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/et_user"
+                                android:layout_width="0pt"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30pt"
+                                android:layout_marginRight="30pt"
+                                android:text="Welcome!"
+                                android:textSize="50pt"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@id/iv_welcome"
+                                app:layout_constraintRight_toLeftOf="@id/iv_next4"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_next4"
+                            android:layout_width="100pt"
+                            android:layout_height="100pt"
+                            android:layout_marginRight="50pt"
                             android:src="@drawable/demo12_icon_next"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
