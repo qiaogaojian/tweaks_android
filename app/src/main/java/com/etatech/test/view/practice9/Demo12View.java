@@ -138,16 +138,17 @@ public class Demo12View extends ViewGroup {
         float degree = mAngle * (scrollY - curScreenY) / mHeight;
 
         canvas.save();
-
         mCamera.save();
+
         mCamera.rotateX(degree);
         mCamera.getMatrix(mMatrix);
-        mCamera.restore();
-
         mMatrix.preTranslate(-centerX, -centerY);
         mMatrix.postTranslate(centerX, centerY);
         canvas.concat(mMatrix);
+
         drawChild(canvas, getChildAt(i), getDrawingTime());
+
+        mCamera.restore();
         canvas.restore();
     }
 
