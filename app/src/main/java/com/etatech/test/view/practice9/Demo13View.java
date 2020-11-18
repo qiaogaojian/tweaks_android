@@ -14,12 +14,14 @@ import android.widget.Scroller;
 
 /**
  * Created by Michael
- * Date:  2020/11/17
+ * Date:  2020/11/14
  * Desc:
  */
-public class Demo12View extends ViewGroup {
-    private int mCurPos = 1;
-    private float mAngle = 180;
+public class Demo13View extends ViewGroup {
+    private int mCurPosX = 1;
+    private int mCurPosY = 1;
+    private float mAngle = 90;
+    private int mOrient = 1;  // 1 横向 2 竖向
 
     private Camera mCamera;
     private Matrix mMatrix;
@@ -27,13 +29,14 @@ public class Demo12View extends ViewGroup {
 
     private int mWidth;
     private int mHeight;
+    private float mLastX;
     private float mLastY;
 
-    public Demo12View(Context context) {
+    public Demo13View(Context context) {
         this(context, null);
     }
 
-    public Demo12View(Context context, @Nullable AttributeSet attrs) {
+    public Demo13View(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -50,19 +53,30 @@ public class Demo12View extends ViewGroup {
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
-        scrollTo(0, mCurPos * mHeight);
+        if (mOrient == 1) {
+            scrollTo(mCurPosY * mWidth, 0);
+        } else {
+            scrollTo(0, mCurPosX * mHeight);
+        }
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int childTop = 0;
+        int childLeft = 0;
         int count = getChildCount();
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                // 从上到下依次排列子布局
-                child.layout(0, childTop, child.getMeasuredWidth(), childTop + child.getMeasuredHeight());
-                childTop = childTop + child.getMeasuredHeight();
+                if (mOrient == 1) {
+                    // 从上到下依次排列子布局
+                    child.layout(childLeft, 0, childLeft + child.getMeasuredWidth(), child.getMeasuredHeight());
+                    childLeft = childLeft + child.getMeasuredWidth();
+                } else {
+                    // 从上到下依次排列子布局
+                    child.layout(0, childTop, child.getMeasuredWidth(), childTop + child.getMeasuredHeight());
+                    childTop = childTop + child.getMeasuredHeight();
+                }
             }
         }
     }
@@ -70,11 +84,15 @@ public class Demo12View extends ViewGroup {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         for (int i = 0; i < getChildCount(); i++) {
-            drawScreen(canvas, i, getDrawingTime());
+            if (mOrient == 1) {
+                drawChildX(canvas, i, getDrawingTime());
+            } else {
+                drawChildY(canvas, i, getDrawingTime());
+            }
         }
     }
 
-    private void drawScreen(Canvas canvas, int i, long drawingTime) {
+    private void drawChildY(Canvas canvas, int i, long drawingTime) {
         int childY = mHeight * i;           // 当前子View的Y轴位置 以屏幕左上角为基准
         int scrollY = getScrollY();         // 总体滚动的位置 自顶向下增加 以屏幕左上角为基准
 
@@ -113,28 +131,86 @@ public class Demo12View extends ViewGroup {
         canvas.restore();
     }
 
+    private void drawChildX(Canvas canvas, int i, long drawingTime) {
+        int childX = mWidth * i;
+        int scrollX = getScrollX();
+
+        if (childX > scrollX + mWidth) {
+            return;
+        }
+        if (childX < scrollX - mWidth) {
+            return;
+        }
+
+        float centerX;
+        float centerY = mHeight / 2;
+
+        if (childX < scrollX) {
+            centerX = childX + mWidth;
+        } else {
+            centerX = childX;
+        }
+
+        float degree = mAngle * (scrollX - childX) / mWidth;
+        if (degree > 90 || degree < -90) {
+            return;
+        }
+
+        canvas.save();
+        mCamera.save();
+
+        mCamera.rotateY(-degree);
+        mCamera.getMatrix(mMatrix);
+        mMatrix.postTranslate(centerX, centerY);
+        mMatrix.preTranslate(-centerX, -centerY);
+        canvas.concat(mMatrix);
+
+        drawChild(canvas, getChildAt(i), drawingTime);
+        mCamera.restore();
+        canvas.restore();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        float currentX = event.getX();
         float currentY = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (!mScroller.isFinished()) {
                     mScroller.abortAnimation();
                 }
+
+                mLastX = currentX;
                 mLastY = currentY;
                 return true;
             case MotionEvent.ACTION_MOVE:
-                int realDelta = (int) (mLastY - currentY);
+                int offsetX = (int) (mLastX - currentX);
+                int offsetY = (int) (mLastY - currentY);
+                mLastX = currentX;
                 mLastY = currentY;
-                scrollBy(0, realDelta);                         // 跟随手指滚动
+                if (mOrient == 1) {
+                    scrollBy(offsetX, 0);                         // 跟随手指滚动
+                } else {
+                    scrollBy(0, offsetY);                         // 跟随手指滚动
+                }
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                int scrollY = getScrollY();
-                int targetPos = (scrollY + mHeight / 2) / mHeight;
-                int dy = targetPos * mHeight - scrollY;
-                mScroller.startScroll(0, scrollY, 0, dy);  // 自动滚动到合法位置
+                if (mOrient == 1) {
+                    int scrollX = getScrollX();
+                    if (scrollX >= (getChildCount() - 1) * mWidth) {
+                        scrollX = (getChildCount() - 1) * mWidth;
+                    }
+                    mCurPosX = (scrollX + mWidth / 2) / mWidth;
+                    int dX = mCurPosX * mWidth - scrollX;
+                    mScroller.startScroll(scrollX, 0, dX, 0);  // 自动滚动到合法位置
+                } else {
+                    int scrollY = getScrollY();
+                    mCurPosY = (scrollY + mHeight / 2) / mHeight;
+                    int dY = mCurPosY * mHeight - scrollY;
+                    mScroller.startScroll(0, scrollY, 0, dY);  // 自动滚动到合法位置
+                }
                 invalidate();
                 break;
         }
