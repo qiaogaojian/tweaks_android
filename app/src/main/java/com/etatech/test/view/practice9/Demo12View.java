@@ -19,7 +19,7 @@ import android.widget.Scroller;
  */
 public class Demo12View extends ViewGroup {
     private int mCurPos = 1;
-    private float mAngle = 90;
+    private float mAngle = 180;
 
     private Camera mCamera;
     private Matrix mMatrix;
@@ -27,9 +27,7 @@ public class Demo12View extends ViewGroup {
 
     private int mWidth;
     private int mHeight;
-    private boolean isAdding = false;
-    private int mCurScreen = 1;
-    private float mDownY;
+    private float mLastY;
 
     public Demo12View(Context context) {
         this(context, null);
@@ -62,6 +60,7 @@ public class Demo12View extends ViewGroup {
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
+                // 从上到下依次排列子布局
                 child.layout(0, childTop, child.getMeasuredWidth(), childTop + child.getMeasuredHeight());
                 childTop = childTop + child.getMeasuredHeight();
             }
@@ -76,55 +75,66 @@ public class Demo12View extends ViewGroup {
     }
 
     private void drawScreen(Canvas canvas, int i, long drawingTime) {
-        int curScreenY = mHeight * i;
-        int scrollY = getScrollY();
+        int childY = mHeight * i;           // 当前子View的Y轴位置 以屏幕左上角为基准
+        int scrollY = getScrollY();         // 总体滚动的位置 自顶向下增加 以屏幕左上角为基准
 
-        if (scrollY + mHeight < curScreenY) {
+        if (childY > scrollY + mHeight) {   // 当前滚动到的子View下方第一个下的所有子View不绘制
             return;
         }
-        if (curScreenY < getScrollY() - mHeight) {
+        if (childY < scrollY - mHeight) {   // 当前滚动到的子View上方第一个上的所有子View不绘制
             return;
         }
 
         float centerX = mWidth / 2;
-        float centerY = (scrollY > curScreenY) ? curScreenY + mHeight : curScreenY;
-        float degree = mAngle * (scrollY - curScreenY) / mHeight;
+        float centerY;
+        if (childY < scrollY) {             // 当前视图上边界所在子View 以子View底为轴旋转
+            centerY = childY + mHeight;
+        } else {                            // 当前视图下边界所在子View 和子View顶为轴旋转 和上面是同一个轴
+            centerY = childY;
+        }
+
+        // 获取视图上边界在单个子View中比例再乘以总旋转角度 获得旋转角度
+        float degree = mAngle * (scrollY - childY) / mHeight;  // 确保先乘后除 避免丢失精度
         if (degree > 90 || degree < -90) {
             return;
         }
 
         canvas.save();
-
         mCamera.save();
-        mCamera.rotateX(degree);
-        mCamera.getMatrix(mMatrix);
-        mCamera.restore();
 
-        mMatrix.preTranslate(-centerX, -centerY);
-        mMatrix.postTranslate(centerX, centerY);
+        mCamera.rotateX(degree);                    // 沿X轴旋转
+        mCamera.getMatrix(mMatrix);
+        mMatrix.postTranslate(centerX, centerY);    // 移动Camera到视图中心 前乘T * M
+        mMatrix.preTranslate(-centerX, -centerY);   // 移动Camera到初始位置 后乘(T * M) * T'
         canvas.concat(mMatrix);
 
         drawChild(canvas, getChildAt(i), drawingTime);
+        mCamera.restore();
         canvas.restore();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float y = event.getY();
+        float currentY = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
+                mLastY = currentY;
                 return true;
             case MotionEvent.ACTION_MOVE:
-                int realDelta = (int) (mDownY - y);
-                mDownY = y;
-                scrollBy(0, realDelta);
+                int realDelta = (int) (mLastY - currentY);
+                mLastY = currentY;
+                scrollBy(0, realDelta);                         // 跟随手指滚动
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                int targetPos = (getScrollY() + mHeight / 2) / mHeight;
-                int dy = targetPos * mHeight - getScrollY();
-                mScroller.startScroll(0, getScrollY(), 0, dy);
+                int scrollY = getScrollY();
+                int targetPos = (scrollY + mHeight / 2) / mHeight;
+                int dy = targetPos * mHeight - scrollY;
+                mScroller.startScroll(0, scrollY, 0, dy);  // 自动滚动到合法位置
                 invalidate();
                 break;
         }
