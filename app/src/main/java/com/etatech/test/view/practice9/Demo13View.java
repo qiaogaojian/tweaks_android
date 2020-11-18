@@ -3,7 +3,11 @@ package com.etatech.test.view.practice9;
 import android.content.Context;
 import android.graphics.Camera;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Region;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -31,6 +35,9 @@ public class Demo13View extends ViewGroup {
     private int mHeight;
     private float mLastX;
     private float mLastY;
+    private Region clickRegion;
+    private Path path = new Path();
+    private Paint paint = new Paint();
 
     public Demo13View(Context context) {
         this(context, null);
@@ -45,6 +52,7 @@ public class Demo13View extends ViewGroup {
         mCamera = new Camera();
         mMatrix = new Matrix();
         mScroller = new Scroller(context);
+        clickRegion = new Region();
     }
 
     @Override
@@ -79,6 +87,17 @@ public class Demo13View extends ViewGroup {
                 }
             }
         }
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        path.moveTo(0, 0);
+        path.lineTo(60, 0);
+        path.lineTo(60, 60);
+        path.lineTo(0, 60);
+        path.close();
+        clickRegion.setPath(path, new Region(0, 0, w, h));
     }
 
     @Override
@@ -182,6 +201,16 @@ public class Demo13View extends ViewGroup {
 
                 mLastX = currentX;
                 mLastY = currentY;
+
+                if (clickRegion.contains((int) currentX, (int) currentY)) {
+                    // if (mOrient == 1) {
+                    //     mOrient = 2;
+                    // } else {
+                    //     mOrient = 1;
+                    // }
+                    // requestLayout();
+                    toNext();
+                }
                 return true;
             case MotionEvent.ACTION_MOVE:
                 int offsetX = (int) (mLastX - currentX);
@@ -199,9 +228,6 @@ public class Demo13View extends ViewGroup {
             case MotionEvent.ACTION_CANCEL:
                 if (mOrient == 1) {
                     int scrollX = getScrollX();
-                    if (scrollX >= (getChildCount() - 1) * mWidth) {
-                        scrollX = (getChildCount() - 1) * mWidth;
-                    }
                     mCurPosX = (scrollX + mWidth / 2) / mWidth;
                     int dX = mCurPosX * mWidth - scrollX;
                     mScroller.startScroll(scrollX, 0, dX, 0);  // 自动滚动到合法位置
@@ -215,6 +241,38 @@ public class Demo13View extends ViewGroup {
                 break;
         }
         return true;
+    }
+
+    private void toPre() {
+        if (mOrient == 1) {
+            int scrollX = getScrollX();
+            mCurPosX--;
+            int dX = mCurPosX * mWidth - scrollX;
+            mScroller.startScroll(scrollX, 0, dX, 0);
+        } else {
+            int scrollY = getScrollY();
+            mCurPosY--;
+            int dY = mCurPosY * mHeight - scrollY;
+            mScroller.startScroll(0, scrollY, 0, dY);
+        }
+
+        invalidate();
+    }
+
+    private void toNext() {
+        if (mOrient == 1) {
+            int scrollX = getScrollX();
+            mCurPosX++;
+            int dX = mCurPosX * mWidth - scrollX;
+            mScroller.startScroll(scrollX, 0, dX, 0, 1000);
+        } else {
+            int scrollY = getScrollY();
+            mCurPosY++;
+            int dY = mCurPosY * mHeight - scrollY;
+            mScroller.startScroll(0, scrollY, 0, dY, 1000);
+        }
+
+        invalidate();
     }
 
     @Override
