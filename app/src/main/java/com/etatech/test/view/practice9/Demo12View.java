@@ -19,7 +19,7 @@ import android.widget.Scroller;
  */
 public class Demo12View extends ViewGroup {
     private int mCurPos = 1;
-    private float mAngle = 180;
+    private float mAngle = 10;
 
     private Camera mCamera;
     private Matrix mMatrix;
@@ -28,6 +28,7 @@ public class Demo12View extends ViewGroup {
     private int mWidth;
     private int mHeight;
     private float mLastY;
+    private int curPosY;
 
     public Demo12View(Context context) {
         this(context, null);
@@ -127,6 +128,7 @@ public class Demo12View extends ViewGroup {
                 int realDelta = (int) (mLastY - currentY);
                 mLastY = currentY;
                 scrollBy(0, realDelta);                         // 跟随手指滚动
+                recycleMove();
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
@@ -139,6 +141,36 @@ public class Demo12View extends ViewGroup {
                 break;
         }
         return true;
+    }
+
+    private void recycleMove() {
+        if (getScrollY() < 5 && mCurPos != 0) {
+            addPre();
+        } else if (getScrollY() > (getChildCount() - 1) * mHeight - 5) {
+            addNext();
+        }
+    }
+
+    /**
+     * 把第一个item移动到最后一个item位置
+     */
+    private void addNext() {
+        curPosY = (curPosY + 1) % getChildCount();
+        int childCount = getChildCount();
+        View view = getChildAt(0);
+        removeViewAt(0);
+        addView(view, childCount - 1);
+    }
+
+    /**
+     * 把最后一个item移动到第一个item位置
+     */
+    private void addPre() {
+        curPosY = ((curPosY - 1) + getChildCount()) % getChildCount();
+        int childCount = getChildCount();
+        View view = getChildAt(childCount - 1);
+        removeViewAt(childCount - 1);
+        addView(view, 0);
     }
 
     @Override

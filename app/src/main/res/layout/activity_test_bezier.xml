@@ -133,7 +133,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/demo10" />
 
-                <com.etatech.test.view.practice9.Demo13View
+                <com.etatech.test.view.practice9.Demo12View
                     android:id="@+id/demo12"
                     android:layout_width="800pt"
                     android:layout_height="300pt"
@@ -310,7 +310,7 @@
 
                     </android.support.constraint.ConstraintLayout>
 
-                </com.etatech.test.view.practice9.Demo13View>
+                </com.etatech.test.view.practice9.Demo12View>
 
                 <View
                     android:id="@+id/bottom"
