@@ -120,6 +120,23 @@ android {
             assets.srcDirs = ['src/normal/assets']
         }
     }
+
+    // gradle 自动生成每个版本的mapping文件
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (variant.getBuildType().isMinifyEnabled()) {
+                variant.assemble.doLast{
+                    copy {
+                        from variant.mappingFile
+                        into "${projectDir}/mappings"
+                        rename { String fileName ->
+                            "mapping-${variant.name}-${project.android.defaultConfig.versionName}.txt"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 dependencies {
