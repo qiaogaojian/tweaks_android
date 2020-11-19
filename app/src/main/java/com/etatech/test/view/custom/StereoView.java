@@ -339,10 +339,11 @@ public class StereoView extends ViewGroup {
             return;
         }
         scrollBy(0, delta);
-        if (getScrollY() < 5 && mStartScreen != 0) {
+        int scrollY = getScrollY();
+        if (scrollY < 5 && mStartScreen != 0) {
             addPre();
             scrollBy(0, mHeight);
-        } else if (getScrollY() > (getChildCount() - 1) * mHeight - 5) {
+        } else if (scrollY > (getChildCount() - 1) * mHeight - 5) {
             addNext();
             scrollBy(0, -mHeight);
         }

@@ -18,8 +18,8 @@ import android.widget.Scroller;
  * Desc:
  */
 public class Demo12View extends ViewGroup {
-    private int mCurPos = 1;
-    private float mAngle = 10;
+    private int mStartPos = 1;
+    private float mAngle = 90;
 
     private Camera mCamera;
     private Matrix mMatrix;
@@ -28,7 +28,7 @@ public class Demo12View extends ViewGroup {
     private int mWidth;
     private int mHeight;
     private float mLastY;
-    private int curPosY;
+    private int curPosY = -1;
 
     public Demo12View(Context context) {
         this(context, null);
@@ -51,7 +51,12 @@ public class Demo12View extends ViewGroup {
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         mWidth = getMeasuredWidth();
         mHeight = getMeasuredHeight();
-        scrollTo(0, mCurPos * mHeight);
+        if (curPosY == -1) {
+            scrollTo(0, mStartPos * mHeight);
+            curPosY = mStartPos;
+        } else {
+            scrollTo(0, curPosY * mHeight);
+        }
     }
 
     @Override
@@ -65,6 +70,9 @@ public class Demo12View extends ViewGroup {
                 child.layout(0, childTop, child.getMeasuredWidth(), childTop + child.getMeasuredHeight());
                 childTop = childTop + child.getMeasuredHeight();
             }
+        }
+        for (int i = 0; i < getChildCount(); i++) {
+            System.out.println(String.format(" scrollY:%d curPos:%d viewID:%s onLayout", getScrollY(), curPosY, getChildAt(i).getId()));
         }
     }
 
@@ -103,7 +111,7 @@ public class Demo12View extends ViewGroup {
         canvas.save();
         mCamera.save();
 
-        mCamera.rotateX(degree);                    // 沿X轴旋转
+        // mCamera.rotateX(degree);                    // 沿X轴旋转
         mCamera.getMatrix(mMatrix);
         mMatrix.postTranslate(centerX, centerY);    // 移动Camera到视图中心 前乘T * M
         mMatrix.preTranslate(-centerX, -centerY);   // 移动Camera到初始位置 后乘(T * M) * T'
@@ -127,8 +135,7 @@ public class Demo12View extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 int realDelta = (int) (mLastY - currentY);
                 mLastY = currentY;
-                scrollBy(0, realDelta);                         // 跟随手指滚动
-                recycleMove();
+                recycleMove(realDelta);
                 getParent().requestDisallowInterceptTouchEvent(true);
                 break;
             case MotionEvent.ACTION_UP:
@@ -143,12 +150,29 @@ public class Demo12View extends ViewGroup {
         return true;
     }
 
-    private void recycleMove() {
-        if (getScrollY() < 5 && mCurPos != 0) {
-            addPre();
-        } else if (getScrollY() > (getChildCount() - 1) * mHeight - 5) {
-            addNext();
+    private void recycleMove(int delta) {
+        delta = delta % mHeight;
+        if (Math.abs(delta) > mHeight / 4) {
+            return;
         }
+        scrollBy(0, delta);
+        int scrollY = getScrollY();
+        if (scrollY < 5 && mStartPos != 0) {
+            System.out.println(String.format("addPre() scrollY: %d \n", scrollY));
+            addPre();
+            // scrollBy(0, -mHeight);
+            for (int i = 0; i < getChildCount(); i++) {
+                System.out.println(String.format(" scrollY:%d curPos:%d viewID:%s", getScrollY(), curPosY, getChildAt(i).getId()));
+            }
+        } else if (scrollY > (getChildCount() - 1) * mHeight - 5) {
+            System.out.println(String.format("addNext() scrollY: %d \n", scrollY));
+            addNext();
+            // scrollBy(0, mHeight);
+            for (int i = 0; i < getChildCount(); i++) {
+                System.out.println(String.format(" scrollY:%d curPos:%d viewID:%s", getScrollY(), curPosY, getChildAt(i).getId()));
+            }
+        }
+
     }
 
     /**
