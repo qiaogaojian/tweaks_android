@@ -377,9 +377,9 @@ public class Tools {
         return (int) (pt * metrics.xdpi / 72f + 0.5);
     }
 
-    public static Point calCirPos(Point center, float radius, float angle) {
-        int posX1 = center.x + (int) (radius * Math.cos(Math.toRadians(angle)));
-        int posY1 = center.y + (int) (radius * Math.sin(Math.toRadians(angle)));
+    public static Point calCirPos(Point center, float radius, float degree) {
+        int posX1 = center.x + (int) (radius * Math.cos(Math.toRadians(degree)));
+        int posY1 = center.y + (int) (radius * Math.sin(Math.toRadians(degree)));
         return new Point(posX1, posY1);
     }
 }
