@@ -49,9 +49,9 @@ public class Demo14View extends View {
     }
 
     private void init() {
-        paint = new Paint();
-        paint1 = new Paint();
-        paint2 = new Paint();
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.parseColor("#4D5266"));
         paint1.setColor(Color.parseColor("#80807B"));
         paint2.setColor(Color.parseColor("#DE9D81"));
