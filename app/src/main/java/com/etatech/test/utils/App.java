@@ -31,6 +31,7 @@ public class App extends Application {
     private static App      instance;
     private        Typeface typeface;
     public         boolean  isWide;
+    public         boolean  isPortrait = true;
     public         int      screenHeight;
     public         int      screenWidth;
     public  static String   filesPath;

@@ -38,10 +38,10 @@ public abstract class BaseActivity<DataBindingType extends ViewDataBinding> exte
     // 完美像素适配 pt
     @Override
     public Resources getResources() {
-        if (App.getInstance().isWide) {
-            return AdaptScreenUtils.adaptHeight(super.getResources(), 1920);
-        } else {
+        if (App.getInstance().isPortrait) {
             return AdaptScreenUtils.adaptWidth(super.getResources(), 1080);
+        } else {
+            return AdaptScreenUtils.adaptHeight(super.getResources(), 1920);
         }
     }
 
