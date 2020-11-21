@@ -12,6 +12,7 @@ import android.graphics.Region;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import com.etatech.test.utils.Tools;
@@ -32,6 +33,8 @@ public class Demo15View extends View {
     private Region circleRegion;
     private Path circlePath;
 
+    private ScaleGestureDetector mScaleDetector;
+    private boolean mIsScaling;
 
     public Demo15View(Context context) {
         super(context);
@@ -47,6 +50,33 @@ public class Demo15View extends View {
         paint = new Paint();
         paint.setColor(Color.parseColor("#F7F7F0"));
         centerPos = new PointF();
+        initScaleGestureDetector();
+    }
+
+    private void initScaleGestureDetector() {
+        mScaleDetector = new ScaleGestureDetector(getContext(), new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            @Override
+            public boolean onScale(ScaleGestureDetector detector) {
+                radius = (int) (radius * detector.getScaleFactor());
+                circlePos.set(detector.getFocusX(), detector.getFocusY());
+                refreshCirclePath();
+                invalidate();
+                return true;
+            }
+
+            @Override
+            public boolean onScaleBegin(ScaleGestureDetector detector) {
+                canDrag = false;
+                mIsScaling = true;
+                return super.onScaleBegin(detector);
+            }
+
+            @Override
+            public void onScaleEnd(ScaleGestureDetector detector) {
+                super.onScaleEnd(detector);
+                mIsScaling = false;
+            }
+        });
     }
 
     @Override
@@ -61,9 +91,7 @@ public class Demo15View extends View {
         centerPos.set(w / 2, h / 2);
         circlePos = centerPos;
         circlePath = new Path();
-        circlePath.addCircle(circlePos.x, circlePos.y, radius, Path.Direction.CW);
-        circleRegion = new Region();
-        circleRegion.setPath(circlePath, new Region((int) circlePos.x - radius, (int) circlePos.y - radius, (int) circlePos.x + radius, (int) circlePos.y + radius));
+        refreshCirclePath();
     }
 
     @Override
@@ -79,6 +107,9 @@ public class Demo15View extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (circleRegion.contains((int) event.getX(), (int) event.getY()) || mIsScaling) {
+            mScaleDetector.onTouchEvent(event);
+        }
 
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
@@ -96,10 +127,7 @@ public class Demo15View extends View {
                     curPos.set(event.getX(index), event.getY(index));
                     PointF offset = new PointF(curPos.x - lastPos.x, curPos.y - lastPos.y);
                     circlePos.set(lastCirclePos.x + offset.x, lastCirclePos.y + offset.y);
-                    circlePath.reset();
-                    circlePath.addCircle(circlePos.x, circlePos.y, radius, Path.Direction.CW);
-                    circleRegion = new Region();
-                    circleRegion.setPath(circlePath, new Region((int) circlePos.x - radius, (int) circlePos.y - radius, (int) circlePos.x + radius, (int) circlePos.y + radius));
+                    refreshCirclePath();
                     invalidate();
                 }
                 getParent().requestDisallowInterceptTouchEvent(true);
@@ -112,6 +140,14 @@ public class Demo15View extends View {
                 break;
         }
         return true;
+    }
+
+    private void refreshCirclePath() {
+        circlePath.reset();
+        circlePath.addCircle(circlePos.x, circlePos.y, radius, Path.Direction.CW);
+        circleRegion = new Region();
+        circleRegion.setPath(circlePath, new Region((int) circlePos.x - radius, (int) circlePos.y - radius, (int) circlePos.x + radius, (int) circlePos.y + radius));
+
     }
 
     @Override
