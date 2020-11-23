@@ -50,6 +50,14 @@ public class TestLifecycleActivity extends BaseActivity<ActivityTestLifecycleBin
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        Tools.addLog(this,"onRestart", R.color.code_green_blue);
+        adapter.setLogArrList(logArr);
+        NetWorkMonitorManager.getInstance().register(this);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         Tools.addLog(this,"onStart", R.color.code_green_blue);
