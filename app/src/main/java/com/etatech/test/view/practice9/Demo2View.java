@@ -155,6 +155,7 @@ public class Demo2View extends View {
                     mOverScroller.abortAnimation();
                 }
                 if (mVelocityTracker != null) {
+                    mVelocityTracker.clear();
                     mVelocityTracker.recycle();
                     mVelocityTracker = null;
                 }
@@ -169,6 +170,7 @@ public class Demo2View extends View {
                 }
 
                 if (mVelocityTracker != null) {
+                    mVelocityTracker.clear();
                     mVelocityTracker.recycle();
                     mVelocityTracker = null;
                 }
