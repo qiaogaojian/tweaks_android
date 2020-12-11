@@ -234,11 +234,11 @@ public class AntiEmulator {
                 || checkPipes()
                 || checkQEmuDriverFile()
                 || CheckEmulatorFiles()
-                || CheckEmulatorBuild()
+                // || CheckEmulatorBuild()
                 || CheckOperatorNameAndroid(context)
                 || hasGenyFiles()
                 || EmulatorDetector(context)
-                || EasyProtector(context)
+                // || EasyProtector(context)
                 || Antifake(context)
         ) {
             return true;
