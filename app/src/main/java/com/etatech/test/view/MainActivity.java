@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
+import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
 import com.jakewharton.rxbinding.view.RxView;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -291,6 +293,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+        ClickUtil.setOnClick(binding.btnTestAndroidId, new Action1() {
+            @Override
+            public void call(Object o) {
+                String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+                binding.btnTestAndroidId.setText(android_id);
             }
         });
     }
