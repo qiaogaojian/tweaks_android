@@ -277,87 +277,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
             public void call(Object o) {
                 intent.setClass(MainActivity.this, TestPrintStackActivity.class);
                 startActivity(intent);
-
-//                try {
-//                    String name_utf8 = "小鲤鱼\uD83E\uDD80历\uD83E\uDD80险\uD83E\uDD80记\uD83E\uDD80";
-//                    String name_gbk = new String(name_utf8.getBytes("GBK"), "GBK");
-//                    String name_2312 = new String(name_utf8.getBytes("GBK"), "GB2312");
-//
-//                    if (name_utf8.length() >= 8) {
-//                        binding.btnTestPrintStack.setText(String.format("%s...", subString(name_utf8, 0, 7)));
-//                    } else {
-//                        binding.btnTestPrintStack.setText(name_utf8);
-//                    }
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
         ClickUtil.setOnClick(binding.btnTestAndroidId, new Action1() {
             @Override
             public void call(Object o) {
-                String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-
-                binding.btnTestAndroidId.setText(android_id);
+                intent.setClass(MainActivity.this, TestAndroidIdActivity.class);
+                startActivity(intent);
             }
         });
-    }
 
-    // 获取
-    private String subString(String input, int start, int end) {
-        int unicodeCount = codePointCount(input, start, end);             // 获取unicode个数
-        int offsetIndex = input.offsetByCodePoints(start, unicodeCount); // 根据unicode个数获取偏移位置
-        return input.substring(start, offsetIndex);
-    }
-
-    public static int codePointCount(CharSequence seq, int beginIndex, int endIndex) {
-        int length = seq.length();
-        if (beginIndex < 0 || endIndex > length || beginIndex > endIndex) {
-            throw new IndexOutOfBoundsException();
-        }
-        int n = endIndex - beginIndex;
-        for (int i = beginIndex; i < endIndex; ) {
-            if (isHighSurrogate(seq.charAt(i++)) && i < endIndex &&
-                    isLowSurrogate(seq.charAt(i))) {
-                n--;
-                i++;
+        ClickUtil.setOnClick(binding.btnTestEmoji, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestEmojiActivity.class);
+                startActivity(intent);
             }
-        }
-        return n;
-    }
-
-    public static int offsetByCodePoints(CharSequence seq, int index,
-                                         int codePointOffset) {
-        int length = seq.length();
-        if (index < 0 || index > length) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        int x = index;
-        if (codePointOffset >= 0) {
-            int i;
-            for (i = 0; x < length && i < codePointOffset; i++) {
-                if (isHighSurrogate(seq.charAt(x++)) && x < length &&
-                        isLowSurrogate(seq.charAt(x))) {
-                    x++;
-                }
-            }
-            if (i < codePointOffset) {
-                throw new IndexOutOfBoundsException();
-            }
-        } else {
-            int i;
-            for (i = codePointOffset; x > 0 && i < 0; i++) {
-                if (isLowSurrogate(seq.charAt(--x)) && x > 0 &&
-                        isHighSurrogate(seq.charAt(x-1))) {
-                    x--;
-                }
-            }
-            if (i < 0) {
-                throw new IndexOutOfBoundsException();
-            }
-        }
-        return x;
+        });
     }
 
     @Override
