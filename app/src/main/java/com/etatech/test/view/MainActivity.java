@@ -275,24 +275,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         ClickUtil.setOnClick(binding.btnTestPrintStack, new Action1() {
             @Override
             public void call(Object o) {
-                // 第一种打印调用堆栈方式
-                // Exception e = new Exception("this is a log");
-                // e.printStackTrace();
-                // 第二种方法 这种方法可以很方便的写入文件
-                // Log.e("this is a log",Log.getStackTraceString(new Throwable()));
-                try {
-                    String name_utf8 = "小鲤鱼\uD83E\uDD80历\uD83E\uDD80险\uD83E\uDD80记\uD83E\uDD80";
-                    String name_gbk = new String(name_utf8.getBytes("GBK"), "GBK");
-                    String name_2312 = new String(name_utf8.getBytes("GBK"), "GB2312");
+                intent.setClass(MainActivity.this, TestPrintStackActivity.class);
+                startActivity(intent);
 
-                    if (name_utf8.length() >= 8) {
-                        binding.btnTestPrintStack.setText(String.format("%s...", subString(name_utf8, 0, 7)));
-                    } else {
-                        binding.btnTestPrintStack.setText(name_utf8);
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    String name_utf8 = "小鲤鱼\uD83E\uDD80历\uD83E\uDD80险\uD83E\uDD80记\uD83E\uDD80";
+//                    String name_gbk = new String(name_utf8.getBytes("GBK"), "GBK");
+//                    String name_2312 = new String(name_utf8.getBytes("GBK"), "GB2312");
+//
+//                    if (name_utf8.length() >= 8) {
+//                        binding.btnTestPrintStack.setText(String.format("%s...", subString(name_utf8, 0, 7)));
+//                    } else {
+//                        binding.btnTestPrintStack.setText(name_utf8);
+//                    }
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
         ClickUtil.setOnClick(binding.btnTestAndroidId, new Action1() {

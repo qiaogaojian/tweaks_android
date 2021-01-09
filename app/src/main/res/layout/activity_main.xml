@@ -360,7 +360,6 @@
             <Button
                 android:id="@+id/btn_test_print_stack"
                 style="@style/Button"
-                android:layout_width="500pt"
                 android:layout_marginTop="30pt"
                 android:text="Print Stack"
                 android:typeface="@{@string/typeface}"
