@@ -22,7 +22,7 @@ public class Model {
 
     private int mPositionHandle;
     private int mColorHandle;
-    private int vertexCount;
+    // private int vertexCount;
     private final int COORDS_PER_VERTEX = 3;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
@@ -31,7 +31,7 @@ public class Model {
         this.vertexs = vertexs;
         this.color = color;
 
-        vertexCount = vertexs.length / COORDS_PER_VERTEX;
+        // vertexCount = vertexs.length / COORDS_PER_VERTEX;
 
         // 初始化顶点缓冲
         ByteBuffer bb = ByteBuffer.allocateDirect(vertexs.length * 4);
@@ -77,7 +77,7 @@ public class Model {
 
         mColorHandle = GLES20.glGetUniformLocation(shaderProgram, "vColor");
         GLES20.glUniform4fv(mColorHandle, 1, color, 0);
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
 
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
