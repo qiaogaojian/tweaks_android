@@ -5,8 +5,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:background="@color/code_black">
+        android:layout_height="match_parent">
+
+        <com.etatech.test.view.custom.ChildViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0pt"
+            android:background="@color/code_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tablayout" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout"
@@ -18,15 +27,6 @@
             app:tabSelectedTextColor="@color/code_blue"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
             app:tabTextColor="@color/code_black" />
-
-        <com.etatech.test.view.custom.ChildViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tablayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
