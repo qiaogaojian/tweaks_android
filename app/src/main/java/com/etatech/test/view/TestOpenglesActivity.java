@@ -10,18 +10,19 @@ import android.os.Bundle;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestOpenglesBinding;
+import com.etatech.test.opengl.GLModel;
+import com.etatech.test.opengl.GLRender1Bg;
+import com.etatech.test.opengl.MyGLRender;
+import com.etatech.test.opengl.MyGLSurfaceView;
 import com.etatech.test.opengl.PageOneFragment;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.view.practice1.PageFragment;
-import com.etatech.test.view.practice1.PageModel;
-import com.etatech.test.view.practice1.PagePageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestOpenglesActivity extends BaseActivity<ActivityTestOpenglesBinding> {
 
-    private List<PageModel> pageList;
+    private List<GLModel> pageList;
 
     @Override
     public ActivityTestOpenglesBinding onCreateView(Bundle savedInstanceState) {
@@ -31,14 +32,16 @@ public class TestOpenglesActivity extends BaseActivity<ActivityTestOpenglesBindi
     @Override
     public void init() {
         pageList = new ArrayList<>();
-        pageList.add(new PageModel(R.layout.opengl_triangle, R.string.title_triangle, R.layout.opengl_triangle));
+        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new MyGLRender())));
+        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new GLRender1Bg())));
+        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new MyGLRender())));
 
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                PageModel pageModel = pageList.get(position);
+                GLModel glModel = pageList.get(position);
                 // 这里的布局就是Fragment的布局
-                return PageOneFragment.newInstance(pageModel.practiceLayoutRes);
+                return new PageOneFragment(glModel.glView);
             }
 
             @Override
