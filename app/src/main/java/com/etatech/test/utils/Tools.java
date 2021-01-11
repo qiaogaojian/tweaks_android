@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -24,6 +25,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -395,18 +398,18 @@ public class Tools {
                 sr = String.format("%c%c", charArray[1], charArray[2]);
                 sg = String.format("%c%c", charArray[3], charArray[4]);
                 sb = String.format("%c%c", charArray[5], charArray[6]);
-                r = Integer.valueOf(sr,16) / 255.0f;
-                g = Integer.valueOf(sg,16) / 255.0f;
-                b = Integer.valueOf(sb,16) / 255.0f;
+                r = Integer.valueOf(sr, 16) / 255.0f;
+                g = Integer.valueOf(sg, 16) / 255.0f;
+                b = Integer.valueOf(sb, 16) / 255.0f;
             } else if (hexColor.length() == 9) {
                 sa = String.format("%c%c", charArray[1], charArray[2]);
                 sr = String.format("%c%c", charArray[3], charArray[4]);
                 sg = String.format("%c%c", charArray[5], charArray[6]);
                 sb = String.format("%c%c", charArray[7], charArray[8]);
-                a = Integer.valueOf(sa,16) / 255.0f;
-                r = Integer.valueOf(sr,16) / 255.0f;
-                g = Integer.valueOf(sg,16) / 255.0f;
-                b = Integer.valueOf(sb,16) / 255.0f;
+                a = Integer.valueOf(sa, 16) / 255.0f;
+                r = Integer.valueOf(sr, 16) / 255.0f;
+                g = Integer.valueOf(sg, 16) / 255.0f;
+                b = Integer.valueOf(sb, 16) / 255.0f;
             } else {
                 LogUtils.e("Color Format Error");
                 return null;
@@ -416,18 +419,18 @@ public class Tools {
                 sr = String.format("%c%c", charArray[0], charArray[1]);
                 sg = String.format("%c%c", charArray[2], charArray[3]);
                 sb = String.format("%c%c", charArray[4], charArray[5]);
-                r = Integer.valueOf(sr,16) / 255.0f;
-                g = Integer.valueOf(sg,16) / 255.0f;
-                b = Integer.valueOf(sb,16) / 255.0f;
+                r = Integer.valueOf(sr, 16) / 255.0f;
+                g = Integer.valueOf(sg, 16) / 255.0f;
+                b = Integer.valueOf(sb, 16) / 255.0f;
             } else if (hexColor.length() == 8) {
                 sa = String.format("%c%c", charArray[0], charArray[1]);
                 sr = String.format("%c%c", charArray[2], charArray[3]);
                 sg = String.format("%c%c", charArray[4], charArray[5]);
                 sb = String.format("%c%c", charArray[6], charArray[7]);
-                a = Integer.valueOf(sa,16) / 255.0f;
-                r = Integer.valueOf(sr,16) / 255.0f;
-                g = Integer.valueOf(sg,16) / 255.0f;
-                b = Integer.valueOf(sb,16) / 255.0f;
+                a = Integer.valueOf(sa, 16) / 255.0f;
+                r = Integer.valueOf(sr, 16) / 255.0f;
+                g = Integer.valueOf(sg, 16) / 255.0f;
+                b = Integer.valueOf(sb, 16) / 255.0f;
             } else {
                 LogUtils.e("Color Format Error");
                 return null;
@@ -440,5 +443,36 @@ public class Tools {
         rgba[3] = a;
 
         return rgba;
+    }
+
+    public static String readFile(AssetManager mgr, String path) {
+        String contents = "";
+        InputStream is = null;
+        BufferedReader reader = null;
+        try {
+            is = mgr.open(path);
+            reader = new BufferedReader(new InputStreamReader(is));
+            contents = reader.readLine();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                contents += '\n' + line;
+            }
+        } catch (final Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException ignored) {
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
+        return contents;
     }
 }

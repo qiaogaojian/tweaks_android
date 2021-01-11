@@ -1,8 +1,11 @@
 package com.etatech.test.opengl;
 
+import android.content.res.AssetManager;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
+import com.etatech.test.utils.App;
+import com.etatech.test.utils.RxBus;
 import com.etatech.test.utils.Tools;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -22,23 +25,13 @@ public class GLRender2Triangle extends MyGLRender {
     };
     private short drawOrder[] = {0, 1, 2};
     private float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
-
-    private final String vertexShaderCode =
-            "attribute vec4 vPosition;" +
-                    "void main() {" +
-                    "  gl_Position = vPosition;" +
-                    "}";
-
-    private final String fragmentShaderCode =
-            "precision mediump float;" +
-                    "uniform vec4 vColor;" +
-                    "void main() {" +
-                    "  gl_FragColor = vColor;" +
-                    "}";
-
+    private String vertexShaderPath = "shader/gl_render2_triangle.vert";
+    private String fragmentShaderPath = "shader/gl_render2_triangle.frag";
 
     @Override
     public void onStart() {
+        String vertexShaderCode = Tools.readFile(App.getInstance().getAssets(), vertexShaderPath);
+        String fragmentShaderCode = Tools.readFile(App.getInstance().getAssets(), fragmentShaderPath);
         model = new Model(vertexs, drawOrder, color, vertexShaderCode, fragmentShaderCode);
     }
 

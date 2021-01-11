@@ -1,5 +1,8 @@
 package com.etatech.test.opengl;
 
+import com.etatech.test.utils.App;
+import com.etatech.test.utils.Tools;
+
 /**
  * Created by Michael
  * Date:  2021/1/11
@@ -17,22 +20,13 @@ public class GLRender3Rect extends MyGLRender {
     private short drawOrder[] = { 0, 1, 2, 0, 2, 3 };
     private float color[] = {0.63671875f, 0.76953125f, 0.22265625f, 1.0f};
 
-    private final String vertexShaderCode =
-            "attribute vec4 vPosition;" +
-                    "void main() {" +
-                    "  gl_Position = vPosition;" +
-                    "}";
-
-    private final String fragmentShaderCode =
-            "precision mediump float;" +
-                    "uniform vec4 vColor;" +
-                    "void main() {" +
-                    "  gl_FragColor = vColor;" +
-                    "}";
-
+    private String vertexShaderPath = "shader/gl_render3_rect.vert";
+    private String fragmentShaderPath = "shader/gl_render3_rect.frag";
 
     @Override
     public void onStart() {
+        String vertexShaderCode = Tools.readFile(App.getInstance().getAssets(), vertexShaderPath);
+        String fragmentShaderCode = Tools.readFile(App.getInstance().getAssets(), fragmentShaderPath);
         model = new Model(vertexs, drawOrder, color, vertexShaderCode, fragmentShaderCode);
     }
 
