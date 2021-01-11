@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:background="@color/code_green">
 
+        <!--ViewStub是一个大小为0 ，默认不可见的控件，只有给他设置成了View.Visible -->
+        <!--或调用了它的inflate()之后才会填充布局资源，也就是说占用资源少。-->
         <ViewStub
             android:id="@+id/container"
             android:layout_width="match_parent"
