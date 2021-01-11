@@ -12,6 +12,7 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestOpenglesBinding;
 import com.etatech.test.opengl.GLModel;
 import com.etatech.test.opengl.GLRender1Bg;
+import com.etatech.test.opengl.GLRender2Triangle;
 import com.etatech.test.opengl.MyGLRender;
 import com.etatech.test.opengl.MyGLSurfaceView;
 import com.etatech.test.opengl.PageOneFragment;
@@ -32,9 +33,8 @@ public class TestOpenglesActivity extends BaseActivity<ActivityTestOpenglesBindi
     @Override
     public void init() {
         pageList = new ArrayList<>();
-        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new MyGLRender())));
         pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new GLRender1Bg())));
-        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new MyGLRender())));
+        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new GLRender2Triangle())));
 
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
