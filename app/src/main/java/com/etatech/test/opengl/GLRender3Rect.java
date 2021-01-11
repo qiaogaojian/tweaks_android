@@ -1,5 +1,7 @@
 package com.etatech.test.opengl;
 
+import android.os.SystemClock;
+
 import com.etatech.test.utils.App;
 import com.etatech.test.utils.Tools;
 
@@ -35,8 +37,16 @@ public class GLRender3Rect extends MyGLRender {
 
     }
 
+    long lastFrameTime = 0;
+
     @Override
     public void onUpdate() {
+        long currentTime = SystemClock.elapsedRealtime();
+        long deltaTime = currentTime - lastFrameTime;
+        lastFrameTime = currentTime;
+
+        model.setFloat("deltaTime",deltaTime);
+        model.setVec2("resolution",App.getInstance().screenWidth,App.getInstance().screenHeight);
         model.draw();
     }
 }
