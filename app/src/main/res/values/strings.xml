@@ -127,5 +127,6 @@
     <string name="title_unspecified">UNSPECIFIED - ScrollView</string>
     <string name="title_resolve_size">RESOLVE_SIZE</string>
     <string name="adapt_width">适配宽</string>
+    <string name="title_triangle">Triangle</string>
 
 </resources>

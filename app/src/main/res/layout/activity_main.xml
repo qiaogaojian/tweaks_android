@@ -387,6 +387,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_android_id" />
 
+            <Button
+                android:id="@+id/btn_test_opengl"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="OpenGL ES"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_emoji" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

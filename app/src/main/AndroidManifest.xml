@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestEmojiActivity"></activity>
+        <activity android:name=".view.TestOpenglesActivity"></activity>
+        <activity android:name=".view.TestEmojiActivity" />
         <activity android:name=".view.TestAndroidIdActivity" />
         <activity android:name=".view.TestPrintStackActivity" />
         <activity
