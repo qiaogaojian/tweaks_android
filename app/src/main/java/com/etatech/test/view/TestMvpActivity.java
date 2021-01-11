@@ -1,22 +1,14 @@
 package com.etatech.test.view;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestMvpBinding;
 import com.etatech.test.interf.ITestMvpView;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.vm.TestMvpVM;
-import com.jakewharton.rxbinding.view.RxView;
-import com.trello.rxlifecycle.android.ActivityEvent;
-
-import java.util.concurrent.TimeUnit;
-
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 public class TestMvpActivity extends BaseActivity<ActivityTestMvpBinding> implements ITestMvpView {
     private TestMvpVM vm;

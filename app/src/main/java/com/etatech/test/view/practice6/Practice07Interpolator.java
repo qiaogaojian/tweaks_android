@@ -2,11 +2,11 @@ package com.etatech.test.view.practice6;
 
 import android.content.Context;
 import android.graphics.Path;
-import android.support.annotation.Nullable;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
-import android.support.v4.view.animation.PathInterpolatorCompat;
+import androidx.annotation.Nullable;
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+import androidx.core.view.animation.PathInterpolatorCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.etatech.test.R;
-import com.etatech.test.view.practice6.Utils;
 
 /**
  * Interpolator 就别练了，没什么好练的，Practice 和 Sample 的代码是一毛一样的。

@@ -1,12 +1,11 @@
 package com.etatech.test.view.practice8;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 
-public class Sample01SquareImageView extends android.support.v7.widget.AppCompatImageView {
+public class Sample01SquareImageView extends androidx.appcompat.widget.AppCompatImageView {
     public Sample01SquareImageView(Context context) {
         super(context);
     }

@@ -1,7 +1,7 @@
 package com.etatech.test.view;
 
 import android.Manifest;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Environment;
 import android.os.Bundle;
 import android.widget.Toast;

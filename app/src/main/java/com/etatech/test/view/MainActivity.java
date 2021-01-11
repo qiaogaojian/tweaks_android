@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
-import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
 import com.jakewharton.rxbinding.view.RxView;
@@ -13,22 +12,16 @@ import com.trello.rxlifecycle.android.ActivityEvent;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-
-import static java.lang.Character.isHighSurrogate;
-import static java.lang.Character.isLowSurrogate;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements View.OnClickListener {
     private Button btnAdaptWidth;

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Outline;
 import android.graphics.Path;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.etatech.test.R;
-import com.etatech.test.view.practice6.Utils;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static com.etatech.test.view.practice6.Utils.dpToPixel;

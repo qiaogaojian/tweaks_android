@@ -1,14 +1,13 @@
 package com.etatech.test.view;
 
-import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Animatable;
+import androidx.databinding.DataBindingUtil;
+
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestSvgBinding;
 import com.etatech.test.utils.BaseActivity;

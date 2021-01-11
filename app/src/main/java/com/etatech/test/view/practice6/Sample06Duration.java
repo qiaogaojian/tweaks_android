@@ -1,7 +1,7 @@
 package com.etatech.test.view.practice6;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +11,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.etatech.test.R;
-import com.etatech.test.view.practice6.Utils;
 
 public class Sample06Duration extends LinearLayout {
     SeekBar durationSb;

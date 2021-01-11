@@ -1,12 +1,11 @@
 package com.etatech.test.view;
 
 import android.Manifest;
-import android.databinding.DataBindingUtil;
-import android.net.Uri;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestExportSvgBinding;
 import com.etatech.test.utils.BaseActivity;

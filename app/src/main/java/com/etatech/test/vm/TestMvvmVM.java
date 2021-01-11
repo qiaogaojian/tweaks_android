@@ -1,11 +1,9 @@
 package com.etatech.test.vm;
 
-import android.arch.lifecycle.Lifecycle;
+import androidx.lifecycle.Lifecycle;
 import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.etatech.test.bean.BtcPriceBean;
 import com.etatech.test.interf.ITestMvvmVM;
 import com.etatech.test.interf.ITestMvvmView;
 import com.etatech.test.model.TestMvvmModel;

@@ -1,8 +1,8 @@
 package com.etatech.test.view;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.etatech.test.R;
 import com.etatech.test.adapter.PathNodeAdapter;

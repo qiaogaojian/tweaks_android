@@ -2,7 +2,7 @@ package com.etatech.test.view;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 

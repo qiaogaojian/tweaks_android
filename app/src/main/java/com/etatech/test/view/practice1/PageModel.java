@@ -1,7 +1,7 @@
 package com.etatech.test.view.practice1;
 
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
 
 /**
  * Created by Michael

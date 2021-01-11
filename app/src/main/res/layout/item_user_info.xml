@@ -7,7 +7,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60pt">
 
@@ -25,5 +25,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="中国" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

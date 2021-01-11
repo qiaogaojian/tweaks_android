@@ -9,12 +9,11 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Region;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.etatech.test.R;
 import com.etatech.test.utils.Tools;
 
 import java.util.ArrayList;

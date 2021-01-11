@@ -1,8 +1,8 @@
 package com.etatech.test.view;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.etatech.test.R;
 import com.etatech.test.adapter.LogAdapter;
@@ -17,7 +17,6 @@ import com.etatech.test.utils.ui.ClickUtil;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
-import java.util.Arrays;
 
 import rx.functions.Action1;
 

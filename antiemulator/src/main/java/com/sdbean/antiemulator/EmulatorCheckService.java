@@ -8,7 +8,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import static com.sdbean.antiemulator.AntiEmulator.MESSAGE_FROM_CLIENT;

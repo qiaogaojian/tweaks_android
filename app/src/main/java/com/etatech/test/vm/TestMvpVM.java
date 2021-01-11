@@ -1,7 +1,7 @@
 package com.etatech.test.vm;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.etatech.test.adapter.CountryCodeAdapter;
 import com.etatech.test.bean.PhoneAreaBean;

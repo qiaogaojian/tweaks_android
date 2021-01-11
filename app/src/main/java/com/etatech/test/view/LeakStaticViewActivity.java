@@ -3,13 +3,12 @@ package com.etatech.test.view;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.ImageUtils;
 import com.bumptech.glide.Glide;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityLeakStaticViewBinding;

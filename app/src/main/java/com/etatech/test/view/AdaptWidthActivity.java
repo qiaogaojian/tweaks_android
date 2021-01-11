@@ -1,9 +1,8 @@
 package com.etatech.test.view;
 
-import android.databinding.ViewDataBinding;
+import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
 
-import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;

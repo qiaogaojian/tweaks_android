@@ -1,6 +1,6 @@
 package com.etatech.test.view;
 
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ToastUtils;

@@ -1,18 +1,12 @@
 package  com.etatech.test.view.practice2;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Xfermode;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.etatech.test.R;
 
 public class Sample09StrokeCapView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

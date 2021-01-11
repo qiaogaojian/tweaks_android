@@ -1,7 +1,6 @@
 package com.etatech.test.view.practice9;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,22 +8,18 @@ import android.graphics.ComposeShader;
 import android.graphics.DashPathEffect;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.RadialGradient;
-import android.graphics.Rect;
 import android.graphics.Shader;
-import android.graphics.SweepGradient;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.NavUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.etatech.test.utils.Tools;
-import com.facebook.common.logging.FLog;
 
 import static com.etatech.test.utils.Tools.calCirPos;
 

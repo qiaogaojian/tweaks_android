@@ -1,21 +1,19 @@
 package com.etatech.test.utils;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
 import android.text.Html;
 import android.util.DisplayMetrics;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.Utils;
-import com.etatech.test.R;
 import com.etatech.test.bean.Vector2;
 
 import java.io.BufferedInputStream;

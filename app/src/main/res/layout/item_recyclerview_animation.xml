@@ -7,7 +7,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_item_role"
         android:layout_width="138pt"
         android:layout_height="162pt">
@@ -22,5 +22,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/yxlc_jf_ccz1" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

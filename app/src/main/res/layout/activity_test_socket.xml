@@ -7,11 +7,11 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_chat"
             android:layout_width="1080pt"
             android:layout_height="0pt"
@@ -103,6 +103,6 @@
             app:layout_constraintLeft_toRightOf="@id/et_message"
             app:layout_constraintRight_toRightOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

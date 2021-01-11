@@ -1,11 +1,10 @@
 package com.etatech.test.view;
 
-import android.app.Activity;
-import android.arch.lifecycle.Observer;
+import androidx.lifecycle.Observer;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.etatech.test.R;

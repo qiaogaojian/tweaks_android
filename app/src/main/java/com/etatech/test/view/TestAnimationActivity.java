@@ -2,13 +2,12 @@ package com.etatech.test.view;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import android.view.View;
-import android.view.animation.AnimationSet;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.etatech.test.R;

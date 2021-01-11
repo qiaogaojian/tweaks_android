@@ -2,7 +2,7 @@ package com.etatech.test.view.practice6.sample08;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;

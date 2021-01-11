@@ -8,7 +8,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="200pt"
         android:layout_height="200pt">
 
@@ -18,6 +18,6 @@
             android:layout_height="match_parent"
             tools:background="@color/code_blue" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

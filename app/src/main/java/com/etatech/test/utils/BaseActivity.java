@@ -1,15 +1,14 @@
 package com.etatech.test.utils;
 
 import android.content.res.Resources;
-import android.databinding.ViewDataBinding;
+import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
+import androidx.annotation.Nullable;
+
 import android.view.MotionEvent;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 /**

@@ -1,11 +1,11 @@
 package com.etatech.test.view;
 
 import android.app.AlertDialog;
-import android.databinding.DataBindingUtil;
-import android.support.design.widget.BottomSheetDialog;
+import androidx.databinding.DataBindingUtil;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.RecyclerView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;

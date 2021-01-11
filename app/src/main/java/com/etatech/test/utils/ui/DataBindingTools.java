@@ -1,15 +1,14 @@
 package com.etatech.test.utils.ui;
 
 import android.content.Context;
-import android.databinding.BindingAdapter;
-import android.databinding.BindingConversion;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.BindingConversion;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.util.ArrayMap;
+import androidx.collection.ArrayMap;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.etatech.test.utils.App;
 
 /**

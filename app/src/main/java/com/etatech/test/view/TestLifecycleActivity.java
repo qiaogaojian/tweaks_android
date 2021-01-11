@@ -1,28 +1,18 @@
 package com.etatech.test.view;
 
-import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.Spanned;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.etatech.test.R;
 import com.etatech.test.adapter.LogAdapter;
-import com.etatech.test.adapter.StateLogAdapter;
 import com.etatech.test.databinding.ActivityTestLifecycleBinding;
-import com.etatech.test.netstate.NetWorkMonitor;
 import com.etatech.test.netstate.NetWorkMonitorManager;
 import com.etatech.test.netstate.NetWorkState;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.Tools;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.etatech.test.utils.App.logArr;
 

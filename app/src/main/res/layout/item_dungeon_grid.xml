@@ -7,7 +7,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_map"
         android:layout_width="20pt"
         android:layout_height="20pt">
@@ -33,5 +33,5 @@
             android:textSize="12pt"
             tools:text="66" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

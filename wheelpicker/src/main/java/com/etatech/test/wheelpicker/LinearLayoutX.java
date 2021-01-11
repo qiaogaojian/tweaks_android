@@ -2,10 +2,10 @@ package com.etatech.test.wheelpicker;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.NestedScrollingChild;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.view.NestedScrollingChild;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 

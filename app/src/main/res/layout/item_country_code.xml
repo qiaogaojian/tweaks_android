@@ -7,7 +7,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="541pt"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5pt">
@@ -38,5 +38,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="+86" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

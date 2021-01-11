@@ -2,20 +2,13 @@ package com.etatech.test.adapter;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.databinding.DataBindingUtil;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ItemRecyclerviewAnimationBinding;
 import com.etatech.test.utils.ui.ClickUtil;

@@ -1,19 +1,16 @@
 package com.etatech.test.view.custom.floatmenu;
 
-import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Camera;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;

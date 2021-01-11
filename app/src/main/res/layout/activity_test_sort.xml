@@ -8,7 +8,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,7 +24,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_user_origin"
             android:layout_width="1000pt"
             android:layout_height="600pt"
@@ -45,7 +45,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_user_origin" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_user_sorted"
             android:layout_width="1000pt"
             android:layout_height="600pt"
@@ -126,7 +126,7 @@
             app:layout_constraintLeft_toRightOf="@+id/btn_sort5"
             app:layout_constraintRight_toRightOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
 

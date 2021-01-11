@@ -1,25 +1,17 @@
 package com.etatech.test.adapter;
 
-import android.databinding.DataBindingUtil;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ItemMultiAnimtionBinding;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.List;
-
-import retrofit2.http.POST;
 
 /**
  * Created by Michael

@@ -1,18 +1,16 @@
 package com.etatech.test.view;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-import android.view.LayoutInflater;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestDarkModeBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
-import com.etatech.test.utils.ui.ImageUtil;
 
 import rx.functions.Action1;
 

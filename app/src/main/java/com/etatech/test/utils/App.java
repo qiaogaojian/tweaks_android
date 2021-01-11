@@ -2,15 +2,11 @@ package com.etatech.test.utils;
 
 import android.app.Application;
 import android.content.ComponentCallbacks2;
-import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.os.Debug;
 import android.os.Environment;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.text.Spanned;
-import android.util.Log;
 
-import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;

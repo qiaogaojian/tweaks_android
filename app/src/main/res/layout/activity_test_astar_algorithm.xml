@@ -7,12 +7,12 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_path_node"
             android:layout_width="1010pt"
             android:layout_height="1010pt"
@@ -76,6 +76,6 @@ UI说明:\n
             app:layout_constraintLeft_toRightOf="@id/btn_next"
             app:layout_constraintRight_toRightOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
