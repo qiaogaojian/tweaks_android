@@ -2,13 +2,17 @@ package com.etatech.test.utils;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
+
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
+
 import android.text.Html;
 import android.util.DisplayMetrics;
 
@@ -379,5 +383,62 @@ public class Tools {
         int posX1 = center.x + (int) (radius * Math.cos(Math.toRadians(degree)));
         int posY1 = center.y + (int) (radius * Math.sin(Math.toRadians(degree)));
         return new Point(posX1, posY1);
+    }
+
+    public static float[] hex2Color(String hexColor) {
+        char[] charArray = hexColor.toCharArray();
+        float[] rgba = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
+        float r = 0, g = 0, b = 0, a = 0;
+        String sr, sg, sb, sa;
+        if (hexColor.contains("#")) {
+            if (hexColor.length() == 7) {
+                sr = String.format("%c%c", charArray[1], charArray[2]);
+                sg = String.format("%c%c", charArray[3], charArray[4]);
+                sb = String.format("%c%c", charArray[5], charArray[6]);
+                r = Integer.valueOf(sr,16) / 255.0f;
+                g = Integer.valueOf(sg,16) / 255.0f;
+                b = Integer.valueOf(sb,16) / 255.0f;
+            } else if (hexColor.length() == 9) {
+                sa = String.format("%c%c", charArray[1], charArray[2]);
+                sr = String.format("%c%c", charArray[3], charArray[4]);
+                sg = String.format("%c%c", charArray[5], charArray[6]);
+                sb = String.format("%c%c", charArray[7], charArray[8]);
+                a = Integer.valueOf(sa,16) / 255.0f;
+                r = Integer.valueOf(sr,16) / 255.0f;
+                g = Integer.valueOf(sg,16) / 255.0f;
+                b = Integer.valueOf(sb,16) / 255.0f;
+            } else {
+                LogUtils.e("Color Format Error");
+                return null;
+            }
+        } else {
+            if (hexColor.length() == 6) {
+                sr = String.format("%c%c", charArray[0], charArray[1]);
+                sg = String.format("%c%c", charArray[2], charArray[3]);
+                sb = String.format("%c%c", charArray[4], charArray[5]);
+                r = Integer.valueOf(sr,16) / 255.0f;
+                g = Integer.valueOf(sg,16) / 255.0f;
+                b = Integer.valueOf(sb,16) / 255.0f;
+            } else if (hexColor.length() == 8) {
+                sa = String.format("%c%c", charArray[0], charArray[1]);
+                sr = String.format("%c%c", charArray[2], charArray[3]);
+                sg = String.format("%c%c", charArray[4], charArray[5]);
+                sb = String.format("%c%c", charArray[6], charArray[7]);
+                a = Integer.valueOf(sa,16) / 255.0f;
+                r = Integer.valueOf(sr,16) / 255.0f;
+                g = Integer.valueOf(sg,16) / 255.0f;
+                b = Integer.valueOf(sb,16) / 255.0f;
+            } else {
+                LogUtils.e("Color Format Error");
+                return null;
+            }
+        }
+
+        rgba[0] = r;
+        rgba[1] = g;
+        rgba[2] = b;
+        rgba[3] = a;
+
+        return rgba;
     }
 }
