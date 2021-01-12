@@ -26,6 +26,11 @@ public class GLRender3Rect extends MyGLRender {
     private String fragmentShaderPath = "shader/gl_render3_rect.frag";
 
     @Override
+    public void onAwake() {
+        switchRenderWhenDirtyMode(false);
+    }
+
+    @Override
     public void onStart() {
         String vertexShaderCode = Tools.readFile(App.getInstance().getAssets(), vertexShaderPath);
         String fragmentShaderCode = Tools.readFile(App.getInstance().getAssets(), fragmentShaderPath);

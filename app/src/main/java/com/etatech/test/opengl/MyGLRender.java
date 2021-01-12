@@ -16,6 +16,19 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public abstract class MyGLRender implements GLSurfaceView.Renderer {
     protected String bgColor = "#0080807B";
+    private boolean activeRenderWhenDirty = true;
+
+    public boolean isActiveRenderWhenDirty() {
+        return activeRenderWhenDirty;
+    }
+
+    public void switchRenderWhenDirtyMode(boolean activeRenderWhenDirty) {
+        this.activeRenderWhenDirty = activeRenderWhenDirty;
+    }
+
+    public MyGLRender() {
+        onAwake();
+    }
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -35,6 +48,8 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         onUpdate();
     }
+
+    public abstract void onAwake();
 
     public abstract void onStart();
 

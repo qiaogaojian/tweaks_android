@@ -16,6 +16,11 @@ import javax.microedition.khronos.opengles.GL10;
 public class GLRender1Bg extends MyGLRender {
 
     @Override
+    public void onAwake() {
+
+    }
+
+    @Override
     public void onStart() {
         bgColor = "#F92671";
     }

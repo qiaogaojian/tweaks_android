@@ -29,6 +29,11 @@ public class GLRender2Triangle extends MyGLRender {
     private String fragmentShaderPath = "shader/gl_render2_triangle.frag";
 
     @Override
+    public void onAwake() {
+
+    }
+
+    @Override
     public void onStart() {
         String vertexShaderCode = Tools.readFile(App.getInstance().getAssets(), vertexShaderPath);
         String fragmentShaderCode = Tools.readFile(App.getInstance().getAssets(), fragmentShaderPath);
