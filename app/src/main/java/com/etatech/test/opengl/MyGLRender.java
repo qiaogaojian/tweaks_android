@@ -15,7 +15,10 @@ import javax.microedition.khronos.opengles.GL10;
  * Desc:
  */
 public abstract class MyGLRender implements GLSurfaceView.Renderer {
+    // 背景色
     protected String bgColor = "#0080807B";
+    // 宽高比
+    protected float ratio = 0;
     private boolean activeRenderWhenDirty = true;
 
     public boolean isActiveRenderWhenDirty() {
@@ -40,6 +43,7 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
+        ratio = (float) height/width;
         onChange();
     }
 
