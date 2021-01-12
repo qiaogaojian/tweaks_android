@@ -62,7 +62,7 @@ public class GLRender2Triangle extends MyGLRender {
 
     @Override
     public void onAwake() {
-
+        switchRenderWhenDirtyMode(false);
     }
 
     @Override
