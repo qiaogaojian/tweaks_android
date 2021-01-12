@@ -70,7 +70,7 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
-
+        // 在这里以高为基准适配宽
         ratio = (float) width / height;
         // 模型矩阵
         Matrix.scaleM(mModelMatrix, 0, 1.2f, 1.2f, 1.2f);
