@@ -34,9 +34,9 @@ public class TestOpenglesActivity extends BaseActivity<ActivityTestOpenglesBindi
     @Override
     public void init() {
         pageList = new ArrayList<>();
-        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new GLRender1Bg())));
-        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new GLRender2Triangle())));
-        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this,new GLRender3Rect())));
+        pageList.add(new GLModel(R.string.title_bgcolor, new MyGLSurfaceView(this, new GLRender1Bg())));
+        pageList.add(new GLModel(R.string.title_triangle, new MyGLSurfaceView(this, new GLRender2Triangle())));
+        pageList.add(new GLModel(R.string.title_rect, new MyGLSurfaceView(this, new GLRender3Rect())));
 
         FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -54,7 +54,7 @@ public class TestOpenglesActivity extends BaseActivity<ActivityTestOpenglesBindi
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                return  getString(pageList.get(position).titleRes);
+                return getString(pageList.get(position).titleRes);
             }
         };
 

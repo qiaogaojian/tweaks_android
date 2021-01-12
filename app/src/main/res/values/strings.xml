@@ -128,5 +128,7 @@
     <string name="title_resolve_size">RESOLVE_SIZE</string>
     <string name="adapt_width">适配宽</string>
     <string name="title_triangle">Triangle</string>
+    <string name="title_bgcolor">BgColor</string>
+    <string name="title_rect">ShaderRect</string>
 
 </resources>

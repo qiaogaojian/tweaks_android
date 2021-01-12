@@ -2,4 +2,5 @@
 <resources>
     <string name="adapt_width">Adpat Width</string>
     <string name="title_triangle">Triangle</string>
+    <string name="title_bgcolor">BgColor</string>
 </resources>
