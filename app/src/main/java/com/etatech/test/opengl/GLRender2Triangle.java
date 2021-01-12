@@ -29,12 +29,6 @@ public class GLRender2Triangle extends MyGLRender {
     private String vertexShaderPath = "shader/gl_render2_triangle.vert";
     private String fragmentShaderPath = "shader/gl_render2_triangle.frag";
 
-    private final float[] identityMatrix = new float[]{
-            1f,0f,0f,0f,
-            0f,1f,0f,0f,
-            0f,0f,1f,0f,
-            0f,0f,0f,1f
-    };
     private final float[] mMVPMatrix = new float[]{
             1f,0f,0f,0f,
             0f,1f,0f,0f,
@@ -77,18 +71,17 @@ public class GLRender2Triangle extends MyGLRender {
         // 模型矩阵
         Matrix.scaleM(mModelMatrix, 0, 1.2f, 1.2f, 1.2f);
         // 视图矩阵
-        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -10, 0f, 0f, 0f, 0, 1.0f, 0f);
+        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0, 1.0f, 0f);
         // 投影矩阵
-        Matrix.frustumM(mProjectionMatrix, 0, -1 / ratio, 1 / ratio, -1, 1, 0.1f, 10);
+        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 1f,100f); // near的值为1 其他值会变形
 
-        Matrix.multiplyMV(mMVPMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);      // MV
-        Matrix.multiplyMV(mMVPMatrix, 0, mProjectionMatrix, 0, mMVPMatrix, 0);  // MVP
+        // Matrix.multiplyMV(identityMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);      // MV
+        Matrix.multiplyMV(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);  // MVP
     }
 
     @Override
     public void onUpdate() {
-        model.setMat4("mvp",mModelMatrix);
+        model.setMat4("mvp",mMVPMatrix);
         model.draw();
-        switchRenderWhenDirtyMode(false);
     }
 }
