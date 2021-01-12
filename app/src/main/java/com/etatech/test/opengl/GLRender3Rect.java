@@ -37,15 +37,11 @@ public class GLRender3Rect extends MyGLRender {
 
     }
 
-    long lastFrameTime = 0;
-
     @Override
     public void onUpdate() {
         long currentTime = SystemClock.elapsedRealtime();
-        long deltaTime = currentTime - lastFrameTime;
-        lastFrameTime = currentTime;
 
-        model.setFloat("deltaTime",deltaTime);
+        model.setFloat("deltaTime",(float) Math.toRadians(currentTime % 7200/20.0));
         model.setVec2("resolution",App.getInstance().screenWidth,App.getInstance().screenHeight);
         model.draw();
     }

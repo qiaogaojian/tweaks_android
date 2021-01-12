@@ -1,9 +1,9 @@
 attribute vec4 vPosition;
 
-varying vec4 TexCoord;
+varying vec2 TexCoord;
 
 void main()
 {
-    TexCoord = vPosition;
+    TexCoord = vPosition.xy;
     gl_Position = vPosition;
 }

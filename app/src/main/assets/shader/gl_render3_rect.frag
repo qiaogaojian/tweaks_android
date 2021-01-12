@@ -1,6 +1,6 @@
 precision mediump float;
 
-varying vec4 TexCoord;
+varying vec2 TexCoord;
 
 uniform vec4 vColor;
 uniform float deltaTime;
@@ -8,13 +8,11 @@ uniform vec2 resolution;
 
 void main()
 {
-    gl_FragColor = vColor;
+    float factorTime = 0.6;
+    float factorCoord = 1.0 - factorTime;
+    float timeR = abs(sin(deltaTime + 0.0)) * factorTime + TexCoord.x * factorCoord ;
+    float timeG = abs(sin(deltaTime + 1.0)) * factorTime + TexCoord.y * factorCoord ;
+    float timeB = abs(sin(deltaTime + 2.0));
 
-    vec2 st = TexCoord.xy / resolution.xy;
-    st.x *= resolution.x / resolution.y;
-
-    vec3 color = vec3(0.0);
-    color = vec3(st.x, st.y, abs(sin(deltaTime * 3.0)));
-
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(timeR, timeG, timeB, 1.0);
 }
