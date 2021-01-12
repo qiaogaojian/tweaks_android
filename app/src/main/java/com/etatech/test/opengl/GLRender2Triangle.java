@@ -29,31 +29,6 @@ public class GLRender2Triangle extends MyGLRender {
     private String vertexShaderPath = "shader/gl_render2_triangle.vert";
     private String fragmentShaderPath = "shader/gl_render2_triangle.frag";
 
-    private final float[] mMVPMatrix = new float[]{
-            1f,0f,0f,0f,
-            0f,1f,0f,0f,
-            0f,0f,1f,0f,
-            0f,0f,0f,1f
-    };
-    private final float[] mModelMatrix = new float[]{
-            1f,0f,0f,0f,
-            0f,1f,0f,0f,
-            0f,0f,1f,0f,
-            0f,0f,0f,1f
-    };
-    private final float[] mViewMatrix = new float[]{
-            1f,0f,0f,0f,
-            0f,1f,0f,0f,
-            0f,0f,1f,0f,
-            0f,0f,0f,1f
-    };
-    private final float[] mProjectionMatrix = new float[]{
-            1f,0f,0f,0f,
-            0f,1f,0f,0f,
-            0f,0f,1f,0f,
-            0f,0f,0f,1f
-    };
-
     @Override
     public void onAwake() {
         switchRenderWhenDirtyMode(false);
@@ -68,15 +43,7 @@ public class GLRender2Triangle extends MyGLRender {
 
     @Override
     public void onChange() {
-        // 模型矩阵
-        Matrix.scaleM(mModelMatrix, 0, 1.2f, 1.2f, 1.2f);
-        // 视图矩阵
-        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0, 1.0f, 0f);
-        // 投影矩阵
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 1f,100f); // near的值为1 其他值会变形
 
-        // Matrix.multiplyMV(identityMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);      // MV
-        Matrix.multiplyMV(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);  // MVP
     }
 
     @Override
