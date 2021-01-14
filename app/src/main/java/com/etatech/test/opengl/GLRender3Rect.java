@@ -1,6 +1,5 @@
 package com.etatech.test.opengl;
 
-import android.opengl.GLSurfaceView;
 import android.os.SystemClock;
 
 import com.etatech.test.utils.App;
@@ -48,7 +47,7 @@ public class GLRender3Rect extends MyGLRender {
     public void onUpdate() {
         long currentTime = SystemClock.elapsedRealtime();
 
-        model.setMat4("mvp",mMVPMatrix);
+        model.setMat4("mvp", mMvpMatrix);
         model.setFloat("deltaTime",(float) Math.toRadians(currentTime % 7200/20.0));
         model.setVec2("resolution",App.getInstance().screenWidth,App.getInstance().screenHeight);
         model.draw();

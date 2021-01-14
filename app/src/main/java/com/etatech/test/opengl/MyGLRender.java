@@ -1,6 +1,5 @@
 package com.etatech.test.opengl;
 
-import android.graphics.Color;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -21,13 +20,31 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
     // 宽高比
     protected float ratio = 0;
 
-    protected final float[] mMVPMatrix = new float[]{
+    protected final float[] mVPMatrix = new float[]{
             1f,0f,0f,0f,
             0f,1f,0f,0f,
             0f,0f,1f,0f,
             0f,0f,0f,1f
     };
-    protected final float[] mModelMatrix = new float[]{
+    protected final float[] mRotationMatrix = new float[]{
+            1f,0f,0f,0f,
+            0f,1f,0f,0f,
+            0f,0f,1f,0f,
+            0f,0f,0f,1f
+    };
+    protected final float[] mScaleMatrix = new float[]{
+            1f,0f,0f,0f,
+            0f,1f,0f,0f,
+            0f,0f,1f,0f,
+            0f,0f,0f,1f
+    };
+    protected final float[] mTransMatrix = new float[]{
+            1f,0f,0f,0f,
+            0f,1f,0f,0f,
+            0f,0f,1f,0f,
+            0f,0f,0f,1f
+    };
+    protected final float[] mMvpMatrix = new float[]{
             1f,0f,0f,0f,
             0f,1f,0f,0f,
             0f,0f,1f,0f,
@@ -46,6 +63,8 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
             0f,0f,0f,1f
     };
 
+    private float angle = 0;
+
     private boolean activeRenderWhenDirty = true;
 
     public boolean isActiveRenderWhenDirty() {
@@ -60,6 +79,10 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
         onAwake();
     }
 
+    public void rotate(float angle){
+        this.angle = angle;
+    }
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         onStart();
@@ -72,15 +95,15 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
         GLES20.glViewport(0, 0, width, height);
         // 在这里以高为基准适配宽
         ratio = (float) width / height;
-        // 模型矩阵
-        Matrix.scaleM(mModelMatrix, 0, 1.2f, 1.2f, 1.2f);
-        // 视图矩阵
-        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0, 1.0f, 0f);
-        // 投影矩阵
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 1f,100f); // near的值为1 其他值会变形
 
-        // Matrix.multiplyMV(identityMatrix, 0, mViewMatrix, 0, mModelMatrix, 0);      // MV
-        Matrix.multiplyMV(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);  // MVP
+        // 投影矩阵
+        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 0.1f,100);
+
+        // 视图矩阵
+        Matrix.setLookAtM(mViewMatrix, 0, 0, 0, 0.1f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+
+        // VP矩阵
+        Matrix.multiplyMM(mVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
         onChange();
     }
@@ -88,6 +111,13 @@ public abstract class MyGLRender implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+
+        // 模型矩阵
+        Matrix.setRotateM(mRotationMatrix, 0, angle,  0, 0,1.0f);
+
+        // MVP矩阵
+        Matrix.multiplyMM(mMvpMatrix, 0, mVPMatrix, 0, mRotationMatrix, 0);
+
         onUpdate();
     }
 
