@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spanned;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestHtmlTextViewBinding;
@@ -22,8 +23,12 @@ public class TestHtmlTextViewActivity extends BaseActivity<ActivityTestHtmlTextV
     public void init() {
         String name = "MM";
         String num = "9788";
+        binding.tvHtmlText.setText(getDiamondHtml(name, num));
+    }
+
+    public Spanned getDiamondHtml(String name, String num) {
         String htmlStr = "是否花费" + " <img src=\"" + R.drawable.icon_diamond + "\"> " + "<font color=\'#F1A803\'>" + num + "</font> " + "向" + name + "赠送礼物？";
-        binding.tvHtmlText.setText(Html.fromHtml(htmlStr, new MyImageGetter(), null));
+        return Html.fromHtml(htmlStr, new MyImageGetter(), null);
     }
 }
 
