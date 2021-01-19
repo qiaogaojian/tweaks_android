@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:width="46pt"
+        android:height="46pt"
+        android:drawable="@drawable/yxlc_hb" />
+
+</layer-list>
