@@ -3,4 +3,5 @@
     <string name="adapt_width">Adpat Width</string>
     <string name="title_triangle">Triangle</string>
     <string name="title_bgcolor">BgColor</string>
+    <string name="diamond_html"><![CDATA[是否花费 <img src=\"%s\"> <font color=\'#F1A803\'>%s</font> 向%s赠送礼物？]]></string>
 </resources>

@@ -27,7 +27,7 @@ public class TestHtmlTextViewActivity extends BaseActivity<ActivityTestHtmlTextV
     }
 
     public Spanned getDiamondHtml(String name, String num) {
-        String htmlStr = "是否花费" + " <img src=\"" + R.drawable.icon_diamond + "\"> " + "<font color=\'#F1A803\'>" + num + "</font> " + "向" + name + "赠送礼物？";
+        String htmlStr = getString(R.string.diamond_html,Integer.toString(R.drawable.icon_diamond) ,num,name);
         return Html.fromHtml(htmlStr, new MyImageGetter(), null);
     }
 }
