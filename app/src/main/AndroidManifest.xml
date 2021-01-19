@@ -20,10 +20,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
     <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
-    
+
     <application
         android:name=".utils.App"
         android:allowBackup="true"
@@ -34,7 +37,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestOpenglesActivity"></activity>
+        <activity android:name=".view.TestHtmlTextViewActivity"></activity>
+        <activity android:name=".view.TestOpenglesActivity" />
         <activity android:name=".view.TestEmojiActivity" />
         <activity android:name=".view.TestAndroidIdActivity" />
         <activity android:name=".view.TestPrintStackActivity" />
