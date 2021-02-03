@@ -13,6 +13,8 @@ import com.trello.rxlifecycle.android.ActivityEvent;
 import android.content.Intent;
 import android.content.res.Resources;
 import androidx.databinding.DataBindingUtil;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -298,6 +300,21 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
             @Override
             public void call(Object o) {
                 intent.setClass(MainActivity.this, TestHtmlTextViewActivity.class);
+                startActivity(intent);
+            }
+        });
+        ClickUtil.setOnClick(binding.btnTestScheme, new Action1() {
+            @Override
+            public void call(Object o) {
+                /**
+                 * (1)在manifest配置文件中配置了scheme参数
+                 * (2)网络端获取url
+                 * (3)跳转
+                 */
+                String url = "https://www.hosttest.com:666/pathtest?from=MainActivity";
+
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(url));
                 startActivity(intent);
             }
         });

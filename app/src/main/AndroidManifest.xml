@@ -37,7 +37,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestHtmlTextViewActivity"></activity>
+        <activity android:name=".view.TestSchemeActivity">
+            <!--Android 接收外部跳转过滤器-->
+            <!--要想在别的App上能成功调起App，必须添加intent过滤器-->
+            <intent-filter>
+                <!-- 协议部分配置 ,注意需要跟web配置相同-->
+                <!--协议部分，随便设置 schemetest://hosttest:666/pathtest?from=MainActivity  -->
+                <data android:scheme="https"
+                    android:host="www.hosttest.com"
+                    android:path="/pathtest"
+                    android:port="666"/>
+
+                <!--下面这几行也必须得设置-->
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.TestHtmlTextViewActivity" />
         <activity android:name=".view.TestOpenglesActivity" />
         <activity android:name=".view.TestEmojiActivity" />
         <activity android:name=".view.TestAndroidIdActivity" />
