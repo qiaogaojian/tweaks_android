@@ -1,0 +1,55 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sdbean.megashare">
+
+    <application>
+        <!--Facebook-->
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider398272107568966"
+            android:exported="true" />
+
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="fb398272107568966" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.sdbean.megashare.facebook.FacebookActivity"
+            android:theme="@style/AppTheme.Fullscreen.Translucent"></activity>
+
+        <!--Twitter-->
+        <!--Twitter-->
+        <activity
+            android:name="com.sdbean.megashare.twitter.TwitterAuthActivity"
+            android:theme="@style/AppTheme.Fullscreen.Translucent"
+            >
+
+        </activity>
+        <receiver
+            android:name="com.sdbean.megashare.twitter.TwitterTweetResultReciver"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_SUCCESS"/>
+                <action android:name="com.twitter.sdk.android.tweetcomposer.UPLOAD_FAILURE"/>
+                <action android:name="com.twitter.sdk.android.tweetcomposer.TWEET_COMPOSE_CANCEL"/>
+            </intent-filter>
+
+        </receiver>
+
+    </application>
+
+</manifest>
