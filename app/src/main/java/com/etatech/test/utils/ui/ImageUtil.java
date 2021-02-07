@@ -62,6 +62,14 @@ public class ImageUtil {
         return bitmap;
     }
 
+    // 仅截图
+    public static Bitmap viewToBitmap(View v) {
+        Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        v.draw(canvas);
+        return bitmap;
+    }
+
     /**
      * 保存View截图
      *
