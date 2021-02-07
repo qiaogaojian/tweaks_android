@@ -1,6 +1,8 @@
 package com.sdbean.megashare.util;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -10,13 +12,19 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
+import android.support.annotation.RequiresApi;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -54,6 +62,49 @@ final public class FileHelper
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * android 11及以上保存图片到相册
+     * @param context
+     * @param image
+     */
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public static Uri saveImageToGallery(Context context, Bitmap image){
+        Long mImageTime = System.currentTimeMillis();
+        String imageDate = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date(mImageTime));
+        String SCREENSHOT_FILE_NAME_TEMPLATE = "werewolf_%s.png";//图片名称，以"werewolf"+时间戳命名
+        String mImageFileName = String.format(SCREENSHOT_FILE_NAME_TEMPLATE, imageDate);
+
+        final ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES
+                + File.separator + "winetalk"); //Environment.DIRECTORY_SCREENSHOTS:截图,图库中显示的文件夹名。"dh"
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, mImageFileName);
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "image/png");
+        values.put(MediaStore.MediaColumns.DATE_ADDED, mImageTime / 1000);
+        values.put(MediaStore.MediaColumns.DATE_MODIFIED, mImageTime / 1000);
+        values.put(MediaStore.MediaColumns.DATE_EXPIRES, (mImageTime + DateUtils.DAY_IN_MILLIS) / 1000);
+        values.put(MediaStore.MediaColumns.IS_PENDING, 1);
+
+        ContentResolver resolver = context.getContentResolver();
+        final Uri uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        try {
+            // First, write the actual data for our screenshot
+            try (OutputStream out = resolver.openOutputStream(uri)) {
+                if (!image.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+                    throw new IOException("Failed to compress");
+                }
+            }
+            // Everything went well above, publish it!
+            values.clear();
+            values.put(MediaStore.MediaColumns.IS_PENDING, 0);
+            values.putNull(MediaStore.MediaColumns.DATE_EXPIRES);
+            resolver.update(uri, values, null, null);
+            return uri;
+        }catch (IOException e){
+            resolver.delete(uri, null);
+            return null;
         }
     }
 

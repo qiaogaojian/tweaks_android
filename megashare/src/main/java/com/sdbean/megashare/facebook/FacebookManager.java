@@ -95,7 +95,7 @@ final public class FacebookManager extends MegaShare
 
         if (mode == Mode.Native && !PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
-            Log.e(TAG, "Facebook 客户端未安装, 更换其他 Mode 分享.");
+            Log.e(TAG, "Facebook not installed");
             return;
         }
         mContext = context;
@@ -120,7 +120,7 @@ final public class FacebookManager extends MegaShare
 
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
-            Log.e(TAG, "Facebook 客户端未安装.");
+            Log.e(TAG, "Facebook not installed.");
             return;
         }
 
@@ -144,7 +144,7 @@ final public class FacebookManager extends MegaShare
 
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
-            Log.e(TAG, "Facebook 客户端未安装.");
+            Log.e(TAG, "Facebook not installed.");
             return;
         }
 
@@ -175,7 +175,7 @@ final public class FacebookManager extends MegaShare
 
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
-            Log.e(TAG, "Facebook 客户端未安装.");
+            Log.e(TAG, "Facebook not installed.");
             return;
         }
         mContext = context;

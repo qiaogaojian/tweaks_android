@@ -99,7 +99,7 @@ final public class TwitterManager extends MegaShare
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Twitter))
         {
-            Log.e(TAG, "Twitter 未安装");
+            Log.e(TAG, "Twitter not installed");
             return;
         }
 

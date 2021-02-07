@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.sdbean.megashare.share.MegaShare;
@@ -31,7 +33,7 @@ final public class LineManager extends MegaShare
 
     public void shareText(Context context, String text) {
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
-            Log.e(TAG, "Line 未安装");
+            Log.e(TAG, "Line not installed");
             return;
         }
         Intent intent = new Intent();
@@ -46,7 +48,7 @@ final public class LineManager extends MegaShare
     }
     public void shareImage(Context context, Bitmap image) {
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
-            Log.e(TAG, "Line 未安装");
+            Log.e(TAG, "Line not installed");
             return;
         }
         FileHelper.detectFileUriExposure();
@@ -62,4 +64,22 @@ final public class LineManager extends MegaShare
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public void shareImageR(Context context, Bitmap image) {
+        if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
+            Log.e(TAG, "Line not installed");
+            return;
+        }
+        FileHelper.detectFileUriExposure();
+        Uri uri = FileHelper.saveImageToGallery(context, image);
+        if (uri==null){
+            return;
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.setPackage("jp.naver.line.android");
+        context.startActivity(intent);
+    }
 }

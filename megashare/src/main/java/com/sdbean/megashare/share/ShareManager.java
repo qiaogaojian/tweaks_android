@@ -2,13 +2,16 @@ package com.sdbean.megashare.share;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import com.sdbean.megashare.facebook.FacebookManager;
 import com.sdbean.megashare.line.LineManager;
 import com.sdbean.megashare.twitter.TwitterManager;
+import com.sdbean.megashare.util.FileHelper;
 import com.sdbean.megashare.util.PlatformHelper;
 
 public final class ShareManager
@@ -64,7 +67,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                     .Facebook)) {
-                Log.e(TAG, "Facebook 客户端未安装.");
+                Log.e(TAG, "Facebook not installed.");
                 return;
             }
 
@@ -73,7 +76,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                     .Facebook)) {
-                Log.e(TAG, "Facebook 客户端未安装.");
+                Log.e(TAG, "Facebook not installed.");
                 return;
             }
 
@@ -82,7 +85,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
                     .Twitter)) {
-                Log.e(TAG, "Twitter 未安装");
+                Log.e(TAG, "Twitter not installed");
                 return;
             }
             TwitterManager.getInstance().share(context,
@@ -96,7 +99,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
                     .Twitter)) {
-                Log.e(TAG, "Twitter 未安装");
+                Log.e(TAG, "Twitter not installed");
                 return;
             }
             TwitterManager.getInstance().share(context,
@@ -109,10 +112,14 @@ public final class ShareManager
         } else if (channel == ShareChannel.Line)
         {
             if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
-                Log.e(TAG, "Line 未安装");
+                Log.e(TAG, "Line not installed");
                 return;
             }
-            LineManager.getInstance().shareImage(context, image);
+            if (Build.VERSION.SDK_INT >= 30){
+                LineManager.getInstance().shareImageR(context, image);
+            }else {
+                LineManager.getInstance().shareImage(context, image);
+            }
         } else
         {
             Log.e(TAG, "该种方式不支持图片分享");
@@ -133,7 +140,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
                     .Twitter)) {
-                Log.e(TAG, "Twitter 未安装");
+                Log.e(TAG, "Twitter not installed");
                 return;
             }
             TwitterManager.getInstance().share(context,
@@ -147,7 +154,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
                     .Twitter)) {
-                Log.e(TAG, "Twitter 未安装");
+                Log.e(TAG, "Twitter not installed");
                 return;
             }
             TwitterManager.getInstance().share(context,
@@ -160,7 +167,7 @@ public final class ShareManager
         } else if (channel == ShareChannel.Line)
         {
             if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
-                Log.e(TAG, "Line 未安装");
+                Log.e(TAG, "Line not installed");
                 return;
             }
             LineManager.getInstance().shareText(context,
@@ -185,7 +192,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                     .Facebook)) {
-                Log.e(TAG, "Facebook 客户端未安装.");
+                Log.e(TAG, "Facebook not installed.");
                 return;
             }
             FacebookManager.getInstance().shareWebpage(context,
@@ -198,7 +205,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                     .Facebook)) {
-                Log.e(TAG, "Facebook 客户端未安装.");
+                Log.e(TAG, "Facebook not installed.");
                 return;
             }
             FacebookManager.getInstance().shareWebpage(context,
@@ -210,7 +217,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
                     .Twitter)) {
-                Log.e(TAG, "Twitter 未安装");
+                Log.e(TAG, "Twitter not installed");
                 return;
             }
             TwitterManager.getInstance().share(context,
@@ -224,7 +231,7 @@ public final class ShareManager
         {
             if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
                     .Twitter)) {
-                Log.e(TAG, "Twitter 未安装");
+                Log.e(TAG, "Twitter not installed");
                 return;
             }
             TwitterManager.getInstance().share(context,
