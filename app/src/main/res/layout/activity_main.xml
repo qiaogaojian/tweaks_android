@@ -416,6 +416,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_html" />
+
+            <Button
+                android:id="@+id/btn_test_share"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Overseas Share"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_scheme" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
