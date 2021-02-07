@@ -219,7 +219,7 @@ dependencies {
     implementation project(':wheelpicker')
 
     implementation project(':megashare')
-    // implementation 'com.sdbean.megashare:share:1.1.0'
+    // implementation 'com.sdbean.megashare:share:1.1.1'
 }
 
 //添加到文件最后
