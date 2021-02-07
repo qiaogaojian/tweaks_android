@@ -31,8 +31,7 @@
 
         <Button
             android:id="@+id/btn_line1"
-            android:layout_width="261pt"
-            android:layout_height="157pt"
+            style="@style/Button"
             android:layout_marginBottom="391pt"
             android:text="LineText"
             android:textAllCaps="false"
@@ -43,8 +42,7 @@
 
         <Button
             android:id="@+id/btn_facebook1"
-            android:layout_width="313pt"
-            android:layout_height="157pt"
+            style="@style/Button"
             android:layout_marginBottom="391pt"
             android:text="FacebookText"
             android:textAllCaps="false"
@@ -55,8 +53,7 @@
 
         <Button
             android:id="@+id/btn_twitter1"
-            android:layout_width="261pt"
-            android:layout_height="157pt"
+            style="@style/Button"
             android:layout_marginBottom="391pt"
             android:text="TwitterText"
             android:textAllCaps="false"
@@ -67,8 +64,7 @@
 
         <Button
             android:id="@+id/btn_line2"
-            android:layout_width="261pt"
-            android:layout_height="157pt"
+            style="@style/Button"
             android:layout_marginBottom="235pt"
             android:text="LineImg"
             android:textAllCaps="false"
@@ -79,8 +75,7 @@
 
         <Button
             android:id="@+id/btn_facebook2"
-            android:layout_width="313pt"
-            android:layout_height="157pt"
+            style="@style/Button"
             android:layout_marginBottom="235pt"
             android:text="FacebookImg"
             android:textAllCaps="false"
@@ -91,8 +86,7 @@
 
         <Button
             android:id="@+id/btn_twitter2"
-            android:layout_width="261pt"
-            android:layout_height="157pt"
+            style="@style/Button"
             android:layout_marginBottom="235pt"
             android:text="TwitterImg"
             android:textAllCaps="false"
