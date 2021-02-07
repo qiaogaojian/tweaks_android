@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
+
 import android.util.Log;
 
 import com.sdbean.megashare.share.MegaShare;
@@ -13,14 +15,15 @@ import com.sdbean.megashare.share.SharePlatform;
 import com.sdbean.megashare.util.FileHelper;
 import com.sdbean.megashare.util.PlatformHelper;
 
-final public class LineManager extends MegaShare
-{
+final public class LineManager extends MegaShare {
     private final String TAG = "RInstagramManager===>";
 
     private static LineManager mManager;
 
-    private LineManager(){}
-    public static LineManager getInstance(){
+    private LineManager() {
+    }
+
+    public static LineManager getInstance() {
         if (mManager == null) {
             synchronized (LineManager.class) {
                 if (mManager == null) {
@@ -46,6 +49,7 @@ final public class LineManager extends MegaShare
         context.startActivity(intent);
 
     }
+
     public void shareImage(Context context, Bitmap image) {
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
             Log.e(TAG, "Line not installed");
@@ -58,7 +62,7 @@ final public class LineManager extends MegaShare
         intent.setType("image/*");
 
         Uri uri = FileHelper.getExternalSharePathFileUris(context).get(0);
-        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setPackage("jp.naver.line.android");
         context.startActivity(intent);
 
@@ -72,13 +76,13 @@ final public class LineManager extends MegaShare
         }
         FileHelper.detectFileUriExposure();
         Uri uri = FileHelper.saveImageToGallery(context, image);
-        if (uri==null){
+        if (uri == null) {
             return;
         }
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setPackage("jp.naver.line.android");
         context.startActivity(intent);
     }

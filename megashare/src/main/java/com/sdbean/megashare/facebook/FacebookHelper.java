@@ -20,8 +20,7 @@ import java.util.ArrayList;
 import com.sdbean.megashare.share.MegaShare;
 import com.sdbean.megashare.util.FileHelper;
 
-final class FacebookHelper
-{
+final class FacebookHelper {
 
 
     private final String TAG = "FacebookHelper";
@@ -32,8 +31,9 @@ final class FacebookHelper
         mIntent = intent;
 
     }
+
     protected ShareDialog.Mode getShareMode() {
-        MegaShare.Mode mode = (MegaShare.Mode)mIntent.getSerializableExtra("mode");
+        MegaShare.Mode mode = (MegaShare.Mode) mIntent.getSerializableExtra("mode");
         if (mode == MegaShare.Mode.Automatic) {
             return ShareDialog.Mode.AUTOMATIC;
         } else if (mode == MegaShare.Mode.Feed) {
@@ -73,7 +73,7 @@ final class FacebookHelper
         ArrayList<SharePhoto> photos = new ArrayList<SharePhoto>();
 
         Log.e(TAG, bitmaps.size() + "");
-        for (int i = 0; i < bitmaps.size(); i ++) {
+        for (int i = 0; i < bitmaps.size(); i++) {
 
             SharePhoto photo = new SharePhoto.Builder()
                     .setBitmap(bitmaps.get(i))

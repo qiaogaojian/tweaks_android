@@ -13,7 +13,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.SyncStateContract;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.text.format.DateUtils;
 import android.util.Log;
 

@@ -5,7 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -39,7 +40,7 @@ final public class FacebookActivity extends Activity {
      */
     private void handleIntent() {
 
-        Intent         intent = getIntent();
+        Intent intent = getIntent();
         FacebookHelper helper = new FacebookHelper(intent);
         if (intent.getSerializableExtra("type") == MegaShare.ShareContentType.Webpage) {
             shareWebpage(helper.getLinkContent(), helper.getShareMode());
@@ -86,7 +87,7 @@ final public class FacebookActivity extends Activity {
                 if (FacebookManager.getInstance().getListener() != null) {
                     FacebookManager.getInstance().getListener().onFail(SharePlatform
                                     .Platform.Facebook,
-                                                                       error.toString());
+                            error.toString());
                 }
                 FileHelper.deleteExternalShareDirectory(context);
                 finish();
@@ -103,6 +104,7 @@ final public class FacebookActivity extends Activity {
             mSd.show(content, mode);
         }
     }
+
     // 分享图片
     private void sharePhoto(SharePhotoContent content, ShareDialog.Mode mode) {
         registerCallback();
@@ -115,6 +117,7 @@ final public class FacebookActivity extends Activity {
             mSd.show(content, mode);
         }
     }
+
     // 分享视频
     private void shareVideo(ShareVideoContent content, ShareDialog.Mode mode) {
         registerCallback();
