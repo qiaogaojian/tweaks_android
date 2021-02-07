@@ -125,7 +125,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             if (variant.getBuildType().isMinifyEnabled()) {
-                variant.assemble.doLast{
+                variant.assemble.doLast {
                     copy {
                         from variant.mappingFile
                         into "${projectDir}/mappings"
@@ -208,16 +208,18 @@ dependencies {
 
     // 开屏广告
     implementation project(':splashad')
-//    implementation 'com.sdbean.splashad:splashad:2.1.0'
+    // implementation 'com.sdbean.splashad:splashad:2.1.0'
     // 虚拟机检测
     implementation project(':antiemulator')
-//    implementation 'com.sdbean.antiemulator:antiemulator:1.0.3'
+    // implementation 'com.sdbean.antiemulator:antiemulator:1.0.3'
     // 网络状态检测
     implementation project(':netstate')
-//    implementation 'com.sdbean.netstate:netstate:1.0.0'
+    // implementation 'com.sdbean.netstate:netstate:1.0.0'
 
     implementation project(':wheelpicker')
 
+    implementation project(':megashare')
+    // implementation 'com.sdbean.megashare:share:1.1.0'
 }
 
 //添加到文件最后
