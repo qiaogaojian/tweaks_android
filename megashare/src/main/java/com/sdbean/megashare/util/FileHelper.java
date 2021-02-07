@@ -79,7 +79,7 @@ final public class FileHelper
 
         final ContentValues values = new ContentValues();
         values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES
-                + File.separator + "winetalk"); //Environment.DIRECTORY_SCREENSHOTS:截图,图库中显示的文件夹名。"dh"
+                + File.separator + "werewolf"); //Environment.DIRECTORY_SCREENSHOTS:截图,图库中显示的文件夹名。"dh"
         values.put(MediaStore.MediaColumns.DISPLAY_NAME, mImageFileName);
         values.put(MediaStore.MediaColumns.MIME_TYPE, "image/png");
         values.put(MediaStore.MediaColumns.DATE_ADDED, mImageTime / 1000);
