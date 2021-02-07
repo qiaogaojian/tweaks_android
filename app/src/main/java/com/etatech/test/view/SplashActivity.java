@@ -1,7 +1,9 @@
 package com.etatech.test.view;
 
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -24,7 +26,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     @Override
     public void init() {
         // 打开应用时 视频广告
-        if (getIntent() == null || getIntent().getExtras() == null) {
+        if (getIntent() == null
+         || getIntent().getExtras() == null
+         || getIntent().getExtras().get("splashAdBean") == null) {
             SplashAdBean adBean = new SplashAdBean();
             adBean.setAdUrl("https://www.douyu.com/510229");
             adBean.setResUrl("https://vd3.bdstatic.com/mda-jbcku58bvs34kjav/mda-jbcku58bvs34kjav.mp4");
