@@ -90,7 +90,7 @@ public final class ShareManager
             }
             TwitterManager.getInstance().share(context,
                                                null,
-                                               "werewolf",
+                                               "",
                                                image,
                                                null,
                                                MegaShare.Mode.Automatic,
@@ -103,8 +103,8 @@ public final class ShareManager
                 return;
             }
             TwitterManager.getInstance().share(context,
-                                               "https://werewolf.com",
-                                               "werewolf",
+                                               "",
+                                               "",
                                                image,
                                                null,
                                                MegaShare.Mode.Native,
