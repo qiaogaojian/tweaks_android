@@ -12,6 +12,7 @@ import com.trello.rxlifecycle.android.ActivityEvent;
 
 import android.content.Intent;
 import android.content.res.Resources;
+
 import androidx.databinding.DataBindingUtil;
 
 import android.net.Uri;
@@ -322,6 +323,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
             @Override
             public void call(Object o) {
                 intent.setClass(MainActivity.this, TestShareActivity.class);
+                startActivity(intent);
+            }
+        });
+        ClickUtil.setOnClick(binding.btnTestSpine, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestSpineActivity.class);
                 startActivity(intent);
             }
         });

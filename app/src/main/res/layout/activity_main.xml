@@ -426,6 +426,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_scheme" />
+
+            <Button
+                android:id="@+id/btn_test_spine"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Spine Animation"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_share" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

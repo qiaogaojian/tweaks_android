@@ -37,7 +37,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestShareActivity"></activity>
+        <activity android:name=".view.TestSpineActivity"></activity>
+        <activity android:name=".view.TestShareActivity" />
         <activity android:name=".view.TestSchemeActivity">
 
             <!-- Android 接收外部跳转过滤器 -->
@@ -51,6 +52,12 @@
                     android:path="/pathtest"
                     android:port="666"
                     android:scheme="https" />
+
+                <data
+                    android:host="www.hosttest.com"
+                    android:path="/pathtest"
+                    android:port="666"
+                    android:scheme="app" />
 
                 <!-- 下面这几行也必须得设置 -->
                 <category android:name="android.intent.category.DEFAULT" />
