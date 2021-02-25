@@ -61,7 +61,7 @@ public class TestShareActivity extends BaseActivity<ActivityTestShareBinding> {
                 content = new WebContent.Builder("https://www.google.com/")
                         .hashTag("#test")
                         .quote("werewolf")
-                        .thumbImage(ImageUtil.viewToBitmap(binding.ivShare))
+                        .thumbImage(ImageUtil.viewToBitmap(binding.ivShare1))
                         .title("天天狼人")
                         .build();
                 Toast.makeText(TestShareActivity.this, "share web to facebook", Toast.LENGTH_SHORT).show();
@@ -75,7 +75,7 @@ public class TestShareActivity extends BaseActivity<ActivityTestShareBinding> {
                 content = new WebContent.Builder("https://www.google.com/")
                         .hashTag("#test")
                         .quote("werewolf")
-                        .thumbImage(ImageUtil.viewToBitmap(binding.ivShare))
+                        .thumbImage(ImageUtil.viewToBitmap(binding.ivShare1))
                         .title("天天狼人")
                         .build();
                 Toast.makeText(TestShareActivity.this, "share web to facebook", Toast.LENGTH_SHORT).show();
@@ -87,7 +87,15 @@ public class TestShareActivity extends BaseActivity<ActivityTestShareBinding> {
             public void call(Object o) {
                 // case R.id.btn_line2: // 图片
                 Toast.makeText(TestShareActivity.this, "share image to line", Toast.LENGTH_SHORT).show();
-                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare), ShareManager.ShareChannel.Line, mListener);
+                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare1), ShareManager.ShareChannel.Line, mListener);
+            }
+        });
+        ClickUtil.setOnClick(binding.btnLine3, new Action1() {
+            @Override
+            public void call(Object o) {
+                // case R.id.btn_line2: // 图片
+                Toast.makeText(TestShareActivity.this, "share image to line", Toast.LENGTH_SHORT).show();
+                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare2), ShareManager.ShareChannel.Line, mListener);
             }
         });
         ClickUtil.setOnClick(binding.btnFacebook2, new Action1() {
@@ -95,7 +103,7 @@ public class TestShareActivity extends BaseActivity<ActivityTestShareBinding> {
             public void call(Object o) {
                 // case R.id.btn_facebook2:// 图片
                 Toast.makeText(TestShareActivity.this, "share image to facebook", Toast.LENGTH_SHORT).show();
-                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare), ShareManager.ShareChannel.FacebookClient, mListener);
+                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare1), ShareManager.ShareChannel.FacebookClient, mListener);
 
             }
         });
@@ -104,7 +112,7 @@ public class TestShareActivity extends BaseActivity<ActivityTestShareBinding> {
             public void call(Object o) {
                 // case R.id.btn_twitter2:// 图片
                 Toast.makeText(TestShareActivity.this, "share image to twitter", Toast.LENGTH_SHORT).show();
-                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare), ShareManager.ShareChannel.TwitterInnerApp, mListener);
+                ShareManager.getInstance().shareImage(TestShareActivity.this, ImageUtil.viewToBitmap(binding.ivShare1), ShareManager.ShareChannel.TwitterInnerApp, mListener);
             }
         });
 
