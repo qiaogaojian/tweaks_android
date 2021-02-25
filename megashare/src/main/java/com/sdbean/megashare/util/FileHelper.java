@@ -38,7 +38,7 @@ final public class FileHelper
      * @param context
      * @param bitmap
      */
-    public static void saveBitmapToExternalSharePath(Context context, Bitmap bitmap) {
+    public static Uri saveBitmapToExternalSharePath(Context context, Bitmap bitmap) {
 
 
         String dir = context.getExternalCacheDir()
@@ -47,7 +47,8 @@ final public class FileHelper
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
-        File file = new File(dirFile, System.currentTimeMillis() + ".jpg");
+        String filePath = context.getExternalCacheDir().getAbsolutePath() + "/share_tmp/" + System.currentTimeMillis() + ".jpg";
+        File file = new File(filePath);
         Log.e(TAG, file.getAbsolutePath());
 
         FileOutputStream out = null;
@@ -63,6 +64,7 @@ final public class FileHelper
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return Uri.fromFile(file);
     }
 
     /**

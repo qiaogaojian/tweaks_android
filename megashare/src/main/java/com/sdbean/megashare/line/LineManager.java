@@ -56,12 +56,12 @@ final public class LineManager extends MegaShare {
             return;
         }
         FileHelper.detectFileUriExposure();
-        FileHelper.saveBitmapToExternalSharePath(context, image);
+        Uri uri = FileHelper.saveBitmapToExternalSharePath(context, image);
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
 
-        Uri uri = FileHelper.getExternalSharePathFileUris(context).get(0);
+        // Uri uri = FileHelper.getExternalSharePathFileUris(context).get(0);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setPackage("jp.naver.line.android");
         context.startActivity(intent);
