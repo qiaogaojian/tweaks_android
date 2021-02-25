@@ -126,6 +126,74 @@ public final class ShareManager
         }
     }
 
+    public void shareImage(Context context, Bitmap image, ShareChannel channel, String text, ShareListener listener)
+    {
+        ArrayList<Bitmap> img = new ArrayList<Bitmap>();
+        img.add(image);
+
+        if (channel == ShareChannel.FacebookClient)
+        {
+            if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
+                    .Facebook)) {
+                Log.e(TAG, "Facebook not installed.");
+                return;
+            }
+
+            FacebookManager.getInstance().sharePhotos(context, img);
+        } else if (channel == ShareChannel.FacebookBroswer)
+        {
+            if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
+                    .Facebook)) {
+                Log.e(TAG, "Facebook not installed.");
+                return;
+            }
+
+            FacebookManager.getInstance().sharePhotos(context, img);
+        } else if (channel == ShareChannel.TwitterInnerApp)
+        {
+            if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
+                    .Twitter)) {
+                Log.e(TAG, "Twitter not installed");
+                return;
+            }
+            TwitterManager.getInstance().share(context,
+                    null,
+                    text,
+                    image,
+                    null,
+                    MegaShare.Mode.Automatic,
+                    listener);
+        } else if (channel == ShareChannel.TwitterClient)
+        {
+            if (!PlatformHelper.isInstalled(context , SharePlatform.Platform
+                    .Twitter)) {
+                Log.e(TAG, "Twitter not installed");
+                return;
+            }
+            TwitterManager.getInstance().share(context,
+                    "",
+                    text,
+                    image,
+                    null,
+                    MegaShare.Mode.Native,
+                    listener);
+        } else if (channel == ShareChannel.Line)
+        {
+            if (!PlatformHelper.isInstalled(context, SharePlatform.Platform.Line)) {
+                Log.e(TAG, "Line not installed");
+                return;
+            }
+            if (Build.VERSION.SDK_INT >= 30){
+                LineManager.getInstance().shareImageR(context, image);
+            }else {
+                LineManager.getInstance().shareImage(context, image);
+            }
+        } else
+        {
+            Log.e(TAG, "该种方式不支持图片分享");
+        }
+    }
+
     /**
      * 分享文本
      *
