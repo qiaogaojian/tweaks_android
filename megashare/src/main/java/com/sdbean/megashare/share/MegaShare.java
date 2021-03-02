@@ -4,20 +4,16 @@ import android.content.Context;
 
 import com.facebook.FacebookSdk;
 
-public class MegaShare
-{
-    public static String TwitterKey;
-    public static String TwitterSecret;
-    public static String FacebookId;
-    public static String FacebookSecret;
+public class MegaShare {
+    public static String TwitterKey = "dDreW3lNrUCMcDyspwWk3ejj6";
+    public static String TwitterSecret = "19FQdU8sNMwSVvZdaYTrOgQTZCnNkrn2S6XficF05kh3eDXJTa";
+    public static String FacebookId = "3753933948055178";
 
-    public static void init(Context context)
-    {
+    public static void init(Context context) {
         FacebookSdk.setApplicationId(MegaShare.FacebookId);
     }
 
-    public enum ShareContentType
-    {
+    public enum ShareContentType {
         Webpage,
         Photo,
         Video,
@@ -31,8 +27,7 @@ public class MegaShare
     /**
      * 分享模式仅对部分平台生效, 部分平台直接跳转应用分享并不提供其他形式的分享, 一些平台的分享接口中参数不含 Mode.
      */
-    public enum Mode
-    {
+    public enum Mode {
         /**
          * 默认的分享方式
          * Facebook: 优先客户端分享, 客户端无法分享会转由网页形式分享.
@@ -58,6 +53,4 @@ public class MegaShare
          */
         System,
     }
-
-
 }
