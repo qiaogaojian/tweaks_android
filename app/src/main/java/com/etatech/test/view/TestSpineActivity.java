@@ -13,12 +13,6 @@ import com.etatech.test.utils.ui.ClickUtil;
 import rx.functions.Action1;
 
 public class TestSpineActivity extends BaseActivity<ActivityTestSpineBinding> {
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_spine);
-    }
 
     @Override
     public ActivityTestSpineBinding onCreateView(Bundle savedInstanceState) {
