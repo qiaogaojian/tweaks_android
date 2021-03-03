@@ -37,7 +37,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestSpineActivity"></activity>
+        <activity android:name=".spine.SpineBoyActivity"></activity>
+        <activity android:name=".view.TestSpineActivity" />
         <activity android:name=".view.TestShareActivity" />
         <activity android:name=".view.TestSchemeActivity">
 
@@ -52,7 +53,6 @@
                     android:path="/pathtest"
                     android:port="666"
                     android:scheme="https" />
-
                 <data
                     android:host="www.hosttest.com"
                     android:path="/pathtest"
