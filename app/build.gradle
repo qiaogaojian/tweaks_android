@@ -20,6 +20,12 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+
+        ndk {
+            moduleName "spine"
+            ldLibs "log", "z", "m"
+            abiFilters "armeabi"
+        }
     }
 
     signingConfigs {
@@ -104,6 +110,7 @@ android {
     }
 
     sourceSets {
+        main.jniLibs.srcDirs = ['../spine/libs']
         main {
             res.srcDirs = ['src/main/res']
             java.srcDirs = ['src/main/java']
@@ -193,7 +200,6 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.1'
 
     // 图片加载
-    implementation 'com.github.bumptech.glide:glide:4.7.0'
     implementation "com.sdbean.imageloader:frame:1.1.9"
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation "com.sdbean.glide:webpdecoder:1.0.0"
@@ -222,9 +228,8 @@ dependencies {
     implementation project(':megashare')
     // implementation 'com.sdbean.megashare:share:1.1.1'
 
-    implementation (project(':spine')) {
-        transitive = true
-    }
+    // implementation project(':spine')
+    implementation 'com.sdbean.spine:spineLoader:0.0.1'
 }
 
 //添加到文件最后

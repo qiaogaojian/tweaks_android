@@ -5,6 +5,8 @@ import android.content.ComponentCallbacks2;
 import android.graphics.Typeface;
 import android.os.Environment;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
+
 import android.text.Spanned;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -21,7 +23,7 @@ import java.util.List;
  * Date:  2019/12/27
  * Func:
  */
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     public final   float    designRatio = 16f / 9f;
     private static App      instance;

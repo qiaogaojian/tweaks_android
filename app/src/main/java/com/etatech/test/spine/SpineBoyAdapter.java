@@ -1,5 +1,9 @@
 package com.etatech.test.spine;
 
+import android.net.Uri;
+
+import com.badlogic.gdx.Files;
+import com.esotericsoftware.spine.Animation;
 import com.etatech.spine.SpineBaseAdapter;
 
 /**
@@ -16,22 +20,25 @@ class SpineBoyAdapter extends SpineBaseAdapter {
 
     @Override
     public void onCreatedImpl() {
-        setAnimate("walk");
+        mAnimationState.setAnimation(0, "walk", true);
     }
 
     @Override
     public void doClick() {
-        setAnimate("shoot");
-        setAnimate("walk");
+        Animation animation = mSkeletonData.findAnimation("shoot");
+        mAnimationState.setAnimation(0, animation, false);
+        mAnimationState.addAnimation(0, "walk", true, animation.getDuration());
     }
 
     public void doJump() {
-        setAnimate("jump");
-        setAnimate("walk");
+        Animation animation = mSkeletonData.findAnimation("jump");
+        mAnimationState.setAnimation(0, animation, false);
+        mAnimationState.addAnimation(0, "walk", true, animation.getDuration());
     }
 
     public void doRun() {
-        setAnimate("run");
-        setAnimate("walk");
+        Animation animation = mSkeletonData.findAnimation("run");
+        mAnimationState.setAnimation(0, animation, false);
+        mAnimationState.addAnimation(0, "walk", true, animation.getDuration());
     }
 }
