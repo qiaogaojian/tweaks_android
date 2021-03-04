@@ -12,17 +12,26 @@ import com.etatech.spine.SpineBaseAdapter;
  * Desc:
  */
 class SpineBoyAdapter extends SpineBaseAdapter {
+    /**
+     * 设置动画文件资源路径
+     */
     @Override
     public void onCreateImpl() {
         setAltasPath("spineboy/spineboy.atlas");
         setSkeletonPath("spineboy/spineboy.json");
     }
 
+    /**
+     * 设置动画初始状态
+     */
     @Override
     public void onCreatedImpl() {
         mAnimationState.setAnimation(0, "walk", true);
     }
 
+    /**
+     * 动画点击回调
+     */
     @Override
     public void doClick() {
         Animation animation = mSkeletonData.findAnimation("shoot");

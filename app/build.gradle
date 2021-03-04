@@ -228,8 +228,8 @@ dependencies {
     implementation project(':megashare')
     // implementation 'com.sdbean.megashare:share:1.1.1'
 
-    // implementation project(':spine')
-    implementation 'com.sdbean.spine:spineLoader:0.0.1'
+    implementation project(':spine')
+    // implementation 'com.sdbean.spine:spineLoader:0.0.3'
 }
 
 //添加到文件最后
