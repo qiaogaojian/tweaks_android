@@ -4,16 +4,24 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.etatech.spine.SpineBaseFragment;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivitySpineBoyBinding;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.utils.FileUtils;
 import com.etatech.test.utils.ui.ClickUtil;
+import com.etatech.test.utils.ui.ImageUtil;
+import com.etatech.test.view.TestExportSvgActivity;
+import com.gun0912.tedpermission.TedPermissionResult;
+import com.tedpark.tedpermission.rx1.TedRxPermission;
 
 import rx.functions.Action1;
 
@@ -29,6 +37,11 @@ public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> impl
 
     @Override
     public void init() {
+        AssetManager assetManager = getResources().getAssets();
+        FileUtils.copyToRes(assetManager, "spineboy/spineboy.atlas");
+        FileUtils.copyToRes(assetManager, "spineboy/spineboy.json");
+        FileUtils.copyToRes(assetManager, "spineboy/spineboy.png");
+
         initSpine();
         initClick();
     }
