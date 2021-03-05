@@ -13,6 +13,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import com.esotericsoftware.spine.Animation;
@@ -26,6 +27,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.RegionAttachment;
 
 public abstract class SpineBaseAdapter extends ApplicationAdapter {
     private static final float DEFAULT_ANIM_SWICTH_TIME = 0.3f;
@@ -47,7 +49,9 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     private OnCreatedLIstener mOnCreatedLIstener;
     private SkeletonRendererDebug mDebugRenderer;
     private boolean mIsDebug = false;
+    private boolean mActivePremultipliedAlpha = false;
     private int mPadding = 0;
+    private float mScale = 1f;
 
     public SpineBaseAdapter() {
     }
@@ -83,6 +87,24 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     }
 
     /**
+     * 当无法自动缩放时设置缩放系数 默认为 1
+     *
+     * @param scale
+     */
+    public void setScale(float scale) {
+        mScale = scale;
+    }
+
+    /**
+     * 设置是否开启 activePremultipliedAlpha (用于处理透明和闪烁问题)
+     *
+     * @param activePremultipliedAlpha
+     */
+    public void setActivePremultipliedAlpha(boolean activePremultipliedAlpha) {
+        mActivePremultipliedAlpha = activePremultipliedAlpha;
+    }
+
+    /**
      * 注意：这些周期方法都是在子线程中执行的
      */
     @Override
@@ -107,11 +129,13 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mCamera = new OrthographicCamera();
         mMeshBatch = new PolygonSpriteBatch();
         mRenderer = new SkeletonRenderer();
-        mRenderer.setPremultipliedAlpha(true);
+        mRenderer.setPremultipliedAlpha(mActivePremultipliedAlpha);
 
         /**debug相关 可以在动画中直观的看见骨骼关系**/
         if (mIsDebug) {
             mDebugRenderer = new SkeletonRendererDebug();
+            // mDebugRenderer.setBoundingBoxes(false);
+            // mDebugRenderer.setRegionAttachments(false);
         }
 
         mAtlas = new TextureAtlas(mAltasFileHandle);
@@ -119,12 +143,19 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
         float scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
+        if (mSkeletonData.getHeight() == 0) {
+            scale = mScale;
+        }
         mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         mSkeleton = new Skeleton(mSkeletonData);
         /**设置骨架在父布局中的位置**/
         float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2 * scale;
-        mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, midHeight > 0 ? midHeight : 0);
+        if (mSkeletonData.getHeight() == 0) {
+            mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, mPadding);
+        } else {
+            mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, midHeight > 0 ? midHeight : 0);
+        }
         mSkeletonBounds = new SkeletonBounds();
         mAnimationStateData = new AnimationStateData(mSkeletonData);
         /**设置动画切换时的过度时间**/
