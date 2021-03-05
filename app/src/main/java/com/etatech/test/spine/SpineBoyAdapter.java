@@ -38,11 +38,11 @@ class SpineBoyAdapter extends SpineBaseAdapter {
         animate("shoot", "walk");
     }
 
-    public void doJump() {
+    public void animateJump() {
         animate("jump", "walk");
     }
 
-    public void doRun() {
+    public void animateRun() {
         animate("run");
     }
 }
