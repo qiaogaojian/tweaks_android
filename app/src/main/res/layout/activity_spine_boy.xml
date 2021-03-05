@@ -73,11 +73,11 @@
             android:id="@+id/fl_spine"
             android:layout_width="1000pt"
             android:layout_height="1000pt"
-            android:background="@color/code_grey"
             app:layout_constraintBottom_toTopOf="@id/btn_run"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/code_grey">
 
         </FrameLayout>
 
