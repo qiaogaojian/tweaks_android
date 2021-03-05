@@ -12,10 +12,9 @@ import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
-import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Skeleton;
@@ -38,7 +37,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     protected boolean mIsInited;
     protected AndroidFragmentApplication mAndroidFragmentApplication;
     protected OrthographicCamera mCamera;
-    protected SpriteBatch mBatch;
+    protected PolygonSpriteBatch mMeshBatch;
     protected SkeletonRenderer mRenderer;
     protected TextureAtlas mAtlas;
     protected Skeleton mSkeleton;
@@ -50,6 +49,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     private OnSpineClickListener mSpineClickListener;
     private OnCreatedLIstener mOnCreatedLIstener;
     private SkeletonRendererDebug mDebugRenderer;
+    private boolean mIsDebug = false;
 
     public SpineBaseAdapter() {
     }
@@ -66,15 +66,19 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mOnCreatedLIstener = onCreatedLIstener;
     }
 
+    public void setDebug(boolean debug) {
+        mIsDebug = debug;
+    }
+
     /**
      * 注意：这些周期方法都是在子线程中执行的
      */
     @Override
     public void create() {
         try {
-            onCreateImpl();
+            onInit();
             initialize();
-            onCreatedImpl();
+            onCreated();
             mIsInited = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,19 +93,21 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
             throw new RuntimeException("请在createImpl中设置altas路径和skeleton路径");
         }
         mCamera = new OrthographicCamera();
-        mBatch = new SpriteBatch();
+        mMeshBatch = new PolygonSpriteBatch();
         mRenderer = new SkeletonRenderer();
         mRenderer.setPremultipliedAlpha(true);
 
         /**debug相关 可以在动画中直观的看见骨骼关系**/
-        mDebugRenderer = new SkeletonRendererDebug();
+        if (mIsDebug) {
+            mDebugRenderer = new SkeletonRendererDebug();
+        }
 
         mAtlas = new TextureAtlas(mAltasFileHandle);
         mSkeletonJson = new SkeletonJson(mAtlas);
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
         float scale = (float) ((float) Gdx.graphics.getHeight() / mSkeletonData.getHeight());
-        mSkeletonJson.setScale(1.1f);//设置完scale之后要重新读取一下mSkeletonData
+        mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         mSkeleton = new Skeleton(mSkeletonData);
         /**设置骨架在父布局中的位置，默认贴底居中**/
@@ -119,7 +125,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
                 mCamera.unproject(point.set(screenX, screenY, 0));
                 mSkeletonBounds.update(mSkeleton, false);
                 if (mSkeletonBounds.aabbContainsPoint(point.x, point.y)) {
-                    doClick();
+                    onClick();
                     if (mSpineClickListener != null) {
                         mAndroidFragmentApplication.getView().post(new Runnable() {
                             @Override
@@ -135,9 +141,9 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         });
     }
 
-    public abstract void onCreatedImpl();
+    public abstract void onCreated();
 
-    public abstract void doClick();
+    public abstract void onClick();
 
     public void setAltasPath(String path, Files.FileType fileType) {
         this.mAltasFileHandle = Gdx.files.getFileHandle(path, fileType);
@@ -200,8 +206,10 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         }
     }
 
-    public void onCreateImpl() {
-    }
+    /**
+     * 初始化 设置资源和动画状态
+     */
+    public abstract void onInit();
 
     public void onResizeImpl(int width, int height) {
         if (mCamera != null) {
@@ -220,12 +228,16 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
             mAnimationState.apply(mSkeleton);
             mSkeleton.updateWorldTransform();
             mCamera.update();
-            mBatch.getProjectionMatrix().set(mCamera.combined);
-            mDebugRenderer.getShapeRenderer().setProjectionMatrix(mCamera.combined);
-            mBatch.begin();
-            mRenderer.draw(mBatch, mSkeleton);
-            mBatch.end();
-            mDebugRenderer.draw(mSkeleton);
+
+            mMeshBatch.getProjectionMatrix().set(mCamera.combined);
+            mMeshBatch.begin();
+            mRenderer.draw(mMeshBatch, mSkeleton);
+            mMeshBatch.end();
+
+            if (mIsDebug) {
+                mDebugRenderer.getShapeRenderer().setProjectionMatrix(mCamera.combined);
+                mDebugRenderer.draw(mSkeleton);
+            }
         }
     }
 
@@ -287,7 +299,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         return true;
     }
 
-    public void setAnimate(String aniName) {
+    public void animate(String aniName) {
         mAnimationState.addAnimation(0, aniName, true, 0);
     }
 }
