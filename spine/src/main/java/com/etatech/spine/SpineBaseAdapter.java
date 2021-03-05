@@ -154,6 +154,11 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         });
     }
 
+    /**
+     * 初始化 设置资源和动画状态
+     */
+    public abstract void onInit();
+
     public abstract void onCreated();
 
     /**
@@ -169,7 +174,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      */
     public void setAssetsPath(String atlasPath, String skeletonPath) {
         setAltasPath(atlasPath, Files.FileType.Internal);
-        setAltasPath(skeletonPath, Files.FileType.Internal);
+        setSkeletonPath(skeletonPath, Files.FileType.Internal);
     }
 
     /**
@@ -180,7 +185,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      */
     public void setResPath(String atlasPath, String skeletonPath) {
         setAltasPath(atlasPath, Files.FileType.Absolute);
-        setAltasPath(skeletonPath, Files.FileType.Absolute);
+        setSkeletonPath(skeletonPath, Files.FileType.Absolute);
     }
 
     /**
@@ -191,7 +196,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      */
     public void setExternalPath(String atlasPath, String skeletonPath) {
         setAltasPath(atlasPath, Files.FileType.External);
-        setAltasPath(skeletonPath, Files.FileType.External);
+        setSkeletonPath(skeletonPath, Files.FileType.External);
     }
 
     private void setAltasPath(String path, Files.FileType fileType) {
@@ -246,11 +251,6 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
             e.printStackTrace();
         }
     }
-
-    /**
-     * 初始化 设置资源和动画状态
-     */
-    public abstract void onInit();
 
     public void onResizeImpl(int width, int height) {
         if (mCamera != null) {
