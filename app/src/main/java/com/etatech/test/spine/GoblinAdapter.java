@@ -13,7 +13,6 @@ public class GoblinAdapter extends SpineBaseAdapter {
     public void onInit() {
         setAssetsPath("goblins/goblins.atlas", "goblins/goblins.json");
         setScale(2f);
-        setDebug(true);
     }
 
     @Override
