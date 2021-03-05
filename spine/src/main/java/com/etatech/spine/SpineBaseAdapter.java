@@ -168,8 +168,8 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      * @param skeletonPath json文件
      */
     public void setAssetsPath(String atlasPath, String skeletonPath) {
-        this.mAltasFileHandle = Gdx.files.getFileHandle(atlasPath, Files.FileType.Internal);
-        this.mSkeletonFileHandle = Gdx.files.getFileHandle(skeletonPath, Files.FileType.Internal);
+        setAltasPath(atlasPath, Files.FileType.Internal);
+        setAltasPath(skeletonPath, Files.FileType.Internal);
     }
 
     /**
@@ -179,8 +179,8 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      * @param skeletonPath json文件
      */
     public void setResPath(String atlasPath, String skeletonPath) {
-        this.mAltasFileHandle = Gdx.files.getFileHandle(atlasPath, Files.FileType.Absolute);
-        this.mSkeletonFileHandle = Gdx.files.getFileHandle(skeletonPath, Files.FileType.Absolute);
+        setAltasPath(atlasPath, Files.FileType.Absolute);
+        setAltasPath(skeletonPath, Files.FileType.Absolute);
     }
 
     /**
@@ -190,15 +190,15 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      * @param skeletonPath json文件
      */
     public void setExternalPath(String atlasPath, String skeletonPath) {
-        this.mAltasFileHandle = Gdx.files.getFileHandle(atlasPath, Files.FileType.External);
-        this.mSkeletonFileHandle = Gdx.files.getFileHandle(skeletonPath, Files.FileType.External);
+        setAltasPath(atlasPath, Files.FileType.External);
+        setAltasPath(skeletonPath, Files.FileType.External);
     }
 
-    public void setAltasPath(String path, Files.FileType fileType) {
+    private void setAltasPath(String path, Files.FileType fileType) {
         this.mAltasFileHandle = Gdx.files.getFileHandle(path, fileType);
     }
 
-    public void setSkeletonPath(String path, Files.FileType fileType) {
+    private void setSkeletonPath(String path, Files.FileType fileType) {
         this.mSkeletonFileHandle = Gdx.files.getFileHandle(path, fileType);
     }
 

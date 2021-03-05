@@ -12,7 +12,7 @@ import com.etatech.test.utils.FileUtils;
  * Date:  2021/3/3
  * Desc:
  */
-class SpineBoyAdapter extends SpineBaseAdapter {
+public class SpineBoyAdapter extends SpineBaseAdapter {
     /**
      * 设置动画文件资源路径
      */

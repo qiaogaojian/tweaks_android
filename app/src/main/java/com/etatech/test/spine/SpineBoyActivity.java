@@ -29,8 +29,7 @@ public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> impl
 
     @Override
     public void init() {
-        AssetManager assetManager = getResources().getAssets();
-
+        // AssetManager assetManager = getResources().getAssets();
         // 把assets中的资源复制到内部储存
         // FileUtils.copyToRes(assetManager, "spineboy/spineboy.atlas");
         // FileUtils.copyToRes(assetManager, "spineboy/spineboy.json");
