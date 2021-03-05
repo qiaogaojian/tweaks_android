@@ -141,19 +141,26 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         }
 
         mAtlas = new TextureAtlas(mAltasFileHandle);
-//        mSkeletonJson = new SkeletonJson(mAtlas);
-//        mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
-        mSkeletonBinary = new SkeletonBinary(mAtlas);
-        mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
+        if (mSkeletonFileHandle.toString().contains(".json")){
+            mSkeletonJson = new SkeletonJson(mAtlas);
+            mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
+        }else{
+            mSkeletonBinary = new SkeletonBinary(mAtlas);
+            mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
+        }
+
         /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
         float scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
         if (mSkeletonData.getHeight() == 0 || mScale != 1f) {
             scale = mScale;
         }
-//        mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
-//        mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
-        mSkeletonBinary.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
-        mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
+        if (mSkeletonFileHandle.toString().contains(".json")){
+            mSkeletonJson.setScale(scale); //设置完scale之后要重新读取一下mSkeletonData
+            mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
+        }else{
+            mSkeletonBinary.setScale(scale);
+            mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
+        }
         mSkeleton = new Skeleton(mSkeletonData);
         /**设置骨架在父布局中的位置**/
         float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2 * scale;
