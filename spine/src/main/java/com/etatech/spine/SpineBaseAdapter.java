@@ -147,7 +147,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
         /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
         float scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
-        if (mSkeletonData.getHeight() == 0) {
+        if (mSkeletonData.getHeight() == 0 || mScale != 1f) {
             scale = mScale;
         }
 //        mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
@@ -157,7 +157,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mSkeleton = new Skeleton(mSkeletonData);
         /**设置骨架在父布局中的位置**/
         float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2 * scale;
-        if (mSkeletonData.getHeight() == 0) {
+        if (mSkeletonData.getHeight() == 0 || mScale != 1f) {
             mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, mPadding);
         } else {
             mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, midHeight > 0 ? midHeight : 0);

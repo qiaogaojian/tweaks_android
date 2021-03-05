@@ -21,8 +21,9 @@ public class SpineBoyAdapter extends SpineBaseAdapter {
         setAssetsPath("spineboy3.8/spineboy.atlas", "spineboy3.8/spineboy.skel");
         // setResPath(FileUtils.getResPath() + "spineboy/spineboy.atlas", FileUtils.getResPath() + "spineboy/spineboy.json");
         // setExternalPath("spineboy/spineboy.atlas", "spineboy/spineboy.json");
-        setDebug(true);
-        setPadding(100);
+        // setDebug(true);
+        // setPadding(100);
+        setScale(.8f);
     }
 
     /**
