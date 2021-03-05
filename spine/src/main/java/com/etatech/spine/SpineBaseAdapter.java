@@ -26,10 +26,6 @@ import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
 
-/**
- * 骨骼动画封装类
- * Created by J.Tommy on 17/6/5.
- */
 public abstract class SpineBaseAdapter extends ApplicationAdapter {
     private static final float DEFAULT_ANIM_SWICTH_TIME = 0.3f;
     private FileHandle mAltasFileHandle;
@@ -50,6 +46,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     private OnCreatedLIstener mOnCreatedLIstener;
     private SkeletonRendererDebug mDebugRenderer;
     private boolean mIsDebug = false;
+    private int mPadding = 0;
 
     public SpineBaseAdapter() {
     }
@@ -66,8 +63,22 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mOnCreatedLIstener = onCreatedLIstener;
     }
 
+    /**
+     * 设置是否 Debug
+     *
+     * @param debug
+     */
     public void setDebug(boolean debug) {
         mIsDebug = debug;
+    }
+
+    /**
+     * 单位是 logical pixels
+     *
+     * @param padding
+     */
+    public void setPadding(int padding) {
+        mPadding = padding;
     }
 
     /**
@@ -106,12 +117,13 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mSkeletonJson = new SkeletonJson(mAtlas);
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
-        float scale = (float) ((float) Gdx.graphics.getHeight() / mSkeletonData.getHeight());
+        float scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
         mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         mSkeleton = new Skeleton(mSkeletonData);
-        /**设置骨架在父布局中的位置，默认贴底居中**/
-        mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, 0);
+        /**设置骨架在父布局中的位置**/
+        float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2;
+        mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, midHeight);
         mSkeletonBounds = new SkeletonBounds();
         mAnimationStateData = new AnimationStateData(mSkeletonData);
         /**设置动画切换时的过度时间**/
