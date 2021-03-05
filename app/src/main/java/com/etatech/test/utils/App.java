@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ComponentCallbacks2;
 import android.graphics.Typeface;
 import android.os.Environment;
+
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
@@ -25,22 +26,23 @@ import java.util.List;
  */
 public class App extends MultiDexApplication {
 
-    public final   float    designRatio = 16f / 9f;
-    private static App      instance;
-    private        Typeface typeface;
-    public         boolean  isWide;
-    public         boolean  isPortrait = true;
-    public         int      screenHeight;
-    public         int      screenWidth;
-    public  static String   filesPath;
-    public  static String   externalPath;
-    public  static List<Spanned> logArr;
+    public final float designRatio = 16f / 9f;
+    private static App instance;
+    private Typeface typeface;
+    public boolean isWide;
+    public boolean isPortrait = true;
+    public int screenHeight;
+    public int screenWidth;
+    public static String filesPath;
+    public static String externalPath;
+    public static List<Spanned> logArr;
+    public static String RES_PATH = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-
+        RES_PATH = getFilesDir().getAbsolutePath();
         typeface = Typeface.createFromAsset(getAssets(), "fonts/gen_shin_gothic.ttf");
 
         screenHeight = ScreenUtils.getScreenHeight();
