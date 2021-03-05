@@ -48,6 +48,27 @@
             app:layout_constraintRight_toRightOf="parent" />
 
 
+        <Button
+            android:id="@+id/btn_boy"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="spineboy"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_unstall_attachment" />
+
+
+        <Button
+            android:id="@+id/btn_ride_boy"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="raptor"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_unstall_attachment"
+            app:layout_constraintRight_toRightOf="parent" />
+
         <FrameLayout
             android:id="@+id/fl_spine"
             android:layout_width="1000pt"
