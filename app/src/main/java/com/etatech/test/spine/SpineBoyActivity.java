@@ -1,40 +1,39 @@
 package com.etatech.test.spine;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
+
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.etatech.spine.SpineBaseFragment;
 import com.etatech.test.R;
+import com.etatech.test.databinding.ActivitySpineBoyBinding;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.utils.ui.ClickUtil;
 
-public class SpineBoyActivity extends BaseActivity implements AndroidFragmentApplication.Callbacks {
+import rx.functions.Action1;
+
+public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> implements AndroidFragmentApplication.Callbacks {
     private SpineBaseFragment mSpineBaseFragment;
     private SpineBoyAdapter mSpineBoyAdapter;
-    private GridLayout mGlButtons;
-    private Button mBtnReplaceAttachment;
-    private Button mBtnUnstallAttachment;
-    private Button mBtnReplaceSkin;
-    private Button mBtnJump;
-    private Button mBtnRun;
-    private FrameLayout mFlSpine;
+    private boolean flag;
 
     @Override
-    public ViewDataBinding onCreateView(Bundle savedInstanceState) {
-        return DataBindingUtil.setContentView(this,R.layout.activity_spine_boy);
+    public ActivitySpineBoyBinding onCreateView(Bundle savedInstanceState) {
+        return DataBindingUtil.setContentView(this, R.layout.activity_spine_boy);
     }
 
     @Override
     public void init() {
-        assignViews();
+        initSpine();
+        initClick();
+    }
+
+    private void initSpine() {
         mSpineBaseFragment = new SpineBaseFragment();
         mSpineBoyAdapter = new SpineBoyAdapter();
         mSpineBaseFragment.setAdapter(mSpineBoyAdapter);
@@ -44,18 +43,25 @@ public class SpineBoyActivity extends BaseActivity implements AndroidFragmentApp
         transaction.commitAllowingStateLoss();
     }
 
-    private void assignViews() {
-        mGlButtons = (GridLayout) findViewById(R.id.gl_buttons);
-        mBtnReplaceAttachment = (Button) findViewById(R.id.btn_replace_attachment);
-        mBtnUnstallAttachment = (Button) findViewById(R.id.btn_unstall_attachment);
-        mBtnJump = (Button) findViewById(R.id.btn_jump);
-        mBtnRun = (Button) findViewById(R.id.btn_run);
-        mFlSpine = (FrameLayout) findViewById(R.id.fl_spine);
-        mBtnReplaceAttachment.setOnClickListener(new View.OnClickListener() {
-            boolean flag;
-
+    private void initClick() {
+        ClickUtil.setOnClick(binding.btnRun, new Action1() {
             @Override
-            public void onClick(View view) {
+            public void call(Object o) {
+                mSpineBoyAdapter.doRun();
+            }
+        });
+
+        ClickUtil.setOnClick(binding.btnJump, new Action1() {
+            @Override
+            public void call(Object o) {
+                mSpineBoyAdapter.doJump();
+            }
+        });
+
+        ClickUtil.setOnClick(binding.btnReplaceAttachment, new Action1() {
+            @Override
+            public void call(Object o) {
+                mSpineBoyAdapter.doJump();
                 flag = !flag;
                 if (flag) {
                     mSpineBoyAdapter.setAttachment("gun", "");
@@ -65,23 +71,10 @@ public class SpineBoyActivity extends BaseActivity implements AndroidFragmentApp
             }
         });
 
-        mBtnUnstallAttachment.setOnClickListener(new View.OnClickListener() {
-
+        ClickUtil.setOnClick(binding.btnUnstallAttachment, new Action1() {
             @Override
-            public void onClick(View view) {
-                mSpineBoyAdapter.setAttachment("gun", "");
-            }
-        });
-        mBtnJump.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            public void call(Object o) {
                 mSpineBoyAdapter.doJump();
-            }
-        });
-        mBtnRun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSpineBoyAdapter.doRun();
             }
         });
     }

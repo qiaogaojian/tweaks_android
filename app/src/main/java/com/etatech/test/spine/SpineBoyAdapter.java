@@ -16,38 +16,32 @@ class SpineBoyAdapter extends SpineBaseAdapter {
      * 设置动画文件资源路径
      */
     @Override
-    public void onCreateImpl() {
+    public void onInit() {
         setAltasPath("spineboy/spineboy.atlas");
         setSkeletonPath("spineboy/spineboy.json");
+
+        setDebug(true);
+        setPadding(100);
     }
 
     /**
      * 设置动画初始状态
      */
     @Override
-    public void onCreatedImpl() {
-        mAnimationState.setAnimation(0, "walk", true);
+    public void onCreated() {
+        animate("idle");
     }
 
-    /**
-     * 动画点击回调
-     */
     @Override
-    public void doClick() {
-        Animation animation = mSkeletonData.findAnimation("shoot");
-        mAnimationState.setAnimation(0, animation, false);
-        mAnimationState.addAnimation(0, "walk", true, animation.getDuration());
+    public void onClick() {
+        animate("shoot","walk");
     }
 
     public void doJump() {
-        Animation animation = mSkeletonData.findAnimation("jump");
-        mAnimationState.setAnimation(0, animation, false);
-        mAnimationState.addAnimation(0, "walk", true, animation.getDuration());
+        animate("jump","walk");
     }
 
     public void doRun() {
-        Animation animation = mSkeletonData.findAnimation("run");
-        mAnimationState.setAnimation(0, animation, false);
-        mAnimationState.addAnimation(0, "walk", true, animation.getDuration());
+        animate("run");
     }
 }

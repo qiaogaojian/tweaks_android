@@ -1,51 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <GridLayout
-        android:id="@+id/gl_buttons"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="2">
-
-        <Button
-            android:id="@+id/btn_replace_attachment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="替换插槽" />
-
-        <Button
-            android:id="@+id/btn_unstall_attachment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="卸载插槽" />
-
-        <Button
-            android:id="@+id/btn_jump"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="跳跃" />
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/btn_run"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="奔跑" />
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="奔跑"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toTopOf="@id/btn_jump"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    </GridLayout>
+        <Button
+            android:id="@+id/btn_jump"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="跳跃"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toTopOf="@id/btn_replace_attachment"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/fl_spine"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/gl_buttons">
+        <Button
+            android:id="@+id/btn_replace_attachment"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="替换插槽"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toTopOf="@id/btn_unstall_attachment"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/btn_unstall_attachment"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="卸载插槽"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
-</RelativeLayout>
+        <FrameLayout
+            android:id="@+id/fl_spine"
+            android:layout_width="1000pt"
+            android:layout_height="1000pt"
+            android:background="@color/code_grey"
+            app:layout_constraintBottom_toTopOf="@id/btn_run"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
