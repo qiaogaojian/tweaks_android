@@ -123,8 +123,8 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
         mSkeleton = new Skeleton(mSkeletonData);
         /**设置骨架在父布局中的位置**/
-        float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2;
-        mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, midHeight);
+        float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2 * scale;
+        mSkeleton.setPosition(Gdx.graphics.getWidth() / 2, midHeight > 0 ? midHeight : 0);
         mSkeletonBounds = new SkeletonBounds();
         mAnimationStateData = new AnimationStateData(mSkeletonData);
         /**设置动画切换时的过度时间**/
