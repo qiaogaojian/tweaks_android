@@ -200,9 +200,9 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.1'
 
     // 图片加载
-    implementation "com.sdbean.imageloader:frame:1.1.9"
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
-    implementation "com.sdbean.glide:webpdecoder:1.0.0"
+    implementation "com.sdbean.imageloader:frame:2.1.8"
+    // annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    // implementation "com.sdbean.glide:webpdecoder:1.0.0"
 
     implementation 'com.facebook.fresco:fresco:1.13.0'
     implementation 'com.facebook.fresco:animated-webp:1.13.0'
