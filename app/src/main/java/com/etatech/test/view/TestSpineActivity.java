@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestSpineBinding;
+import com.etatech.test.spine.GoblinActivity;
 import com.etatech.test.spine.SpineBoyActivity;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
@@ -28,6 +29,15 @@ public class TestSpineActivity extends BaseActivity<ActivityTestSpineBinding> {
             public void call(Object o) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), SpineBoyActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ClickUtil.setOnClick(binding.btnGoblin, new Action1() {
+            @Override
+            public void call(Object o) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), GoblinActivity.class);
                 startActivity(intent);
             }
         });

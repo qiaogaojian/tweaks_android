@@ -37,7 +37,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".spine.SpineBoyActivity"></activity>
+        <activity android:name=".spine.GoblinActivity"></activity>
+        <activity android:name=".spine.SpineBoyActivity" />
         <activity android:name=".view.TestSpineActivity" />
         <activity android:name=".view.TestShareActivity" />
         <activity android:name=".view.TestSchemeActivity">

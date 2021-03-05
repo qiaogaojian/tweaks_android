@@ -6,27 +6,39 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        
         <Button
-            android:id="@+id/btn_spine_boy"
+            android:id="@+id/btn_man"
             style="@style/Button"
             android:layout_marginBottom="30pt"
-            android:text="Spine Boy"
+            android:text="Man"
             android:typeface="@{@string/typeface}"
-            app:layout_constraintBottom_toTopOf="@id/btn_goblin"
+            app:layout_constraintBottom_toTopOf="@id/btn_woman"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
         <Button
-            android:id="@+id/btn_goblin"
+            android:id="@+id/btn_woman"
             style="@style/Button"
             android:layout_marginBottom="30pt"
-            android:text="Goblin"
+            android:text="Woman"
             android:typeface="@{@string/typeface}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
+
+        <FrameLayout
+            android:id="@+id/fl_spine"
+            android:layout_width="1000pt"
+            android:layout_height="1000pt"
+            android:background="@color/code_grey"
+            app:layout_constraintBottom_toTopOf="@id/btn_man"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
