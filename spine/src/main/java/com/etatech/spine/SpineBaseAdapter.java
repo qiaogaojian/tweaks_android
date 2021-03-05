@@ -134,8 +134,8 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         /**debug相关 可以在动画中直观的看见骨骼关系**/
         if (mIsDebug) {
             mDebugRenderer = new SkeletonRendererDebug();
-            // mDebugRenderer.setBoundingBoxes(false);
-            // mDebugRenderer.setRegionAttachments(false);
+            mDebugRenderer.setBoundingBoxes(false);
+            mDebugRenderer.setRegionAttachments(false);
         }
 
         mAtlas = new TextureAtlas(mAltasFileHandle);
