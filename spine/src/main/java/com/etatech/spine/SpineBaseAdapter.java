@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
+import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Skeleton;
@@ -155,6 +156,9 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
 
     public abstract void onCreated();
 
+    /**
+     * 动画点击回调
+     */
     public abstract void onClick();
 
     public void setAltasPath(String path, Files.FileType fileType) {
@@ -311,8 +315,25 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         return true;
     }
 
+    /**
+     * 直接切换到另一个动画
+     *
+     * @param aniName
+     */
     public void animate(String aniName) {
         mAnimationState.addAnimation(0, aniName, true, 0);
+    }
+
+    /**
+     * 播放一个动画后再播放另外一个动画
+     *
+     * @param ani1 第一个动画
+     * @param ani2 第二个动画
+     */
+    public void animate(String ani1, String ani2) {
+        Animation animation = mSkeletonData.findAnimation(ani1);
+        mAnimationState.setAnimation(0, animation, false);
+        mAnimationState.addAnimation(0, ani2, true, animation.getDuration());
     }
 }
 
