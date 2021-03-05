@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.badlogic.gdx.Files;
 import com.esotericsoftware.spine.Animation;
 import com.etatech.spine.SpineBaseAdapter;
+import com.etatech.test.utils.FileUtils;
 
 /**
  * Created by QiaoGaojian
@@ -17,9 +18,9 @@ class SpineBoyAdapter extends SpineBaseAdapter {
      */
     @Override
     public void onInit() {
-        setAltasPath("spineboy/spineboy.atlas");
-        setSkeletonPath("spineboy/spineboy.json");
-
+        // setAssetsPath("spineboy/spineboy.atlas", "spineboy/spineboy.json");
+        // setResPath(FileUtils.getResPath() + "spineboy/spineboy.atlas", FileUtils.getResPath() + "spineboy/spineboy.json");
+        setExternalPath("spineboy/spineboy.atlas", "spineboy/spineboy.json");
         setDebug(true);
         setPadding(100);
     }
@@ -34,11 +35,11 @@ class SpineBoyAdapter extends SpineBaseAdapter {
 
     @Override
     public void onClick() {
-        animate("shoot","walk");
+        animate("shoot", "walk");
     }
 
     public void doJump() {
-        animate("jump","walk");
+        animate("jump", "walk");
     }
 
     public void doRun() {
