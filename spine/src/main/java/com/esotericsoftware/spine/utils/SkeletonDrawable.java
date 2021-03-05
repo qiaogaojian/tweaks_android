@@ -33,48 +33,41 @@ import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 
-/** A scene2d actor that draws a skeleton. */
-public class SkeletonActor extends Actor {
+/** A scene2d drawable that draws a skeleton. The animation state and skeleton must be updated each frame, or
+ * {@link #update(float)} called each frame. */
+public class SkeletonDrawable extends BaseDrawable {
 	private SkeletonRenderer renderer;
 	private Skeleton skeleton;
 	AnimationState state;
 	private boolean resetBlendFunction = true;
 
-	/** Creates an uninitialized SkeletonActor. The renderer, skeleton, and animation state must be set before use. */
-	public SkeletonActor () {
+	/** Creates an uninitialized SkeletonDrawable. The renderer, skeleton, and animation state must be set before use. */
+	public SkeletonDrawable () {
 	}
 
-	public SkeletonActor (SkeletonRenderer renderer, Skeleton skeleton, AnimationState state) {
+	public SkeletonDrawable (SkeletonRenderer renderer, Skeleton skeleton, AnimationState state) {
 		this.renderer = renderer;
 		this.skeleton = skeleton;
 		this.state = state;
 	}
 
-	public void act (float delta) {
+	public void update (float delta) {
 		state.update(delta);
 		state.apply(skeleton);
-		super.act(delta);
 	}
 
-	public void draw (Batch batch, float parentAlpha) {
+	public void draw (Batch batch, float x, float y, float width, float height) {
 		int blendSrc = batch.getBlendSrcFunc(), blendDst = batch.getBlendDstFunc();
 		int blendSrcAlpha = batch.getBlendSrcFuncAlpha(), blendDstAlpha = batch.getBlendDstFuncAlpha();
 
-		Color color = skeleton.getColor();
-		float oldAlpha = color.a;
-		skeleton.getColor().a *= parentAlpha;
-
-		skeleton.setPosition(getX(), getY());
+		skeleton.setPosition(x, y);
 		skeleton.updateWorldTransform();
 		renderer.draw(batch, skeleton);
 
 		if (resetBlendFunction) batch.setBlendFunctionSeparate(blendSrc, blendDst, blendSrcAlpha, blendDstAlpha);
-
-		color.a = oldAlpha;
 	}
 
 	public SkeletonRenderer getRenderer () {

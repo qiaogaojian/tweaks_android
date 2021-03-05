@@ -20,6 +20,7 @@ import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Skeleton;
+import com.esotericsoftware.spine.SkeletonBinary;
 import com.esotericsoftware.spine.SkeletonBounds;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
@@ -43,8 +44,9 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     protected SkeletonBounds mSkeletonBounds;
     protected AnimationState mAnimationState;
     protected AnimationStateData mAnimationStateData;
-    protected SkeletonJson mSkeletonJson;
-    protected SkeletonData mSkeletonData;
+    protected SkeletonJson   mSkeletonJson;
+    protected SkeletonBinary mSkeletonBinary;
+    protected SkeletonData   mSkeletonData;
     private OnSpineClickListener mSpineClickListener;
     private OnCreatedLIstener mOnCreatedLIstener;
     private SkeletonRendererDebug mDebugRenderer;
@@ -139,15 +141,19 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         }
 
         mAtlas = new TextureAtlas(mAltasFileHandle);
-        mSkeletonJson = new SkeletonJson(mAtlas);
-        mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
+//        mSkeletonJson = new SkeletonJson(mAtlas);
+//        mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
+        mSkeletonBinary = new SkeletonBinary(mAtlas);
+        mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
         /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
         float scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
         if (mSkeletonData.getHeight() == 0) {
             scale = mScale;
         }
-        mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
-        mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
+//        mSkeletonJson.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
+//        mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
+        mSkeletonBinary.setScale(scale);//设置完scale之后要重新读取一下mSkeletonData
+        mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
         mSkeleton = new Skeleton(mSkeletonData);
         /**设置骨架在父布局中的位置**/
         float midHeight = Gdx.graphics.getHeight() / 2 - mSkeletonData.getHeight() / 2 * scale;

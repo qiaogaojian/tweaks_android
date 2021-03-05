@@ -1,31 +1,30 @@
 /******************************************************************************
- * Spine Runtimes Software License v2.5
+ * Spine Runtimes License Agreement
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2016, Esoteric Software
- * All rights reserved.
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
- * You are granted a perpetual, non-exclusive, non-sublicensable, and
- * non-transferable license to use, install, execute, and perform the Spine
- * Runtimes software and derivative works solely for personal or internal
- * use. Without the written permission of Esoteric Software (see Section 2 of
- * the Spine Software License Agreement), you may not (a) modify, translate,
- * adapt, or develop new applications using the Spine Runtimes or otherwise
- * create derivative works or improvements of the Spine Runtimes or (b) remove,
- * delete, alter, or obscure any trademarks or any copyright, trademark, patent,
- * or other intellectual property or proprietary rights notices on or in the
- * Software, including any copy thereof. Redistributions in binary or source
- * form must include this license and terms.
+ * Integration of the Spine Runtimes into software or otherwise creating
+ * derivative works of the Spine Runtimes is permitted under the terms and
+ * conditions of Section 2 of the Spine Editor License Agreement:
+ * http://esotericsoftware.com/spine-editor-license
  *
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
- * EVENT SHALL ESOTERIC SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, BUSINESS INTERRUPTION, OR LOSS OF
- * USE, DATA, OR PROFITS) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
- * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software
+ * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * "Products"), provided that each user of the Products must obtain their own
+ * Spine Editor license and redistribution of the Products in any form must
+ * include this license and copyright notice.
+ *
+ * THE SPINE RUNTIMES ARE PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+ * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
@@ -39,11 +38,13 @@ import com.badlogic.gdx.utils.Array;
  * bones to match that of the target bone.
  * <p>
  * See <a href="http://esotericsoftware.com/spine-transform-constraints">Transform constraints</a> in the Spine User Guide. */
-public class TransformConstraint implements Constraint {
+public class TransformConstraint implements Updatable {
 	final TransformConstraintData data;
 	final Array<Bone> bones;
 	Bone target;
 	float rotateMix, translateMix, scaleMix, shearMix;
+
+	boolean active;
 	final Vector2 temp = new Vector2();
 
 	public TransformConstraint (TransformConstraintData data, Skeleton skeleton) {
@@ -242,16 +243,16 @@ public class TransformConstraint implements Constraint {
 			}
 
 			float scaleX = bone.ascaleX, scaleY = bone.ascaleY;
-			if (scaleMix > 0) {
+			if (scaleMix != 0) {
 				if (scaleX != 0) scaleX = (scaleX + (target.ascaleX - scaleX + data.offsetScaleX) * scaleMix) / scaleX;
 				if (scaleY != 0) scaleY = (scaleY + (target.ascaleY - scaleY + data.offsetScaleY) * scaleMix) / scaleY;
 			}
 
 			float shearY = bone.ashearY;
-			if (shearMix > 0) {
+			if (shearMix != 0) {
 				float r = target.ashearY - shearY + data.offsetShearY;
 				r -= (16384 - (int)(16384.499999999996 - r / 360)) * 360;
-				bone.shearY += r * shearMix;
+				shearY += r * shearMix;
 			}
 
 			bone.updateWorldTransform(x, y, rotation, scaleX, scaleY, bone.ashearX, shearY);
@@ -277,20 +278,16 @@ public class TransformConstraint implements Constraint {
 			}
 
 			float scaleX = bone.ascaleX, scaleY = bone.ascaleY;
-			if (scaleMix > 0) {
+			if (scaleMix != 0) {
 				scaleX *= ((target.ascaleX - 1 + data.offsetScaleX) * scaleMix) + 1;
 				scaleY *= ((target.ascaleY - 1 + data.offsetScaleY) * scaleMix) + 1;
 			}
 
 			float shearY = bone.ashearY;
-			if (shearMix > 0) shearY += (target.ashearY + data.offsetShearY) * shearMix;
+			if (shearMix != 0) shearY += (target.ashearY + data.offsetShearY) * shearMix;
 
 			bone.updateWorldTransform(x, y, rotation, scaleX, scaleY, bone.ashearX, shearY);
 		}
-	}
-
-	public int getOrder () {
-		return data.order;
 	}
 
 	/** The bones that will be modified by this transform constraint. */
@@ -304,6 +301,7 @@ public class TransformConstraint implements Constraint {
 	}
 
 	public void setTarget (Bone target) {
+		if (target == null) throw new IllegalArgumentException("target cannot be null.");
 		this.target = target;
 	}
 
@@ -341,6 +339,10 @@ public class TransformConstraint implements Constraint {
 
 	public void setShearMix (float shearMix) {
 		this.shearMix = shearMix;
+	}
+
+	public boolean isActive () {
+		return active;
 	}
 
 	/** The transform constraint's setup pose data. */

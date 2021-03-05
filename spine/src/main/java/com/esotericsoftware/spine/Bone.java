@@ -1,41 +1,41 @@
 /******************************************************************************
- * Spine Runtimes Software License v2.5
+ * Spine Runtimes License Agreement
+ * Last updated January 1, 2020. Replaces all prior versions.
  *
- * Copyright (c) 2013-2016, Esoteric Software
- * All rights reserved.
+ * Copyright (c) 2013-2020, Esoteric Software LLC
  *
- * You are granted a perpetual, non-exclusive, non-sublicensable, and
- * non-transferable license to use, install, execute, and perform the Spine
- * Runtimes software and derivative works solely for personal or internal
- * use. Without the written permission of Esoteric Software (see Section 2 of
- * the Spine Software License Agreement), you may not (a) modify, translate,
- * adapt, or develop new applications using the Spine Runtimes or otherwise
- * create derivative works or improvements of the Spine Runtimes or (b) remove,
- * delete, alter, or obscure any trademarks or any copyright, trademark, patent,
- * or other intellectual property or proprietary rights notices on or in the
- * Software, including any copy thereof. Redistributions in binary or source
- * form must include this license and terms.
+ * Integration of the Spine Runtimes into software or otherwise creating
+ * derivative works of the Spine Runtimes is permitted under the terms and
+ * conditions of Section 2 of the Spine Editor License Agreement:
+ * http://esotericsoftware.com/spine-editor-license
  *
- * THIS SOFTWARE IS PROVIDED BY ESOTERIC SOFTWARE "AS IS" AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
- * EVENT SHALL ESOTERIC SOFTWARE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, BUSINESS INTERRUPTION, OR LOSS OF
- * USE, DATA, OR PROFITS) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
- * IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software
+ * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * "Products"), provided that each user of the Products must obtain their own
+ * Spine Editor license and redistribution of the Products in any form must
+ * include this license and copyright notice.
+ *
+ * THE SPINE RUNTIMES ARE PROVIDED BY ESOTERIC SOFTWARE LLC "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL ESOTERIC SOFTWARE LLC BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+ * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
 
-import static com.esotericsoftware.spine.utils.SpineUtils.*;
 import static com.badlogic.gdx.math.Matrix3.*;
+import static com.esotericsoftware.spine.utils.SpineUtils.*;
 
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
 import com.esotericsoftware.spine.BoneData.TransformMode;
 
 /** Stores a bone's current pose.
@@ -54,7 +54,7 @@ public class Bone implements Updatable {
 	float a, b, worldX;
 	float c, d, worldY;
 
-	boolean sorted;
+	boolean sorted, active;
 
 	/** @param parent May be null. */
 	public Bone (BoneData data, Skeleton skeleton, Bone parent) {
@@ -111,28 +111,14 @@ public class Bone implements Updatable {
 
 		Bone parent = this.parent;
 		if (parent == null) { // Root bone.
-			float rotationY = rotation + 90 + shearY;
-			float la = cosDeg(rotation + shearX) * scaleX;
-			float lb = cosDeg(rotationY) * scaleY;
-			float lc = sinDeg(rotation + shearX) * scaleX;
-			float ld = sinDeg(rotationY) * scaleY;
 			Skeleton skeleton = this.skeleton;
-			if (skeleton.flipX) {
-				x = -x;
-				la = -la;
-				lb = -lb;
-			}
-			if (skeleton.flipY) {
-				y = -y;
-				lc = -lc;
-				ld = -ld;
-			}
-			a = la;
-			b = lb;
-			c = lc;
-			d = ld;
-			worldX = x + skeleton.x;
-			worldY = y + skeleton.y;
+			float rotationY = rotation + 90 + shearY, sx = skeleton.scaleX, sy = skeleton.scaleY;
+			a = cosDeg(rotation + shearX) * scaleX * sx;
+			b = cosDeg(rotationY) * scaleY * sx;
+			c = sinDeg(rotation + shearX) * scaleX * sy;
+			d = sinDeg(rotationY) * scaleY * sy;
+			worldX = x * sx + skeleton.x;
+			worldY = y * sy + skeleton.y;
 			return;
 		}
 
@@ -165,6 +151,8 @@ public class Bone implements Updatable {
 			float s = pa * pa + pc * pc, prx;
 			if (s > 0.0001f) {
 				s = Math.abs(pa * pd - pb * pc) / s;
+				pa /= skeleton.scaleX;
+				pc /= skeleton.scaleY;
 				pb = pc * s;
 				pd = pa * s;
 				prx = atan2(pc, pa) * radDeg;
@@ -188,13 +176,15 @@ public class Bone implements Updatable {
 		case noScale:
 		case noScaleOrReflection: {
 			float cos = cosDeg(rotation), sin = sinDeg(rotation);
-			float za = pa * cos + pb * sin;
-			float zc = pc * cos + pd * sin;
+			float za = (pa * cos + pb * sin) / skeleton.scaleX;
+			float zc = (pc * cos + pd * sin) / skeleton.scaleY;
 			float s = (float)Math.sqrt(za * za + zc * zc);
 			if (s > 0.00001f) s = 1 / s;
 			za *= s;
 			zc *= s;
 			s = (float)Math.sqrt(za * za + zc * zc);
+			if (data.transformMode == TransformMode.noScale
+				&& (pa * pd - pb * pc < 0) != (skeleton.scaleX < 0 != skeleton.scaleY < 0)) s = -s;
 			float r = PI / 2 + atan2(zc, za);
 			float zb = cos(r) * s;
 			float zd = sin(r) * s;
@@ -206,21 +196,13 @@ public class Bone implements Updatable {
 			b = za * lb + zb * ld;
 			c = zc * la + zd * lc;
 			d = zc * lb + zd * ld;
-			if (data.transformMode != TransformMode.noScaleOrReflection ? pa * pd - pb * pc < 0 : skeleton.flipX != skeleton.flipY) {
-				b = -b;
-				d = -d;
-			}
-			return;
+			break;
 		}
 		}
-		if (skeleton.flipX) {
-			a = -a;
-			b = -b;
-		}
-		if (skeleton.flipY) {
-			c = -c;
-			d = -d;
-		}
+		a *= skeleton.scaleX;
+		b *= skeleton.scaleX;
+		c *= skeleton.scaleY;
+		d *= skeleton.scaleY;
 	}
 
 	/** Sets this bone's local transform to the setup pose. */
@@ -255,6 +237,12 @@ public class Bone implements Updatable {
 		return children;
 	}
 
+	/** Returns false when the bone has not been computed because {@link BoneData#getSkinRequired()} is true and the
+	 * {@link Skeleton#getSkin() active skin} does not {@link Skin#getBones() contain} this bone. */
+	public boolean isActive () {
+		return active;
+	}
+
 	// -- Local transform
 
 	/** The local x translation. */
@@ -280,7 +268,7 @@ public class Bone implements Updatable {
 		this.y = y;
 	}
 
-	/** The local rotation. */
+	/** The local rotation in degrees, counter clockwise. */
 	public float getRotation () {
 		return rotation;
 	}
@@ -355,7 +343,7 @@ public class Bone implements Updatable {
 		this.ay = ay;
 	}
 
-	/** The applied local rotation. */
+	/** The applied local rotation in degrees, counter clockwise. */
 	public float getARotation () {
 		return arotation;
 	}
@@ -552,6 +540,7 @@ public class Bone implements Updatable {
 
 	/** Transforms a point from world coordinates to the bone's local coordinates. */
 	public Vector2 worldToLocal (Vector2 world) {
+		if (world == null) throw new IllegalArgumentException("world cannot be null.");
 		float invDet = 1 / (a * d - b * c);
 		float x = world.x - worldX, y = world.y - worldY;
 		world.x = x * d * invDet - y * b * invDet;
@@ -561,6 +550,7 @@ public class Bone implements Updatable {
 
 	/** Transforms a point from the bone's local coordinates to world coordinates. */
 	public Vector2 localToWorld (Vector2 local) {
+		if (local == null) throw new IllegalArgumentException("local cannot be null.");
 		float x = local.x, y = local.y;
 		local.x = x * a + y * b + worldX;
 		local.y = x * c + y * d + worldY;
@@ -570,11 +560,12 @@ public class Bone implements Updatable {
 	/** Transforms a world rotation to a local rotation. */
 	public float worldToLocalRotation (float worldRotation) {
 		float sin = sinDeg(worldRotation), cos = cosDeg(worldRotation);
-		return atan2(a * sin - c * cos, d * cos - b * sin) * radDeg;
+		return atan2(a * sin - c * cos, d * cos - b * sin) * radDeg + rotation - shearX;
 	}
 
 	/** Transforms a local rotation to a world rotation. */
 	public float localToWorldRotation (float localRotation) {
+		localRotation -= rotation - shearX;
 		float sin = sinDeg(localRotation), cos = cosDeg(localRotation);
 		return atan2(cos * c + sin * d, cos * a + sin * b) * radDeg;
 	}

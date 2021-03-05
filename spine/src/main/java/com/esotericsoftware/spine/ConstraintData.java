@@ -29,77 +29,41 @@
 
 package com.esotericsoftware.spine;
 
-import com.badlogic.gdx.graphics.Color;
-
-/** Stores the setup pose for a {@link Slot}. */
-public class SlotData {
-	final int index;
+/** The base class for all constraint datas. */
+abstract public class ConstraintData {
 	final String name;
-	final BoneData boneData;
-	final Color color = new Color(1, 1, 1, 1);
-	Color darkColor;
-	String attachmentName;
-	BlendMode blendMode;
+	int order;
+	boolean skinRequired;
 
-	public SlotData (int index, String name, BoneData boneData) {
-		if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
+	public ConstraintData (String name) {
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
-		if (boneData == null) throw new IllegalArgumentException("boneData cannot be null.");
-		this.index = index;
 		this.name = name;
-		this.boneData = boneData;
 	}
 
-	/** The index of the slot in {@link Skeleton#getSlots()}. */
-	public int getIndex () {
-		return index;
-	}
-
-	/** The name of the slot, which is unique across all slots in the skeleton. */
+	/** The constraint's name, which is unique across all constraints in the skeleton of the same type. */
 	public String getName () {
 		return name;
 	}
 
-	/** The bone this slot belongs to. */
-	public BoneData getBoneData () {
-		return boneData;
+	/** The ordinal of this constraint for the order a skeleton's constraints will be applied by
+	 * {@link Skeleton#updateWorldTransform()}. */
+	public int getOrder () {
+		return order;
 	}
 
-	/** The color used to tint the slot's attachment. If {@link #getDarkColor()} is set, this is used as the light color for two
-	 * color tinting. */
-	public Color getColor () {
-		return color;
+	public void setOrder (int order) {
+		this.order = order;
 	}
 
-	/** The dark color used to tint the slot's attachment for two color tinting, or null if two color tinting is not used. The dark
-	 * color's alpha is not used. */
-	public Color getDarkColor () {
-		return darkColor;
+	/** When true, {@link Skeleton#updateWorldTransform()} only updates this constraint if the {@link Skeleton#getSkin()} contains
+	 * this constraint.
+	 * @see Skin#getConstraints() */
+	public boolean getSkinRequired () {
+		return skinRequired;
 	}
 
-	/** @param darkColor May be null. */
-	public void setDarkColor (Color darkColor) {
-		this.darkColor = darkColor;
-	}
-
-	/** @param attachmentName May be null. */
-	public void setAttachmentName (String attachmentName) {
-		this.attachmentName = attachmentName;
-	}
-
-	/** The name of the attachment that is visible for this slot in the setup pose, or null if no attachment is visible. */
-	public String getAttachmentName () {
-		return attachmentName;
-	}
-
-	/** The blend mode for drawing the slot's attachment. */
-	public BlendMode getBlendMode () {
-		return blendMode;
-	}
-
-	public void setBlendMode (BlendMode blendMode) {
-		if (blendMode == null) throw new IllegalArgumentException("blendMode cannot be null.");
-		this.blendMode = blendMode;
+	public void setSkinRequired (boolean skinRequired) {
+		this.skinRequired = skinRequired;
 	}
 
 	public String toString () {
