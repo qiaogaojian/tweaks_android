@@ -13,7 +13,7 @@ public class RaptorAdapter extends SpineBaseAdapter {
      */
     @Override
     public void onInit() {
-        setAssetsPath("raptor3.8/raptor.atlas", "raptor3.8/raptor.json");
+        setAssetsPath("raptor3.8/raptor.atlas", "raptor3.8/raptor.skel");
         setDebug(true);
         setPadding(300);
     }
