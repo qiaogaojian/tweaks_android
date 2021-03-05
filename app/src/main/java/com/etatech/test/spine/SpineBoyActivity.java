@@ -61,7 +61,6 @@ public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> impl
         ClickUtil.setOnClick(binding.btnReplaceAttachment, new Action1() {
             @Override
             public void call(Object o) {
-                mSpineBoyAdapter.doJump();
                 flag = !flag;
                 if (flag) {
                     mSpineBoyAdapter.setAttachment("gun", "");
@@ -74,7 +73,7 @@ public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> impl
         ClickUtil.setOnClick(binding.btnUnstallAttachment, new Action1() {
             @Override
             public void call(Object o) {
-                mSpineBoyAdapter.doJump();
+                mSpineBoyAdapter.setAttachment("gun", "");
             }
         });
     }
