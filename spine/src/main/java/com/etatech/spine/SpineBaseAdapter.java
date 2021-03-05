@@ -161,20 +161,45 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      */
     public abstract void onClick();
 
+    /**
+     * 设置spine资源路径(assets文件下的相对路径)
+     *
+     * @param atlasPath    图集
+     * @param skeletonPath json文件
+     */
+    public void setAssetsPath(String atlasPath, String skeletonPath) {
+        this.mAltasFileHandle = Gdx.files.getFileHandle(atlasPath, Files.FileType.Internal);
+        this.mSkeletonFileHandle = Gdx.files.getFileHandle(skeletonPath, Files.FileType.Internal);
+    }
+
+    /**
+     * 设置spine资源路径(包名下文件路径)
+     *
+     * @param atlasPath    图集
+     * @param skeletonPath json文件
+     */
+    public void setResPath(String atlasPath, String skeletonPath) {
+        this.mAltasFileHandle = Gdx.files.getFileHandle(atlasPath, Files.FileType.Absolute);
+        this.mSkeletonFileHandle = Gdx.files.getFileHandle(skeletonPath, Files.FileType.Absolute);
+    }
+
+    /**
+     * 设置spine资源路径(外部路径)
+     *
+     * @param atlasPath    图集
+     * @param skeletonPath json文件
+     */
+    public void setExternalPath(String atlasPath, String skeletonPath) {
+        this.mAltasFileHandle = Gdx.files.getFileHandle(atlasPath, Files.FileType.External);
+        this.mSkeletonFileHandle = Gdx.files.getFileHandle(skeletonPath, Files.FileType.External);
+    }
+
     public void setAltasPath(String path, Files.FileType fileType) {
         this.mAltasFileHandle = Gdx.files.getFileHandle(path, fileType);
     }
 
-    public void setAltasPath(String path) {
-        this.mAltasFileHandle = Gdx.files.getFileHandle(path, Files.FileType.Internal);
-    }
-
     public void setSkeletonPath(String path, Files.FileType fileType) {
         this.mSkeletonFileHandle = Gdx.files.getFileHandle(path, fileType);
-    }
-
-    public void setSkeletonPath(String path) {
-        this.mSkeletonFileHandle = Gdx.files.getFileHandle(path, Files.FileType.Internal);
     }
 
     @Override
