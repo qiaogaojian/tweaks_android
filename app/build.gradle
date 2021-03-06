@@ -213,6 +213,10 @@ dependencies {
     implementation 'com.github.japgolly.android:svg-android:2.0.6'
     implementation 'com.yanzhikai:BooheeRuler:0.0.7'
 
+    // 动态壁纸
+    implementation 'com.jaredrummler:colorpicker:1.0.1'
+    implementation 'com.pavelsikun:material-seekbar-preference:2.3.0+'
+
     // 开屏广告
     implementation project(':splashad')
     // implementation 'com.sdbean.splashad:splashad:2.1.0'

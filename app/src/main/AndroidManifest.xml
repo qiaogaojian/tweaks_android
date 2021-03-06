@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.etatech.test">
+
     <!-- Required to access Google Play Licensing -->
     <uses-permission android:name="com.android.vending.CHECK_LICENSE" /> <!-- Required to download files from Google Play -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,7 +38,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".spine.GoblinActivity"></activity>
+        <service
+            android:name=".widget.wallpaper.LiveWallpaperAndroid"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".widget.wallpaper.SettingsPrefActivity" />
+        <activity android:name=".spine.GoblinActivity" />
         <activity android:name=".spine.SpineBoyActivity" />
         <activity android:name=".view.TestSpineActivity" />
         <activity android:name=".view.TestShareActivity" />
