@@ -56,6 +56,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 @Override
@@ -64,6 +65,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 
@@ -114,6 +116,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 @Override
@@ -122,6 +125,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
             splashAd.setLogoBottom(getResources().getDrawable(R.drawable.logo));
@@ -154,6 +158,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 @Override
@@ -162,6 +167,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                     Intent intent = new Intent();
                     intent.setClass(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 
