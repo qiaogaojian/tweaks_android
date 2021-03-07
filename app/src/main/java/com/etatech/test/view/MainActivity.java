@@ -6,7 +6,7 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.SettingsPrefActivity;
+import com.etatech.test.WallPaperSettingActivity;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
@@ -337,7 +337,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         ClickUtil.setOnClick(binding.btnTestLiveWallpaper, new Action1() {
             @Override
             public void call(Object o) {
-                intent.setClass(MainActivity.this, SettingsPrefActivity.class);
+                intent.setClass(MainActivity.this, WallPaperSettingActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sample="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layout_setting_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_save_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:text="Save"
+                    android:textColor="@color/code_red"
+                    android:textSize="36pt"
+                    android:typeface="@{@string/typeface}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/layout_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_save_and_set"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save and Set"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_save_and_set_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Save current settings and set wallpaper."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_setting_particle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/layout_setting_save">
+
+                <TextView
+                    android:id="@+id/tv_particle_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:text="Paticle Settings"
+                    android:textColor="@color/code_red"
+                    android:textSize="36pt"
+                    android:typeface="@{@string/typeface}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_particle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_particle_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paticle Color"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_particle_color_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the color of the particles."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_color" />
+
+                    <com.jaredrummler.android.colorpicker.ColorPanelView
+                        android:id="@+id/cpv_particle_color"
+                        android:layout_width="60pt"
+                        android:layout_height="60pt"
+                        android:layout_marginRight="30pt"
+                        android:defaultValue="0xFF000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_line_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_line_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Line Color (Pro)"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_line_color_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the color of the line connecting particles."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_line_color" />
+
+                    <com.jaredrummler.android.colorpicker.ColorPanelView
+                        android:id="@+id/cpv_line_color"
+                        android:layout_width="60pt"
+                        android:layout_height="60pt"
+                        android:layout_marginRight="30pt"
+                        android:defaultValue="0xFF000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_particle_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_particle_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Particle Size"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_particle_size_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the size of particles."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_size" />
+
+                    <com.pavelsikun.seekbarpreference.SeekBarPreferenceView
+                        android:id="@+id/sbv_particle_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultValue="5"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_size_info"
+                        sample:msbp_dialogEnabled="true"
+                        sample:msbp_interval="1"
+                        sample:msbp_maxValue="50"
+                        sample:msbp_measurementUnit=""
+                        sample:msbp_minValue="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_particle_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_particle_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Particle Count"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_particle_count_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the number of particles."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_count" />
+
+                    <com.pavelsikun.seekbarpreference.SeekBarPreferenceView
+                        android:id="@+id/sbv_particle_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultValue="30"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_count_info"
+                        sample:msbp_dialogEnabled="true"
+                        sample:msbp_interval="10"
+                        sample:msbp_maxValue="200"
+                        sample:msbp_measurementUnit=""
+                        sample:msbp_minValue="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_particle_velocity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_particle_velocity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Particle Velocity"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_particle_velocity_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the speed of particles."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_velocity" />
+
+                    <com.pavelsikun.seekbarpreference.SeekBarPreferenceView
+                        android:id="@+id/sbv_particle_velocity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultValue="300"
+                        app:layout_constraintTop_toBottomOf="@id/tv_particle_velocity_info"
+                        sample:msbp_dialogEnabled="true"
+                        sample:msbp_interval="1"
+                        sample:msbp_maxValue="1500"
+                        sample:msbp_measurementUnit=""
+                        sample:msbp_minValue="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_setting_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/layout_setting_particle">
+
+                <TextView
+                    android:id="@+id/tv_background_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:text="Background Settings"
+                    android:textColor="@color/code_red"
+                    android:textSize="36pt"
+                    android:typeface="@{@string/typeface}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/layout_background_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_background_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Background Image (Pro)"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_background_image_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select background image from gallery."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_background_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_background_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Background Color"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_background_color_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the background color."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_background_color" />
+
+                    <com.jaredrummler.android.colorpicker.ColorPanelView
+                        android:id="@+id/cpv_background_color"
+                        android:layout_width="60pt"
+                        android:layout_height="60pt"
+                        android:layout_marginRight="30pt"
+                        android:defaultValue="0xFF000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_setting_misc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/layout_setting_background">
+
+                <TextView
+                    android:id="@+id/tv_misc_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:text="Misc"
+                    android:textColor="@color/code_red"
+                    android:textSize="36pt"
+                    android:typeface="@{@string/typeface}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_touch_effect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_touch_effect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Touch Effect (Pro)"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_touch_effect_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Enable/Disable the touch effect."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_touch_effect" />
+
+                    <Switch
+                        android:id="@+id/switch_touch_effect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100pt"
+                        android:layout_marginRight="30pt"
+                        android:defaultValue="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_line_length"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_line_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Line Length"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_line_length_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the length of connecting line."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_line_length" />
+
+                    <com.pavelsikun.seekbarpreference.SeekBarPreferenceView
+                        android:id="@+id/sbv_line_length"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultValue="500"
+                        app:layout_constraintTop_toBottomOf="@id/tv_line_length_info"
+                        sample:msbp_dialogEnabled="true"
+                        sample:msbp_interval="10"
+                        sample:msbp_maxValue="2000"
+                        sample:msbp_measurementUnit=""
+                        sample:msbp_minValue="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1pt"
+                    android:layout_marginTop="30pt"
+                    android:layout_marginBottom="30pt"
+                    android:background="@color/code_grey" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_line_thickness"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30pt"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_line_thickness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Line Thickness (Pro)"
+                        android:textColor="@color/code_black"
+                        android:textSize="39pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_line_thickness_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select the thickness of connecting line."
+                        android:textColor="@color/code_grey"
+                        android:textSize="36pt"
+                        android:typeface="@{@string/typeface}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_line_thickness" />
+
+                    <com.pavelsikun.seekbarpreference.SeekBarPreferenceView
+                        android:id="@+id/sbv_line_thickness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultValue="2"
+                        app:layout_constraintTop_toBottomOf="@id/tv_line_thickness_info"
+                        sample:msbp_dialogEnabled="true"
+                        sample:msbp_interval="1"
+                        sample:msbp_maxValue="20"
+                        sample:msbp_measurementUnit=""
+                        sample:msbp_minValue="1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

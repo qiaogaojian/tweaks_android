@@ -3,7 +3,9 @@ package com.etatech.test.utils;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -474,5 +476,9 @@ public class Tools {
             }
         }
         return contents;
+    }
+
+    public static SharedPreferences getShare() {
+        return App.getInstance().getSharedPreferences(Consts.SHARE_PREFERENCE_SIGN, Activity.MODE_PRIVATE);
     }
 }

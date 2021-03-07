@@ -56,7 +56,7 @@
                 android:resource="@xml/livewallpaper" />
         </service>
 
-        <activity android:name=".SettingsPrefActivity" />
+        <activity android:name=".WallPaperSettingActivity" />
         <activity android:name=".spine.GoblinActivity" />
         <activity android:name=".spine.SpineBoyActivity" />
         <activity android:name=".view.TestSpineActivity" />
