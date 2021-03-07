@@ -214,7 +214,7 @@ dependencies {
     implementation 'com.yanzhikai:BooheeRuler:0.0.7'
 
     // 动态壁纸
-    implementation 'com.jaredrummler:colorpicker:1.0.1'
+    implementation 'com.jaredrummler:colorpicker:1.1.0'
     implementation 'com.pavelsikun:material-seekbar-preference:2.3.0+'
 
     // 开屏广告
