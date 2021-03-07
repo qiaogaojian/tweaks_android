@@ -436,6 +436,17 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_share" />
+
+            <Button
+                android:id="@+id/btn_test_live_wallpaper"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Live Wallpaper"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_spine" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

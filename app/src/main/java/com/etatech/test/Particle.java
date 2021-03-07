@@ -1,14 +1,10 @@
-package com.etatech.test.widget.wallpaper;
+package com.etatech.test;
 
 import com.badlogic.gdx.math.Vector2;
 
 import static com.badlogic.gdx.math.MathUtils.cosDeg;
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.math.MathUtils.sinDeg;
-
-/**
- * Created by JAYAN on 08-12-2017.
- */
 
 public class Particle {
     float x;

@@ -1,4 +1,4 @@
-package com.etatech.test.widget.wallpaper;
+package com.etatech.test;
 
 import android.util.Log;
 
@@ -76,7 +76,7 @@ public class LiveWallpaperScreen  implements Screen {
 
         if(SettingsPref.path.equals("0")) {
 
-            textureBg = new Texture("s2.jpg");
+            textureBg = new Texture("bg.png");
             batcher.setColor(Color.valueOf(SettingsPref.back_color));
 
         }
@@ -87,7 +87,7 @@ public class LiveWallpaperScreen  implements Screen {
 
             }
             else {
-                textureBg = new Texture("s2.jpg");
+                textureBg = new Texture("bg.png");
                 batcher.setColor(Color.valueOf(SettingsPref.back_color));
             }
         }
@@ -239,7 +239,7 @@ public class LiveWallpaperScreen  implements Screen {
 
         if(SettingsPref.path.equals("0")) {
 
-            textureBg = new Texture("s2.jpg");
+            textureBg = new Texture("bg.png");
             batcher.setColor(Color.valueOf(SettingsPref.back_color));
 
         }
@@ -248,7 +248,7 @@ public class LiveWallpaperScreen  implements Screen {
                 textureBg = new Texture(Gdx.files.external(SettingsPref.path));
             }
             else {
-                textureBg = new Texture("s2.jpg");
+                textureBg = new Texture("bg.png");
                 batcher.setColor(Color.valueOf(SettingsPref.back_color));
             }
         }

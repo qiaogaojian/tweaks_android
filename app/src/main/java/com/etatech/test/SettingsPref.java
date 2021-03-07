@@ -1,4 +1,4 @@
-package com.etatech.test.widget.wallpaper;
+package com.etatech.test;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,10 +8,6 @@ import android.util.Log;
 
 import static android.content.Context.MODE_PRIVATE;
 import static java.lang.Math.min;
-
-/**
- * Created by JAYAN on 01-12-2017.
- */
 
 public class SettingsPref {
      static int size=30;

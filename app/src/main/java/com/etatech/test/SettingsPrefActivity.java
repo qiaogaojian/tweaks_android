@@ -1,11 +1,12 @@
-package com.etatech.test.widget.wallpaper;
+package com.etatech.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
 
 import android.os.Bundle;
 
-import com.etatech.test.R;
+import com.jaredrummler.android.colorpicker.ColorPreference;
+import com.pavelsikun.seekbarpreference.SeekBarPreference;
 
 
 import android.app.WallpaperManager;
@@ -13,7 +14,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -21,9 +21,6 @@ import android.preference.SwitchPreference;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
-
-import com.jaredrummler.android.colorpicker.ColorPreference;
-import com.pavelsikun.seekbarpreference.SeekBarPreference;
 
 
 import static java.lang.Math.min;
@@ -59,7 +56,7 @@ public class SettingsPrefActivity extends AppCompatActivity {
     }
 
     public static class MainPreferenceFragment extends PreferenceFragment {
-        Preference bgImage;
+        Preference        bgImage;
         SeekBarPreference length;
 
         @Override

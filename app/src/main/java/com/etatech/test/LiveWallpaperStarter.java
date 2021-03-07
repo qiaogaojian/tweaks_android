@@ -1,10 +1,6 @@
-package com.etatech.test.widget.wallpaper;
+package com.etatech.test;
 
 import com.badlogic.gdx.Game;
-
-/**
- * Created by Jayan on 30-07-2017.
- */
 
 public class LiveWallpaperStarter extends Game {
 
