@@ -149,8 +149,13 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
             mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
         }
 
-        /**适配方案：等比拉伸，保证高，牺牲宽，所以构图时主要元素尽量放中间**/
-        float scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
+        /**适配方案：保证不出界，所以构图时主要元素尽量放中间**/
+        float scale;
+        if (mSkeletonData.getHeight()>=mSkeletonData.getWidth()){
+            scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
+        }else{
+            scale = (float) ((float) Gdx.graphics.getWidth() / (mSkeletonData.getWidth() + mPadding));
+        }
         if (mSkeletonData.getHeight() == 0 || mScale != 1f) {
             scale = mScale;
         }
