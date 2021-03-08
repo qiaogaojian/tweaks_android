@@ -1,4 +1,4 @@
-package com.etatech.test;
+package com.etatech.test.widget.wallpaper;
 
 import com.badlogic.gdx.Game;
 

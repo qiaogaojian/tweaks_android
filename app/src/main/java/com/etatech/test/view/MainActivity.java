@@ -6,7 +6,7 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
-import com.etatech.test.WallPaperSettingActivity;
+import com.etatech.test.widget.wallpaper.WallPaperSettingActivity;
 import com.jakewharton.rxbinding.view.RxView;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
