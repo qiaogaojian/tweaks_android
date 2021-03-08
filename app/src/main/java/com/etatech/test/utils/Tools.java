@@ -187,6 +187,10 @@ public class Tools {
         return retColor;
     }
 
+    public static int getColorInt(String color) {
+        return Color.parseColor(color);
+    }
+
     public static void addLog(Context context, String log, int color) {
         logArr.add(Html.fromHtml(
                 String.format("<font color=%s>%s:%s</font>",
