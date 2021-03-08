@@ -4,10 +4,8 @@ import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -15,7 +13,6 @@ import android.widget.CompoundButton;
 import androidx.databinding.DataBindingUtil;
 import androidx.loader.content.CursorLoader;
 
-import com.etatech.test.LiveWallpaperAndroid;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityWallpaperSettingBinding;
 import com.etatech.test.utils.BaseActivity;
@@ -113,10 +110,9 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
             @Override
             public void call(Object o) {
                 Intent intent = new Intent();
-                String pkg = LiveWallpaperAndroid.class.getPackage().getName();
                 String cls = LiveWallpaperAndroid.class.getCanonicalName();
                 intent.setAction(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(pkg, cls));
+                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, new ComponentName(getPackageName(), cls));
 
                 startActivity(intent);
             }

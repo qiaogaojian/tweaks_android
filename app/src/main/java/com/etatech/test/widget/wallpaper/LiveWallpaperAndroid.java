@@ -1,4 +1,4 @@
-package com.etatech.test;
+package com.etatech.test.widget.wallpaper;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -6,8 +6,6 @@ import com.badlogic.gdx.backends.android.AndroidLiveWallpaperService;
 import com.etatech.test.widget.wallpaper.LiveWallpaperStarter;
 
 public class LiveWallpaperAndroid extends AndroidLiveWallpaperService {
-
-    // SettingsPref pref;
 
     @Override
     public void onCreateApplication() {
