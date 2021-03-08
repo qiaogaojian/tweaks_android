@@ -216,9 +216,10 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             Log.d("Intent data: ", data.toString());
-            String s = getRealPathFromURI(data.getData());
-            s = s.replace(Environment.getExternalStorageDirectory().toString(), "");
-            Tools.getShare().edit().putString(BACKGROUND_IMAGE_PATH, s).commit();
+            String path = getRealPathFromURI(data.getData());
+            path = path.replace(Environment.getExternalStorageDirectory().toString(), "");
+            binding.tvBackgroundImageInfo.setText("Selected image: " + path);
+            Tools.getShare().edit().putString(BACKGROUND_IMAGE_PATH, path).commit();
         }
     }
 
