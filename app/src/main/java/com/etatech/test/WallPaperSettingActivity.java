@@ -25,24 +25,23 @@ import com.pavelsikun.seekbarpreference.PersistValueListener;
 
 import rx.functions.Action1;
 
+import static android.app.Activity.RESULT_OK;
+
 public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSettingBinding> implements ColorPickerDialogListener {
 
     public static int PICK_IMAGE = 1;
-    public static SettingsPref myPref;
-    public static int width;
-    public static int height;
     // private  AdView adView;
 
     public static final String LINE_COLOR = "lineColor";
     public static final String PARTICLE_COLOR = "particleColor";
     public static final String BACKGROUND_COLOR = "backgroundColor";
-    public static final String particle_count = "particle_count";
-    public static final String line_length = "line_length";
-    public static final String particle_velocity = "particle_velocity";
-    public static final String particle_size = "particle_size";
-    public static final String line_thick = "line_thick";
-    public static final String touch_effect = "touch_effect";
-    public static final String background_image_path = "background_image_path";
+    public static final String PARTICLE_COUNT = "particle_count";
+    public static final String LINE_LENGTH = "line_length";
+    public static final String PARTICLE_VELOCITY = "particle_velocity";
+    public static final String PARTICLE_SIZE = "particle_size";
+    public static final String LINE_THICK = "line_thick";
+    public static final String TOUCH_EFFECT = "touch_effect";
+    public static final String BACKGROUND_IMAGE_PATH = "background_image_path";
 
     @Override
     public ActivityWallpaperSettingBinding onCreateView(Bundle savedInstanceState) {
@@ -127,47 +126,47 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
     }
 
     private void initView() {
-        binding.sbvParticleCount.setCurrentValue(Tools.getShare().getInt(particle_count, 30));
+        binding.sbvParticleCount.setCurrentValue(Tools.getShare().getInt(PARTICLE_COUNT, 30));
         binding.sbvParticleCount.setOnValueSelectedListener(new PersistValueListener() {
             @Override
             public boolean persistInt(int value) {
-                Tools.getShare().edit().putInt(particle_count, value).commit();
+                Tools.getShare().edit().putInt(PARTICLE_COUNT, value).commit();
                 return true;
             }
         });
 
-        binding.sbvLineLength.setCurrentValue(Tools.getShare().getInt(line_length, 500));
+        binding.sbvLineLength.setCurrentValue(Tools.getShare().getInt(LINE_LENGTH, 500));
         binding.sbvLineLength.setOnValueSelectedListener(new PersistValueListener() {
             @Override
             public boolean persistInt(int value) {
-                Tools.getShare().edit().putInt(line_length, value).commit();
+                Tools.getShare().edit().putInt(LINE_LENGTH, value).commit();
                 return true;
             }
         });
 
-        binding.sbvParticleVelocity.setCurrentValue(Tools.getShare().getInt(particle_velocity, 500));
+        binding.sbvParticleVelocity.setCurrentValue(Tools.getShare().getInt(PARTICLE_VELOCITY, 500));
         binding.sbvParticleVelocity.setOnValueSelectedListener(new PersistValueListener() {
             @Override
             public boolean persistInt(int value) {
-                Tools.getShare().edit().putInt(particle_velocity, value).commit();
+                Tools.getShare().edit().putInt(PARTICLE_VELOCITY, value).commit();
                 return true;
             }
         });
 
-        binding.sbvParticleSize.setCurrentValue(Tools.getShare().getInt(particle_size, 500));
+        binding.sbvParticleSize.setCurrentValue(Tools.getShare().getInt(PARTICLE_SIZE, 500));
         binding.sbvParticleSize.setOnValueSelectedListener(new PersistValueListener() {
             @Override
             public boolean persistInt(int value) {
-                Tools.getShare().edit().putInt(particle_size, value).commit();
+                Tools.getShare().edit().putInt(PARTICLE_SIZE, value).commit();
                 return true;
             }
         });
 
-        binding.sbvLineThickness.setCurrentValue(Tools.getShare().getInt(line_thick, 500));
+        binding.sbvLineThickness.setCurrentValue(Tools.getShare().getInt(LINE_THICK, 500));
         binding.sbvLineThickness.setOnValueSelectedListener(new PersistValueListener() {
             @Override
             public boolean persistInt(int value) {
-                Tools.getShare().edit().putInt(line_thick, value).commit();
+                Tools.getShare().edit().putInt(LINE_THICK, value).commit();
                 return true;
             }
         });
@@ -175,7 +174,7 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
         binding.switchTouchEffect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                Tools.getShare().edit().putBoolean(touch_effect, isChecked).commit();
+                Tools.getShare().edit().putBoolean(TOUCH_EFFECT, isChecked).commit();
             }
         });
     }
@@ -219,7 +218,7 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
             Log.d("Intent data: ", data.toString());
             String s = getRealPathFromURI(data.getData());
             s = s.replace(Environment.getExternalStorageDirectory().toString(), "");
-            Tools.getShare().edit().putString(background_image_path, s).commit();
+            Tools.getShare().edit().putString(BACKGROUND_IMAGE_PATH, s).commit();
         }
     }
 
