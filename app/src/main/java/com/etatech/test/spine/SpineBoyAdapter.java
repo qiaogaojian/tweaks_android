@@ -19,7 +19,8 @@ public class SpineBoyAdapter extends SpineBaseAdapter {
     @Override
     public void onInit() {
         setAssetsPath("spineboy3.8/spineboy.atlas", "spineboy3.8/spineboy.json");
-        // setResPath(FileUtils.getResPath() + "spineboy/spineboy.atlas", FileUtils.getResPath() + "spineboy/spineboy.json");
+        // setResPath(FileUtils.getResPath() + "spineboy3.8/spineboy.atlas", FileUtils.getResPath() + "spineboy3.8/spineboy.json");
+        // setResPath(FileUtils.getExternalPath() + "spineboy/spineboy.atlas", FileUtils.getExternalPath() + "spineboy/spineboy.json");
         // setExternalPath("spineboy/spineboy.atlas", "spineboy/spineboy.json");
         // setDebug(true);
         // setPadding(100);

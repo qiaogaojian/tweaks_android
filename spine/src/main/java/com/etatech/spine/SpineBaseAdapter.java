@@ -222,7 +222,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     }
 
     /**
-     * 设置spine资源路径(包名下文件路径)
+     * 设置spine资源路径(绝对路径)
      *
      * @param atlasPath    图集
      * @param skeletonPath json文件
@@ -233,7 +233,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     }
 
     /**
-     * 设置spine资源路径(外部路径)
+     * 设置spine资源路径(外部包名下文件路径 Android\data\com.etatech.test\files)
      *
      * @param atlasPath    图集
      * @param skeletonPath json文件
