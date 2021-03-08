@@ -1,5 +1,6 @@
 package com.etatech.test.spine;
 
+import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.etatech.spine.SpineBaseAdapter;
 
 /**
@@ -15,8 +16,7 @@ public class RaptorAdapter extends SpineBaseAdapter {
     public void onInit() {
         setAssetsPath("raptor3.8/raptor.atlas", "raptor3.8/raptor.skel");
         setDebug(true);
-        setScale(0.99f);
-        setPadding(600);
+        setPadding(AdaptScreenUtils.pt2Px(100));
     }
 
     /**
