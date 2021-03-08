@@ -3,6 +3,7 @@ package com.etatech.test;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidLiveWallpaperService;
+import com.etatech.test.widget.wallpaper.LiveWallpaperStarter;
 
 public class LiveWallpaperAndroid extends AndroidLiveWallpaperService {
 
