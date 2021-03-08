@@ -31,18 +31,18 @@ public class LiveWallpaperScreen implements Screen {
     static SpriteBatch batcher;
     static World world;
     static ShapeRenderer sr, sr2;
-    static int particle_count;
+    static int particleCount;
     static float dist;
     static float scale_factor;
-    static float velocity;
-    static int radius;
-    static int touch;
-    static int thickness;
-    static int line_length;
+    static float particleVelocity;
+    static int particleSize;
+    static int touchEffect;
+    static int lineThickness;
+    static int lineLength;
     static Vector2 pos2;
 
-    static Color color;
-    static Color lcolor;
+    static Color particleColor;
+    static Color lineColor;
     static Sprite sprite;
     static Particle particle[];
 
@@ -53,12 +53,12 @@ public class LiveWallpaperScreen implements Screen {
     public LiveWallpaperScreen(final Game game) {
         this.game = game;
 
-        particle_count = SettingsPref.particleCount;
-        velocity = SettingsPref.particleVelocity;
-        radius = SettingsPref.particleSize;
-        touch = SettingsPref.touchEffect;
-        thickness = SettingsPref.lineThickness;
-        line_length = SettingsPref.lineLength;
+        particleCount = SettingsPref.getParticleCount();
+        particleVelocity = SettingsPref.getParticleVelocity();
+        particleSize = SettingsPref.getParticleSize();
+        touchEffect = SettingsPref.getTouchEffect();
+        lineThickness = SettingsPref.getLineThickness();
+        lineLength = SettingsPref.getLineLength();
         camera = new OrthographicCamera(max_width, max_height);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         batcher = new SpriteBatch();
@@ -67,22 +67,22 @@ public class LiveWallpaperScreen implements Screen {
         //////////////////////////new particle system//////////////////////
         particle = new Particle[200];
         for (int i = 0; i < 200; i++) {
-            particle[i] = new Particle(max_width, max_height, velocity);
+            particle[i] = new Particle(max_width, max_height, particleVelocity);
         }
 
 
-        if (SettingsPref.backgroundImagePath.equals("0")) {
+        if (SettingsPref.getBackgroundImagePath().equals("0")) {
 
             textureBg = new Texture("bg.png");
-            batcher.setColor(Color.valueOf(SettingsPref.backgroundColor));
+            batcher.setColor(Color.valueOf(SettingsPref.getBackgroundColorStr()));
 
         } else {
             batcher = new SpriteBatch();
-            if (Gdx.files.absolute(SettingsPref.backgroundImagePath).exists()) {
-                textureBg = new Texture(Gdx.files.absolute(SettingsPref.backgroundImagePath));
+            if (Gdx.files.absolute(SettingsPref.getBackgroundImagePath()).exists()) {
+                textureBg = new Texture(Gdx.files.absolute(SettingsPref.getBackgroundImagePath()));
             } else {
                 textureBg = new Texture("bg.png");
-                batcher.setColor(Color.valueOf(SettingsPref.backgroundColor));
+                batcher.setColor(Color.valueOf(SettingsPref.getBackgroundColorStr()));
             }
         }
 
@@ -100,8 +100,8 @@ public class LiveWallpaperScreen implements Screen {
         sr = new ShapeRenderer();
         sr2 = new ShapeRenderer();
 
-        color = new Color(Color.valueOf(SettingsPref.particleColor));
-        lcolor = new Color(Color.valueOf(SettingsPref.lineColor));
+        particleColor = new Color(Color.valueOf(SettingsPref.getParticleColorStr()));
+        lineColor = new Color(Color.valueOf(SettingsPref.getLineColorStr()));
         pos2 = new Vector2();
         Log.d("LWP Created", "True");
     }
@@ -109,7 +109,7 @@ public class LiveWallpaperScreen implements Screen {
     private void draw(float delta) {
         world.step(1f / 360f, 6, 2);
         camera.update();
-        gl.glClearColor(color.r, color.g, color.b, color.a);
+        gl.glClearColor(particleColor.r, particleColor.g, particleColor.b, particleColor.a);
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
         Gdx.gl.glEnable(GL10.GL_BLEND);
@@ -126,30 +126,30 @@ public class LiveWallpaperScreen implements Screen {
         sr.setProjectionMatrix(batcher.getProjectionMatrix());
         sr.begin(ShapeRenderer.ShapeType.Filled);
         sr2.begin(ShapeRenderer.ShapeType.Filled);
-        sr2.setColor(color);
+        sr2.setColor(particleColor);
         //sr.setColor(lcolor);
 
-        for (int i = 0; i < particle_count; i++) {
+        for (int i = 0; i < particleCount; i++) {
             particle[i].update();
-            sr2.circle(particle[i].x, particle[i].y, radius);
-            for (int j = 0; j < particle_count; j++)
-                if (Particle.distance(particle[i], particle[j]) < line_length && i != j) {
+            sr2.circle(particle[i].x, particle[i].y, particleSize);
+            for (int j = 0; j < particleCount; j++)
+                if (Particle.distance(particle[i], particle[j]) < lineLength && i != j) {
                     dist = Particle.distance(particle[i], particle[j]);
-                    lcolor.a = max(0, 1 - (dist / (line_length - 70)));
+                    lineColor.a = max(0, 1 - (dist / (lineLength - 70)));
 
-                    sr.rectLine(particle[i].x, particle[i].y, particle[j].x, particle[j].y, thickness, lcolor, lcolor);
+                    sr.rectLine(particle[i].x, particle[i].y, particle[j].x, particle[j].y, lineThickness, lineColor, lineColor);
                 }
 
             particle[i].check_bounds();
 
-            if (touch == 1 && Gdx.input.isTouched()) {
+            if (touchEffect == 1 && Gdx.input.isTouched()) {
                 // Log.d("is touched",String.valueOf(Gdx.input.getX())+" "+String.valueOf(Gdx.input.getY()));
                 // pos2=new Vector2(Gdx.input.getX(),abs(Gdx.input.getY()-max_height));
                 pos2.set(Gdx.input.getX(), abs(Gdx.input.getY() - max_height));
-                if (Particle.get_pos(particle[i]).dst(pos2) < line_length + 200) {
+                if (Particle.get_pos(particle[i]).dst(pos2) < lineLength + 200) {
                     dist = Particle.get_pos(particle[i]).dst(pos2);
-                    lcolor.a = max(0, 1 - (dist / (line_length + 130)));
-                    sr.rectLine(particle[i].x, particle[i].y, pos2.x, pos2.y, thickness, lcolor, lcolor);
+                    lineColor.a = max(0, 1 - (dist / (lineLength + 130)));
+                    sr.rectLine(particle[i].x, particle[i].y, pos2.x, pos2.y, lineThickness, lineColor, lineColor);
                 }
 
 
@@ -209,14 +209,14 @@ public class LiveWallpaperScreen implements Screen {
         Particle.bound_width_right=max_width+max_width/4;
         */
 
-        particle_count = SettingsPref.particleCount;
+        particleCount = SettingsPref.getParticleCount();
 
-        Particle.velocity = SettingsPref.particleVelocity / 300;
-        radius = SettingsPref.particleSize;
-        touch = SettingsPref.touchEffect;
-        thickness = SettingsPref.lineThickness;
-        line_length = SettingsPref.lineLength;
-        Log.d("velo", String.valueOf(velocity));
+        Particle.velocity = SettingsPref.getParticleVelocity() / 300;
+        particleSize = SettingsPref.getParticleSize();
+        touchEffect = SettingsPref.getTouchEffect();
+        lineThickness = SettingsPref.getLineThickness();
+        lineLength = SettingsPref.getLineLength();
+        Log.d("velo", String.valueOf(particleVelocity));
         camera.viewportWidth = max_width;
         camera.viewportHeight = max_height;// = new OrthographicCamera(max_width, max_height);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
@@ -226,17 +226,17 @@ public class LiveWallpaperScreen implements Screen {
         */
         textureBg.dispose();
 
-        if (SettingsPref.backgroundImagePath.equals("0")) {
+        if (SettingsPref.getBackgroundImagePath().equals("0")) {
 
             textureBg = new Texture("bg.png");
-            batcher.setColor(Color.valueOf(SettingsPref.backgroundColor));
+            batcher.setColor(Color.valueOf(SettingsPref.getBackgroundColorStr()));
 
         } else {
-            if (Gdx.files.external(SettingsPref.backgroundImagePath).exists()) {
-                textureBg = new Texture(Gdx.files.external(SettingsPref.backgroundImagePath));
+            if (Gdx.files.external(SettingsPref.getBackgroundImagePath()).exists()) {
+                textureBg = new Texture(Gdx.files.external(SettingsPref.getBackgroundImagePath()));
             } else {
                 textureBg = new Texture("bg.png");
-                batcher.setColor(Color.valueOf(SettingsPref.backgroundColor));
+                batcher.setColor(Color.valueOf(SettingsPref.getBackgroundColorStr()));
             }
         }
 
@@ -255,8 +255,8 @@ public class LiveWallpaperScreen implements Screen {
         sr = new ShapeRenderer();
         sr2=new ShapeRenderer();
         */
-        color.set(Color.valueOf(SettingsPref.particleColor));
-        lcolor.set(Color.valueOf(SettingsPref.lineColor));//
+        particleColor.set(Color.valueOf(SettingsPref.getParticleColorStr()));
+        lineColor.set(Color.valueOf(SettingsPref.getLineColorStr()));//
         // =new Color(Color.valueOf(SettingsPref.line_color));
 
     }

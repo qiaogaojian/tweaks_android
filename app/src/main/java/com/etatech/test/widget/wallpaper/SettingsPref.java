@@ -20,19 +20,19 @@ public class SettingsPref {
     public static final String TOUCH_EFFECT = "touch_effect";
     public static final String BACKGROUND_IMAGE_PATH = "background_image_path";
 
-    public static String particleColor = "#65D9EF";
-    public static String lineColor = "#65D9EF";
-    public static int particleSize = 5;
-    public static int particleCount = 30;
-    public static int particleVelocity = 300;
-    public static String backgroundImagePath = "0";
-    public static String backgroundColor = "#33AE81FF";
-    public static int touchEffect = 1;
-    public static int lineLength = 300;
-    public static int lineThickness = 2;
+    public String particleColor = "#65D9EF";
+    public String lineColor = "#65D9EF";
+    public int particleSize = 5;
+    public int particleCount = 30;
+    public int particleVelocity = 300;
+    public String backgroundImagePath = "0";
+    public String backgroundColor = "#33AE81FF";
+    public int touchEffect = 1;
+    public int lineLength = 300;
+    public int lineThickness = 2;
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
+    private static SharedPreferences pref;
+    private static SharedPreferences.Editor editor;
 
     SettingsPref() {
         pref = Tools.getShare();
@@ -58,118 +58,112 @@ public class SettingsPref {
         getLineThickness();
     }
 
-    public void setParticleCount(int x) {
-
+    public static void setParticleCount(int x) {
         editor.putInt(PARTICLE_COUNT, x);
         editor.commit();
-        particleCount = x;
     }
 
-    public int getParticleCount() {
-        particleCount = pref.getInt(PARTICLE_COUNT, 30);
-        return particleCount;
+    public static int getParticleCount() {
+        return pref.getInt(PARTICLE_COUNT, 30);
     }
 
-    public void setParticleVelocity(int x) {
+    public static void setParticleVelocity(int x) {
         editor.putInt(PARTICLE_VELOCITY, x);
         editor.commit();
-        particleVelocity = x;
     }
 
-    public int getParticleVelocity() {
-        particleVelocity = pref.getInt(PARTICLE_VELOCITY, 300);
-        return particleVelocity;
+    public static int getParticleVelocity() {
+        return pref.getInt(PARTICLE_VELOCITY, 300);
     }
 
-    public void setBackgroundImagePath(String x) {
+    public static void setBackgroundImagePath(String x) {
         editor.putString(BACKGROUND_IMAGE_PATH, x);
         editor.commit();
-        backgroundImagePath = x;
     }
 
-    public String getBackgroundImagePath() {
-        backgroundImagePath = pref.getString(BACKGROUND_IMAGE_PATH, "0");
-        return backgroundImagePath;
+    public static String getBackgroundImagePath() {
+        return pref.getString(BACKGROUND_IMAGE_PATH, "0");
     }
 
-    public void setParticleColor(int x) {
-        particleColor = String.format("#%06X", (0xFFFFFF & x));
+    public static void setParticleColor(int x) {
+        String particleColor = String.format("#%06X", (0xFFFFFF & x));
         editor.putString(PARTICLE_COLOR, particleColor);
         editor.commit();
     }
 
-    public int getParticleColor() {
-        particleColor = pref.getString(PARTICLE_COLOR, "#65D9EF");
+    public static String getParticleColorStr() {
+        return pref.getString(PARTICLE_COLOR, "#65D9EF");
+    }
+
+    public static int getParticleColor() {
+        String particleColor = pref.getString(PARTICLE_COLOR, "#65D9EF");
         return Tools.getColorInt(particleColor);
     }
 
-    void setBackgroundColor(int x) {
-        backgroundColor = String.format("#%06X", (0xFFFFFF & x));
+    public static void setBackgroundColor(int x) {
+        String backgroundColor = String.format("#%06X", (0xFFFFFF & x));
         editor.putString(BACKGROUND_COLOR, backgroundColor);
         editor.commit();
     }
 
-    public int getBackgroundColor() {
-        backgroundColor = pref.getString(BACKGROUND_COLOR, "#46A7F5FF");
+    public static String getBackgroundColorStr() {
+        return pref.getString(BACKGROUND_COLOR, "#46A7F5FF");
+    }
+
+    public static int getBackgroundColor() {
+        String backgroundColor = pref.getString(BACKGROUND_COLOR, "#46A7F5FF");
         return Tools.getColorInt(backgroundColor);
     }
 
-    public void setParticleSize(int x) {
+    public static void setParticleSize(int x) {
 
         editor.putInt(PARTICLE_SIZE, x);
         editor.commit();
-        particleSize = x;
     }
 
-    public int getParticleSize() {
-        particleSize = pref.getInt(PARTICLE_SIZE, 5);
-        return particleSize;
+    public static int getParticleSize() {
+        return pref.getInt(PARTICLE_SIZE, 5);
     }
 
-    public void setLineColor(int x) {
-        lineColor = String.format("#%06X", (0xFFFFFF & x));
+    public static void setLineColor(int x) {
+        String lineColor = String.format("#%06X", (0xFFFFFF & x));
         editor.putString(LINE_COLOR, lineColor);
         editor.commit();
     }
 
-    public int getLineColor() {
-        lineColor = pref.getString(LINE_COLOR, "#65D9EF");
+    public static String getLineColorStr() {
+        return pref.getString(LINE_COLOR, "#65D9EF");
+    }
+
+    public static int getLineColor() {
+        String lineColor = pref.getString(LINE_COLOR, "#65D9EF");
         return Tools.getColorInt(lineColor);
     }
 
-    public void setTouchEffect(int x) {
-
+    public static void setTouchEffect(int x) {
         editor.putInt(TOUCH_EFFECT, x);
         editor.commit();
-        touchEffect = x;
     }
 
-    public int getTouchEffect() {
-        touchEffect = pref.getInt(TOUCH_EFFECT, 1);
-        return touchEffect;
+    public static int getTouchEffect() {
+        return pref.getInt(TOUCH_EFFECT, 1);
     }
 
-    public void setLineLength(int x) {
-
+    public static void setLineLength(int x) {
         editor.putInt(LINE_LENGTH, x);
         editor.commit();
-        lineLength = x;
     }
 
-    public int getLineLength() {
-        lineLength = pref.getInt(LINE_LENGTH, 300);
-        return lineLength;
+    public static int getLineLength() {
+        return pref.getInt(LINE_LENGTH, 300);
     }
 
-    public void setLineThickness(int x) {
-
+    public static void setLineThickness(int x) {
         editor.putInt(LINE_THICK, x);
         editor.commit();
-        lineThickness = x;
     }
 
-    public int getLineThickness() {
-        lineThickness = pref.getInt(LINE_THICK, 2);
-        return lineThickness;
+    public static int getLineThickness() {
+        return pref.getInt(LINE_THICK, 2);
     }
 }
