@@ -3,6 +3,8 @@ package com.etatech.test.widget.wallpaper;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidLiveWallpaperService;
+import com.etatech.test.spine.RaptorAdapter;
+import com.etatech.test.spine.SpineBoyAdapter;
 import com.etatech.test.widget.wallpaper.LiveWallpaperStarter;
 
 public class LiveWallpaperAndroid extends AndroidLiveWallpaperService {
@@ -17,7 +19,8 @@ public class LiveWallpaperAndroid extends AndroidLiveWallpaperService {
         config.useWakelock = false;
         config.useAccelerometer = false;
         config.getTouchEventsForLiveWallpaper = true;
-        ApplicationListener listener = new LiveWallpaperStarter();
+        // ApplicationListener listener = new LiveWallpaperStarter();
+        ApplicationListener listener = new RaptorAdapter();
         initialize(listener, config);
     }
 }

@@ -70,7 +70,6 @@ public class LiveWallpaperScreen implements Screen {
             particle[i] = new Particle(max_width, max_height, particleVelocity);
         }
 
-
         if (SettingsPref.getBackgroundImagePath().equals("0")) {
 
             textureBg = new Texture("bg.png");
@@ -165,21 +164,15 @@ public class LiveWallpaperScreen implements Screen {
     @Override
     public void dispose() {
 
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
-
         Log.d("LWP hidden", "True");
     }
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
-
         Log.d("LWP paused", "True");
     }
 
@@ -190,13 +183,10 @@ public class LiveWallpaperScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
         Log.d("LWP resumed", "True");
         max_height = Gdx.graphics.getHeight();
         max_width = Gdx.graphics.getWidth();
