@@ -2,16 +2,37 @@
 
 SpineLoader 通过对 libgdx 和 spine-libgdx 进行封装,简化了 Android 平台对 Spine 骨骼动画的加载
 
+## 相对安卓传统动画形式,Spine 动画有如下优势:
+
+1. 可交互
+
+2. 动画资源小,占用内存低
+
+3. 一个美术资源可以附加很多动画
+
+4. 可以模拟复杂的动画，使得游戏的动画细节更加精美
+
+5. 灵活性高, 可以动态更换全部(换肤功能)或部分(换装功能)动画组件
+
 ## 引入依赖
 
+### 本地 module
+
 ```s
-    // implementation project(':spine')
-    implementation 'com.sdbean.spine:spineLoader:0.0.1'
+    implementation project(':spine')
 ```
 
-## 配置 app 中 build.gradle
+### 远程依赖
 
 ```s
+    implementation 'com.sdbean.spine:spineLoader:0.1.1'
+```
+
+## 配置 jni
+
+### 本地 module
+
+```s ()
     android {
         defaultConfig {
             ndk {
@@ -26,6 +47,20 @@ SpineLoader 通过对 libgdx 和 spine-libgdx 进行封装,简化了 Android 平
         }
     }
 ```
+
+### 远程依赖
+
+- 导入 libgdx.so libgdx-box2d.so
+
+- 设置 jni 目录
+
+  ```s
+  sourceSets {
+      main {
+          jniLibs.srcDirs = ['libs']
+      }
+  }
+  ```
 
 ## 示例
 
@@ -88,7 +123,7 @@ class SpineBoyAdapter extends SpineBaseAdapter {
 
 - 播放动作
 
-``` java
+```java
     mSpineBoyAdapter.doJump();
     mSpineBoyAdapter.doRun();
 ```
