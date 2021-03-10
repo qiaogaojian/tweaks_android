@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationStateData;
+import com.esotericsoftware.spine.Event;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonBinary;
 import com.esotericsoftware.spine.SkeletonBounds;
@@ -411,6 +412,11 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
      */
     public void animate(String aniName) {
         mAnimationState.addAnimation(0, aniName, true, 0);
+    }
+
+    public void animate(String aniName, AnimationState.AnimationStateListener listener) {
+        mAnimationState.addAnimation(0, aniName, true, 0);
+        mAnimationState.addListener(listener);
     }
 
     /**
