@@ -1,5 +1,7 @@
 package com.etatech.test.spine;
 
+import android.media.AudioManager;
+import android.os.Environment;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +12,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.blankj.utilcode.util.AdaptScreenUtils;
+import com.esotericsoftware.spine.AnimationState;
 import com.etatech.spine.SpineBaseAdapter;
+import com.etatech.test.R;
+import com.etatech.test.utils.App;
+import com.etatech.test.utils.SoundManager;
 import com.etatech.test.widget.wallpaper.Particle;
 import com.etatech.test.widget.wallpaper.SettingsPref;
 
@@ -32,6 +38,7 @@ public class RaptorAdapter extends SpineBaseAdapter {
     private Vector2 clickPos;
     private ShapeRenderer sr;
     private int touchCount;
+    private String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/001/";
 
     /**
      * 设置动画文件资源路径
@@ -100,8 +107,9 @@ public class RaptorAdapter extends SpineBaseAdapter {
         super.onDrawFg();
         if (Gdx.input.isTouched()) {
             touchCount++;
-            if (touchCount % 2 == 1) {
+            if (touchCount % 3 != 0) {
                 animate("roar", "walk");
+                SoundManager.getInstance().playSingleAsset("android.resource://" + App.getInstance().getPackageName() + "/" + R.raw.roar);
             } else {
                 animate("jump", "walk");
             }

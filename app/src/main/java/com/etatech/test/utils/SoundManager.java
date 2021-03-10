@@ -1,6 +1,7 @@
 package com.etatech.test.utils;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
@@ -78,6 +79,37 @@ public class SoundManager {
                 } else {
                     singlePlayer = MediaPlayer.create(mContext, ResourcesHelper.getObbResourceUri("test.mp3"));
                 }
+
+                singlePlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.reset();
+                        mp.release();
+                        singlePlayer = null;
+                    }
+                });
+                singlePlayer.setLooping(false);
+                singlePlayer.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 播放不能同时存在的声音
+     */
+    public void playSingleAsset(String path) {
+        try {
+            if ("on".equals(SPUtils.getInstance().getString(GameConfig.OPERATION_SOUND_SWITCH, "on"))) {
+                if (singlePlayer != null) {
+                    singlePlayer.stop();
+                    singlePlayer.reset();
+                    singlePlayer.release();
+                    singlePlayer = null;
+                }
+                Uri uri = Uri.parse(path);
+                singlePlayer = MediaPlayer.create(mContext, uri);
 
                 singlePlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
