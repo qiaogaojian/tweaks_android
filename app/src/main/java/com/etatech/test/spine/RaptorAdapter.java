@@ -76,11 +76,11 @@ public class RaptorAdapter extends SpineBaseAdapter {
 
     private void initImage() {
         Texture textureBg;
+        batcher = new SpriteBatch();
         if (SettingsPref.getBackgroundImagePath().equals("0")) {
             textureBg = new Texture("bg.png");
             batcher.setColor(Color.valueOf(SettingsPref.getBackgroundColorStr()));
         } else {
-            batcher = new SpriteBatch();
             if (Gdx.files.absolute(SettingsPref.getBackgroundImagePath()).exists()) {
                 textureBg = new Texture(Gdx.files.absolute(SettingsPref.getBackgroundImagePath()));
             } else {
