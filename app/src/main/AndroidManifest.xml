@@ -163,6 +163,16 @@
             android:enabled="true"
             android:exported="false"
             android:process=":remote" />
+
+        <receiver
+            android:enabled="true"
+            android:name=".receiver.RebootCompleteReceiver"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
