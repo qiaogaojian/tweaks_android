@@ -30,6 +30,8 @@ import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
 
+import javax.microedition.khronos.opengles.GL10;
+
 public abstract class SpineBaseAdapter extends ApplicationAdapter {
     private static final float DEFAULT_ANIM_SWICTH_TIME = 0.3f;
     private FileHandle mAltasFileHandle;
@@ -319,6 +321,8 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
             mSkeleton.updateWorldTransform();
             mCamera.update();
 
+            onDrawBg();
+
             mMeshBatch.getProjectionMatrix().set(mCamera.combined);
             mMeshBatch.begin();
             mRenderer.draw(mMeshBatch, mSkeleton);
@@ -328,7 +332,18 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
                 mDebugRenderer.getShapeRenderer().setProjectionMatrix(mCamera.combined);
                 mDebugRenderer.draw(mSkeleton);
             }
+
+            onDrawFg();
         }
+    }
+
+    public void onDrawBg(){
+        Gdx.gl.glEnable(GL10.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    public void onDrawFg(){
+
     }
 
     public void onPauseImpl() {
