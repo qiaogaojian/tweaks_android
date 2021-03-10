@@ -23,7 +23,7 @@ import com.pavelsikun.seekbarpreference.PersistValueListener;
 
 import rx.functions.Action1;
 
-public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSettingBinding> implements ColorPickerDialogListener {
+public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingBinding> implements ColorPickerDialogListener {
 
     private SettingsPref setting;
     public static int PICK_IMAGE = 1;
@@ -126,7 +126,7 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
                         .setDialogId(R.id.cpv_particle_color)
                         .setColor(setting.getParticleColor())
                         .setShowAlphaSlider(true)
-                        .show(WallPaperSettingActivity.this);
+                        .show(SettingsPrefActivity.this);
             }
         });
 
@@ -138,7 +138,7 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
                         .setDialogId(R.id.cpv_line_color)
                         .setColor(setting.getLineColor())
                         .setShowAlphaSlider(true)
-                        .show(WallPaperSettingActivity.this);
+                        .show(SettingsPrefActivity.this);
             }
         });
 
@@ -150,7 +150,7 @@ public class WallPaperSettingActivity extends BaseActivity<ActivityWallpaperSett
                         .setDialogId(R.id.cpv_background_color)
                         .setColor(setting.getBackgroundColor())
                         .setShowAlphaSlider(true)
-                        .show(WallPaperSettingActivity.this);
+                        .show(SettingsPrefActivity.this);
             }
         });
 
