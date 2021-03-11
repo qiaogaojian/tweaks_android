@@ -48,15 +48,17 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     protected SkeletonBounds mSkeletonBounds;
     protected AnimationState mAnimationState;
     protected AnimationStateData mAnimationStateData;
-    protected SkeletonJson   mSkeletonJson;
+    protected SkeletonJson mSkeletonJson;
     protected SkeletonBinary mSkeletonBinary;
-    protected SkeletonData   mSkeletonData;
+    protected SkeletonData mSkeletonData;
     private OnSpineClickListener mSpineClickListener;
     private OnCreatedLIstener mOnCreatedLIstener;
     private SkeletonRendererDebug mDebugRenderer;
     private boolean mIsDebug = false;
     private boolean mActivePremultipliedAlpha = false;
     private int mPadding = 0;
+    private float mXoffset = 0;
+    private float mYoffset = 0;
     private float mScale = 1f;
 
     public SpineBaseAdapter() {
@@ -110,6 +112,14 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         mActivePremultipliedAlpha = activePremultipliedAlpha;
     }
 
+    public void setXoffset(float xoffset) {
+        mXoffset = xoffset;
+    }
+
+    public void setYoffset(float yoffset) {
+        mYoffset = yoffset;
+    }
+
     /**
      * 注意：这些周期方法都是在子线程中执行的
      */
@@ -145,28 +155,28 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         }
 
         mAtlas = new TextureAtlas(mAltasFileHandle);
-        if (mSkeletonFileHandle.toString().contains(".json")){
+        if (mSkeletonFileHandle.toString().contains(".json")) {
             mSkeletonJson = new SkeletonJson(mAtlas);
             mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
-        }else{
+        } else {
             mSkeletonBinary = new SkeletonBinary(mAtlas);
             mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
         }
 
         /**适配方案：保证不出界，所以构图时主要元素尽量放中间**/
         float scale;
-        if (mSkeletonData.getHeight()>=mSkeletonData.getWidth()){
+        if (mSkeletonData.getHeight() >= mSkeletonData.getWidth()) {
             scale = (float) ((float) Gdx.graphics.getHeight() / (mSkeletonData.getHeight() + mPadding));
-        }else{
+        } else {
             scale = (float) ((float) Gdx.graphics.getWidth() / (mSkeletonData.getWidth() + mPadding));
         }
         if (mSkeletonData.getHeight() == 0 || mScale != 1f) {
             scale = mScale;
         }
-        if (mSkeletonFileHandle.toString().contains(".json")){
+        if (mSkeletonFileHandle.toString().contains(".json")) {
             mSkeletonJson.setScale(scale); //设置完scale之后要重新读取一下mSkeletonData
             mSkeletonData = mSkeletonJson.readSkeletonData(mSkeletonFileHandle);
-        }else{
+        } else {
             mSkeletonBinary.setScale(scale);
             mSkeletonData = mSkeletonBinary.readSkeletonData(mSkeletonFileHandle);
         }
@@ -321,6 +331,8 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             mAnimationState.apply(mSkeleton);
             mSkeleton.updateWorldTransform();
+            mCamera.position.x = Gdx.graphics.getWidth() / 2.0f + mXoffset;
+            mCamera.position.y = Gdx.graphics.getHeight() / 2.0f + mYoffset;
             mCamera.update();
 
             onDrawBg();
@@ -339,12 +351,12 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
         }
     }
 
-    public void onDrawBg(){
+    public void onDrawBg() {
         Gdx.gl.glEnable(GL10.GL_BLEND);
         Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public void onDrawFg(){
+    public void onDrawFg() {
 
     }
 
