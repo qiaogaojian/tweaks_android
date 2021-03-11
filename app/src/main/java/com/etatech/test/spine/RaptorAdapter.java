@@ -101,7 +101,6 @@ public class RaptorAdapter extends SpineBaseAdapter {
 
         clickPos = new Vector2();
         mShapeRenderer = new ShapeRenderer();
-        gyroscopeAvail = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
         font = new BitmapFont(Gdx.files.internal("fonts/mono.fnt"), false);
         batch = new SpriteBatch();
     }
@@ -124,15 +123,15 @@ public class RaptorAdapter extends SpineBaseAdapter {
             mShapeRenderer.end();
         }
 
-        if (gyroscopeAvail) {
-            float accelX = Gdx.input.getAccelerometerX();
-            float accelY = Gdx.input.getAccelerometerY();
+        float accelX = Gdx.input.getAccelerometerX();
+        float accelY = Gdx.input.getAccelerometerY();
+        setXoffset(accelX * AdaptScreenUtils.pt2Px(30));
+        setYoffset(accelY * AdaptScreenUtils.pt2Px(30));
+        batch.setProjectionMatrix(mCamera.combined); //or your matrix to draw GAME WORLD, not UI
+        batch.begin();
+        String s = String.format("Accelerometer: X %.2f Y %.2f ", accelX, accelY);
+        font.draw(batch, s, 30, 60);
+        batch.end();
 
-            batch.setProjectionMatrix(mCamera.combined); //or your matrix to draw GAME WORLD, not UI
-            batch.begin();
-            String s = String.format("Accelerometer: X %.2f Y %.2f ", accelX, accelY);
-            font.draw(batch, s, 30, 60);
-            batch.end();
-        }
     }
 }
