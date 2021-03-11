@@ -14,6 +14,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.badlogic.gdx.backends.android.AndroidGraphics;
+
 /**
  * Created by J.Tommy on 17/5/25.
  */
@@ -26,9 +27,9 @@ public class SpineBaseFragment extends AndroidFragmentApplication implements Fra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        cfg.r = cfg.g = cfg.b = cfg.a = 8;
-        mView = initializeForView(mAdapter, cfg);
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        config.r = config.g = config.b = config.a = 8;
+        mView = initializeForView(mAdapter, config);
         if (mView instanceof SurfaceView) {
             SurfaceView glView = (SurfaceView) mView;
             glView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
