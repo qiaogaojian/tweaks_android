@@ -17,7 +17,6 @@ public class LiveWallpaperAndroid extends AndroidLiveWallpaperService {
         config.numSamples = 2;
         config.useCompass = false;
         config.useWakelock = false;
-        config.useAccelerometer = false;
         config.getTouchEventsForLiveWallpaper = true;
         // ApplicationListener listener = new LiveWallpaperStarter();
         ApplicationListener listener = new RaptorAdapter();

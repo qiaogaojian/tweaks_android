@@ -1,27 +1,23 @@
 package com.etatech.test.spine;
 
-import android.media.AudioManager;
-import android.os.Environment;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.blankj.utilcode.util.AdaptScreenUtils;
-import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 import com.etatech.spine.SpineBaseAdapter;
 import com.etatech.test.R;
 import com.etatech.test.utils.App;
 import com.etatech.test.utils.SoundManager;
-import com.etatech.test.widget.wallpaper.Particle;
 import com.etatech.test.widget.wallpaper.SettingsPref;
-
-import javax.microedition.khronos.opengles.GL10;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -33,12 +29,15 @@ import static java.lang.Math.max;
  */
 public class RaptorAdapter extends SpineBaseAdapter {
     private SpriteBatch batcher;
+    private SpriteBatch batch;
     private Sprite sprite;
     private int max_height;
     private int max_width;
     private Vector2 clickPos;
-    private ShapeRenderer sr;
+    private ShapeRenderer mShapeRenderer;
     private int touchCount;
+    private boolean gyroscopeAvail;
+    private BitmapFont font;
 
     /**
      * 设置动画文件资源路径
@@ -101,7 +100,10 @@ public class RaptorAdapter extends SpineBaseAdapter {
         Log.d("Sprite size:", sprite.getHeight() + " " + sprite.getWidth());
 
         clickPos = new Vector2();
-        sr = new ShapeRenderer();
+        mShapeRenderer = new ShapeRenderer();
+        gyroscopeAvail = Gdx.input.isPeripheralAvailable(Input.Peripheral.Gyroscope);
+        font = new BitmapFont(Gdx.files.internal("fonts/mono.fnt"), false);
+        batch = new SpriteBatch();
     }
 
     @Override
@@ -117,9 +119,20 @@ public class RaptorAdapter extends SpineBaseAdapter {
             }
 
             clickPos.set(Gdx.input.getX(), abs(Gdx.input.getY() - max_height));
-            sr.begin(ShapeRenderer.ShapeType.Filled);
-            sr.circle(clickPos.x, clickPos.y, SettingsPref.getParticleSize());
-            sr.end();
+            mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            mShapeRenderer.circle(clickPos.x, clickPos.y, SettingsPref.getParticleSize());
+            mShapeRenderer.end();
+        }
+
+        if (gyroscopeAvail) {
+            float accelX = Gdx.input.getAccelerometerX();
+            float accelY = Gdx.input.getAccelerometerY();
+
+            batch.setProjectionMatrix(mCamera.combined); //or your matrix to draw GAME WORLD, not UI
+            batch.begin();
+            String s = String.format("Accelerometer: X %.2f Y %.2f ", accelX, accelY);
+            font.draw(batch, s, 30, 60);
+            batch.end();
         }
     }
 }
