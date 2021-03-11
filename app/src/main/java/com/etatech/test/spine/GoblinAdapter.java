@@ -1,5 +1,6 @@
 package com.etatech.test.spine;
 
+import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 import com.etatech.spine.SpineBaseAdapter;
 
 /**
@@ -22,7 +23,7 @@ public class GoblinAdapter extends SpineBaseAdapter {
     }
 
     @Override
-    public void onClick() {
+    public void onClick(BoundingBoxAttachment attachment) {
 
     }
 }

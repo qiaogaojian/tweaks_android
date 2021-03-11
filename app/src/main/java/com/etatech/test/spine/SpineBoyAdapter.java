@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.badlogic.gdx.Files;
 import com.esotericsoftware.spine.Animation;
+import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 import com.etatech.spine.SpineBaseAdapter;
 import com.etatech.test.utils.FileUtils;
 
@@ -36,7 +37,7 @@ public class SpineBoyAdapter extends SpineBaseAdapter {
     }
 
     @Override
-    public void onClick() {
+    public void onClick(BoundingBoxAttachment attachment) {
         animate("shoot", "walk");
     }
 

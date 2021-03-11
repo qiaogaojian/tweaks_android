@@ -29,6 +29,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -190,7 +191,7 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
                 mCamera.unproject(point.set(screenX, screenY, 0));
                 mSkeletonBounds.update(mSkeleton, false);
                 if (mSkeletonBounds.aabbContainsPoint(point.x, point.y)) {
-                    onClick();
+                    onClick(mSkeletonBounds.containsPoint(point.x, point.y));
                     if (mSpineClickListener != null) {
                         mAndroidFragmentApplication.getView().post(new Runnable() {
                             @Override
@@ -214,9 +215,9 @@ public abstract class SpineBaseAdapter extends ApplicationAdapter {
     public abstract void onCreated();
 
     /**
-     * 动画点击回调
+     * 动画点击回调 BoundingBoxAttachment 为触发事件区域
      */
-    public abstract void onClick();
+    public abstract void onClick(BoundingBoxAttachment attachment);
 
     /**
      * 设置spine资源路径(assets文件下的相对路径)
