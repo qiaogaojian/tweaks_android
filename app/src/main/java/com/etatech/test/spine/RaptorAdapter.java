@@ -3,7 +3,6 @@ package com.etatech.test.spine;
 import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -123,15 +122,39 @@ public class RaptorAdapter extends SpineBaseAdapter {
             mShapeRenderer.end();
         }
 
-        float accelX = Gdx.input.getAccelerometerX();
-        float accelY = Gdx.input.getAccelerometerY();
-        setXoffset(accelX * AdaptScreenUtils.pt2Px(30));
-        setYoffset(accelY * AdaptScreenUtils.pt2Px(30));
+
+        smoothAcceler(Gdx.input.getAccelerometerX(), Gdx.input.getAccelerometerY(), Gdx.input.getAccelerometerZ());
+
+        setXoffset(accelValues[0] * AdaptScreenUtils.pt2Px(30));
+        setYoffset(accelValues[1] * AdaptScreenUtils.pt2Px(30));
         batch.setProjectionMatrix(mCamera.combined); //or your matrix to draw GAME WORLD, not UI
         batch.begin();
-        String s = String.format("Accelerometer: X %.2f Y %.2f ", accelX, accelY);
+        String s = String.format("Accelerometer: X %.2f Y %.2f ", accelValues[0], accelValues[1]);
         font.draw(batch, s, 30, 60);
         batch.end();
 
+    }
+
+    /*
+     * time smoothing constant for low-pass filter
+     * 0 ≤ α ≤ 1 ; a smaller value basically means more smoothing
+     * See: http://en.wikipedia.org/wiki/Low-pass_filter#Discrete-time_realization
+     */
+    protected static final float ALPHA = 0.2f;
+
+    protected float[] accelValues;
+
+    public void smoothAcceler(float x, float y, float z) {
+        float[] values = new float[]{x, y, z};
+        accelValues = lowPass(values, accelValues);
+    }
+
+    protected float[] lowPass(float[] input, float[] output) {
+        if (output == null) return input;
+
+        for (int i = 0; i < input.length; i++) {
+            output[i] = output[i] + ALPHA * (input[i] - output[i]);
+        }
+        return output;
     }
 }
