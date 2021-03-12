@@ -8,8 +8,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.util.Base64;
 import android.util.Log;
 
@@ -26,17 +28,18 @@ import com.sdbean.megashare.util.PlatformHelper;
 /**
  * Facebook https://developers.facebook.com/docs/sharing/android
  */
-final public class FacebookManager extends MegaShare
-{
+final public class FacebookManager extends MegaShare {
 
     private final String TAG = "FacebookManager";
 
     private static FacebookManager mManager;
-    private        ShareListener   mListener;
-    private        Context         mContext;
+    private ShareListener mListener;
+    private Context mContext;
 
-    private FacebookManager(){}
-    public static FacebookManager getInstance(){
+    private FacebookManager() {
+    }
+
+    public static FacebookManager getInstance() {
         if (mManager == null) {
             synchronized (FacebookManager.class) {
                 if (mManager == null) {
@@ -79,12 +82,12 @@ final public class FacebookManager extends MegaShare
     /**
      * 分享网页.
      *
-     * @param context 上下文.
+     * @param context    上下文.
      * @param webpageUrl 网页链接.
-     * @param quote 网页引文描述.
-     * @param hashTag 主题标签, 形如: "#HelloWorld", 不能有任何符号.
-     * @param mode 分享模式 {@linkplain MegaShare.Mode}.
-     * @param listener {@linkplain ShareListener}.
+     * @param quote      网页引文描述.
+     * @param hashTag    主题标签, 形如: "#HelloWorld", 不能有任何符号.
+     * @param mode       分享模式 {@linkplain MegaShare.Mode}.
+     * @param listener   {@linkplain ShareListener}.
      */
     public void shareWebpage(@NonNull Context context,
                              @NonNull String webpageUrl,
@@ -112,11 +115,13 @@ final public class FacebookManager extends MegaShare
 
     /**
      * 分享图片.
+     *
      * @param context 上下文.
-     * @param photos bitmap格式的图片数据数组, 不能超过6张, 每张大小不能超过12M.
+     * @param photos  bitmap格式的图片数据数组, 不能超过6张, 每张大小不能超过12M.
      */
     public void sharePhoto(@NonNull Context context,
-                           @NonNull Bitmap photos) {
+                           @NonNull Bitmap photos,
+                           @Nullable ShareListener listener) {
 
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
@@ -136,11 +141,13 @@ final public class FacebookManager extends MegaShare
 
     /**
      * 分享图片.
+     *
      * @param context 上下文.
-     * @param photos bitmap格式的图片数据数组, 不能超过6张, 每张大小不能超过12M.
+     * @param photos  bitmap格式的图片数据数组, 不能超过6张, 每张大小不能超过12M.
      */
     public void sharePhotos(@NonNull Context context,
-                           @NonNull ArrayList<Bitmap>photos) {
+                            @NonNull ArrayList<Bitmap> photos,
+                            @Nullable ShareListener listener) {
 
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
@@ -157,7 +164,7 @@ final public class FacebookManager extends MegaShare
 
         Intent intent = new Intent(context, FacebookActivity.class);
         FileHelper.deleteExternalShareDirectory(context);
-        for (int i = 0; i < photos.size(); i ++) {
+        for (int i = 0; i < photos.size(); i++) {
             FileHelper.saveBitmapToExternalSharePath(context, photos.get(i));
             Log.e(TAG, i + "");
         }
@@ -168,7 +175,8 @@ final public class FacebookManager extends MegaShare
 
     /**
      * 分享本地视频到 Facebook.
-     * @param context 上下文.
+     *
+     * @param context       上下文.
      * @param localVideoUri 本地视频 Uri.
      */
     public void shareLocalVideo(@NonNull Context context, @NonNull Uri localVideoUri) {
@@ -189,6 +197,9 @@ final public class FacebookManager extends MegaShare
     protected ShareListener getListener() {
         return mListener;
     }
-    protected Context getContext() { return  mContext; }
+
+    protected Context getContext() {
+        return mContext;
+    }
 
 }
