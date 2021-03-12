@@ -128,7 +128,7 @@ final public class FacebookManager extends MegaShare {
             Log.e(TAG, "Facebook not installed.");
             return;
         }
-
+        mListener = listener;
         mContext = context;
 
         Intent intent = new Intent(context, FacebookActivity.class);
@@ -159,7 +159,7 @@ final public class FacebookManager extends MegaShare {
             Log.e(TAG, "图片不能超过6张!");
             return;
         }
-
+        mListener = listener;
         mContext = context;
 
         Intent intent = new Intent(context, FacebookActivity.class);
@@ -179,13 +179,14 @@ final public class FacebookManager extends MegaShare {
      * @param context       上下文.
      * @param localVideoUri 本地视频 Uri.
      */
-    public void shareLocalVideo(@NonNull Context context, @NonNull Uri localVideoUri) {
+    public void shareLocalVideo(@NonNull Context context, @NonNull Uri localVideoUri, @Nullable ShareListener listener) {
 
         if (!PlatformHelper.isInstalled(context, SharePlatform.Platform
                 .Facebook)) {
             Log.e(TAG, "Facebook not installed.");
             return;
         }
+        mListener = listener;
         mContext = context;
         Intent intent = new Intent(context, FacebookActivity.class);
         intent.putExtra("type", ShareContentType.Video);
