@@ -13,35 +13,67 @@ import java.util.HashMap;
  */
 
 public class Blockchain {
-    public static int difficulty = 6;
+    public static int difficulty = 3;
     public static float minimumTransaction = 0.001f;
     public static ArrayList<Block> blockchain = new ArrayList<>();
     public static HashMap<String, TransactionOutput> UTXOs = new HashMap<>();
     public static Wallet walletA;
     public static Wallet walletB;
+    public static Transaction genesisTransaction;
 
-    public static void main(String args[]) {
-        //Setup Bouncey castle as a Security Provider
-        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-        //Create the new wallets
+    public static void main(String[] args) {
+        //add our blocks to the blockchain ArrayList:
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //Setup Bouncey castle as a Security Provider
+
+        //Create wallets:
         walletA = new Wallet();
         walletB = new Wallet();
-        //Test public and private keys
-        System.out.println("Private and public keys:");
-        System.out.println(Encrypt.getStringFromKey(walletA.mPrivateKey));
-        System.out.println(Encrypt.getStringFromKey(walletA.mPublicKey));
-        //Create a test transaction from WalletA to walletB
-        Transaction transaction = new Transaction(walletA.mPublicKey, walletB.mPublicKey, 5, null);
-        transaction.generateSignature(walletA.mPrivateKey);
-        //Verify the signature works and verify it from the public key
-        System.out.println("Is signature verified");
-        System.out.println(transaction.verifySignature());
+        Wallet coinbase = new Wallet();
+
+        //create genesis transaction, which sends 100 NoobCoin to walletA:
+        genesisTransaction = new Transaction(coinbase.mPublicKey, walletA.mPublicKey, 100f, null);
+        genesisTransaction.generateSignature(coinbase.mPrivateKey);	 //manually sign the genesis transaction
+        genesisTransaction.transactionId = "0"; //manually set the transaction id
+        genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+        UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
+
+        System.out.println("Creating and Mining Genesis block... ");
+        Block genesis = new Block("0");
+        genesis.addTransaction(genesisTransaction);
+        addBlock(genesis);
+
+        //testing
+        Block block1 = new Block(genesis.mCurHash);
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
+        block1.addTransaction(walletA.sendFunds(walletB.mPublicKey, 40f));
+        addBlock(block1);
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
+
+        Block block2 = new Block(block1.mCurHash);
+        System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
+        block2.addTransaction(walletA.sendFunds(walletB.mPublicKey, 1000f));
+        addBlock(block2);
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
+
+        Block block3 = new Block(block2.mCurHash);
+        System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
+        block3.addTransaction(walletB.sendFunds( walletA.mPublicKey, 20));
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
+
+        isChainValid();
+
     }
 
     public static boolean isChainValid() {
         Block currentBlock;
         Block previousBlock;
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
+        HashMap<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>(); //a temporary working list of unspent transactions at a given block state.
+        tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 
         for (int i = 1; i < blockchain.size(); i++) {
             currentBlock = blockchain.get(i);
@@ -59,7 +91,57 @@ public class Blockchain {
                 System.out.println("This block hasn't been mined");
                 return false;
             }
+
+            //loop thru blockchains transactions:
+            TransactionOutput tempOutput;
+            for(int t=0; t <currentBlock.transactions.size(); t++) {
+                Transaction currentTransaction = currentBlock.transactions.get(t);
+
+                if(!currentTransaction.verifySignature()) {
+                    System.out.println("#Signature on Transaction(" + t + ") is Invalid");
+                    return false;
+                }
+                if(currentTransaction.getInputsValue() != currentTransaction.getOutputsValue()) {
+                    System.out.println("#Inputs are note equal to outputs on Transaction(" + t + ")");
+                    return false;
+                }
+
+                for(TransactionInput input: currentTransaction.inputs) {
+                    tempOutput = tempUTXOs.get(input.transactionOutputId);
+
+                    if(tempOutput == null) {
+                        System.out.println("#Referenced input on Transaction(" + t + ") is Missing");
+                        return false;
+                    }
+
+                    if(input.UTXO.value != tempOutput.value) {
+                        System.out.println("#Referenced input Transaction(" + t + ") value is Invalid");
+                        return false;
+                    }
+
+                    tempUTXOs.remove(input.transactionOutputId);
+                }
+
+                for(TransactionOutput output: currentTransaction.outputs) {
+                    tempUTXOs.put(output.id, output);
+                }
+
+                if( currentTransaction.outputs.get(0).receiver != currentTransaction.receiver) {
+                    System.out.println("#Transaction(" + t + ") output reciepient is not who it should be");
+                    return false;
+                }
+                if( currentTransaction.outputs.get(1).receiver != currentTransaction.sender) {
+                    System.out.println("#Transaction(" + t + ") output 'change' is not sender.");
+                    return false;
+                }
+
+            }
         }
         return true;
+    }
+
+    public static void addBlock(Block newBlock) {
+        newBlock.mineBlock(difficulty);
+        blockchain.add(newBlock);
     }
 }
