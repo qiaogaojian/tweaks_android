@@ -1,4 +1,4 @@
-package com.etatech.test.Java.search;
+package com.etatech.test.java.search;
 
 /**
  * Created by Michael

@@ -1,6 +1,5 @@
-package com.etatech.test.Java.sort;
+package com.etatech.test.java.sort;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

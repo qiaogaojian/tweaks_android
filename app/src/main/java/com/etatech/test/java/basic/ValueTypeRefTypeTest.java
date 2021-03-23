@@ -1,4 +1,4 @@
-package com.etatech.test.Java.basic;
+package com.etatech.test.java.basic;
 
 /**
  * Created by Michael

@@ -1,4 +1,4 @@
-package com.etatech.test.Java.socket;
+package com.etatech.test.java.socket;
 
 import java.io.IOException;
 import java.io.InputStream;

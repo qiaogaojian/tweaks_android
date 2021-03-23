@@ -1,4 +1,4 @@
-package com.etatech.test.Java.rxjava;
+package com.etatech.test.java.rxjava;
 
 import java.util.ArrayList;
 import java.util.List;

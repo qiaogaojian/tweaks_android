@@ -1,4 +1,4 @@
-package com.etatech.test.Java;
+package com.etatech.test.java;
 
 import com.etatech.test.utils.Tools;
 
