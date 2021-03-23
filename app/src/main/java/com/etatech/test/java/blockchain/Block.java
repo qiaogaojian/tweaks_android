@@ -7,7 +7,7 @@ import java.util.Date;
  * Date:  2021/3/23
  * Desc:
  */
-class Block {
+public class Block {
     public String mPreviousHash;
     private String mData;
     private long mTimeStamp;
