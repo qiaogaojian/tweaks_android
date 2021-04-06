@@ -56,6 +56,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         btnTestSurfaceview.setOnClickListener(this);
         btnTestDataBinding.setOnClickListener(this);
 
+        test();
+
         RxView.clicks(binding.btnTestMvp)
                 .compose(this.<Void>bindUntilEvent(ActivityEvent.DESTROY))
                 .throttleFirst(1000, TimeUnit.MILLISECONDS)
@@ -379,5 +381,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         }
     }
 
+    private void test(){
+        testUriEncoder();
+    }
 
+    private void testUriEncoder(){
+        String url = "https://werewolf.53site.com/line-auth/shareRoom/index.html?type=1&roomNo=645025&roomPw=&id=645025&borderId=4&levle=無制限&roomName=hddhdhの部屋&roomType=初心者部屋";
+        String allowedChars="._-$,;:~()?/=&";
+        String urlEncoded = Uri.encode(url, allowedChars);
+        System.out.println(urlEncoded);
+    }
 }
