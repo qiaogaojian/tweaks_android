@@ -201,16 +201,6 @@ dependencies {
     // 内存泄漏检测
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.1'
 
-    // 图片加载
-    implementation "com.sdbean.imageloader:frame:2.1.8"
-    // annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
-    // implementation "com.sdbean.glide:webpdecoder:1.0.0"
-
-    implementation 'com.facebook.fresco:fresco:1.13.0'
-    implementation 'com.facebook.fresco:animated-webp:1.13.0'
-    implementation 'com.facebook.fresco:webpsupport:1.13.0'
-    implementation 'com.facebook.fresco:animated-gif:1.13.0'
-
     implementation 'com.leo618:zip:0.0.1'
     implementation 'com.github.japgolly.android:svg-android:2.0.6'
     implementation 'com.yanzhikai:BooheeRuler:0.0.7'
@@ -236,6 +226,8 @@ dependencies {
 
     implementation project(':spine')
     // implementation 'com.sdbean.spine:spineLoader:0.0.3'
+
+    implementation project(':imageLoader')
 }
 
 //添加到文件最后
