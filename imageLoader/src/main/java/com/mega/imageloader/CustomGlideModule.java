@@ -9,12 +9,8 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
-import com.mega.imageloader.okhttp3.OkHttpUrlLoader;
-
-import java.io.InputStream;
 
 @GlideModule
 public class CustomGlideModule extends AppGlideModule {
