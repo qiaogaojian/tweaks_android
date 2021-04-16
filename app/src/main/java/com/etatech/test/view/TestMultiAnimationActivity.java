@@ -2,7 +2,9 @@ package com.etatech.test.view;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.etatech.test.R;
@@ -31,13 +33,13 @@ public class TestMultiAnimationActivity extends BaseActivity<ActivityTestMultiAn
             multiAniAdapter = new MultiAniAdapter(imgList);
         }
         binding.rvAni.setAdapter(multiAniAdapter);
-        binding.rvAni.setLayoutManager(new GridLayoutManager(this,5));
+        binding.rvAni.setLayoutManager(new GridLayoutManager(this, 5));
     }
 
     private void initData() {
         imgList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            imgList.add("http://werewolf-resource-jp.53site.com/s/avatarframe/823_player.webp");
+            imgList.add(String.format("http://werewolf-resource-jp.53site.com/s/avatarframe/%d_player.webp", 800 + i));
         }
     }
 }
