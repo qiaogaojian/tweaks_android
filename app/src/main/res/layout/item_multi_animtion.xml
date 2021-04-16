@@ -18,6 +18,14 @@
             android:layout_height="match_parent"
             tools:background="@color/code_blue" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Test"
+            android:textColor="@color/code_purple"
+            android:textSize="30pt" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

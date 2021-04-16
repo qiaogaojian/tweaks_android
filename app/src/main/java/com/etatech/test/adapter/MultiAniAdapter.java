@@ -1,15 +1,15 @@
 package com.etatech.test.adapter;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.etatech.test.R;
 import com.etatech.test.databinding.ItemMultiAnimtionBinding;
+import com.mega.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -35,31 +35,7 @@ public class MultiAniAdapter extends RecyclerView.Adapter<MultiAniAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String imgUrl = imgList.get(position);
-        loadGlideWebp(holder.itemMultiAnimtionBinding.ivAni, imgUrl);
-
-        //        ImageRequest requestLocal = ImageRequestBuilder
-        //                .newBuilderWithResourceId(R.drawable.frame)
-        //                .setResizeOptions(new ResizeOptions(100, 100))
-        //                .build();
-        //
-        //        ImageRequest request = ImageRequestBuilder
-        //                .newBuilderWithSource(Uri.parse(imgUrl))
-        //                .setResizeOptions(new ResizeOptions(100, 100))
-        //                .build();
-        //
-        //        holder.itemMultiAnimtionBinding.ivAni.setController(
-        //                Fresco.newDraweeControllerBuilder()
-        //                        .setImageRequest(request)
-        //                        .setAutoPlayAnimations(true)
-        //                        .setOldController(holder.itemMultiAnimtionBinding.ivAni.getController())
-        //                        .build()
-        //        );
-    }
-
-    private void loadGlideWebp(ImageView view, String url) {
-        Glide.with(view.getContext())
-                .load(url)
-                .into(view);
+        ImageLoader.displayImage(holder.itemMultiAnimtionBinding.ivAni, imgUrl);
     }
 
     @Override

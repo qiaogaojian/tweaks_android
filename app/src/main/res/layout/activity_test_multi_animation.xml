@@ -14,7 +14,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ani"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/item_multi_animtion"
+            tools:spanCount="6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
