@@ -35,7 +35,11 @@ public class MultiAniAdapter extends RecyclerView.Adapter<MultiAniAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String imgUrl = imgList.get(position);
-        ImageLoader.displayImage(holder.itemMultiAnimtionBinding.ivAni, imgUrl);
+        if (position == 6) {
+            ImageLoader.displayAsBitmapImage(holder.itemMultiAnimtionBinding.ivAni, imgUrl);
+        } else {
+            ImageLoader.displayImage(holder.itemMultiAnimtionBinding.ivAni, imgUrl);
+        }
     }
 
     @Override
