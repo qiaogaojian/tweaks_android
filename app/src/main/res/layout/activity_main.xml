@@ -447,6 +447,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_spine" />
 
+            <Button
+                android:id="@+id/btn_test_webp"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Webp Animation"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_live_wallpaper" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

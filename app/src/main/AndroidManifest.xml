@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.etatech.test">
-
     <!-- Required to access Google Play Licensing -->
     <uses-permission android:name="com.android.vending.CHECK_LICENSE" /> <!-- Required to download files from Google Play -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,7 +24,6 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
     <uses-feature
         android:name="android:software.live_wallpaper"
         android:required="false" />
@@ -43,8 +41,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".view.TestWebpActivity"></activity>
+
         <service
-            android:name="com.etatech.test.widget.wallpaper.LiveWallpaperAndroid"
+            android:name=".widget.wallpaper.LiveWallpaperAndroid"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_WALLPAPER">
@@ -57,7 +57,7 @@
                 android:resource="@xml/livewallpaper" />
         </service>
 
-        <activity android:name="com.etatech.test.widget.wallpaper.SettingsPrefActivity" />
+        <activity android:name=".widget.wallpaper.SettingsPrefActivity" />
         <activity android:name=".spine.GoblinActivity" />
         <activity android:name=".spine.SpineBoyActivity" />
         <activity android:name=".view.TestSpineActivity" />
@@ -171,6 +171,7 @@
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>

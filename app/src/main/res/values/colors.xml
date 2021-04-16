@@ -16,4 +16,5 @@
     <color name="code_black">#262620</color>
     <color name="code_white">#F7F7F0</color>
     <color name="code_grey">#80807B</color>
+    <color name="mask_color">#88000000</color>
 </resources>
