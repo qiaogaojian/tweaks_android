@@ -37,7 +37,7 @@ public class TestMultiAnimationActivity extends BaseActivity<ActivityTestMultiAn
     private void initData() {
         imgList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            imgList.add("http://werewolf-resource-jp.53site.com/s/avatarframe/829_player.webp");
+            imgList.add("http://werewolf-resource-jp.53site.com/s/avatarframe/823_player.webp");
         }
     }
 }
