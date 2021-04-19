@@ -41,7 +41,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestWebpActivity"></activity>
+        <activity android:name=".view.TestLocalizeActivity"></activity>
+        <activity android:name=".view.TestWebpActivity" />
 
         <service
             android:name=".widget.wallpaper.LiveWallpaperAndroid"

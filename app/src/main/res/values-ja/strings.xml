@@ -1,0 +1,4 @@
+<resources>
+    <string name="test_text">テストテキスト</string>
+    <string name="auto">自動</string>
+</resources>

@@ -1,14 +1,19 @@
 package com.etatech.test.utils;
 
+import android.content.Context;
 import android.content.res.Resources;
+
 import androidx.databinding.ViewDataBinding;
+
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 
 import android.view.MotionEvent;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.sdbean.localize.MultiLanguage;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 /**
@@ -69,5 +74,8 @@ public abstract class BaseActivity<DataBindingType extends ViewDataBinding> exte
         return super.onTouchEvent(event);
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MultiLanguage.getLocalContext(newBase));
+    }
 }

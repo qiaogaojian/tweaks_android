@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_test"
+            android:layout_width="300pt"
+            android:layout_height="300pt"
+            android:src="@drawable/test_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30pt"
+            android:text="@string/test_text"
+            android:textSize="38pt"
+            app:layout_constraintLeft_toLeftOf="@id/iv_test"
+            app:layout_constraintRight_toRightOf="@id/iv_test"
+            app:layout_constraintTop_toBottomOf="@id/iv_test" />
+
+        <Button
+            android:id="@+id/btn_sys"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="@string/auto"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toTopOf="@id/btn_cn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/btn_cn"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="中文"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toTopOf="@id/btn_en"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/btn_en"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="ENGLISH"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toTopOf="@id/btn_jp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+            android:id="@+id/btn_jp"
+            style="@style/Button"
+            android:layout_marginBottom="30pt"
+            android:text="日本語"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

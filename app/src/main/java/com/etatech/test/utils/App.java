@@ -2,6 +2,8 @@ package com.etatech.test.utils;
 
 import android.app.Application;
 import android.content.ComponentCallbacks2;
+import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Environment;
 
@@ -15,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 import com.etatech.test.netstate.NetWorkMonitorManager;
+import com.sdbean.localize.MultiLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +68,8 @@ public class App extends MultiDexApplication {
         logArr = new ArrayList<>();
 
         NetWorkMonitorManager.getInstance().init(this);
+        // 设置系统语言
+        MultiLanguage.setApplicationLanguage(this);
     }
 
     public static App getInstance() {
@@ -96,5 +101,22 @@ public class App extends MultiDexApplication {
         } catch (Exception e) {
 
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base)
+    {
+        // 保存系统语言
+        MultiLanguage.saveSystemCurrentLanguage(base);
+
+        super.attachBaseContext(MultiLanguage.setLocal(base));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        // 保存系统语言
+        MultiLanguage.onConfigurationChanged(getApplicationContext(),newConfig);
     }
 }
