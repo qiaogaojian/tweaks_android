@@ -1,1 +1,1 @@
-include ':app', ':splashad', ':antiemulator', ':netstate', ':wheelpicker', ':megashare', ':spine',':imageLoader'
+include ':app', ':splashad', ':antiemulator', ':netstate', ':wheelpicker', ':megashare', ':spine',':imageLoader',':localize'

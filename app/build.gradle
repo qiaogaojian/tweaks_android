@@ -228,6 +228,8 @@ dependencies {
     // implementation 'com.sdbean.spine:spineLoader:0.0.3'
 
     implementation project(':imageLoader')
+
+    implementation project(':localize')
 }
 
 //添加到文件最后
