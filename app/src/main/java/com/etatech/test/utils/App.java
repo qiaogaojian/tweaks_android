@@ -41,6 +41,14 @@ public class App extends MultiDexApplication {
     public static List<Spanned> logArr;
     public static String RES_PATH = "";
 
+    public static App getInstance() {
+        return instance;
+    }
+
+    public Typeface getTypeface() {
+        return typeface;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -70,14 +78,6 @@ public class App extends MultiDexApplication {
         NetWorkMonitorManager.getInstance().init(this);
         // 设置系统语言
         MultiLanguage.setApplicationLanguage(this);
-    }
-
-    public static App getInstance() {
-        return instance;
-    }
-
-    public Typeface getTypeface() {
-        return typeface;
     }
 
     @Override
