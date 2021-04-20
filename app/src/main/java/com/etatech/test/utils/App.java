@@ -10,7 +10,10 @@ import android.os.Environment;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spanned;
+import android.util.Log;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
@@ -41,6 +44,8 @@ public class App extends MultiDexApplication {
     public static String externalPath;
     public static List<Spanned> logArr;
     public static String RES_PATH = "";
+    public static final String licenceURL = "http://license.vod2.myqcloud.com/license/v1/b56a5afde8826ac55c32ee4837a1f5a7/TXLiveSDK.licence";
+    public static final String licenceKey = "c8e2d9d1b40330c6ec4d36b9ec7a089a";
 
     public static App getInstance() {
         return instance;
@@ -83,9 +88,16 @@ public class App extends MultiDexApplication {
     }
 
     private void initTxLive(){
-        String licenceURL = "http://license.vod2.myqcloud.com/license/v1/b56a5afde8826ac55c32ee4837a1f5a7/TXLiveSDK.licence";
-        String licenceKey = "c8e2d9d1b40330c6ec4d36b9ec7a089a";
         TXLiveBase.getInstance().setLicence(this,licenceURL,licenceKey);
+
+        // 打印 licence 信息
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("TXLive Licence", "onCreate: " + TXLiveBase.getInstance().getLicenceInfo(App.this));
+            }
+        }, 5 * 1000);//5秒后打印 Licence 的信息
     }
 
     @Override
