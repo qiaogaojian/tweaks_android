@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestLocalizeBinding;
+import com.etatech.test.utils.App;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.sdbean.localize.Language;
@@ -59,7 +60,7 @@ public class TestLocalizeActivity extends BaseActivity<ActivityTestLocalizeBindi
     private void selectLanguage(Language select)
     {
         MultiLanguage.saveSelectLanguage(this, select);
-        TestLocalizeActivity.reStart(this);
+        TestLocalizeActivity.reStart(App.getInstance());
     }
 
     /**
@@ -68,7 +69,7 @@ public class TestLocalizeActivity extends BaseActivity<ActivityTestLocalizeBindi
      */
     public static void reStart(Context context)
     {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, TestLocalizeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
