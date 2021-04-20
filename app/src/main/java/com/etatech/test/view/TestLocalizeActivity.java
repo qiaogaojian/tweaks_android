@@ -20,10 +20,9 @@ import rx.functions.Action1;
 public class TestLocalizeActivity extends BaseActivity<ActivityTestLocalizeBinding> {
 
 
-
     @Override
     public ActivityTestLocalizeBinding onCreateView(Bundle savedInstanceState) {
-        return DataBindingUtil.setContentView(this,R.layout.activity_test_localize);
+        return DataBindingUtil.setContentView(this, R.layout.activity_test_localize);
     }
 
     @Override
@@ -57,20 +56,17 @@ public class TestLocalizeActivity extends BaseActivity<ActivityTestLocalizeBindi
     /**
      * 保存自定义语言
      */
-    private void selectLanguage(Language select)
-    {
+    private void selectLanguage(Language select) {
         MultiLanguage.saveSelectLanguage(this, select);
-        TestLocalizeActivity.reStart(App.getInstance());
+        reStart();
     }
 
     /**
      * 刷新Activity
-     * @param context
      */
-    public static void reStart(Context context)
-    {
-        Intent intent = new Intent(context, TestLocalizeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    public void reStart() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }
