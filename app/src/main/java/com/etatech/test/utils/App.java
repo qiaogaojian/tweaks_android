@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
 import com.etatech.test.netstate.NetWorkMonitorManager;
 import com.sdbean.localize.MultiLanguage;
+import com.tencent.rtmp.TXLiveBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +76,16 @@ public class App extends MultiDexApplication {
         externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         logArr = new ArrayList<>();
 
+        initTxLive();
         NetWorkMonitorManager.getInstance().init(this);
         // 设置系统语言
         MultiLanguage.setApplicationLanguage(this);
+    }
+
+    private void initTxLive(){
+        String licenceURL = "http://license.vod2.myqcloud.com/license/v1/b56a5afde8826ac55c32ee4837a1f5a7/TXLiveSDK.licence";
+        String licenceKey = "c8e2d9d1b40330c6ec4d36b9ec7a089a";
+        TXLiveBase.getInstance().setLicence(this,licenceURL,licenceKey);
     }
 
     @Override

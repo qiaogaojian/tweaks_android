@@ -165,6 +165,9 @@
 -dontwarn com.tencent.bugly.**
 -keep class com.tencent.bugly.** {*;}
 
+# TXLive
+-keep class com.tencent.** { *; }
+
 # Fresco
 -keep class com.facebook.fresco.** {*;}
 -keep interface com.facebook.fresco.** {*;}
