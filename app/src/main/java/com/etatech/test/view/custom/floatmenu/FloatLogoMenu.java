@@ -26,6 +26,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.etatech.test.R;
+import com.etatech.test.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -889,10 +890,7 @@ public class FloatLogoMenu
 
     public static int dp2Px(float dp, Context mContext)
     {
-        return (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                mContext.getResources().getDisplayMetrics());
+        return Tools.dp2Px(dp,mContext);
     }
 
     public static final class Builder

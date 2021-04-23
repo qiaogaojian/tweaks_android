@@ -23,6 +23,7 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -391,6 +392,14 @@ public class Tools {
             return AdaptScreenUtils.pt2Px(pt);
         }
         return (int) (pt * metrics.xdpi / 72f + 0.5);
+    }
+
+    public static int dp2Px(float dp, Context mContext)
+    {
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                mContext.getResources().getDisplayMetrics());
     }
 
     public static Point calCirPos(Point center, float radius, float degree) {
