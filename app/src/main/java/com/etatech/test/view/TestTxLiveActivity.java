@@ -68,6 +68,14 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
                 PushDao.getInstance().startOwnPushing(mLiveUrl);
             }
         });
+
+        ClickUtil.setOnClick(binding.btnSwitchCamera, new Action1() {
+            @Override
+            public void call(Object o) {
+                PushDao.getInstance().switchCamera();
+            }
+        });
+
         ClickUtil.setOnClick(binding.btnTestPull, new Action1() {
             @Override
             public void call(Object o) {

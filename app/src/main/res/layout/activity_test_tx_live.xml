@@ -34,6 +34,16 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <Button
+            android:id="@+id/btn_switch_camera"
+            style="@style/Button"
+            android:layout_marginBottom="60pt"
+            android:text="Switch Camera"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintLeft_toRightOf="@id/btn_test_push"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_test_push" />
+
+        <Button
             android:id="@+id/btn_test_pull"
             style="@style/Button"
             android:layout_marginBottom="100pt"

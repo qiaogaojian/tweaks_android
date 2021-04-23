@@ -185,6 +185,10 @@ public class PushDao implements LifecycleObserver {
         mLivePusher.startCameraPreview(playerView);
     }
 
+    public void switchCamera(){
+        mLivePusher.switchCamera();
+    }
+
     public void sendReconnectMessage(int time) {
         if (mLivePusher == null || TextUtils.isEmpty(globalUrl))
             return;
