@@ -467,6 +467,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_webp" />
 
+            <Button
+                android:id="@+id/btn_test_txlive"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="TXLive"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_localization" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

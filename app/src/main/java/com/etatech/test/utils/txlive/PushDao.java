@@ -2,7 +2,6 @@ package com.etatech.test.utils.txlive;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
@@ -10,13 +9,12 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.etatech.test.BuildConfig;
-import com.etatech.test.utils.BaseActivity;
 import com.tencent.rtmp.ITXLivePushListener;
 import com.tencent.rtmp.TXLiveBase;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
+import com.tencent.rtmp.ui.TXCloudVideoView;
 
 import static com.tencent.rtmp.TXLiveConstants.AUTO_ADJUST_LIVEPUSH_STRATEGY;
 import static com.tencent.rtmp.TXLiveConstants.PUSH_ERR_NET_DISCONNECT;
@@ -58,27 +56,27 @@ public class PushDao implements LifecycleObserver {
     }
 
     //游戏内初始化
-    private void initPush(final Boolean isPushV) {
+    private void initPush() {
         //推流
         mLivePusher = new TXLivePusher(mMainView);
         mLivePushConfig = new TXLivePushConfig();
-        mLivePushConfig.setVideoEncodeGop(1);
+        // mLivePushConfig.setVideoEncodeGop(1);
         // mLivePushConfig.setMaxVideoBitrate(Tools.getShare().getInt("videoBitrateMax", 800));
         // mLivePushConfig.setMinVideoBitrate(Tools.getShare().getInt("videoBitrateMin", 300));
-        mLivePushConfig.setAutoAdjustBitrate(true);
-        mLivePushConfig.setConnectRetryCount(10);
-        mLivePushConfig.setConnectRetryInterval(2);
-        mLivePushConfig.setVideoEncoderXMirror(true);
-        mLivePushConfig.setHardwareAcceleration(TXLiveConstants.ENCODE_VIDEO_HARDWARE); // 启动硬编
+        // mLivePushConfig.setAutoAdjustBitrate(true);
+        // mLivePushConfig.setConnectRetryCount(10);
+        // mLivePushConfig.setConnectRetryInterval(2);
+        // mLivePushConfig.setVideoEncoderXMirror(true);
+        // mLivePushConfig.setHardwareAcceleration(TXLiveConstants.ENCODE_VIDEO_HARDWARE); // 启动硬编
         TXLiveBase.setConsoleEnabled(true);
 
         //开启纯音频推流，只有在调用 startPusher 前设置才会生效。
-        mLivePushConfig.enablePureAudioPush(true);
+        // mLivePushConfig.enablePureAudioPush(true);
         mLivePusher.setMirror(true);
-        mLivePushConfig.setAutoAdjustStrategy(AUTO_ADJUST_LIVEPUSH_STRATEGY);
+        // mLivePushConfig.setAutoAdjustStrategy(AUTO_ADJUST_LIVEPUSH_STRATEGY);
         //音频采样率  默认值：48000。
         //其他值：8000、16000、32000、44100、48000。
-        mLivePushConfig.setAudioSampleRate(48000);
+        // mLivePushConfig.setAudioSampleRate(48000);
         mLivePusher.setAudioVolumeEvaluationListener(new TXLivePusher.ITXAudioVolumeEvaluationListener() {
             @Override
             public void onAudioVolumeEvaluationNotify(int volume) {
@@ -177,12 +175,15 @@ public class PushDao implements LifecycleObserver {
         //         });
     }
 
-    public void initPushDao(Activity mainView, Boolean isPushV) {
+    public void initPushDao(Activity mainView) {
         mMainView = mainView;
         mainView.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        initPush(isPushV);
+        initPush();
     }
 
+    public void preview(TXCloudVideoView playerView){
+        mLivePusher.startCameraPreview(playerView);
+    }
 
     public void sendReconnectMessage(int time) {
         if (mLivePusher == null || TextUtils.isEmpty(globalUrl))
