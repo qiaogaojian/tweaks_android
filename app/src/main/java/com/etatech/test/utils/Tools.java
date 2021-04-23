@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -16,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.util.DisplayMetrics;
 
@@ -484,5 +489,35 @@ public class Tools {
 
     public static SharedPreferences getShare() {
         return App.getInstance().getSharedPreferences(Consts.SHARE_PREFERENCE_SIGN, Activity.MODE_PRIVATE);
+    }
+
+    /**
+     * 检测程序是否在前台运行
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isAppRunningForeground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcessInfo : runningAppProcesses) {
+            if (appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                if (appProcessInfo.processName.equals(context.getApplicationInfo().processName))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 检查当前网络是否可用
+     *
+     * @param
+     * @return
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
