@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestTxLiveBinding;
 import com.etatech.test.utils.BaseActivity;
+import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.txlive.PlayDao;
 import com.etatech.test.utils.txlive.PushDao;
 import com.etatech.test.utils.ui.ClickUtil;
@@ -61,6 +65,13 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
     }
 
     private void initClick() {
+        ClickUtil.setOnClick(binding.btnPureAudio, new Action1() {
+            @Override
+            public void call(Object o) {
+                PushDao.getInstance().startAudioPush(mLiveUrl);
+            }
+        });
+
         ClickUtil.setOnClick(binding.btnTestPush, new Action1() {
             @Override
             public void call(Object o) {
@@ -80,6 +91,17 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
             @Override
             public void call(Object o) {
                 PlayDao.getInstance().playAction(mLiveUrl);
+            }
+        });
+
+        ClickUtil.setOnClick(binding.btnTestNetwork, new Action1() {
+            @Override
+            public void call(Object o) {
+                if (Tools.pingNetwork(binding.etIp.getText().toString())) {
+                    Toast.makeText(TestTxLiveActivity.this, "Available", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(TestTxLiveActivity.this, "Can not Access", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

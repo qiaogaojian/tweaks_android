@@ -29,7 +29,7 @@
             android:layout_marginBottom="60pt"
             android:text="Push"
             android:typeface="@{@string/typeface}"
-            app:layout_constraintBottom_toTopOf="@id/btn_test_pull"
+            app:layout_constraintBottom_toTopOf="@id/btn_test_network"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -44,14 +44,47 @@
             app:layout_constraintTop_toTopOf="@id/btn_test_push" />
 
         <Button
+            android:id="@+id/btn_pure_audio"
+            style="@style/Button"
+            android:layout_marginBottom="60pt"
+            android:text="Pure Audio"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_test_push"
+            app:layout_constraintTop_toTopOf="@id/btn_test_push" />
+
+        <Button
+            android:id="@+id/btn_test_network"
+            style="@style/Button"
+            android:layout_marginBottom="100pt"
+            android:text="Ping"
+            android:typeface="@{@string/typeface}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <EditText
+            android:id="@+id/et_ip"
+            android:layout_width="0pt"
+            android:layout_height="0pt"
+            android:background="@color/code_black"
+            android:textSize="30pt"
+            android:padding="30pt"
+            android:textColor="@color/code_blue"
+            app:layout_constraintBottom_toBottomOf="@id/btn_test_network"
+            app:layout_constraintLeft_toLeftOf="@id/btn_pure_audio"
+            app:layout_constraintRight_toRightOf="@id/btn_pure_audio"
+            app:layout_constraintTop_toTopOf="@id/btn_test_network"
+            tools:text="www.baidu.com" />
+
+        <Button
             android:id="@+id/btn_test_pull"
             style="@style/Button"
             android:layout_marginBottom="100pt"
             android:text="Pull"
             android:typeface="@{@string/typeface}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="@id/btn_switch_camera" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

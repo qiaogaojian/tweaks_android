@@ -233,6 +233,14 @@ public class PushDao implements LifecycleObserver {
         }
     }
 
+    public void startAudioPush(String videoUrl) {
+        //开启纯音频推流，只有在调用 startPusher 前设置才会生效。
+        mLivePushConfig.enablePureAudioPush(true);
+        mLivePusher.setConfig(mLivePushConfig);
+        mLivePusher.stopCameraPreview(true);
+        startOwnPushing(videoUrl);
+    }
+
     public void startOwnPushing(String videoUrl) {
         globalUrl = videoUrl;
         if (mMainView == null || mMainView.isFinishing()) {
