@@ -394,8 +394,7 @@ public class Tools {
         return (int) (pt * metrics.xdpi / 72f + 0.5);
     }
 
-    public static int dp2Px(float dp, Context mContext)
-    {
+    public static int dp2Px(float dp, Context mContext) {
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 dp,
@@ -528,5 +527,26 @@ public class Tools {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public static boolean pingNetwork(String ip) {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process mIpAddrProcess = runtime.exec("/system/bin/ping -c 1 " + ip);
+            int mExitValue = mIpAddrProcess.waitFor();
+            System.out.println(" mExitValue " + mExitValue);
+            if (mExitValue == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (InterruptedException ignore) {
+            ignore.printStackTrace();
+            System.out.println(" Exception:" + ignore);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(" Exception:" + e);
+        }
+        return false;
     }
 }
