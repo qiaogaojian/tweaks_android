@@ -80,3 +80,4 @@ lint/tmp/
 .idea/
 app/etatech.properties
 app/mappings
+Tools/apk
