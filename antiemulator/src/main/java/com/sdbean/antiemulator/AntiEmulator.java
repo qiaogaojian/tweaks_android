@@ -233,7 +233,7 @@ public class AntiEmulator {
                 || checkCupInfo()
                 || checkPipes()
                 || checkQEmuDriverFile()
-                || CheckEmulatorFiles()
+                // || CheckEmulatorFiles()
                 // || CheckEmulatorBuild()
                 || CheckOperatorNameAndroid(context)
                 || hasGenyFiles()
