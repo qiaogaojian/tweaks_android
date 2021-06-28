@@ -72,15 +72,15 @@ final class FacebookHelper {
         ArrayList<Bitmap> bitmaps = FileHelper.getExternalSharePathBitmaps(context);
         ArrayList<SharePhoto> photos = new ArrayList<SharePhoto>();
 
-        Log.e(TAG, bitmaps.size() + "");
-        for (int i = 0; i < bitmaps.size(); i++) {
-
-            SharePhoto photo = new SharePhoto.Builder()
-                    .setBitmap(bitmaps.get(i))
-                    .build();
-            photos.add(photo);
+        if (bitmaps != null) {
+            Log.e(TAG, bitmaps.size() + "");
+            for (int i = 0; i < bitmaps.size(); i++) {
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(bitmaps.get(i))
+                        .build();
+                photos.add(photo);
+            }
         }
-
 
         SharePhotoContent content = new SharePhotoContent.Builder()
                 .addPhotos(photos)

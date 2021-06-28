@@ -7,7 +7,7 @@ import com.facebook.FacebookSdk;
 public class MegaShare {
     public static String TwitterKey = "dDreW3lNrUCMcDyspwWk3ejj6";
     public static String TwitterSecret = "19FQdU8sNMwSVvZdaYTrOgQTZCnNkrn2S6XficF05kh3eDXJTa";
-    public static String FacebookId = "3753933948055178";
+    public static String FacebookId = "398272107568966";
 
     public static void init(Context context) {
         FacebookSdk.setApplicationId(MegaShare.FacebookId);
