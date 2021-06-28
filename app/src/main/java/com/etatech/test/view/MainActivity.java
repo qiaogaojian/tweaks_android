@@ -364,6 +364,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnTestStorage, new Action1() {
+            @Override
+            public void call(Object o) {
+                intent.setClass(MainActivity.this, TestStorageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

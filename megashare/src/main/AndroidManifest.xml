@@ -10,7 +10,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider398272107568966"
+            android:authorities="com.facebook.app.FacebookContentProvider3753933948055178"
             android:exported="true" />
 
         <activity
@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="fb398272107568966" />
+                <data android:scheme="fb3753933948055178" />
             </intent-filter>
         </activity>
 

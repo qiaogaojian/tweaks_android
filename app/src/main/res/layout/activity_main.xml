@@ -477,6 +477,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_localization" />
 
+            <Button
+                android:id="@+id/btn_test_storage"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Test Storage"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_txlive" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
