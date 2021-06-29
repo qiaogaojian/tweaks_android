@@ -14,6 +14,7 @@ import com.sdbean.megashare.share.ShareListener;
 import com.sdbean.megashare.share.ShareManager;
 import com.sdbean.megashare.share.SharePlatform;
 import com.sdbean.megashare.share.WebContent;
+import com.sdbean.megashare.util.PlatformHelper;
 
 import rx.functions.Action1;
 

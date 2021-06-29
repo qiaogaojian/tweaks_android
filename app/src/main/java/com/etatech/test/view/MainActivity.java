@@ -8,6 +8,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.widget.wallpaper.SettingsPrefActivity;
 import com.jakewharton.rxbinding.view.RxView;
+import com.sdbean.megashare.util.PlatformHelper;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 
@@ -18,6 +19,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -371,6 +373,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+
+        Log.e("getAllInstallPkg", PlatformHelper.getAllInstallPkg(MainActivity.this));
     }
 
     @Override
@@ -409,13 +413,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         }
     }
 
-    private void test(){
+    private void test() {
         testUriEncoder();
     }
 
-    private void testUriEncoder(){
+    private void testUriEncoder() {
         String url = "https://werewolf.53site.com/line-auth/shareRoom/index.html?type=1&roomNo=645025&roomPw=&id=645025&borderId=4&levle=無制限&roomName=hddhdhの部屋&roomType=初心者部屋";
-        String allowedChars="._-$,;:~()?/=&";
+        String allowedChars = "._-$,;:~()?/=&";
         String urlEncoded = Uri.encode(url, allowedChars);
         System.out.println(urlEncoded);
     }
