@@ -487,6 +487,15 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_test_txlive" />
 
+            <Button
+                android:id="@+id/btn_clear_calendar"
+                style="@style/Button"
+                android:layout_marginTop="30pt"
+                android:text="Clear Calendar"
+                android:typeface="@{@string/typeface}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_test_storage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

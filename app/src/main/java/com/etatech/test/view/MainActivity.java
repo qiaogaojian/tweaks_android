@@ -4,19 +4,25 @@ import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
+import com.etatech.test.utils.calendar.CalendarUtils;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.widget.wallpaper.SettingsPrefActivity;
+import com.gun0912.tedpermission.TedPermissionResult;
 import com.jakewharton.rxbinding.view.RxView;
 import com.sdbean.megashare.util.PlatformHelper;
+import com.tedpark.tedpermission.rx1.TedRxPermission;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -373,6 +379,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 startActivity(intent);
             }
         });
+        ClickUtil.setOnClick(binding.btnClearCalendar, new Action1() {
+            @Override
+            public void call(Object o) {
+                clearCalendarEvent();
+            }
+        });
 
         Log.e("getAllInstallPkg", PlatformHelper.getAllInstallPkg(MainActivity.this));
     }
@@ -413,6 +425,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         }
     }
 
+    private Context getContext() {
+        return MainActivity.this;
+    }
+
     private void test() {
         testUriEncoder();
     }
@@ -422,5 +438,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         String allowedChars = "._-$,;:~()?/=&";
         String urlEncoded = Uri.encode(url, allowedChars);
         System.out.println(urlEncoded);
+    }
+
+
+    private void clearCalendarEvent() {
+        TedRxPermission.with(this)
+                .setDeniedMessage("开启访问日历权限")
+                .setPermissions(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
+                .request()
+                .subscribe(new Action1<TedPermissionResult>() {
+                    @Override
+                    public void call(TedPermissionResult tedPermissionResult) {
+                        if (tedPermissionResult.isGranted()) {
+                            CalendarUtils.deleteAllEvent(getContext());
+                        } else {
+                            Toast.makeText(MainActivity.this,
+                                    "Permission Denied\n" + tedPermissionResult.getDeniedPermissions().toString(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
