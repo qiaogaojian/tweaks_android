@@ -81,3 +81,5 @@ lint/tmp/
 app/etatech.properties
 app/mappings
 Tools/apk
+.ideabak
+.gradlebak
