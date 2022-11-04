@@ -37,14 +37,38 @@ dependencies {
     implementation 'com.danikula:videocache:2.7.1'
 }
 
-apply plugin: 'maven'
-uploadArchives {
-    repositories.mavenDeployer {
-        repository(url: project.aar_url) {
-            authentication(userName: project.username, password: project.password)
+//apply plugin: 'maven'
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        repository(url: project.aar_url) {
+//            authentication(userName: project.username, password: project.password)
+//        }
+//        pom.version = project.sdk_version
+//        pom.artifactId = project.artifactId
+//        pom.groupId = project.groupId
+//    }
+//}
+
+apply plugin: 'maven-publish'
+afterEvaluate {
+    publishing {
+        // 配置maven-publishing插件的输出物
+        publications {
+            maven(MavenPublication) {
+                groupId = project.groupId
+                artifactId = project.artifactId
+                version = project.sdk_version
+            }
         }
-        pom.version = project.sdk_version
-        pom.artifactId = project.artifactId
-        pom.groupId = project.groupId
+        repositories {
+            maven {
+                allowInsecureProtocol = true
+                credentials {
+                    username project.username
+                    password project.password
+                }
+                url project.aar_url
+            }
+        }
     }
 }
