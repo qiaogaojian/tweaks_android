@@ -23,7 +23,6 @@ import android.content.res.Resources;
 
 import androidx.databinding.DataBindingUtil;
 
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
