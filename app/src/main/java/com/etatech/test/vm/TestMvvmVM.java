@@ -1,6 +1,7 @@
 package com.etatech.test.vm;
 
 import androidx.lifecycle.Lifecycle;
+
 import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -9,13 +10,16 @@ import com.etatech.test.interf.ITestMvvmView;
 import com.etatech.test.model.TestMvvmModel;
 import com.etatech.test.utils.Tools;
 
+import org.reactivestreams.Subscription;
+
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.*;
 
 /**
  * Created by Michael
@@ -38,24 +42,31 @@ public class TestMvvmVM implements ITestMvvmVM {
 
     private void requestData() {
         // 设置延迟为0 保证网络请求及时发送
-        subscription = Observable.interval(0, 10, TimeUnit.SECONDS)
+        Observable.interval(0, 10, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .repeat()
                 .subscribe(new Observer<Long>() {
+
                     @Override
-                    public void onNext(Long value) {
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Long value) {
                         LogUtils.e(value);
                         priceModel.getBtcPrice();
                     }
 
                     @Override
-                    public void onCompleted() {
+                    public void onError(@NonNull Throwable e) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onComplete() {
+
                     }
                 });
     }
@@ -67,10 +78,6 @@ public class TestMvvmVM implements ITestMvvmVM {
 
     @Override
     public void onDestroy() {
-        // 取消注册 避免无限循环
-        if (subscription != null && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-            LogUtils.e("destroy subscription");
-        }
+        
     }
 }

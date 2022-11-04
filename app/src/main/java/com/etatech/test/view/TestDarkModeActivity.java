@@ -12,7 +12,7 @@ import com.etatech.test.databinding.ActivityTestDarkModeBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestDarkModeActivity extends BaseActivity<ActivityTestDarkModeBinding> {
     private boolean darkModeOpen;
@@ -28,7 +28,7 @@ public class TestDarkModeActivity extends BaseActivity<ActivityTestDarkModeBindi
         setDarkMode(darkModeOpen);
         ClickUtil.setOnClick(binding.btnSwitch, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 darkModeOpen = !darkModeOpen;
                 setDarkMode(darkModeOpen);
                 finish();

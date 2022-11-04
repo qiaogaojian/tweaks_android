@@ -12,7 +12,7 @@ import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.Tools;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestJavaRequestActivity extends BaseActivity<ActivityTestJavaRequestBinding> {
     private final int JavaRequest = 101;
@@ -35,7 +35,7 @@ public class TestJavaRequestActivity extends BaseActivity<ActivityTestJavaReques
     public void init() {
         ClickUtil.setOnClick(binding.btnRequest, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 // Android 4.0 之后不能在主线程中请求HTTP请求
                 new Thread(new Runnable(){
                     @Override

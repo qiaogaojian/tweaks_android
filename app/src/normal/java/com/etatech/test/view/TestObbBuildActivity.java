@@ -15,7 +15,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 
 import java.io.IOException;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestObbBuildActivity extends BaseActivity<ActivityTestObbBuildBinding> {
 
@@ -28,14 +28,14 @@ public class TestObbBuildActivity extends BaseActivity<ActivityTestObbBuildBindi
     public void init() {
         ClickUtil.setOnClick(binding.btnGetPath, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ToastUtils.showShort("当前是正常渠道 没有obb文件");
             }
         });
 
         ClickUtil.setOnClick(binding.btnUnzip, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ToastUtils.showShort("当前是正常渠道 没有obb文件");
             }
         });

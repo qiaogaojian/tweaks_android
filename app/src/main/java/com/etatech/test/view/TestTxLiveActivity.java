@@ -14,16 +14,16 @@ import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityTestTxLiveBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.Tools;
+import com.etatech.test.utils.rxbus.Action1;
 import com.etatech.test.utils.txlive.PlayDao;
 import com.etatech.test.utils.txlive.PushDao;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.gun0912.tedpermission.TedPermissionResult;
-import com.tedpark.tedpermission.rx1.TedRxPermission;
+import com.gun0912.tedpermission.rx3.TedPermission;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
-import rx.functions.Action1;
 
 public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> {
     public final String mLiveUrl = "rtmp://192.168.1.141:1935/live/home";
@@ -40,7 +40,7 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
     }
 
     private void initTXLive() {
-        TedRxPermission.with(this)
+        TedPermission.create()
                 .setDeniedMessage("如果你拒绝权限,将无法使用当前功能.")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -49,7 +49,7 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
                 .request()
                 .subscribe(new Action1<TedPermissionResult>() {
                     @Override
-                    public void call(TedPermissionResult tedPermissionResult) {
+                    public void accept(TedPermissionResult tedPermissionResult) {
                         if (tedPermissionResult.isGranted()) {
                             PushDao.getInstance().initPushDao(TestTxLiveActivity.this);
                             PlayDao.getInstance().initPlayDao(TestTxLiveActivity.this, binding.txPlayView);
@@ -67,14 +67,14 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
     private void initClick() {
         ClickUtil.setOnClick(binding.btnPureAudio, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 PushDao.getInstance().startAudioPush(mLiveUrl);
             }
         });
 
         ClickUtil.setOnClick(binding.btnTestPush, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 PushDao.getInstance().preview(binding.txPushPreview);
                 PushDao.getInstance().startOwnPushing(mLiveUrl);
             }
@@ -82,21 +82,21 @@ public class TestTxLiveActivity extends BaseActivity<ActivityTestTxLiveBinding> 
 
         ClickUtil.setOnClick(binding.btnSwitchCamera, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 PushDao.getInstance().switchCamera();
             }
         });
 
         ClickUtil.setOnClick(binding.btnTestPull, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 PlayDao.getInstance().playAction(mLiveUrl);
             }
         });
 
         ClickUtil.setOnClick(binding.btnTestNetwork, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (Tools.pingNetwork(binding.etIp.getText().toString())) {
                     Toast.makeText(TestTxLiveActivity.this, "Available", Toast.LENGTH_SHORT).show();
                 }else{

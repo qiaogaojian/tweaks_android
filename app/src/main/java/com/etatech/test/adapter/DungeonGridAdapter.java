@@ -11,11 +11,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.etatech.test.R;
 import com.etatech.test.bean.NodeBean;
 import com.etatech.test.databinding.ItemDungeonGridBinding;
+import com.etatech.test.utils.rxbus.Action1;
 import com.etatech.test.utils.ui.ClickUtil;
 
 import java.util.List;
 
-import rx.functions.Action1;
 
 /**
  * Created by Michael
@@ -68,7 +68,7 @@ public class DungeonGridAdapter extends RecyclerView.Adapter<DungeonGridAdapter.
 
         ClickUtil.setOnClick(holder.binding.getRoot(), new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (nodeList.get(position).getReachSate() == -1) {
                     nodeList.get(position).setReachSate(0);
                     notifyItemChanged(position);

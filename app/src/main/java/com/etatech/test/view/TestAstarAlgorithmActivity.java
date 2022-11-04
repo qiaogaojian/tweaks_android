@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAlgorithmBinding> {
     private List<NodeBean> nodeList;
@@ -47,7 +47,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
         ClickUtil.setFastClick(binding.btnWalkType, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (astarUtils.isDiagonal()) {
                     astarUtils.setIsDiagonal(false);
                     binding.btnWalkType.setText("Straight");
@@ -60,7 +60,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
         ClickUtil.setFastClick(binding.btnNext, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (reachState == 1) {
                     ToastUtils.showShort("Has Reach End");
                     nodeAdapter.refreshPath(astarUtils.getNodeList());
@@ -76,7 +76,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
         ClickUtil.setOnLongClick(binding.btnNext, this, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 List<NodeBean> pathList = astarUtils.findPath(nodeList, nodeList.get(start), nodeList.get(end));
                 nodeAdapter.refreshPath(astarUtils.getNodeList());
             }
@@ -84,7 +84,7 @@ public class TestAstarAlgorithmActivity extends BaseActivity<ActivityTestAstarAl
 
         ClickUtil.setFastClick(binding.btnReset, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 reachState = 0;
                 astarUtils.reset();
                 nodeAdapter.refreshPath(initPath());

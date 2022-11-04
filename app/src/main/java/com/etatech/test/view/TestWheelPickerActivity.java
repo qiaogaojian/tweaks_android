@@ -20,7 +20,7 @@ import com.etatech.test.wheelpicker.RecyclerWheelPicker;
 import com.etatech.test.wheelpicker.TextViewWheelAdapter;
 import com.etatech.test.wheelpicker.LinearLayoutX;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestWheelPickerActivity extends BaseActivity<ActivityTestWheelPickerBinding> {
 
@@ -33,19 +33,19 @@ public class TestWheelPickerActivity extends BaseActivity<ActivityTestWheelPicke
     public void init() {
         ClickUtil.setOnClick(binding.btnWheelpicker1, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 textPicker();
             }
         });
         ClickUtil.setOnClick(binding.btnWheelpicker2, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 textPicker_BottomSheetDialog(binding.btnWheelpicker2);
             }
         });
         ClickUtil.setOnClick(binding.btnWheelpicker3, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
 
             }
         });

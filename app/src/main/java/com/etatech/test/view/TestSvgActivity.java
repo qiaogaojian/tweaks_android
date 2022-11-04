@@ -13,7 +13,7 @@ import com.etatech.test.databinding.ActivityTestSvgBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 /**
  * Created by Michael
@@ -32,7 +32,7 @@ public class TestSvgActivity extends BaseActivity<ActivityTestSvgBinding> {
     public void init() {
         ClickUtil.setOnClick(binding.btnStart, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (isMenu) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.menu));
@@ -56,7 +56,7 @@ public class TestSvgActivity extends BaseActivity<ActivityTestSvgBinding> {
 
         ClickUtil.setOnClick(binding.ivMenu, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (isMenu) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         binding.ivMenu.setImageDrawable(ContextCompat.getDrawable(TestSvgActivity.this, R.drawable.menu));

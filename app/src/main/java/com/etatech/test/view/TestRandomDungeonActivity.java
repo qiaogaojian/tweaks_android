@@ -1,7 +1,9 @@
 package com.etatech.test.view;
 
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.etatech.test.R;
@@ -12,17 +14,20 @@ import com.etatech.test.utils.AstarUtils;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.DungeonGenerator;
 import com.etatech.test.utils.Tools;
+import com.etatech.test.utils.rxbus.Action1;
 import com.etatech.test.utils.ui.ClickUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDungeonBinding> {
     private DungeonGridAdapter dungeonAdapter;
@@ -50,7 +55,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         ClickUtil.setOnClick(binding.btnGenerateDungeon, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 generator.generateRooms();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }
@@ -58,15 +63,21 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         ClickUtil.setOnLongClick(binding.btnGenerateDungeon, new Action1() {
             @Override
-            public void call(Object o) {
-                final int roomNum =  generator.generateRoomsData();
+            public void accept(Object o) {
+                final int roomNum = generator.generateRoomsData();
                 Observable.interval(0, 100, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .take(roomNum)
                         .subscribe(new Observer<Long>() {
+
                             @Override
-                            public void onNext(Long value) {
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(@NonNull Long value) {
                                 System.out.println(String.format("try create room no:%d", value));
 
                                 generator.carveRoom(value.intValue());
@@ -74,12 +85,13 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
                             }
 
                             @Override
-                            public void onCompleted() {
-                                System.out.println(String.format("complete generate room by %d times", roomNum));
+                            public void onError(@NonNull Throwable e) {
+
                             }
 
                             @Override
-                            public void onError(Throwable e) {
+                            public void onComplete() {
+
                             }
                         });
             }
@@ -87,7 +99,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         ClickUtil.setOnClick(binding.btnNext, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 generator.generateMaze();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }
@@ -95,13 +107,18 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         ClickUtil.setOnLongClick(binding.btnNext, new Action1() {
             @Override
-            public void call(Object o) {
-                final int mazeNum =  generator.generateMazes();
+            public void accept(Object o) {
+                final int mazeNum = generator.generateMazes();
                 Observable.interval(0, 200, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .take(mazeNum)
                         .subscribe(new Observer<Long>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
                             @Override
                             public void onNext(Long value) {
                                 System.out.println(String.format("try create maze tile no:%d", value));
@@ -111,7 +128,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
                             }
 
                             @Override
-                            public void onCompleted() {
+                            public void onComplete() {
                                 System.out.println(String.format("complete generate maze tile by %d times", mazeNum));
                             }
 
@@ -124,7 +141,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         ClickUtil.setOnClick(binding.btnReset, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 generator.connectRegions();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }
@@ -132,7 +149,7 @@ public class TestRandomDungeonActivity extends BaseActivity<ActivityTestRandomDu
 
         ClickUtil.setOnLongClick(binding.btnReset, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 generator.RemoveDeadEnd();
                 dungeonAdapter.refreshPath(generator.getNodeList());
             }

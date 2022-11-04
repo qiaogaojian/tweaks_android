@@ -5,7 +5,7 @@ import com.etatech.test.bean.PhoneAreaBean;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * Created by PC-QGJ
@@ -13,14 +13,14 @@ import rx.Observable;
  * Desc: 网络接口
  */
 public interface NetApi {
-//    //个人主页信息
-//    @POST("getUserInfo.php")
-//    @FormUrlEncoded
-//    Observable<UserInfoBean> getUserInfo(@Field("userNo") String userNo, @Field("cookie") String cookie, @Field("checkUserNo") String checkUserNo);
+    //    //个人主页信息
+    //    @POST("getUserInfo.php")
+    //    @FormUrlEncoded
+    //    Observable<UserInfoBean> getUserInfo(@Field("userNo") String userNo, @Field("cookie") String cookie, @Field("checkUserNo") String checkUserNo);
 
-//    // 获取IP
-//    @GET(NetworkManager.WEREWOLF_URL_VERSION + "getIpInfo.php")
-//    Observable<IpInfoBean> getIpInfo(@Query("ip") String ip);
+    //    // 获取IP
+    //    @GET(NetworkManager.WEREWOLF_URL_VERSION + "getIpInfo.php")
+    //    Observable<IpInfoBean> getIpInfo(@Query("ip") String ip);
 
     // 获取国家区号
     @GET("getAreaPhoneNum.php")

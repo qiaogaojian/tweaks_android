@@ -5,14 +5,15 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ActivityMainBinding;
 import com.etatech.test.utils.calendar.CalendarUtils;
+import com.etatech.test.utils.rxbus.Action1;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.widget.wallpaper.SettingsPrefActivity;
 import com.gun0912.tedpermission.TedPermissionResult;
-import com.jakewharton.rxbinding.view.RxView;
+import com.gun0912.tedpermission.rx3.TedPermission;
+import com.jakewharton.rxbinding4.view.RxView;
 import com.sdbean.megashare.util.PlatformHelper;
-import com.tedpark.tedpermission.rx1.TedRxPermission;
-import com.trello.rxlifecycle.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.ActivityEvent;
 
 
 import android.Manifest;
@@ -32,8 +33,8 @@ import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements View.OnClickListener {
     private Button btnAdaptWidth;
@@ -67,228 +68,228 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         test();
 
         RxView.clicks(binding.btnTestMvp)
-                .compose(this.<Void>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
                 .throttleFirst(1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Void>() {
+                .subscribe(new Action1<Object>() {
                     @Override
-                    public void call(Void aVoid) {
+                    public void accept(Object aVoid) {
                         intent.setClass(MainActivity.this, TestMvpActivity.class);
                         MainActivity.this.startActivity(intent);
                     }
                 }, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         Toast.makeText(MainActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         ClickUtil.setOnClick(binding.btnTestAudio, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestAudioActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestLeak, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestLeakActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestFloat, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestFloatingViewActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestSort, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, ActivityTestSort.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestAnimation, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestAnimationActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestSvg, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestSvgActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestMvvm, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestMvvmActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestJavaRequest, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestJavaRequestActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestSplashAd, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestSplashAdActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestClickArea, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestClickAreaActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestDarkMode, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestDarkModeActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestVmant, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, AntiEmulatorActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestAidl, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestIpcAidlActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestShader, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestShaderActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestMultiAnimation, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestMultiAnimationActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestObbBuild, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestObbBuildActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestLifecycle, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestLifecycleActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestSocket, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestSocketActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestExportSvg, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestExportSvgActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestRecyclerviewAnimation, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestRecyclerviewAnimationActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestAstar, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestAstarAlgorithmActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestDungeon, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestRandomDungeonActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestMask, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestMaskLayoutActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestScrollto, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestScrollToActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestWheelpicker, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestWheelPickerActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestCustomview, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestCustomViewActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestCustomviewDemo, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestCustomViewDemoActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestBezier, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestBezierActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestPrintStack, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestPrintStackActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestAndroidId, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestAndroidIdActivity.class);
                 startActivity(intent);
             }
@@ -296,28 +297,28 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
 
         ClickUtil.setOnClick(binding.btnTestEmoji, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestEmojiActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestOpengl, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestOpenglesActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestHtml, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestHtmlTextViewActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestScheme, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 /**
                  * (1)在manifest配置文件中配置了scheme参数
                  * (2)网络端获取url
@@ -332,56 +333,56 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
         });
         ClickUtil.setOnClick(binding.btnTestShare, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestShareActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestSpine, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestSpineActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestLiveWallpaper, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, SettingsPrefActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestWebp, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestWebpActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestLocalization, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestLocalizeActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestTxlive, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestTxLiveActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnTestStorage, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.setClass(MainActivity.this, TestStorageActivity.class);
                 startActivity(intent);
             }
         });
         ClickUtil.setOnClick(binding.btnClearCalendar, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 clearCalendarEvent();
             }
         });
@@ -442,13 +443,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
 
 
     private void clearCalendarEvent() {
-        TedRxPermission.with(this)
+        TedPermission.create()
                 .setDeniedMessage("开启访问日历权限")
                 .setPermissions(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
                 .request()
                 .subscribe(new Action1<TedPermissionResult>() {
                     @Override
-                    public void call(TedPermissionResult tedPermissionResult) {
+                    public void accept(TedPermissionResult tedPermissionResult) {
                         if (tedPermissionResult.isGranted()) {
                             CalendarUtils.deleteAllEvent(getContext());
                         } else {

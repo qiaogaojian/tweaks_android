@@ -11,7 +11,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 
 import java.lang.ref.WeakReference;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class LeakStaticActivity extends BaseActivity<ActivityLeakStaticBinding> {
     //        private static LeakStaticActivity                activity;
@@ -27,7 +27,7 @@ public class LeakStaticActivity extends BaseActivity<ActivityLeakStaticBinding> 
     public void init() {
         ClickUtil.setOnClick(binding.btnTestLeak1, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
 //                activity = LeakStaticActivity.this;
 //                activity.sayHello();
                 activityRef = new WeakReference<LeakStaticActivity>(LeakStaticActivity.this);

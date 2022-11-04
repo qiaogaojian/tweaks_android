@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 import static com.etatech.test.utils.App.logArr;
 
@@ -45,7 +45,7 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
 
         ClickUtil.setOnClick(binding.btnHost, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 BaseSocketServer server = new BaseSocketServer(serverPort);
                 server.runServerSingle();
                 String ip = Tools.getIPAddress(true);
@@ -56,7 +56,7 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
         });
         ClickUtil.setOnClick(binding.btnConnect, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 String ip = binding.etAddress.getText().toString();
                 int port = Integer.parseInt(binding.etPort.getText().toString());
 
@@ -72,7 +72,7 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
         });
         ClickUtil.setOnClick(binding.btnSend, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 String msg = binding.etMessage.getText().toString();
                 try {
                     client.sendSingle(msg);
@@ -84,13 +84,13 @@ public class TestSocketActivity extends BaseActivity<ActivityTestSocketBinding> 
 
         ClickUtil.setOnClick(binding.btnConnect, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 connect();
             }
         });
         ClickUtil.setOnClick(binding.btnSend, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 send();
             }
         });

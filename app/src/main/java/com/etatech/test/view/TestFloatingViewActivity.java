@@ -29,7 +29,7 @@ import com.etatech.test.view.custom.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestFloatingViewActivity extends BaseActivity<ActivityTestFloatViewBinding> {
     private TextView mOpenFloat;
@@ -45,7 +45,7 @@ public class TestFloatingViewActivity extends BaseActivity<ActivityTestFloatView
 
         ClickUtil.setOnClick(binding.btnOpenFloatMenuOut, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (!Settings.canDrawOverlays(getApplicationContext())) {
                         //启动Activity让用户授权
@@ -63,7 +63,7 @@ public class TestFloatingViewActivity extends BaseActivity<ActivityTestFloatView
 
         ClickUtil.setOnClick(binding.btnOpenFloatMenu, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 showFloatView(TestFloatingViewActivity.this);
             }
         });

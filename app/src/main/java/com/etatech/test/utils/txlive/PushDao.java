@@ -145,7 +145,7 @@ public class PushDao implements LifecycleObserver {
         //         .compose(mMainView.getActivity().bindUntilEvent(ActivityEvent.DESTROY))
         //         .subscribe(new Action1<PhoneStateBean>() {
         //             @Override
-        //             public void call(PhoneStateBean phoneStateBean) {
+        //             public void accept(PhoneStateBean phoneStateBean) {
         //                 BaseActivity.currentPhoneState = phoneStateBean.state;
         //                 switch (phoneStateBean.state) {
         //                     //电话等待接听

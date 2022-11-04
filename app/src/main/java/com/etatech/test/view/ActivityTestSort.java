@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class ActivityTestSort extends BaseActivity<ActivityTestSortBinding> {
     private List<UserInfo> userList;
@@ -105,42 +105,42 @@ public class ActivityTestSort extends BaseActivity<ActivityTestSortBinding> {
     private void initClick() {
         ClickUtil.setOnClick(binding.btnSort1, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 sort1();
                 refreshList();
             }
         });
         ClickUtil.setOnClick(binding.btnSort2, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 sort2();
                 refreshList();
             }
         });
         ClickUtil.setOnClick(binding.btnSort3, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 sort3();
                 refreshList();
             }
         });
         ClickUtil.setOnClick(binding.btnSort4, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 sort4();
                 refreshList();
             }
         });
         ClickUtil.setOnClick(binding.btnSort5, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 sort5();
                 refreshList();
             }
         });
         ClickUtil.setOnClick(binding.btnSort6, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 sort6();
                 refreshList();
             }

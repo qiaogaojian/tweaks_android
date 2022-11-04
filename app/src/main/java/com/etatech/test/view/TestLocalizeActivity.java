@@ -15,7 +15,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 import com.sdbean.localize.Language;
 import com.sdbean.localize.MultiLanguage;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestLocalizeActivity extends BaseActivity<ActivityTestLocalizeBinding> {
 
@@ -29,25 +29,25 @@ public class TestLocalizeActivity extends BaseActivity<ActivityTestLocalizeBindi
     public void init() {
         ClickUtil.setOnClick(binding.btnSys, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 selectLanguage(Language.SYS);
             }
         });
         ClickUtil.setOnClick(binding.btnCn, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 selectLanguage(Language.CN);
             }
         });
         ClickUtil.setOnClick(binding.btnEn, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 selectLanguage(Language.EN);
             }
         });
         ClickUtil.setOnClick(binding.btnJp, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 selectLanguage(Language.JA);
             }
         });

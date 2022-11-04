@@ -9,18 +9,22 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.StringUtils;
 import com.etatech.test.R;
 import com.etatech.test.utils.App;
-import com.jakewharton.rxbinding.view.RxView;
-import com.trello.rxlifecycle.android.ActivityEvent;
-import com.trello.rxlifecycle.android.FragmentEvent;
-import com.trello.rxlifecycle.components.RxDialogFragment;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
-import com.trello.rxlifecycle.components.support.RxFragment;
+import com.etatech.test.utils.rxbus.Action1;
+import com.jakewharton.rxbinding4.view.RxView;
+import com.trello.rxlifecycle4.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.FragmentEvent;
+import com.trello.rxlifecycle4.components.RxDialogFragment;
+import com.trello.rxlifecycle4.components.RxFragment;
+import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
+
+
+import org.reactivestreams.Subscription;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 
 /**
  * Created by Michael
@@ -42,7 +46,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnClick(view, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -62,7 +66,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setFastClick(view, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -84,7 +88,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnClick(view, activity, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -99,7 +103,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnClick(view, activity, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -114,7 +118,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnClick(time, view, activity, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -123,14 +127,14 @@ public class ClickUtil {
     }
 
 
-    public static void setOnClick(final View view, final com.trello.rxlifecycle.components.support.RxDialogFragment activity, final Action1 action) {
+    public static void setOnClick(final View view, final com.trello.rxlifecycle4.components.support.RxDialogFragment activity, final Action1 action) {
         RxView.clicks(view)
                 .compose(activity.bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                 .throttleFirst(1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnClick(view, activity, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -150,7 +154,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnLongClick(view, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -165,7 +169,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOnClick(view, activity, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -186,7 +190,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         setOntouches(view, activity, action);//重新订阅
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
@@ -201,14 +205,14 @@ public class ClickUtil {
      * @param activity
      * @param action
      */
-    public static Subscription setOnClicks(View view, RxAppCompatActivity activity, Action1 action) {
+    public static Disposable setOnClicks(View view, RxAppCompatActivity activity, Action1 action) {
         return RxView.clicks(view)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         throwable.printStackTrace();
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
                     }
@@ -222,7 +226,7 @@ public class ClickUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(action, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         Toast.makeText(App.getInstance(), "操作失败", Toast.LENGTH_SHORT).show();
                     }
                 });

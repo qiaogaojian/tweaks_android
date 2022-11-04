@@ -10,7 +10,7 @@ import com.etatech.test.databinding.ActivityTestScrollToBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestScrollToActivity extends BaseActivity<ActivityTestScrollToBinding> {
     public final int LEFT_TO_RIGHT = 1;
@@ -57,7 +57,7 @@ public class TestScrollToActivity extends BaseActivity<ActivityTestScrollToBindi
 
         ClickUtil.setFastClick(binding.btnTestScrollto, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 binding.mainLayout.scrollTo((int) currentX, 0);
                 currentX = currentX + 30;
                 if (currentX >= viewWidth + AdaptScreenUtils.pt2Px(1080)) {

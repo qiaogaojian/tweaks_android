@@ -21,7 +21,7 @@ import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
 import com.pavelsikun.seekbarpreference.PersistValueListener;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingBinding> implements ColorPickerDialogListener {
 
@@ -108,7 +108,7 @@ public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingB
     private void initClick() {
         ClickUtil.setOnClick(binding.layoutSave, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 Intent intent = new Intent();
                 String cls = LiveWallpaperAndroid.class.getCanonicalName();
                 intent.setAction(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
@@ -120,7 +120,7 @@ public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingB
 
         ClickUtil.setOnClick(binding.cpvParticleColor, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ColorPickerDialog.newBuilder()
                         .setDialogType(ColorPickerDialog.TYPE_PRESETS)
                         .setDialogId(R.id.cpv_particle_color)
@@ -132,7 +132,7 @@ public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingB
 
         ClickUtil.setOnClick(binding.cpvLineColor, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ColorPickerDialog.newBuilder()
                         .setDialogType(ColorPickerDialog.TYPE_PRESETS)
                         .setDialogId(R.id.cpv_line_color)
@@ -144,7 +144,7 @@ public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingB
 
         ClickUtil.setOnClick(binding.cpvBackgroundColor, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ColorPickerDialog.newBuilder()
                         .setDialogType(ColorPickerDialog.TYPE_PRESETS)
                         .setDialogId(R.id.cpv_background_color)
@@ -156,7 +156,7 @@ public class SettingsPrefActivity extends BaseActivity<ActivityWallpaperSettingB
 
         ClickUtil.setOnClick(binding.layoutBackgroundImage, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 getIntent.setType("image/*");
 

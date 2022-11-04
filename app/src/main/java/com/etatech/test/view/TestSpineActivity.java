@@ -13,7 +13,7 @@ import com.etatech.test.spine.SpineBoyActivity;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestSpineActivity extends BaseActivity<ActivityTestSpineBinding> {
 
@@ -26,7 +26,7 @@ public class TestSpineActivity extends BaseActivity<ActivityTestSpineBinding> {
     public void init() {
         ClickUtil.setOnClick(binding.btnSpineBoy, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), SpineBoyActivity.class);
                 startActivity(intent);
@@ -35,7 +35,7 @@ public class TestSpineActivity extends BaseActivity<ActivityTestSpineBinding> {
 
         ClickUtil.setOnClick(binding.btnGoblin, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), GoblinActivity.class);
                 startActivity(intent);

@@ -12,9 +12,9 @@ import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.etatech.test.utils.ui.ImageUtil;
 import com.gun0912.tedpermission.TedPermissionResult;
-import com.tedpark.tedpermission.rx1.TedRxPermission;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
+import com.gun0912.tedpermission.rx3.TedPermission;
 
 public class TestExportSvgActivity extends BaseActivity<ActivityTestExportSvgBinding> {
 
@@ -27,14 +27,14 @@ public class TestExportSvgActivity extends BaseActivity<ActivityTestExportSvgBin
     public void init() {
         ClickUtil.setOnClick(binding.btnSave, new Action1() {
             @Override
-            public void call(Object o) {
-                TedRxPermission.with(TestExportSvgActivity.this)
+            public void accept(Object o) {
+                TedPermission.create()
                         .setDeniedMessage("如果你拒绝权限,将无法保存图片.")
                         .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .request()
                         .subscribe(new Action1<TedPermissionResult>() {
                             @Override
-                            public void call(TedPermissionResult tedPermissionResult) {
+                            public void accept(TedPermissionResult tedPermissionResult) {
                                 if (tedPermissionResult.isGranted()) {
                                     ImageUtil.saveBmp2Gallery(ImageUtil.getBitmapFromVectorDrawable(TestExportSvgActivity.this, R.drawable.menu_switch),
                                             "menu_switch", TestExportSvgActivity.this);

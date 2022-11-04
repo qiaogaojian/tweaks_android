@@ -10,7 +10,7 @@ import com.etatech.test.databinding.ActivityTestClickAreaBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestClickAreaActivity extends BaseActivity<ActivityTestClickAreaBinding> {
 
@@ -23,7 +23,7 @@ public class TestClickAreaActivity extends BaseActivity<ActivityTestClickAreaBin
     public void init() {
         ClickUtil.setOnClick(binding.testView, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ToastUtils.showShort("test click");
             }
         });

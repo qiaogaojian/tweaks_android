@@ -10,7 +10,7 @@ import com.etatech.test.databinding.ActivityTestAndroidIdBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestAndroidIdActivity extends BaseActivity<ActivityTestAndroidIdBinding> {
 
@@ -23,7 +23,7 @@ public class TestAndroidIdActivity extends BaseActivity<ActivityTestAndroidIdBin
     public void init() {
         ClickUtil.setOnClick(binding.btnTestAndroidId, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
                 binding.tvLog.setText(android_id);
             }

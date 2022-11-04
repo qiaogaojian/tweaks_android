@@ -20,7 +20,7 @@ import com.etatech.test.utils.ui.GridSpacingItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestAnimationActivity extends BaseActivity<ActivityTestAnimationBinding> {
 
@@ -34,7 +34,7 @@ public class TestAnimationActivity extends BaseActivity<ActivityTestAnimationBin
 
         ClickUtil.setOnClick(binding.btnTranslation, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 AnimatorSet rotationAni = new AnimatorSet();
                 ObjectAnimator ani1 = ObjectAnimator.ofFloat(binding.ivAnimation, View.TRANSLATION_Y,100);
                 ObjectAnimator ani2 = ObjectAnimator.ofFloat(binding.ivAnimation,View.ROTATION,0,25);
@@ -45,7 +45,7 @@ public class TestAnimationActivity extends BaseActivity<ActivityTestAnimationBin
         });
         ClickUtil.setOnClick(binding.btnRotation, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 AnimatorSet rotationAni = new AnimatorSet();
                 ObjectAnimator ani1 = ObjectAnimator.ofFloat(binding.ivAnimation, View.ROTATION_Y,180);
                 ObjectAnimator ani2 = ObjectAnimator.ofFloat(binding.ivAnimation,View.ROTATION,25,0);
@@ -56,7 +56,7 @@ public class TestAnimationActivity extends BaseActivity<ActivityTestAnimationBin
         });
         ClickUtil.setOnClick(binding.btnRotationy, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 binding.ivAnimation.animate().setDuration(1000).rotationY(180).start();
             }
         });

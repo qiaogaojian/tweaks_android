@@ -13,7 +13,7 @@ import com.etatech.test.databinding.ActivityGoblinBinding;
 import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class GoblinActivity extends BaseActivity<ActivityGoblinBinding> implements AndroidFragmentApplication.Callbacks {
     private SpineBaseFragment mSpineBaseFragment;
@@ -43,14 +43,14 @@ public class GoblinActivity extends BaseActivity<ActivityGoblinBinding> implemen
     private void initClick() {
         ClickUtil.setOnClick(binding.btnMan, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 mSpineAdapter.setSkin("goblin");
             }
         });
 
         ClickUtil.setOnClick(binding.btnWoman, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 mSpineAdapter.setSkin("goblingirl");
             }
         });

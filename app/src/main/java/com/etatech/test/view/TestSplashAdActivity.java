@@ -11,7 +11,7 @@ import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.sdbean.splashad.SplashAdBean;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBinding> {
     private Intent intent;
@@ -28,7 +28,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
 
         ClickUtil.setOnClick(binding.btnTestImage, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 SplashAdBean adBean = new SplashAdBean();
                 adBean.setAdUrl("https://www.douyu.com/510229");  // 必须
                 adBean.setResUrl("http://img.53site.com/Werewolf/AD/laoyangdouyuAD.jpg?a=2");  // 必须
@@ -42,7 +42,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
 
         ClickUtil.setOnClick(binding.btnTestDrawee, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 SplashAdBean adBean = new SplashAdBean();
                 adBean.setAdUrl("https://www.douyu.com/510229");
                 adBean.setResUrl("https://upload-images.jianshu.io/upload_images/2229730-5cd1dab1a302b122.gif");
@@ -56,7 +56,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
 
         ClickUtil.setOnClick(binding.btnTestVideo, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 SplashAdBean adBean = new SplashAdBean();
                 adBean.setAdUrl("https://www.douyu.com/510229");
                 adBean.setResUrl("https://vd3.bdstatic.com/mda-jbcku58bvs34kjav/mda-jbcku58bvs34kjav.mp4");
@@ -71,7 +71,7 @@ public class TestSplashAdActivity extends BaseActivity<ActivityTestSplashAdBindi
 
         ClickUtil.setOnClick(binding.btnTestDefault, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 intent.putExtra("noAd", true);
                 startActivity(intent);
             }

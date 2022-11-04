@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.etatech.test.R;
 import com.etatech.test.databinding.ItemTestAnimationBinding;
+import com.etatech.test.utils.rxbus.Action1;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.mega.imageloader.ImageLoader;
 
 import java.util.List;
 
-import rx.functions.Action1;
 
 /**
  * Created by Michael
@@ -74,7 +74,7 @@ public class AnimationAdapter extends RecyclerView.Adapter<AnimationAdapter.VH> 
 
         ClickUtil.setOnClick(holder.binding.layoutCard, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 if (cardStates.get(position) == 1) {
                     return;
                 }

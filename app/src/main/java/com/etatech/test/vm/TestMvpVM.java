@@ -1,6 +1,7 @@
 package com.etatech.test.vm;
 
 import android.content.Context;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.etatech.test.adapter.CountryCodeAdapter;
@@ -9,17 +10,17 @@ import com.etatech.test.databinding.ActivityTestMvpBinding;
 import com.etatech.test.interf.ITestMvpVM;
 import com.etatech.test.interf.ITestMvpView;
 import com.etatech.test.network.NetworkManager;
+import com.etatech.test.utils.rxbus.Action1;
 import com.etatech.test.utils.ui.ClickUtil;
-import com.trello.rxlifecycle.android.ActivityEvent;
+import com.trello.rxlifecycle4.android.ActivityEvent;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class TestMvpVM implements ITestMvpVM {
-    private ITestMvpView           view;
+    private ITestMvpView view;
     private ActivityTestMvpBinding binding;
-    private CountryCodeAdapter     countryCodeAdapter;
+    private CountryCodeAdapter countryCodeAdapter;
 
     public TestMvpVM(ITestMvpView view, ActivityTestMvpBinding binding) {
         this.view = view;
@@ -36,10 +37,10 @@ public class TestMvpVM implements ITestMvpVM {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<PhoneAreaBean>() {
                     @Override
-                    public void call(PhoneAreaBean bean) {
+                    public void accept(PhoneAreaBean bean) {
                         countryCodeAdapter = new CountryCodeAdapter(bean.getData());
                         binding.listCountryCode.setAdapter(countryCodeAdapter);
-                        binding.listCountryCode.setLayoutManager(new GridLayoutManager(view.getContext(),2));
+                        binding.listCountryCode.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
                     }
                 });
     }
@@ -47,7 +48,7 @@ public class TestMvpVM implements ITestMvpVM {
     private void init() {
         ClickUtil.setOnClick(binding.btnGetContent, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 getData();
             }
         });

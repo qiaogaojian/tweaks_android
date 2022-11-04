@@ -16,7 +16,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 /**
  * Created by Michael
@@ -79,7 +79,7 @@ public class RoleAdapter extends RecyclerView.Adapter<RoleAdapter.ViewHolder> {
 
         ClickUtil.setOnClick(holder.binding.ivRole, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 selectRole(roleList, position);
                 defaultSelect();
                 notifyDataSetChanged();

@@ -12,7 +12,7 @@ import com.etatech.test.utils.FileUtils;
 import com.etatech.test.utils.ui.ClickUtil;
 import com.mega.imageloader.ImageLoader;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestWebpActivity extends BaseActivity<ActivityTestWebpBinding> {
 
@@ -26,7 +26,7 @@ public class TestWebpActivity extends BaseActivity<ActivityTestWebpBinding> {
     public void init() {
         ClickUtil.setOnClick(binding.btnTestWebp, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 ImageLoader.loadWebpForLisForFirst(binding.ivPreview,R.drawable.yxlc_qbrw_sfg, null, 1);
             }
         });

@@ -11,7 +11,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 
 import java.io.UnsupportedEncodingException;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 import static java.lang.Character.isHighSurrogate;
 import static java.lang.Character.isLowSurrogate;
@@ -27,7 +27,7 @@ public class TestEmojiActivity extends BaseActivity<ActivityTestEmojiBinding> {
     public void init() {
         ClickUtil.setOnClick(binding.btnTestEmoji, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 StringBuilder sb = new StringBuilder();
                 try {
                     String name_utf8 = "小鲤鱼\uD83E\uDD80历\uD83E\uDD80险\uD83E\uDD80记\uD83E\uDD80";

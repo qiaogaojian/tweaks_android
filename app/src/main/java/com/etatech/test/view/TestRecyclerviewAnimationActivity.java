@@ -13,7 +13,7 @@ import com.etatech.test.utils.ui.ClickUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class TestRecyclerviewAnimationActivity extends BaseActivity<ActivityTestRecyclerviewAnimationBinding> {
     RoleAdapter adapter;
@@ -36,14 +36,14 @@ public class TestRecyclerviewAnimationActivity extends BaseActivity<ActivityTest
 
         ClickUtil.setOnClick(binding.btnTestAdd, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 adapter.add(8);
             }
         });
 
         ClickUtil.setOnClick(binding.btnTestRemove, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 adapter.remove(0, binding.rvList.getChildViewHolder(binding.rvList.getChildAt(0)));
             }
         });

@@ -16,7 +16,7 @@ import com.etatech.test.utils.BaseActivity;
 import com.etatech.test.utils.FileUtils;
 import com.etatech.test.utils.ui.ClickUtil;
 
-import rx.functions.Action1;
+import com.etatech.test.utils.rxbus.Action1;
 
 public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> implements AndroidFragmentApplication.Callbacks {
     private SpineBaseFragment mSpineBaseFragment;
@@ -65,21 +65,21 @@ public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> impl
     private void initClick() {
         ClickUtil.setOnClick(binding.btnRun, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 mSpineBoyAdapter.animateRun();
             }
         });
 
         ClickUtil.setOnClick(binding.btnJump, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 mSpineBoyAdapter.animateJump();
             }
         });
 
         ClickUtil.setOnClick(binding.btnReplaceAttachment, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 flag = !flag;
                 if (flag) {
                     mSpineBoyAdapter.setAttachment("gun", "");
@@ -91,21 +91,21 @@ public class SpineBoyActivity extends BaseActivity<ActivitySpineBoyBinding> impl
 
         ClickUtil.setOnClick(binding.btnUnstallAttachment, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 mSpineBoyAdapter.setAttachment("gun", "");
             }
         });
 
         ClickUtil.setOnClick(binding.btnBoy, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 changeSpine(mSpineBaseFragment);
             }
         });
 
         ClickUtil.setOnClick(binding.btnRideBoy, new Action1() {
             @Override
-            public void call(Object o) {
+            public void accept(Object o) {
                 changeSpine(mRideBoyFragment);
             }
         });

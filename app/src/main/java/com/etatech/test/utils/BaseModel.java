@@ -11,12 +11,14 @@ import androidx.databinding.ObservableField;
 import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.etatech.test.utils.rxbus.Action1;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 /**
  * Created by Michael
@@ -30,11 +32,11 @@ public class BaseModel<T> extends ViewModel implements LifecycleOwner {
     protected Subscription subscription;
 
     protected void requestData(Observable<T> observable) {
-        subscription = observable.subscribeOn(Schedulers.io())
+        observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<T>() {
                     @Override
-                    public void call(T t) {
+                    public void accept(T t) {
                         if (null != t) {
                             if (null != liveObservableData) {
                                 liveObservableData.postValue(t);
@@ -43,7 +45,7 @@ public class BaseModel<T> extends ViewModel implements LifecycleOwner {
                     }
                 }, new Action1<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         ToastUtils.showShort("获取网络失败，请检查您的网络连接");
                     }
                 });
@@ -56,9 +58,7 @@ public class BaseModel<T> extends ViewModel implements LifecycleOwner {
     @Override
     protected void onCleared() {
         super.onCleared();
-        if (null != subscription && !subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
+
         liveObservableData = null;
     }
 
