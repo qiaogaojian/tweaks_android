@@ -8,20 +8,21 @@ import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
 
 import android.view.MotionEvent;
 
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.sdbean.localize.MultiLanguage;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
 
 /**
  * Created by Michael
  * Date:  2019/12/27
  * Func:
  */
-public abstract class BaseActivity<DataBindingType extends ViewDataBinding> extends RxAppCompatActivity {
+public abstract class BaseActivity<DataBindingType extends ViewDataBinding> extends RxAppCompatActivity implements LifecycleOwner {
     public DataBindingType binding;
     private boolean darkModeOpen;
 
