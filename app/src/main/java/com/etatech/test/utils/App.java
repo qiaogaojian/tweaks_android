@@ -15,10 +15,12 @@ import android.os.Looper;
 import android.text.Spanned;
 import android.util.Log;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
+import com.etatech.test.BuildConfig;
 import com.etatech.test.netstate.NetWorkMonitorManager;
 import com.sdbean.localize.MultiLanguage;
 import com.tencent.rtmp.TXLiveBase;
@@ -58,6 +60,15 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 必须在初始化ARouter之前配置
+        if (BuildConfig.DEBUG) {
+            // 日志开启
+            ARouter.openLog();
+            // 调试模式开启，如果在install run模式下运行，则必须开启调试模式
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
+
         instance = this;
         RES_PATH = getFilesDir().getAbsolutePath();
         typeface = Typeface.createFromAsset(getAssets(), "fonts/gen_shin_gothic.ttf");
@@ -87,8 +98,8 @@ public class App extends MultiDexApplication {
         MultiLanguage.setApplicationLanguage(this);
     }
 
-    private void initTxLive(){
-        TXLiveBase.getInstance().setLicence(this,licenceURL,licenceKey);
+    private void initTxLive() {
+        TXLiveBase.getInstance().setLicence(this, licenceURL, licenceKey);
 
         // 打印 licence 信息
         Handler handler = new Handler(Looper.getMainLooper());
@@ -124,8 +135,7 @@ public class App extends MultiDexApplication {
     }
 
     @Override
-    protected void attachBaseContext(Context base)
-    {
+    protected void attachBaseContext(Context base) {
         // 保存系统语言
         MultiLanguage.saveSystemCurrentLanguage(base);
 
@@ -133,10 +143,9 @@ public class App extends MultiDexApplication {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // 保存系统语言
-        MultiLanguage.onConfigurationChanged(getApplicationContext(),newConfig);
+        MultiLanguage.onConfigurationChanged(getApplicationContext(), newConfig);
     }
 }

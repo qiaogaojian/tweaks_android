@@ -228,6 +228,10 @@ dependencies {
     // 云直播
     implementation 'com.tencent.liteavsdk:LiteAVSDK_Smart:latest.release'
 
+    // ARouter
+    implementation 'com.alibaba:arouter-api:1.5.2'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
+
     // 开屏广告
     implementation project(':splashad')
     // implementation 'com.sdbean.splashad:splashad:2.1.0'
