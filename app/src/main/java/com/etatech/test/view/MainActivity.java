@@ -385,6 +385,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements V
                 clearCalendarEvent();
             }
         });
+        ClickUtil.setOnClick(binding.btnTestKotlin, new Action1() {
+            @Override
+            public void accept(Object o) throws Throwable {
+                intent.setClass(MainActivity.this, TestKotlinActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Log.e("getAllInstallPkg", PlatformHelper.getAllInstallPkg(MainActivity.this));
     }

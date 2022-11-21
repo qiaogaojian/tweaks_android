@@ -52,7 +52,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.TestStorageActivity"></activity>
+        <activity
+            android:name=".view.TestKotlinActivity"
+            android:exported="false" />
+        <activity android:name=".view.TestStorageActivity" />
         <activity android:name=".view.TestTxLiveActivity" />
         <activity android:name=".view.TestLocalizeActivity" />
         <activity android:name=".view.TestWebpActivity" />
