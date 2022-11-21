@@ -54,7 +54,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.TestKotlinActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Label: Test Kotlin" />
         <activity android:name=".view.TestStorageActivity" />
         <activity android:name=".view.TestTxLiveActivity" />
         <activity android:name=".view.TestLocalizeActivity" />

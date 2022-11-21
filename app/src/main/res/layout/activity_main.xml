@@ -501,7 +501,7 @@
                 android:id="@+id/btn_test_kotlin"
                 style="@style/Button"
                 android:layout_marginTop="30pt"
-                android:text="Clear Calendar"
+                android:text="Test Kotlin"
                 android:typeface="@{@string/typeface}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
