@@ -1,0 +1,1 @@
+package com.json.chao.studyimport org.gradle.api.Pluginimport org.gradle.api.Projectclass CustomGradlePlugin implements Plugin<Project> {    @Override    void apply(Project project) {        println("Hello plugin...${project.name}")    }}
