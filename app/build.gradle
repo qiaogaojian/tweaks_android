@@ -310,9 +310,9 @@ task curBranch {
         def out = services.get(StyledTextOutputFactory).create("blah")
         println(branch + ':')
         if (branch == "master") {
-            out.style(Style.Success).println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This branch allow commit ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+            out.style(Style.Success).println("********************************* This branch allow commit *********************************")
         } else {
-            out.style(Style.Failure).println("******************************************************************* This branch don't allow commit! *******************************************************************")
+            out.style(Style.Failure).println("********************************* This branch don't allow commit! *********************************")
         }
     }
 }
