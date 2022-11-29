@@ -1,23 +1,26 @@
-//use java library
+// java library
 apply plugin: 'java-library'
 
-//groovy library
-//apply plugin: 'groovy'
+// groovy library
+apply plugin: 'groovy'
 
-apply plugin: 'maven-publish'
+// kotlin library
+apply plugin: 'kotlin'
 
-dependencies {
-    // Gradle DSL
-    implementation gradleApi()
+//apply plugin: 'maven-publish'
 
-    // Groovy DSL
-    implementation localGroovy()
+buildscript {
+    ext.kotlin_version = '1.6.10'
 
-}
-
-repositories {
-    google()
-    mavenCentral()
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
 }
 
 sourceSets {
@@ -26,12 +29,21 @@ sourceSets {
             srcDir 'src/main/java'
         }
 
-//        groovy {
-//            srcDir 'src/main/groovy'
-//        }
-
         resources {
             srcDir 'src/main/resources'
         }
     }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // Gradle DSL
+    implementation gradleApi()
+    // Groovy DSL
+    implementation localGroovy()
 }
