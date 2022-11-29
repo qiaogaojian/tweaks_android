@@ -6,6 +6,7 @@ apply plugin: 'com.android.application'
 apply from: "./flavour.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: "./hello.gradle"
 apply plugin: 'com.etatech.plugin'
 
 def keyConfigFile = rootProject.file("app/etatech.properties")
