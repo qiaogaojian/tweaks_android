@@ -1,34 +1,37 @@
-apply plugin: 'groovy'
+//use java library
+apply plugin: 'java-library'
+
+//groovy library
+//apply plugin: 'groovy'
+
+apply plugin: 'maven-publish'
+
+dependencies {
+    // Gradle DSL
+    implementation gradleApi()
+
+    // Groovy DSL
+    implementation localGroovy()
+
+}
 
 repositories {
     google()
     mavenCentral()
-    jcenter()
-}
-
-dependencies {
-    // Groovy DSL
-    implementation localGroovy()
-    // Gradle DSL
-    implementation gradleApi()
-
-    // Android DSL
-    implementation 'com.android.tools.build:gradle:3.6.2'
-
-    // ASM V7.1
-    implementation group: 'org.ow2.asm', name: 'asm', version: '7.1'
-    implementation group: 'org.ow2.asm', name: 'asm-commons', version: '7.1'
-
 }
 
 sourceSets {
     main {
-        groovy {
-            srcDir 'src/main/groovy'
+        java {
+            srcDir 'src/main/java'
         }
 
+//        groovy {
+//            srcDir 'src/main/groovy'
+//        }
+
         resources {
-            srcDir 'src/main/res'
+            srcDir 'src/main/resources'
         }
     }
 }
