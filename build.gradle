@@ -5,9 +5,12 @@ apply plugin: 'com.alibaba.arouter'
 buildscript {
     ext.kotlin_version = '1.6.0'
     repositories {
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
 
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
     dependencies {
         // Android DSL
@@ -25,9 +28,6 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        jcenter()
-        maven { url "https://jitpack.io" }
         maven {
             allowInsecureProtocol = true
             credentials {
@@ -36,8 +36,13 @@ allprojects {
             }
             url 'http://47.94.255.178:8081/repository/android'
         }
+
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
+
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 
     pluginManager.withPlugin("java-library") {
